@@ -1,23 +1,16 @@
-
-#Controle integrado e distribuído de luminárias
-
-Os requisitos funcionais do sistema poderiam ser os seguintes:
-
-- Permitir que a luminária possa cadastrar-se, informando seu ID e os serviços que ela executa (controle de intensidade de cada cor, etc) a um servidor, e saber quando ela já foi cadastrada nesse servidor. Isso deve permitir que posteriormente ela receba mensagens com comandos.
-
-- Através de mensagens recebidas, controlar a cor e a intensidade do brilho de uma luminária de LEDs RGB (usando PWM em hardware), fazendo essas intensidades fixas ou mudando com o tempo
-
-- Através de mensagens recebidas, cadastrar uma configuração de cores e intensidades para cada possível usuário, e aplicar essa configuração quando um usuário está presente (informação recebida via mensagem)
-
-- Permitir que se a mensagem de comando recebida não for para esta luminária, reencaminhar a mensagem para outros objetos inteligentes
+#Integrated Control and distributed lamps.
 
 
-Como requisitos não-funcionais, acho que tempos, principalmente:
+The functional requirements of the system could be the following:
+- Allow the lamp can subscribe by entering its ID and the services it performs (intensity control of each color, etc.) to a server, and know when it has already been registered on this server. This should allow it to subsequently receive messages with commands.
+- Through incoming messages, control the color and the brightness of a lamp LED RGB (using PWM hardware), making these fixed intensities or changing with time
+- Through incoming messages, registering a color setting and intensities for each possible user and apply this setting when a user is present (information received via message)
+- Allow the received command message is not for this light, forward the message to other smart objects
 
-- Ser implementado com EPOS 1.1 na placa EposMotesII
+As a non-functional requirements, I think times, mainly:
+- To be implemented with EPOS 1.1 on board EposMotesII
 
-
-Acho que vocês precisarão de 3 EposMotesII: Dois para controlar luminárias diferentes e um para funcionar como gateway ou para indicar a presença de uma pessoa.
+I think you need 3 EposMotesII: Two different fixtures to control and to act as a gateway or to indicate the presence of a person.
 
 
 #Scheduling
@@ -56,7 +49,7 @@ Glossary:
     (another EposMotesII).
 
 
-#Para contribuir
+#To contribute
 
 To install EPOS for the "EPOSMote II" device, download:
 * [OpenEPOS-1.1 RC tree snapshot from October 18, 2011](https://github.com/evandrocoan/INE5412_EposMotesII_Final_Project/archive/master.zip)
