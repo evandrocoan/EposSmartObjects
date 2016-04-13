@@ -21,27 +21,39 @@ Acho que vocês precisarão de 3 EposMotesII: Dois para controlar luminárias di
 
 
 #Scheduling
-The first step is to get the given codes by the teacher, working fully right. The some of activities can be performed at the same time:
+The first step is to get the given codes by the teacher, working fully right. The some of activities
+can be performed at the same time. Next steps to get the MotesII device set up:
 
-1. Control the color and the brightness of a lamp LED RGB, making these locked intensities or changing with time.
-2. Make the PWM hardware to be fully functional.
+1. * 1.1) Control the color and the brightness of a lamp LED RGB, making these locked
+    intensities or changing with time.
+   * 1.2) Make the PWM hardware to be fully functional.
 
-Next step to get the MotesII device set up:
+1. * 2.1) To allow the lamp (EposMotesII) to receive messages/commands by USB bus.
+   * 2.2) To allow the lamp (EposMotesII) to send/receive messages by the radio board to others lamps devices.
 
-3. To allow the lamp (EposMotesII) to receive messages/commands by USB bus.
-4. To allow the lamp (EposMotesII) to send/receive messages by the radio board to others lamps devices.
-5. Regularly searching for a new server to register and control itself (the lamp).
-6. To create a lamp server to register and control and lamps through messages.
-7. Allow if the received command message is not for this light, forward the message to other smart objects.
-8. Through incoming messages, registering a color setting and intensities for each possible user and apply this setting when a user is present (information received via message).
-9. Allow the lamp to subscribe to a server by entering its ID and the services it performs (intensity control of each color, etc.)
-10. Allow the lamp to know when it has already been registered on this server. This should allow it to subsequently receive messages with commands.
-11. Create one device (another EposMotesII device) to indicate the presence of a person.
-12. To allow the lamps to detect the person presence device proximity.
+2. * 3.1) Regularly searching for a new server to register and control itself (the lamp).
+   * 3.2) To create a lamp server to register and control and lamps through messages.
+
+3. * 4.1) Allow if the received command message is not for this light, forward the message to
+    other smart objects.
+   * 4.2) Through incoming messages, registering a color setting and intensities for each possible
+    user and apply this setting when a user is present (information received via message).
+
+4. * 5.1) Allow the lamp to subscribe to a server by entering its ID and the services it performs
+    (intensity control of each color, etc.)
+   * 5.2) Allow the lamp to know when it has already been registered on this server. This should
+    allow it to subsequently receive messages with commands.
+
+5. * 6.1) Create one device (another EposMotesII device) to indicate the presence of a person.
+   * 6.2) To allow the lamps to detect the person presence device proximity.
 
 
-- A server is another (EposMotesII) which connected by USB to a computer, receives commands to control its registered lamps (another EposMotesII devices).
-- A person presence indicator is another EposMotesII which communicates with the lamps (another EposMotesII).
+Glossary:
+
+1. A server is another EposMotesII which connected by USB to a computer, receives commands to
+    control its registered lamps (another EposMotesII devices).
+2. A person presence indicator is another EposMotesII which communicates with the lamps
+    (another EposMotesII).
 
 
 #Para contribuir
