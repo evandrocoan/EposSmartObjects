@@ -20,6 +20,30 @@ Como requisitos não-funcionais, acho que tempos, principalmente:
 Acho que vocês precisarão de 3 EposMotesII: Dois para controlar luminárias diferentes e um para funcionar como gateway ou para indicar a presença de uma pessoa.
 
 
+#Scheduling
+The first step is to get the given codes by the teacher, working fully right. The some of activities can be performed at the same time:
+
+1. Control the color and the brightness of a lamp LED RGB, making these locked intensities or changing with time.
+2. Make the PWM hardware to be fully functional.
+
+Next step to get the MotesII device set up:
+
+3. To allow the lamp (EposMotesII) to receive messages/commands by USB bus.
+4. To allow the lamp (EposMotesII) to send/receive messages by the radio board to others lamps devices.
+5. Regularly searching for a new server to register and control itself (the lamp).
+6. To create a lamp server to register and control and lamps through messages.
+7. Allow if the received command message is not for this light, forward the message to other smart objects.
+8. Through incoming messages, registering a color setting and intensities for each possible user and apply this setting when a user is present (information received via message).
+9. Allow the lamp to subscribe to a server by entering its ID and the services it performs (intensity control of each color, etc.)
+10. Allow the lamp to know when it has already been registered on this server. This should allow it to subsequently receive messages with commands.
+11. Create one device (another EposMotesII device) to indicate the presence of a person.
+12. To allow the lamps to detect the person presence device proximity.
+
+
+- A server is another (EposMotesII) which connected by USB to a computer, receives commands to control its registered lamps (another EposMotesII devices).
+- A person presence indicator is another EposMotesII which communicates with the lamps (another EposMotesII).
+
+
 #Para contribuir
 
 To install EPOS for the "EPOSMote II" device, download:
@@ -44,7 +68,8 @@ If you do not have access to that path, you'll have to adjust the makedefs file 
 
 Create a new file in $EPOS/app:
 * $EPOS/app/helloworld.cc
-```
+
+```cpp
 #include <utility/ostream.h>
 
 __USING_SYS
