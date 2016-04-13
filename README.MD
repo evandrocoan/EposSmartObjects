@@ -1,6 +1,7 @@
 #Integrated Control and distributed lamps.
 
 
+
 The functional requirements of the system could be the following:
 - Allow the lamp can subscribe by entering its ID and the services it performs (intensity control of each color, etc.) to a server, and know when it has already been registered on this server. This should allow it to subsequently receive messages with commands.
 - Through incoming messages, control the color and the brightness of a lamp LED RGB (using PWM hardware), making these fixed intensities or changing with time
@@ -11,6 +12,7 @@ As a non-functional requirements, I think times, mainly:
 - To be implemented with EPOS 1.1 on board EposMotesII
 
 I think you need 3 EposMotesII: Two different fixtures to control and to act as a gateway or to indicate the presence of a person.
+
 
 
 #Scheduling
@@ -49,6 +51,7 @@ Glossary:
     (another EposMotesII).
 
 
+
 #To contribute
 
 To install EPOS for the "EPOSMote II" device, download:
@@ -69,6 +72,7 @@ If you downloaded the arm toolchain for EPOSMote III, you should extract it at /
 If you do not have access to that path, you'll have to adjust the makedefs file in EPOS' main directory accordingly. See also the EPOS [Download Page](http://epos.lisha.ufsc.br/EPOS+Software) and [Installing User Guide](http://epos.lisha.ufsc.br/EPOS+User+Guide#Installing)
 
 
+
 #Creating an EPOS Application
 
 Create a new file in $EPOS/app:
@@ -87,6 +91,8 @@ int main() {
 }
 ```
 
+
+
 #Compiling EPOS
 
 At the directory where you installed EPOS' source code, just type:
@@ -95,6 +101,7 @@ At the directory where you installed EPOS' source code, just type:
 
 
 The system will be configured and compiled (i.e. generated) successive times for each application found in the app directory. Both software and hardware components will be generated according with each application needs and stored in the img directory.
+
 
 
 #Building an EPOS Application
@@ -122,6 +129,7 @@ EPOS bootable image tool
 
   Image successfully generated (52686 bytes)!
   ```
+
 
 
 #Running
