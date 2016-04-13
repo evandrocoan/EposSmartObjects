@@ -1,6 +1,7 @@
 # Contributing
 
 
+
 Downloaded from:
 https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/CONTRIBUTING.md
 
@@ -16,33 +17,6 @@ Note that we consider an application to constitute a "derivative work" for the p
 Our interpretation applies only to Notepad++ - we don't speak for other people's GPL works.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-
-## Reporting Issues
-
-Bug reports are appreciated. Following a few guidelines listed below will help speed up the process of getting them fixed. 
-
-1. Search the issue tracker to see if it has already been reported.
-2. Disable your plugins to see if one of them is the problem. You can do this by renaming your `plugins` folder to something else.
-3. Only report an issue with a plugin if it is one of the standard plugins included in the Notepad++ installation. Any other plugin issue should be reported to its respective issue tracker. The standard plugins include (for v6.8.3):
-    * NppFTP
-    * NppExport
-    * Plugin Manager
-    * Converter
-    * mimeTools
-4. Include additional information such as:
-    * A detailed explanation
-    * Operating System version
-    * Notepad++ version
-    * List of installed plugins (if it is related to a plugin)
-    * Screen shots (if applicable)
-    * ...and any other relevant information
-
-## Pull Requests
-
-Your pull requests are welcome; however, they may not be accepted for various reasons. If you want to make some GUI enhancement like renaming some graphic items or fixing typos, please create the issue instead of the pull requests. All Pull Requests, except for translations and user documentation, need to be attached to a issue on GitHub. For Pull Requests regarding enhancements and questions, the issue must first be approved by one of project's administrators before being merged into the project. An approved issue will have the label `Accepted`. For issues that have not been accepted, you may request to be assigned to that issue.
-
-Opening a issue beforehand allows the administrators and the community to discuss bugs and enhancements before work begins, preventing wasted effort.
 
 
 
@@ -68,7 +42,7 @@ In short: The easier the code review is, the better the chance your pull request
 
   * ###### Good:
     ```cpp
-    if ()
+    if()
     {
         // Do something
     }
@@ -76,31 +50,31 @@ In short: The easier the code review is, the better the chance your pull request
 
   * ###### Bad:
     ```cpp
-    if () {
+    if() {
         // Do something
     }
     ```
 
-1. ##### Use tabs instead of white-spaces (we usually set our editors to 4 white-spaces for 1 tab, but the choice is up to you).
+1. ##### Use white-spaces instead of tabs (we set our editors to 4 white-spaces for 1 tab).
 
 
 1. ##### Always leave one space before and after binary and ternary operators.
 
   * ###### Good:
     ```cpp
-    if (a == 10 && b == 42)
+    if( a == 10 && b == 42 )
     ```
 
   * ###### Bad:
     ```cpp
-    if (a==10&&b==42)
+    if(a==10&&b==42)
     ```
 
 1. ##### Only leave one space after semi-colons in "for" statements.
 
   * ###### Good:
     ```cpp
-    for (int i = 0; i != 10; ++i)
+    for( int i = 0; i != 10; ++i )
     ```
 
   * ###### Bad:
@@ -114,31 +88,32 @@ Function names are not separated from the first parenthesis.</h5>
   * ###### Good:
     ```cpp
     foo();
-    myObject.foo(24);
+    myObject.foo( 24 );
     ```
 
   * ###### Bad:
     ```cpp
     foo ();
+    myObject.foo ( 24 );
     ```
 
-1. ##### Keywords are separated from the first parenthesis by one space.
+1. ##### Keywords are not separated from the first parenthesis by one space.
 
   * ###### Good:
     ```cpp
-    if (true)
-    while (true)
+    if( true )
+    while( true )
     ```
 
   * ###### Bad:
     ```cpp
-    if(myCondition)
+    if ( myCondition )
     ```
 
 1. ##### Use the following indenting for "switch" statements:
 
   ```cpp
-  switch (test)
+  switch(test)
   {
       case 1:
       {
@@ -146,7 +121,9 @@ Function names are not separated from the first parenthesis.</h5>
           break;
       }
       default:
+      {
           // Do something else
+      }
   } // No semi-colon here
   ```
 
@@ -154,13 +131,13 @@ Function names are not separated from the first parenthesis.</h5>
 
   * ###### Good:
     ```cpp
-    if (foo < I_CAN_PUSH_ON_THE_RED_BUTTON)
+    if( foo < I_CAN_PUSH_ON_THE_RED_BUTTON )
         startThermoNuclearWar();
     ```
 
   * ###### Bad:
     ```cpp
-    while (lifeTheUniverseAndEverything != 42)
+    while( lifeTheUniverseAndEverything != 42 )
         lifeTheUniverseAndEverything = buildMorePowerfulComputerForTheAnswer();
     ```
 
@@ -170,25 +147,25 @@ Function names are not separated from the first parenthesis.</h5>
 
   * ###### Good:
     ```cpp
-    MyClass instance{10.4};
+    MyClass instance{ 10.4 };
     ```
 
   * ###### Bad:
     ```cpp
-    MyClass instance(10.4);
+    MyClass instance( 10.4 );
     ```
 
 1. ##### Always use `empty()` for testing if a string is empty or not.
 
   * ###### Good:
     ```cpp
-    if (not string.empty())
+    if( not string.empty() )
     ...
     ```
 
   * ###### Bad:
     ```cpp
-    if (string != "")
+    if( string != "" )
     ...
     ```
 
@@ -201,22 +178,25 @@ Function names are not separated from the first parenthesis.</h5>
   * ###### Good:
     ```cpp
     class IAmAClass
-    {};
+    {
+    };
     ```
 
   * ###### Bad:
     ```cpp
     class iAmClass
-    {};
+    {
+    };
     class I_am_class
-    {};
+    {
+    };
     ```
 
 1. <h5>methods (camel case + begins with a lower case)<br>
 method parameters (camel case + begins with a lower case)</h5>
 
   ```cpp
-  void myMethod(uint myVeryLongParameter);
+  void myMethod( uint myVeryLongParameter );
   ```
 
 1. <h5>member variables<br>
@@ -234,12 +214,12 @@ Any member variable name of class/struct should be preceded by an underscore.</h
 
   * ###### Good:
     ```cpp
-    if (hours < 24 && minutes < 60 && seconds < 60)
+    if( hours < 24 && minutes < 60 && seconds < 60 )
     ```
 
   * ###### Bad:
     ```cpp
-    if (a < 24 && b < 60 && c < 60)
+    if( a < 24 && b < 60 && c < 60 )
     ```
 
 
@@ -296,3 +276,5 @@ Any member variable name of class/struct should be preceded by an underscore.</h
 1. ##### Compile time is without incidence. Increasing compile time to reduce execution time is encouraged.
 
 1. ##### Code legibility and length is less important than easy and fast end-user experience.
+
+
