@@ -1,6 +1,4 @@
-#Integrated Control and distributed lamps.
-
-
+#Integrated Control and distributed lamps
 
 The functional requirements of the system could be the following:
 - Allow the lamp to subscribe by entering its ID and the services it performs (intensity control of each color, etc.) to a server, and know when it is already registered on this server. This should allow it to subsequently receive messages with commands.
@@ -15,9 +13,11 @@ I think you need 3 EposMotesII: Two different fixtures to control and to act as 
 
 
 
-#Scheduling
-The first step is to get the given functioning codes by the teacher (They only control part of the system). Some of activities
-can be performed at the same time. Next steps to get the MotesII device set up:
+##Scheduling
+
+The first step is to get the given functioning codes by the teacher (They only control part of
+the system). Some of activities can be performed at the same time. Next steps to get the MotesII
+device set up:
 
 1. * 1.1) Control the color and the brightness of a LED RGB lamp, making these fixed
     intensities or changing with time.
@@ -43,10 +43,13 @@ can be performed at the same time. Next steps to get the MotesII device set up:
    * 6.2) Allow the lamps to detect a "person detecting" device proximity.
 
 
-###Glossary:
+
+#####Glossary:
 
 1. A server is another EposMotesII which connected by USB to a computer, which receives commands to
     control its registered lamps (another EposMotesII devices).
 2. A person presence indicator is another EposMotesII which communicates with the lamps
     (another EposMotesII).
+
+
 

@@ -2,37 +2,32 @@
 
 
 
-Downloaded from:
+Originally downloaded from:
 https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/CONTRIBUTING.md
 
-COPYING -- Describes the terms under which Notepad++ is distributed.
-A copy of the GNU GPL is appended to this file.
+COPYING -- Describes the terms under which Notepad++ is distributed. You should have received a
+copy of the GNU General Public License along with this file. If not, see <http://www.gnu.org/licenses/>.
 
 IMPORTANT NOTEPAD++ LICENSE TERMS
 
-Copyright (C)2016 Don HO <don.h@free.fr>.
-Copyright (C)2016 Evandro Coan <evandrocoan@hotmail.com>.
+* Copyright (C)2016 Don HO <don.h@free.fr>.
+* Copyright (C)2016 Evandro Coan <evandrocoan@hotmail.com>.
 
-This program is free software; you may redistribute and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; Version 2 with the clarifications and exceptions described below. This guarantees your right to use, modify, and redistribute this software under certain conditions.
+This program is free software; you may redistribute and/or modify it under the terms of
+the GNU General Public License as published by the Free Software Foundation; Version 2
+with the clarifications and exceptions described below. This guarantees your right to use,
+modify, and redistribute this software under certain conditions.
 
-Note that we consider an application to constitute a "derivative work" for the purpose of this license if it integrates/includes/aggregates Notepad++ into a proprietary executable installer, such as those produced by InstallShield. Our interpretation applies only to Notepad++ - we don't speak for other people's GPL works.
+Note that we consider an application to constitute a "derivative work" for the purpose of this
+license if it integrates/includes/aggregates Notepad++ into a proprietary executable installer,
+such as those produced by InstallShield. Our interpretation applies only to Notepad++ - we don't
+speak for other people's GPL works.
 
 Our interpretation applies only to Notepad++ - we don't speak for other people's GPL works.
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-
-
-# Contributing
-
-### Guidelines for pull requests
-
-1. Respect Notepad++ coding style.
-2. Make a single change per commit.
-3. Make your modification compact - don't reformat source code in your request. It makes code review more difficult.
-4. PR of reformatting (changing of ws/TAB, line endings or coding style) of source code won't be accepted. Use issue trackers for your request instead.
-
-In short: The easier the code review is, the better the chance your pull request will get accepted.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
 
 
 
@@ -272,9 +267,12 @@ Any member variable name of class/struct should be preceded by an underscore.</h
   ```
   (It does not change anything for built-in types but it would bring consistency)
 
-1. ##### Avoid using pointers. Prefer references. You might need the variable to be assigned a NULL value: in this case the NULL value has semantics and must be checked. Wherever possible, use a SmartPtr instead of old-school pointers.
+1. ##### Avoid using pointers. Prefer references. You might need the variable to be assigned a NULL
+value: in this case the NULL value has semantics and must be checked. Wherever possible, use a
+SmartPtr instead of old-school pointers.
 
-1. ##### Avoid using new if you can use automatic variable. However, avoid `shared_ptr` as much as possible. Prefer `unique_ptr` instead.
+1. ##### Avoid using new if you can use automatic variable. However, avoid `shared_ptr` as much as
+possible. Prefer `unique_ptr` instead.
 
 1. ##### Don't place any "using namespace" directives in headers.
 
