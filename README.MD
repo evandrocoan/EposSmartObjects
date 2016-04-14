@@ -2,36 +2,42 @@
 
 
 
-
-
-
 #To contribute
 
+1. First, to install EPOS 1.1 for the "EPOSMote II" device, download these files:
+  * [File: "OpenEPOS-1.1RC.tgz" - OpenEPOS-1.1 RC tree snapshot from October 18, 2011](http://epos.lisha.ufsc.br/dl95)
+  * [File: "arm-gcc-4.4.4.tar.gz" - ARM (ARM7 and others)](http://epos.lisha.ufsc.br/dl88)
+1. To install EPOS 2.0 for the "EPOSMote III" device, visit the LISHA official Website:
+  * [EPOS 2.0 User's Guide](http://epos.lisha.ufsc.br/EPOS+2+User+Guide)
+  * [Download Page](http://epos.lisha.ufsc.br/EPOS+Software)
+    * Observation: You need to register/create a free account, in order to be able to see the EPOS 1.1 
+    or 2.0 manuals.
+    * See also the [EPOS 1.1 User's Guide](http://epos.lisha.ufsc.br/EPOS+User+Guide).
 
+In order to work with EPOS, you need:
 
-To install EPOS 1.1 for the "EPOSMote II" device, download:
-* [File: "OpenEPOS-1.1RC.tgz" - OpenEPOS-1.1 RC tree snapshot from October 18, 2011](http://epos.lisha.ufsc.br/dl95)
-* [File: "arm-gcc-4.4.4.tar.gz" - ARM (ARM7 and others)](http://epos.lisha.ufsc.br/dl88)
-
-
-In order to work with EPOS, you need to extract the contents of "arm-gcc-4.4.4.tar" file and set some environment variables:
-* export EPOS=/path/to/epos
-* export PATH=$PATH:$EPOS/bin
-
-
-You don't need to bother about the chosen path nor set any environment variable. EPOS is fully self contained.
-
-If you also downloaded a toolchain tarball (arm-gcc-4.4.4.tar), open it at /usr/local/<architecture> whenever possible. For instance, if you downloaded the ia32 toolchain, you should extract it at /usr/local/ia32/gcc-4.4.4. 
-If you downloaded the arm toolchain for EPOSMote III, you should extract it at /usr/local/arm/gcc-4.4.4
-
-If you do not have access to that path, you'll have to adjust the makedefs file in EPOS' main directory accordingly. See also the EPOS [Download Page](http://epos.lisha.ufsc.br/EPOS+Software) and [Installing User Guide](http://epos.lisha.ufsc.br/EPOS+User+Guide#Installing)
+1. To extract the contents of "OpenEPOS-1.1RC.tgz" file where you would like most.
+1. To set some environment variables (on the user's bash config file "home/User/.bashrc"):
+  * export EPOS=/path/to/epos
+  * export PATH=$PATH:$EPOS/bin
+1. To clone this repository inside:
+  * $EPOS/app/
+    * Example: home/User/Desktop/OpenEPOS-1.1RC/app/INE5412_EposMotesII_SmartObjects
+1. To extract the contents of "arm-gcc-4.4.4.tar" file at the directory:
+  * /usr/local/arm/
+    * Observation: Rename the folder "gcc-4.4.4", inside "arm-gcc-4.4.4.tar" to "gcc".
+  * For instance, if you downloaded the ia32 toolchain, you should extract it at /usr/local/ia32/
+    * If you do not have access to that path, you'll have to adjust the makedefs file in EPOS' 
+    main directory accordingly.
+1. You don't need to bother about the chosen path nor set any environment variable. EPOS is fully 
+self contained.
 
 
 
 #Creating an EPOS Application
 
 Create a new file in $EPOS/app:
-* $EPOS/app/helloworld.cc
+* $EPOS/app/INE5412_EposMotesII_SmartObjects/helloworld.cc
 
 ```cpp
 #include <utility/ostream.h>
@@ -51,22 +57,24 @@ int main() {
 #Compiling EPOS
 
 At the directory where you installed EPOS' source code, just type:
-
 * $ make
 
 
-The system will be configured and compiled (i.e. generated) successive times for each application found in the app directory. Both software and hardware components will be generated according with each application needs and stored in the img directory.
+The system will be configured and compiled (i.e. generated) successive times for each 
+application found in the app directory. Both software and hardware components will be 
+generated according with each application needs and stored in the img directory.
 
 
 
 #Building an EPOS Application
-If you have multiple applications or multiple deployment scenarios, but want to operate on a single one, you can specify it using the APPLICATION parameter like this:
-
-* $ make APPLICATION=helloworld
-
+If you have multiple applications or multiple deployment scenarios, but want to operate 
+on a single one, you can specify it using the APPLICATION parameter like this:
+* $ make APPLICATION=INE5412_EposMotesII_SmartObjects/helloworld
+  * Observation: You must to compile EPOS with "make" as explained above before to compile one 
+  single APPLICATION.
 
 If everything goes right, you should end with something like this:
-```
+```cpp
 EPOS bootable image tool
 
   EPOS mode: library
@@ -83,7 +91,7 @@ EPOS bootable image tool
   Adding specific boot features of "cortex_m": done.
 
   Image successfully generated (52686 bytes)!
-  ```
+```
 
 
 
@@ -93,5 +101,4 @@ First of all, you'll need to install a platform specific back-end for
 EPOS to run on. During development, this is usually a
 [QEMU virtual machine](http://www.qemu.org/) for your target architecture
 (e.g. qemu-system-i386, qemu-system-arm). Then, simply type:
-
 * $ make [APPLICATION=<application>] run
