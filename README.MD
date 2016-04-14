@@ -9,13 +9,13 @@
 
 
 
-To install EPOS for the "EPOSMote II" device, download:
-* [OpenEPOS-1.1 RC tree snapshot from October 18, 2011](https://github.com/evandrocoan/INE5412_EposMotesII_Final_Project/archive/master.zip)
-* [ARM (ARM7 and others)](http://epos.lisha.ufsc.br/dl88)
+To install EPOS 1.1 for the "EPOSMote II" device, download:
+* [File: "OpenEPOS-1.1RC.tgz" - OpenEPOS-1.1 RC tree snapshot from October 18, 2011](http://epos.lisha.ufsc.br/dl95)
+* [File: "arm-gcc-4.4.4.tar.gz" - ARM (ARM7 and others)](http://epos.lisha.ufsc.br/dl88)
 
 
 In order to work with EPOS, you need to extract the contents of "arm-gcc-4.4.4.tar" file and set some environment variables:
-* export EPOS=/path/to/epos (the 'OpenEPOS-1.1RC' folder on this project, on your local computer).
+* export EPOS=/path/to/epos
 * export PATH=$PATH:$EPOS/bin
 
 
