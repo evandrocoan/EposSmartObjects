@@ -28,16 +28,22 @@ const unsigned int GPIO_BASE      = 0x80000000;
 const unsigned int GPIO_DATA_SET0 = GPIO_BASE + 0x48;
 const unsigned int GPIO_PAD_DIR0  = GPIO_BASE + 0x00;
 
-const unsigned int MSG_LEN  = 5;
-const unsigned int MAX_LEDS = 3; // only leds 0 to 2 (RGB) are used
+const unsigned int MSG_LEN = 5;
 
-unsigned int effectDelay = 1e5; //4294967294 //4.294.967.294
-unsigned int power[ MAX_LEDS ]; // only leds 0 to 2 (RGB) are used
+// only leds 0 to 2 (RGB) are used
+const unsigned int MAX_LEDS = 3;
+
+//4294967294 //4.294.967.294
+unsigned int effectDelay  = 1e5;
 bool         finishThread = false;
 
+unsigned int power[ MAX_LEDS ]; // only leds 0 to 2 (RGB) are used
+
 OStream cout;
+
 //Mutex* mutexEffect[MAX_LEDS];
 bool effect[ MAX_LEDS ];
+
 //Semaphore* semcout;
 NIC * nic;
 
@@ -56,6 +62,7 @@ void turn_led( int pin, bool on )
     {
         value &= !( 1 << bit );
     }
+    
     CPU::out32( regPad, value );
     CPU::out32( regData, ( 1 << bit ) );
 }
@@ -64,6 +71,7 @@ int PWMLeds()
 {
     // semcout->p();
     cout << "Thread PWM LEDs initing\n";
+    
     // semcout->v();
     
     int led[ 5 ]; // not all leds are actually used. Only the RGB ones (the first 3)
@@ -98,6 +106,7 @@ int PWMLeds()
               if (cont==power[i])
                  turn_led(led[i],false);   */
     }
+    
     cout << "Thread PWM LEDs finishing\n";
     return 0;
 }
@@ -223,20 +232,22 @@ void SendMessageToNIC( char msg[ MSG_LEN ] )
         cout << "Send failed " << r << "\n";
         // semcout->v();
     }
+    
     // semcout->p();
     cout << "Message sent\n";
+    
     // semcout->v();
 }
 
 int ReceiveCommandUART()
 {
+    unsigned int i;
+    char         msg[ MSG_LEN ]; //[DATA_SIZE];
+    
     // semcout->p();
     cout << "Thread UART initing\n";
     // semcout->v();
     UART * uart = new UART();
-    char msg[ MSG_LEN ]; //[DATA_SIZE];
-    
-    unsigned int i;
     
     while( !finishThread )
     {
@@ -256,6 +267,7 @@ int ReceiveCommandUART()
         SendMessageToNIC( msg );
         InterpretMessage( msg );
     }
+    
     cout << "Thread UART finishing\n";
     return 0;
 }
@@ -284,6 +296,7 @@ int ReceiveCommandNIC()
         // semcout->v();
         InterpretMessage( msg );
     }
+    
     cout << "Thread NIC finishing\n";
     return 0;
 }
@@ -340,6 +353,7 @@ int LEDPowerEffect( unsigned int i )
             Alarm::delay( effectDelay );
         }
     }
+    
     cout << "Thread Effect " << i << " finishing\n";
     return 0;
 }
