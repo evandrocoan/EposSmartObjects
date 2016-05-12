@@ -20,25 +20,55 @@
 #include <thread.h>
 #include <mutex.h>
 #include <semaphore.h>
+#include <traits.h>
 
 __USING_SYS
 
-// copied from memory_map.h
+
+
+/**
+ *  Base IO adress. GPIO Base is the base address of all IO operations.
+ *  copied from memory_map.h
+ */
 const unsigned int GPIO_BASE      = 0x80000000;
+/**
+ * DATA_SET is just so magical I can't express my thoughts into words.
+ */
 const unsigned int GPIO_DATA_SET0 = GPIO_BASE + 0x48;
+/**
+ * PAD_DIR0 contains the base address which contains the registers' values.
+ */
 const unsigned int GPIO_PAD_DIR0  = GPIO_BASE + 0x00;
 
+/**
+ * MSG_LEN is the maximum length of the message which can be sent and received via UART/NIC
+ */
 const unsigned int MSG_LEN = 5;
 
-// only leds 0 to 2 (RGB) are used
+/**
+ *  only leds 0 to 2 (RGB) are used
+ */
 const unsigned int MAX_LEDS = 3;
 
-//4294967294 //4.294.967.294
+/**
+ * Please save yourself the trouble and don't read the documentation bellow. If you do
+ * and still don't get it like me, then please increase the following counter to warn
+ * future code revisor and save them the drouble. You have been warned.
+ * count = 1
+ * //4294967294 //4.294.967.294
+ */
 unsigned int effectDelay  = 1e5;
+
 bool         finishThread = false;
 
+/**
+ * Power of the lads.
+ */
 unsigned int power[ MAX_LEDS ]; // only leds 0 to 2 (RGB) are used
 
+/**
+ * Stdout for debug reasons.
+ */
 OStream cout;
 
 //Mutex* mutexEffect[MAX_LEDS];
@@ -46,7 +76,14 @@ bool effect[ MAX_LEDS ];
 
 //Semaphore* semcout;
 NIC * nic;
-
+/**
+ * This function is used to toggle the led on or off.
+ *
+ * @param pin        The pin number that we want to toggle
+ *
+ * @param on         If this is true, we toggle the bit on. If this is false, we toggle the bit off
+ *
+ */
 void turn_led( int pin, bool on )
 {
     int          bit     = pin % 32;
@@ -67,6 +104,11 @@ void turn_led( int pin, bool on )
     CPU::out32( regData, ( 1 << bit ) );
 }
 
+/**
+ * This function executes the pulse width modulation for the LEDS in software.
+ *
+ * @return              I have no idea.
+ */
 int PWMLeds()
 {
     // semcout->p();
@@ -86,13 +128,14 @@ int PWMLeds()
     
     for( i = 0; i < MAX_LEDS; i++ )
     {
-        power[ i ] = 1; // leds start at 1% of the power (just to show app is running)
+        power[ i ] = 50; // leds start at 1% of the power (just to show app is running)
     
     }
     
     // PWM
     while( !finishThread )
     {
+    	//cout << "Still executing PWM. " << cont <<  "\n";
         cont == 99 ? cont = 0 : cont++;
         
         for( i = 0; i < MAX_LEDS; i++ )
@@ -239,13 +282,16 @@ void SendMessageToNIC( char msg[ MSG_LEN ] )
     // semcout->v();
 }
 
+
+
 int ReceiveCommandUART()
 {
+	cout << "Thread UART initing\n";
     unsigned int i;
     char         msg[ MSG_LEN ]; //[DATA_SIZE];
     
     // semcout->p();
-    cout << "Thread UART initing\n";
+
     // semcout->v();
     UART * uart = new UART();
     
@@ -382,13 +428,18 @@ int main()
     Thread * thrdEffect[ MAX_LEDS ];
     
     thrdPWM  = new Thread( &PWMLeds );
+    cout << "About to create UART thread\n";
     thrdUART = new Thread( &ReceiveCommandUART );
+    cout << "Created UART thread\n";
     
     //thrdNIC  = new Thread(&ReceiveCommandNIC);
-    for( i = 0; i < MAX_LEDS; i++ )
+    for( i = 0; i < 1/*MAX_LEDS*/; i++ )
     {
+    	cout << "Creating thread effect " << i << "\n";
         thrdEffect[ i ] = new Thread( &LEDPowerEffect, (unsigned int) i );
+        cout << "About to sleep for a loooooooooooooooooooooooooooooooooooooooooong time\n";
         Alarm::delay( 5e6 );
+        cout << "This mother fucker woke up\n";
     }
     
     // semcout->p();
@@ -398,7 +449,7 @@ int main()
     int status_thrdUART = thrdUART->join();
     
     //int status_thrdNIC  = thrdNIC->join();
-    for( i = 0; i < MAX_LEDS; i++ )
+    for( i = 0; i < 1/*MAX_LEDS*/; i++ )
     {
         int status_thrdEffect = thrdEffect[ i ]->join();
     }
