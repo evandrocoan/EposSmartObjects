@@ -9,6 +9,20 @@
  *  with this program. If not, see
  *  <http://epos.lisha.ufsc.br/EPOS+Software+License+v1.0>.
  *
+ * *****************************************************************************
+ * 
+ * Program notes
+ * 
+ * The code is not working using the default scheduler provided by the EPOSMoteII platform.
+ * We are still deciding which scheduling algorithm and quantum to use, but for test purposes
+ * we believe that it's okay to use Round_Robin. The problem is that while using the Round_Robin scheduler,
+ * you get the feel that the LED is blinking, which should not be available to the user.
+ * 
+ * How to change the scheduler:
+ * In the EPOSMoteII directory, edit the file include/traits.h
+ * 
+ * The scheduling algorithm should be located inside the templatized Traits<Thread> structure.
+ * Also, you can change the quantum which each thread will be given by the scheduler.
  */
 
 #include <machine.h>
