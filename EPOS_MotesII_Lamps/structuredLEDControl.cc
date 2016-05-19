@@ -130,57 +130,57 @@ void turn_led(int pin, bool on) {
  * @return              I have no idea.
  */
 /*
-int PWMLeds() {
-	// semcout->p();
-	cout << "Thread PWM LEDs initing\n";
-	powerCalculateFunc func;
-	// semcout->v();
-	if (useSensor) {
-		func = sensorCalculatePower;
-	} else {
-		func = defaultPower;
-	}
-	int led[5]; // not all leds are actually used. Only the RGB ones (the first 3)
-	led[0] = 10;
-	led[1] = 9;
-	led[2] = 11;
-	led[3] = 23;
-	led[4] = 8;
+ int PWMLeds() {
+ // semcout->p();
+ cout << "Thread PWM LEDs initing\n";
+ powerCalculateFunc func;
+ // semcout->v();
+ if (useSensor) {
+ func = sensorCalculatePower;
+ } else {
+ func = defaultPower;
+ }
+ int led[5]; // not all leds are actually used. Only the RGB ones (the first 3)
+ led[0] = 10;
+ led[1] = 9;
+ led[2] = 11;
+ led[3] = 23;
+ led[4] = 8;
 
-	unsigned int i;
-	unsigned int cont = 0;
-	int calculatedPow[MAX_LEDS];
-	for (i = 0; i < MAX_LEDS; i++) {
-		power[i] = 50; // leds start at 1% of the power (just to show app is running)
+ unsigned int i;
+ unsigned int cont = 0;
+ int calculatedPow[MAX_LEDS];
+ for (i = 0; i < MAX_LEDS; i++) {
+ power[i] = 50; // leds start at 1% of the power (just to show app is running)
 
-	}
+ }
 
-	// PWM
-	while (!finishThread) {
-		if (!cont) {
-			for (int i = 0; i < MAX_LEDS; ++i) {
-				calculatedPow[i] = func(power[i]);
-			}
-		}
-		//cout << "Still executing PWM. " << cont <<  "\n";
-		cont == 99 ? cont = 0 : cont++;
+ // PWM
+ while (!finishThread) {
+ if (!cont) {
+ for (int i = 0; i < MAX_LEDS; ++i) {
+ calculatedPow[i] = func(power[i]);
+ }
+ }
+ //cout << "Still executing PWM. " << cont <<  "\n";
+ cont == 99 ? cont = 0 : cont++;
 
-		for (i = 0; i < MAX_LEDS; i++) {
-			turn_led(led[i], cont < calculatedPow[i]);
-		}
+ for (i = 0; i < MAX_LEDS; i++) {
+ turn_led(led[i], cont < calculatedPow[i]);
+ }
 
-		// if (cont==0 && power[i]>0)
-		 //turn_led(led[i],true);
-		 //else
-		 //if (cont==power[i])
-		 //turn_led(led[i],false);
+ // if (cont==0 && power[i]>0)
+ //turn_led(led[i],true);
+ //else
+ //if (cont==power[i])
+ //turn_led(led[i],false);
 
-	}
+ }
 
-	cout << "Thread PWM LEDs finishing\n";
-	return 0;
-}
-*/
+ cout << "Thread PWM LEDs finishing\n";
+ return 0;
+ }
+ */
 void InterpretMessage(char msg[MSG_LEN]) {
 	unsigned int led, pow, i;
 
@@ -355,40 +355,41 @@ int LEDPowerEffect(unsigned int i) {
 	int pow;
 
 	while (!finishThread) {
-		if (effect[i]) {
-			//for (i=0; i<=MAX_LEDS; i++) {
-			// semcout->p();
-			cout << "Incresing power of led[" << i << "]\n";
+		//for (i=0; i<=MAX_LEDS; i++) {
+		// semcout->p();
 
-			// semcout->v();
-			for (pow = 0; pow <= 100; pow++) {
+		// semcout->v();
+		for (pow = 0; pow <= 100; pow++) {
+			for (int i = 0; i < MAX_LEDS; ++i) {
 				// mutexEffect[i]->lock();
 				//if (i<MAX_LEDS) // only one led
-				power[i] = pow;
-				//else // all leds at once
-				//   for (j=0; j<MAX_LEDS; j++)
-				//      power[j]=pow;
-				// mutexEffect[i]->unlock();
-				Alarm::delay(effectDelay);
+				if (effect[i]) {
+					power[i] = pow;
+
+					//else // all leds at once
+					//   for (j=0; j<MAX_LEDS; j++)
+					//      power[j]=pow;
+					// mutexEffect[i]->unlock();
+					Alarm::delay(effectDelay);
+				}
+			}
+		}
+		for (pow = 100; pow >= 0; pow--) {
+			for (int i = 0; i < MAX_LEDS; ++i) {
+				if (effect[i]) {
+
+					// mutexEffect[i]->lock();
+					//if (i<MAX_LEDS)
+					power[i] = pow;
+					//else
+					//   for (j=0; j<MAX_LEDS; j++)
+					//      power[j]=pow;
+					// mutexEffect[i]->unlock();
+					Alarm::delay(effectDelay);
+				}
 			}
 		}
 
-		if (effect[i]) {
-			//cout << "Decresing power of led[" << i << "]\n";
-			for (pow = 100; pow >= 0; pow--) {
-				// mutexEffect[i]->lock();
-				//if (i<MAX_LEDS)
-				power[i] = pow;
-				//else
-				//   for (j=0; j<MAX_LEDS; j++)
-				//      power[j]=pow;
-				// mutexEffect[i]->unlock();
-				Alarm::delay(effectDelay);
-			}
-			//}
-		} else {
-			Alarm::delay(effectDelay);
-		}
 	}
 
 	cout << "Thread Effect " << i << " finishing\n";
@@ -397,6 +398,7 @@ int LEDPowerEffect(unsigned int i) {
 
 void myCuteHandler() {
 	static int count = 0;
+	static bool turnOn = false;
 	int led[5]; // not all leds are actually used. Only the RGB ones (the first 3)
 	led[0] = 10;
 	led[1] = 9;
@@ -406,42 +408,44 @@ void myCuteHandler() {
 	for (int i = 0; i < MAX_LEDS; ++i) {
 		if (count < power[i]) {
 			turn_led(led[i], true);
-		}
-		else {
+		} else {
 			turn_led(led[i], false);
 		}
 	}
 	count = (count + 1) % 100;
 }
 
+void myFavoriteHandler() {
+	cout << "Yay\n";
+}
+
 int main() {
 	cout << "EposMotesII app initing\n";
 	unsigned int i;
-	Timer myFavoriteTimer(100, myCuteHandler);
-	Alarm::delay(100);
-
+	TSC_Timer myFavoriteTimer(100, &myCuteHandler);
+	cout << "Test\n";
+//Alarm::delay(100);
 	for (i = 0; i < MAX_LEDS; i++) {
 		//   mutexEffect[i]= new Mutex();
 		//   mutexEffect[i]->lock(); // effect starts OFF (blocked)
-		effect[i] = true;
+		effect[i] = false;
 	}
-
 	nic = new NIC();
-	// semcout = new Semaphore(1);
+// semcout = new Semaphore(1);
 
 	Thread * thrdPWM;
 	Thread * thrdUART;
 	Thread * thrdNIC;
 	Thread * thrdEffect[MAX_LEDS];
-	//Uncomment later when use photo sensor.
-	//useSensor = myCuteSensor.enable();
+//Uncomment later when use photo sensor.
+//useSensor = myCuteSensor.enable();
 
 	cout << "About to create UART thread\n";
 	thrdUART = new Thread(&ReceiveCommandUART);
 	cout << "Created UART thread\n";
 
-	//thrdNIC  = new Thread(&ReceiveCommandNIC);
-	for (i = 0; i < MAX_LEDS; i++) {
+//thrdNIC  = new Thread(&ReceiveCommandNIC);
+	for (i = 0; i < 1; i++) {
 		cout << "Creating thread effect " << i << "\n";
 		thrdEffect[i] = new Thread(&LEDPowerEffect, (unsigned int) i);
 		cout
@@ -450,23 +454,21 @@ int main() {
 		cout << "This mother fucker woke up\n";
 	}
 
-	// semcout->p();
+// semcout->p();
 	cout << "Waiting for threads to finish\n";
-	// semcout->v();
+// semcout->v();
 
 	int status_thrdUART = thrdUART->join();
 
-	//int status_thrdNIC  = thrdNIC->join();
-	for (i = 0; i < MAX_LEDS; i++) {
+//int status_thrdNIC  = thrdNIC->join();
+	for (i = 0; i < 1; i++) {
 		int status_thrdEffect = thrdEffect[i]->join();
 	}
 	cout << "Threads finished. EposMotesII app finishing\n";
-	//Lista das pessoas que se importam com essa parte do código:
+//Lista das pessoas que se importam com essa parte do código:
 
-
-
-	//Fim da lista
-	//thrdPWM = new Thread(&PWMLeds);
-	//int status_thrdPWM = thrdPWM->join();
+//Fim da lista
+//thrdPWM = new Thread(&PWMLeds);
+//int status_thrdPWM = thrdPWM->join();
 	return 0;
 }
