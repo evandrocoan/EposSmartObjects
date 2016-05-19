@@ -346,9 +346,9 @@ int ReceiveCommandNIC() {
 	return 0;
 }
 
-int LEDPowerEffect(unsigned int i) {
+int LEDPowerEffect() {
 	// semcout->p();
-	cout << "Thread Effect " << i << " initing\n";
+	cout << "Thread Effect initing\n";
 	// semcout->v();
 	//unsigned int i = MAX_LEDS;
 	unsigned int j;
@@ -392,11 +392,11 @@ int LEDPowerEffect(unsigned int i) {
 
 	}
 
-	cout << "Thread Effect " << i << " finishing\n";
+	cout << "Thread Effect finishing\n";
 	return 0;
 }
 
-void myCuteHandler() {
+void PWMInterrupt() {
 	static int count = 0;
 	static bool turnOn = false;
 	int led[5]; // not all leds are actually used. Only the RGB ones (the first 3)
@@ -415,15 +415,10 @@ void myCuteHandler() {
 	count = (count + 1) % 100;
 }
 
-void myFavoriteHandler() {
-	cout << "Yay\n";
-}
-
 int main() {
 	cout << "EposMotesII app initing\n";
 	unsigned int i;
-	TSC_Timer myFavoriteTimer(100, &myCuteHandler);
-	cout << "Test\n";
+	TSC_Timer pwmTimer(100, &PWMInterrupt);
 //Alarm::delay(100);
 	for (i = 0; i < MAX_LEDS; i++) {
 		//   mutexEffect[i]= new Mutex();
@@ -436,23 +431,15 @@ int main() {
 	Thread * thrdPWM;
 	Thread * thrdUART;
 	Thread * thrdNIC;
-	Thread * thrdEffect[MAX_LEDS];
+	Thread * thrdEffect;
 //Uncomment later when use photo sensor.
 //useSensor = myCuteSensor.enable();
 
-	cout << "About to create UART thread\n";
 	thrdUART = new Thread(&ReceiveCommandUART);
-	cout << "Created UART thread\n";
 
 //thrdNIC  = new Thread(&ReceiveCommandNIC);
-	for (i = 0; i < 1; i++) {
-		cout << "Creating thread effect " << i << "\n";
-		thrdEffect[i] = new Thread(&LEDPowerEffect, (unsigned int) i);
-		cout
-				<< "About to sleep for a loooooooooooooooooooooooooooooooooooooooooong time\n";
-		Alarm::delay(5e6);
-		cout << "This mother fucker woke up\n";
-	}
+	thrdEffect = new Thread(&LEDPowerEffect);
+	Alarm::delay(5e6);
 
 // semcout->p();
 	cout << "Waiting for threads to finish\n";
@@ -461,9 +448,7 @@ int main() {
 	int status_thrdUART = thrdUART->join();
 
 //int status_thrdNIC  = thrdNIC->join();
-	for (i = 0; i < 1; i++) {
-		int status_thrdEffect = thrdEffect[i]->join();
-	}
+	int status_thrdEffect = thrdEffect->join();
 	cout << "Threads finished. EposMotesII app finishing\n";
 //Lista das pessoas que se importam com essa parte do código:
 
