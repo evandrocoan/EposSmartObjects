@@ -23,32 +23,75 @@
 
 __USING_SYS
 
-//TODO
-//Get register addresses from include/mach/mc13224v/memory_map.h and implement function.
-//Also implement method setReg.
-//Please do not suicide.
-/*
- void PWM1_Init(void)
- {
- setReg(TMR0_CNTR,0); // Reset counter
- /// TMR0_SCTRL: TCF=0,TCFIE=0,TOF=0,TOFIE=0,IEF=0,IEFIE=0,IPS=0,INPUT=0,
- //Capture_Mode=0,MSTR=0,EEOF=0,VAL=0,FORCE=1,OPS=0,OEN=1
- setReg(TMR0_SCTRL,0x05); // Enable output
- setReg(TMR0_COMP1,1500); // Store initial value to the duty-compare register
- // TMR0_CTRL: CM=1,PCS=8,SCS=0,ONCE=0,LENGTH=0,DIR=0,Co_INIT=0,OM=6
- setReg(TMR0_CTRL, 0x3006);
- }
+
+/**
+ * Change this typedef to change the type of the element for the bit vector.
+ * Rule is for it to be small enough to waste less memory;
  */
+typedef unsigned char bitarr_el;
 
-bool useSensor = false;
+/**
+ * Abstraction provided to access a bitarray. Caution: do not access it with []
+ */
+typedef bitarr_el* bitarr_t;
 
-int defaultPower(int power) {
-	return power;
+/**
+ * Works like a C++ constructor.
+ * @param arrSize		The size of the array
+ * @return				A pointer to the array.
+ */
+bitarr_t createBitArray(size_t arrSize) {
+	bitarr_t ar;
+	ar = new bitarr_el[arrSize/sizeof(bitarr_el) + 1];
+	return ar;
 }
 
-int sensorCalculatePower(int power) {
-	return 0;
+/**
+ * Frees memory from bit array;
+ * @param arr			Memory to be freed
+ */
+void destroyBitArray(bitarr_t arr) {
+	delete[] arr;
 }
+
+/**
+ * Checks to see if the bit at the given position is set
+ * @param arr			The bit array
+ * @param pos			The position
+ * @return				true if bit is 1 else false
+ */
+bool checkPosition(bitarr_t arr, size_t pos) {
+	//Calculate region
+	size_t region = pos/sizeof(bitarr_el);
+	//Get element at region
+	bitarr_el* element = arr + region;
+	//Calculate index inside element
+	size_t elementPos = pos % sizeof(bitarr_el);
+	//Check bit of element
+	return (*element) & (1 << (elementPos));
+}
+/**
+ * Sets bit on given position of the array
+ * @param arr			The bit array
+ * @param pos			The position in the array
+ * @param value			If value is true, sets bit to 1 else 0.
+ */
+void setPosition(bitarr_t arr, size_t pos, bool value) {
+	//Calculate region
+	size_t region = pos/sizeof(bitarr_el);
+	//Get element at region
+	bitarr_el* element = arr + region;
+	//Calculate index inside element
+	size_t elementPos = pos % sizeof(bitarr_el);
+	if(value) {
+		*element |= (1 << elementPos);
+	}
+	else {
+		*element &= !(1 << elementPos);
+	}
+}
+
+
 
 /**
  *  Base IO adress. GPIO Base is the base address of all IO operations.
@@ -95,10 +138,8 @@ unsigned int power[MAX_LEDS]; // only leds 0 to 2 (RGB) are used
  */
 OStream cout;
 
-//Mutex* mutexEffect[MAX_LEDS];
 bool effect[MAX_LEDS];
 
-//Semaphore* semcout;
 NIC * nic;
 /**
  * This function is used to toggle the led on or off.
@@ -124,63 +165,6 @@ void turn_led(int pin, bool on) {
 	CPU::out32(regData, (1 << bit));
 }
 
-/**
- * This function executes the pulse width modulation for the LEDS in software.
- *
- * @return              I have no idea.
- */
-/*
- int PWMLeds() {
- // semcout->p();
- cout << "Thread PWM LEDs initing\n";
- powerCalculateFunc func;
- // semcout->v();
- if (useSensor) {
- func = sensorCalculatePower;
- } else {
- func = defaultPower;
- }
- int led[5]; // not all leds are actually used. Only the RGB ones (the first 3)
- led[0] = 10;
- led[1] = 9;
- led[2] = 11;
- led[3] = 23;
- led[4] = 8;
-
- unsigned int i;
- unsigned int cont = 0;
- int calculatedPow[MAX_LEDS];
- for (i = 0; i < MAX_LEDS; i++) {
- power[i] = 50; // leds start at 1% of the power (just to show app is running)
-
- }
-
- // PWM
- while (!finishThread) {
- if (!cont) {
- for (int i = 0; i < MAX_LEDS; ++i) {
- calculatedPow[i] = func(power[i]);
- }
- }
- //cout << "Still executing PWM. " << cont <<  "\n";
- cont == 99 ? cont = 0 : cont++;
-
- for (i = 0; i < MAX_LEDS; i++) {
- turn_led(led[i], cont < calculatedPow[i]);
- }
-
- // if (cont==0 && power[i]>0)
- //turn_led(led[i],true);
- //else
- //if (cont==power[i])
- //turn_led(led[i],false);
-
- }
-
- cout << "Thread PWM LEDs finishing\n";
- return 0;
- }
- */
 void InterpretMessage(char msg[MSG_LEN]) {
 	unsigned int led, pow, i;
 
@@ -198,53 +182,41 @@ void InterpretMessage(char msg[MSG_LEN]) {
 		led = MAX_LEDS;
 		break;
 	default:
-		// semcout->p();
 		cout << "Invalid led value '" << msg[0] << "' on position 0\n";
-		// semcout->v();
 		return;
 	}
 
-	//led = ((unsigned int)msg[0])-48; // int based on ascii
 	if (msg[1] == 'E') {
 		//effect
 		if (msg[2] == 'N') // turn ON effect
 				{
 			if (led < MAX_LEDS) // one led
-					{ // mutexEffect[led]->unlock();
+					{
 				effect[led] = true;
 			} else // all leds at once
 			{
 				for (i = 0; i < MAX_LEDS; i++) {
-					// mutexEffect[i]->unlock();
 					effect[i] = true;
 				}
 			}
-			// semcout->p();
 
 			cout << "Effect[" << led << "]=ON\n";
-			// semcout->v();
 		} else if (msg[2] == 'F') // turn OFF effect
 				{
 			if (led < MAX_LEDS) {
-				// mutexEffect[led]->lock();
 				effect[led] = false;
 			} else {
 				for (i = 0; i < MAX_LEDS; i++) {
-					// mutexEffect[i]->lock();
 					effect[i] = false;
 				}
 			}
-			// semcout->p();
 			cout << "Effect[" << led << "]=OFF\n";
-			// semcout->v();
 		} else   // set effect delay
 		{
 			unsigned int tempDelay = ((unsigned int) msg[2]) - 48;
 			tempDelay *= 10 ^ (((unsigned int) msg[3]) - 48);
 			effectDelay = tempDelay;
-			// semcout->p();
 			cout << "Delay=" << effectDelay << "\n";
-			// semcout->v();
 		}
 	} else if (msg[1] == '0' || msg[1] == '1') {
 		// fixed power
@@ -265,13 +237,9 @@ void InterpretMessage(char msg[MSG_LEN]) {
 				power[i] = pow;
 			}
 		}
-		// semcout->p();
 		cout << "Power[" << led << "]=" << pow << "\n";
-		// semcout->v();
 	} else {
-		// semcout->p();
 		cout << "Invalid value '" << msg[1] << "' on position 1\n";
-		// semcout->v();
 	}
 }
 
@@ -355,21 +323,10 @@ int LEDPowerEffect() {
 	int pow;
 
 	while (!finishThread) {
-		//for (i=0; i<=MAX_LEDS; i++) {
-		// semcout->p();
-
-		// semcout->v();
 		for (pow = 0; pow <= 100; pow++) {
 			for (int i = 0; i < MAX_LEDS; ++i) {
-				// mutexEffect[i]->lock();
-				//if (i<MAX_LEDS) // only one led
 				if (effect[i]) {
 					power[i] = pow;
-
-					//else // all leds at once
-					//   for (j=0; j<MAX_LEDS; j++)
-					//      power[j]=pow;
-					// mutexEffect[i]->unlock();
 					Alarm::delay(effectDelay);
 				}
 			}
@@ -377,14 +334,7 @@ int LEDPowerEffect() {
 		for (pow = 100; pow >= 0; pow--) {
 			for (int i = 0; i < MAX_LEDS; ++i) {
 				if (effect[i]) {
-
-					// mutexEffect[i]->lock();
-					//if (i<MAX_LEDS)
 					power[i] = pow;
-					//else
-					//   for (j=0; j<MAX_LEDS; j++)
-					//      power[j]=pow;
-					// mutexEffect[i]->unlock();
 					Alarm::delay(effectDelay);
 				}
 			}
@@ -398,7 +348,6 @@ int LEDPowerEffect() {
 
 void PWMInterrupt() {
 	static int count = 0;
-	static bool turnOn = false;
 	int led[5]; // not all leds are actually used. Only the RGB ones (the first 3)
 	led[0] = 10;
 	led[1] = 9;
@@ -419,21 +368,15 @@ int main() {
 	cout << "EposMotesII app initing\n";
 	unsigned int i;
 	TSC_Timer pwmTimer(100, &PWMInterrupt);
-//Alarm::delay(100);
 	for (i = 0; i < MAX_LEDS; i++) {
-		//   mutexEffect[i]= new Mutex();
-		//   mutexEffect[i]->lock(); // effect starts OFF (blocked)
 		effect[i] = false;
 	}
 	nic = new NIC();
-// semcout = new Semaphore(1);
 
 	Thread * thrdPWM;
 	Thread * thrdUART;
 	Thread * thrdNIC;
 	Thread * thrdEffect;
-//Uncomment later when use photo sensor.
-//useSensor = myCuteSensor.enable();
 
 	thrdUART = new Thread(&ReceiveCommandUART);
 
@@ -441,19 +384,11 @@ int main() {
 	thrdEffect = new Thread(&LEDPowerEffect);
 	Alarm::delay(5e6);
 
-// semcout->p();
 	cout << "Waiting for threads to finish\n";
-// semcout->v();
 
 	int status_thrdUART = thrdUART->join();
 
-//int status_thrdNIC  = thrdNIC->join();
 	int status_thrdEffect = thrdEffect->join();
 	cout << "Threads finished. EposMotesII app finishing\n";
-//Lista das pessoas que se importam com essa parte do código:
-
-//Fim da lista
-//thrdPWM = new Thread(&PWMLeds);
-//int status_thrdPWM = thrdPWM->join();
 	return 0;
 }
