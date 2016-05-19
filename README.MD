@@ -39,7 +39,7 @@ document such a solution.
 
 
 
-#####In order to work with EPOS, you need:
+##In order to work with EPOS, you need:
 
 1. To extract the contents of "OpenEPOS-1.1RC.tgz" file where you would like most.
 1. To set some environment variables (on the user's bash config file "home/User/.bashrc"):
@@ -59,7 +59,7 @@ self contained.
 
 
 
-#####Guidelines for contributing:
+##Guidelines for contributing:
 
 1. Respect the [project coding style](CONTRIBUTING.md).
 2. Make a single change per commit.
