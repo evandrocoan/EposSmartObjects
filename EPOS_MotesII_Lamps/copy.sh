@@ -1,6 +1,10 @@
 #!/bin/sh
 
+
+# Saves the current opened path, to restore it when this scripts finish.
 installManual=$(cat "_installManual.txt")
+PWD_COMPILE_EPOS_LAMP=$(pwd)
+
 
 # Print help to the output stream.
 printHelp()
@@ -52,5 +56,5 @@ else
     exit 1
 fi
 
-
+printHelp
 

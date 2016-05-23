@@ -1,6 +1,10 @@
 #!/bin/sh
 
+
+# Saves the current opened path, to restore it when this scripts finish.
 installManual=$(cat "_installManual.txt")
+PWD_COMPILE_EPOS_LAMP=$(pwd)
+
 
 # Print help to the output stream.
 printHelp()
@@ -10,9 +14,6 @@ printHelp()
     echo "$installManual"
 }
 
-
-# Saves the current opened path, to restore it when this scripts finish.
-PWD_COMPILE_EPOS_LAMP=$(pwd)
 
 # The EPOSMotes2 installer
 EPOS_MOTES2_INSTALLER="red-bsl.py"
@@ -50,7 +51,7 @@ fi
 
 # Switch back to the start command line folder.
 cd $PWD_COMPILE_EPOS_LAMP
-
+printHelp
 
 
 
