@@ -48,11 +48,15 @@
 #include <mutex.h>
 #include <semaphore.h>
 #include <traits.h>
-#include <lamps_project_debugger.h>
+//#include <lamps_project_debugger.h>
 #include <array_operations.h>
+#include <MyClass.h>
+
 
 
 __USING_SYS
+
+
 
 //TODO
 //Get register addresses from include/mach/mc13224v/memory_map.h and implement function.
@@ -514,6 +518,13 @@ void PWMInterrupt()
 int main()
 {
     cout << "EposMotesII app initing\n";
+    
+    MyClass myClassObject;
+    
+    cout << "myClassObject.get_hi(): ";
+    cout << myClassObject.get_hi();
+    cout << "\n\n\n";
+    
     unsigned int i;
     TSC_Timer    pwmTimer( 100, &PWMInterrupt );
 

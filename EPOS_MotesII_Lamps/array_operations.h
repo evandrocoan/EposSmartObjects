@@ -76,6 +76,7 @@ bool checkPosition(bitarr_t arr, size_t pos) {
 	//Check bit of element
 	return (*element) & (1 << (elementPos));
 }
+
 /**
  * Sets bit on given position of the array
  * @param arr			The bit array
