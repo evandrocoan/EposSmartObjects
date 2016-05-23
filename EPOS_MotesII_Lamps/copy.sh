@@ -10,6 +10,9 @@ printHelp()
     echo "$installManual"
 }
 
+# The new Trait.h file to changes the compiler scheduler
+NEW_SCHEDULER_FILE="traits.h"
+
 # Read the command line argument. The programs name must to be without type extension.
 programFileToCompile=$1
 
@@ -21,6 +24,16 @@ if ! [ -f $programFileToCompile ] \
     || [ $# -eq 0 ]
 then
     echo "\nERROR! Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile"
+    printHelp
+    exit 1
+fi
+
+# To install the new scheduler.
+if cp $EPOS/app/INE5412_EposMotesII_SmartObjects/EPOS_MotesII_Lamps/$NEW_SCHEDULER_FILE $EPOS/include
+then
+    echo "The copy of $NEW_SCHEDULER_FILE to $EPOS/include was successful"
+else
+    echo "ERROR! Could not to copy $NEW_SCHEDULER_FILE to $EPOS/include"
     printHelp
     exit 1
 fi

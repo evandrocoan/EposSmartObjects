@@ -64,11 +64,14 @@ sudo python $EPOS_MOTES2_INSTALLER -t /dev/ttyUSB0 -f img/$programNameToCompile.
 # Switch back to the start command line folder.
 cd $PWD_COMPILE_EPOS_LAMP
 
-echo "\nATTENTION! Install cutecom to read the EPOSMotes2 cout stream output."
+echo "ATTENTION! Install cutecom to read the EPOSMotes2 cout stream output."
 echo "To install it, use: sudo apt-get install cutecom"
 echo "To run it, use: sudo cutecom /dev/ttyUSB<number> &"
 echo "Example: sudo cutecom /dev/ttyUSB0 &"
-
+echo "\nAfter open cutemcom, click on the open button"
+echo "then press the EPOSMotes2 reset button, otherwise"
+echo "it will not work, to send commands to the EPOSMotes2"
+echo "by USB device. As: echo :R100 > /dev/ttyUSB0\n"
 
 
 

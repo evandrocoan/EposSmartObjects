@@ -23,6 +23,20 @@
  * 
  * The scheduling algorithm should be located inside the templatized Traits<Thread> structure.
  * Also, you can change the quantum which each thread will be given by the scheduler.
+ * 
+ * pq tem os 3 coloridos ali
+ * e tem um outro q fica do lado
+ * qnd ele ta ligado eh pq deu merda
+ * hmmm
+ * ql escalonador vc ta usando?
+ * vc mudou o escalonador?
+ * 
+ * vai na pasta include
+ * do epos isso
+ * vai em traits
+ * vai ter um Traits<Thread>
+ * la dentro, muda pra Round Robin
+ * 
  */
 
 #include <machine.h>

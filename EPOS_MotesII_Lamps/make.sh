@@ -35,7 +35,7 @@ fi
 cd $EPOS
 
 # To clear any last compilation data.
-if [[ $! == *"$clean"* ]]
+if [[ $2 == *"clean"* ]]
 then
     make veryclean all
 fi
