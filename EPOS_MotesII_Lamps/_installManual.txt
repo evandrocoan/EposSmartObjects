@@ -1,0 +1,8 @@
+
+REMENBER, firstly run in order:
+./copy.sh    MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc
+./make.sh    MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc
+./process.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc
+./install.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc
+
+

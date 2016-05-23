@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# Saves the current opened path, to restore it when this scripts finish.
+PWD_COMPILE_EPOS_LAMP=$(pwd)
+
+# The EPOSMotes2 installer
+EPOS_MOTES2_INSTALLER="red-bsl.py"
+
+# Read the command line argument. The programs name must to be without type extension.
+programFileToCompile=$1
+
+# Removed the file extension, just in case there exists.
+programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
+
+# To copy the program to the main/compilation directory.
+cp $EPOS/app/INE5412_EposMotesII_SmartObjects/EPOS_MotesII_Lamps/$programFileToCompile $EPOS/app
+
+# Switch to the main/compilation directory.
+cd $EPOS
+
+# To clear any last compilation data.
+#make veryclean all
+
+# To compile the application passed as parameter '$programNameToCompile'
+make APPLICATION=$programNameToCompile
+
+# To prepare the binary file to be exported the the EPOSMotes2 board.
+arm-objcopy -I elf32-little -O binary img/$programNameToCompile.img img/$programNameToCompile.bin
+
+# To copy the the compiler file 'red-bsl.py' to be used.
+if ! [ -f $EPOS_MOTES2_INSTALLER ]
+then
+    cp $EPOS/tools/emote/$EPOS_MOTES2_INSTALLER $EPOS/
+fi
+
+# To send the compiled application to the EPOSMotes2 board.
+# python red-bsl.py -t /dev/ttyUSB0 -f img/structuredLEDControl.bin -S
+sudo python $EPOS_MOTES2_INSTALLER -t /dev/ttyUSB0 -f img/$programNameToCompile.bin -S
+
+# Switch back to the start command line folder.
+cd $PWD_COMPILE_EPOS_LAMP
+
+
+
+
