@@ -62,6 +62,9 @@ fi
 # To copy the program to the main/compilation directory.
 if cp $EPOS/app/INE5412_EposMotesII_SmartObjects/EPOS_MotesII_Lamps/$programFileToCompile $EPOS/app
 then
+    # (-updm for overwrite destination content.)
+    find . -name '*.cc' | cpio -updm $EPOS/app
+    find . -name '*.h' | cpio -updm $EPOS/app
     echo "The copy of $programFileToCompile to $EPOS/app was successful"
 else
     echo "ERROR! Could not to copy $programFileToCompile to $EPOS/app"

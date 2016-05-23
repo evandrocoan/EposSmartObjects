@@ -48,7 +48,6 @@
 #include <mutex.h>
 #include <semaphore.h>
 #include <traits.h>
-
 #include <array_operations.h>
 
 
@@ -368,8 +367,8 @@ int ReceiveCommandUART()
     
     cout << "To send commands to the EPOSMotes2 by USB device, use: \n";
     cout << "echo :R100 > /dev/ttyUSB0\n\n";
-    cout << "Try also :REN, :BEN, :GEN or :AEN"
-        cout << "\nAll commnds must to start with : (colon)\n";
+    cout << "Try also :REN, :BEN, :GEN or :AEN";
+    cout << "\nAll commnds must to start with : (colon)\n";
     
     // semcout->p();
     
