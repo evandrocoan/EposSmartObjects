@@ -46,28 +46,28 @@ then
     cd $PWD_COMPILE_EPOS_LAMP
     exit 0
 else
-    if ! sh copy.sh $programFileToCompile
+    if ! sh _copy.sh $programFileToCompile
     then
         echo "\nERROR! Could not to copy the initial files!"
         printHelp
         exit 1
     fi
     
-    if ! sh make.sh $programFileToCompile $3
+    if ! sh _make.sh $programFileToCompile $3
     then
         echo "\nERROR! Could not to compile the program!"
         printHelp
         exit 1
     fi
     
-    if ! sh process.sh $programFileToCompile
+    if ! sh _process.sh $programFileToCompile
     then
         echo "\nERROR! Could not to process the objcopy!"
         printHelp
         exit 1
     fi
     
-    if ! sh install.sh $programFileToCompile $2
+    if ! sh _install.sh $programFileToCompile $2
     then
         echo "\nERROR! Could not to install the program into the EPOSMotes2!"
         printHelp
