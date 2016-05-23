@@ -2,7 +2,7 @@
 
 
 # Saves the current opened path, to restore it when this scripts finish.
-installManual=$(cat "_installManual.txt")
+installManual=$(cat "__installManual.txt")
 PWD_COMPILE_EPOS_LAMP=$(pwd)
 
 
@@ -56,6 +56,8 @@ then
     echo "\nERROR! Bad USB port number $computerUSBNumber!"
     echo "Use: ./install.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc 0"
     exit 1
+else
+    computerUSBNumber=0
 fi
 
 
@@ -74,12 +76,9 @@ then
 fi
 
 
-echo "The start directory is $PWD_COMPILE_EPOS_LAMP"
-echo "The current directory is $EPOS"
-
 # To send the compiled application to the EPOSMotes2 board.
 # python red-bsl.py -t /dev/ttyUSB0 -f img/structuredLEDControl.bin -S
-sudo python $EPOS_MOTES2_INSTALLER -t /dev/ttyUSB0 -f img/$programNameToCompile.bin -S
+sudo python $EPOS_MOTES2_INSTALLER -t /dev/ttyUSB$computerUSBNumber -f img/$programNameToCompile.bin -S
 
 
 # Switch back to the start command line folder.
@@ -91,6 +90,13 @@ echo "To run it, use: sudo cutecom /dev/ttyUSB<number> &"
 echo "Example: sudo cutecom /dev/ttyUSB0 &"
 echo "\nAfter open cutecom, click on the open button then press the EPOSMotes2 reset button, otherwise"
 echo "it will not work, to send commands to the EPOSMotes2 by USB device. As: echo :R100 > /dev/ttyUSB0\n"
-printHelp
+
+
+# Print help when it is not passed a third command line argument integer
+if isInteger $3
+then
+    printHelp
+fi
+
 
 

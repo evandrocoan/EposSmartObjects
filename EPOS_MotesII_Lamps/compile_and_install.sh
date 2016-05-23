@@ -2,7 +2,7 @@
 
 
 # Saves the current opened path, to restore it when this scripts finish.
-installManual=$(cat "_installManual.txt")
+installManual=$(cat "__installManual.txt")
 PWD_COMPILE_EPOS_LAMP=$(pwd)
 
 
@@ -26,10 +26,16 @@ programFileToCompile=$1
 
 
 # Notify an invalid file passed as parameter.
-if ! [ -f $programFileToCompile ] \
-    || ! [ -f structuredLEDControl.cc ]
+if ! [ -f $programFileToCompile ]
 then
-    echo "\nERROR! Could not to find your program $1|$programFileToCompile!"
+    echo "\nERROR! Could not to find your program $programFileToCompile!"
+    echo "Please try again providing an correct program. Example:"
+    echo "./compile.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc\n"
+    printHelp
+    exit 1
+elif ! [ -f structuredLEDControl.cc ]
+then
+    echo "\nERROR! Could not to find your program 'structuredLEDControl.cc'!"
     echo "Please try again providing an correct program. Example:"
     echo "./compile.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc\n"
     printHelp
@@ -41,33 +47,35 @@ fi
 if [ $# -eq 0 ]
 then
     cp $EPOS/app/INE5412_EposMotesII_SmartObjects/EPOS_MotesII_Lamps/structuredLEDControl.cc $EPOS/app
-    cd $EPOS ; make veryclean all; make APPLICATION=structuredLEDControl ;  arm-objcopy -I elf32-little -O binary img/structuredLEDControl.img img/structuredLEDControl.bin
+    cd $EPOS
+    make veryclean all
+    make APPLICATION=structuredLEDControl
+    arm-objcopy -I elf32-little -O binary img/structuredLEDControl.img img/structuredLEDControl.bin
     python red-bsl.py -t /dev/ttyUSB0 -f img/structuredLEDControl.bin -S
     cd $PWD_COMPILE_EPOS_LAMP
-    exit 0
 else
-    if ! sh _copy.sh $programFileToCompile
+    if ! sh _copy.sh $programFileToCompile 0
     then
         echo "\nERROR! Could not to copy the initial files!"
         printHelp
         exit 1
     fi
     
-    if ! sh _make.sh $programFileToCompile $3
+    if ! sh _make.sh $programFileToCompile $3 0
     then
         echo "\nERROR! Could not to compile the program!"
         printHelp
         exit 1
     fi
     
-    if ! sh _process.sh $programFileToCompile
+    if ! sh _process.sh $programFileToCompile 0
     then
         echo "\nERROR! Could not to process the objcopy!"
         printHelp
         exit 1
     fi
     
-    if ! sh _install.sh $programFileToCompile $2
+    if ! sh _install.sh $programFileToCompile $2 0
     then
         echo "\nERROR! Could not to install the program into the EPOSMotes2!"
         printHelp

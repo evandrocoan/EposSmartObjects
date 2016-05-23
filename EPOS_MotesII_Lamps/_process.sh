@@ -2,7 +2,7 @@
 
 
 # Saves the current opened path, to restore it when this scripts finish.
-installManual=$(cat "_installManual.txt")
+installManual=$(cat "__installManual.txt")
 PWD_COMPILE_EPOS_LAMP=$(pwd)
 
 
@@ -14,6 +14,18 @@ printHelp()
     echo "$installManual"
 }
 
+# Determine whether the first parameter is an integer or not.
+#
+# Returns 1 if the specified string is an integer, otherwise returns 0.
+isInteger()
+{
+    if [ "$1" -eq "$1" ] 2>/dev/null
+    then
+        return 1
+    else
+        return 0
+    fi
+}
 
 # The EPOSMotes2 installer
 EPOS_MOTES2_INSTALLER="red-bsl.py"
@@ -51,7 +63,12 @@ fi
 
 # Switch back to the start command line folder.
 cd $PWD_COMPILE_EPOS_LAMP
-printHelp
+
+# Print help when it is not passed a second command line argument integer
+if isInteger $2
+then
+    printHelp
+fi
 
 
 

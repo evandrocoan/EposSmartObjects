@@ -2,7 +2,7 @@
 
 
 # Saves the current opened path, to restore it when this scripts finish.
-installManual=$(cat "_installManual.txt")
+installManual=$(cat "__installManual.txt")
 PWD_COMPILE_EPOS_LAMP=$(pwd)
 
 
@@ -28,6 +28,19 @@ contains()
         return 0    # $substring is in $string
     else
         return 1    # $substring is not in $string
+    fi
+}
+
+# Determine whether the first parameter is an integer or not.
+#
+# Returns 1 if the specified string is an integer, otherwise returns 0.
+isInteger()
+{
+    if [ "$1" -eq "$1" ] 2>/dev/null
+    then
+        return 1
+    else
+        return 0
     fi
 }
 
@@ -66,11 +79,14 @@ fi
 
 # To compile the application passed as parameter '$programNameToCompile'
 make APPLICATION=$programNameToCompile
-printHelp
 
 # Switch back to the start command line folder.
 cd $PWD_COMPILE_EPOS_LAMP
 
-
+# Print help when it is not passed a third command line argument integer
+if isInteger $3
+then
+    printHelp
+fi
 
 
