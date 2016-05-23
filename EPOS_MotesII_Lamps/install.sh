@@ -10,6 +10,7 @@ printHelp()
     echo "$installManual"
 }
 
+
 # Saves the current opened path, to restore it when this scripts finish.
 PWD_COMPILE_EPOS_LAMP=$(pwd)
 
@@ -23,6 +24,7 @@ programFileToCompile=$1
 
 # Removed the file extension, just in case there exists.
 programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
+
 
 # Notify an invalid file passed as parameter.
 if ! [ -f $programFileToCompile ] \
@@ -41,6 +43,8 @@ then
     exit 1
 fi
 
+
+
 # Switch to the main/compilation directory.
 cd $EPOS
 
@@ -54,12 +58,14 @@ then
     cp $EPOS/tools/emote/$EPOS_MOTES2_INSTALLER_BINARY2 $EPOS/
 fi
 
+
 echo "The start directory is $PWD_COMPILE_EPOS_LAMP"
 echo "The current directory is $EPOS"
 
 # To send the compiled application to the EPOSMotes2 board.
 # python red-bsl.py -t /dev/ttyUSB0 -f img/structuredLEDControl.bin -S
 sudo python $EPOS_MOTES2_INSTALLER -t /dev/ttyUSB0 -f img/$programNameToCompile.bin -S
+
 
 # Switch back to the start command line folder.
 cd $PWD_COMPILE_EPOS_LAMP

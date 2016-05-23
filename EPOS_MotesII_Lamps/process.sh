@@ -10,6 +10,7 @@ printHelp()
     echo "$installManual"
 }
 
+
 # Saves the current opened path, to restore it when this scripts finish.
 PWD_COMPILE_EPOS_LAMP=$(pwd)
 
@@ -22,6 +23,7 @@ programFileToCompile=$1
 # Removed the file extension, just in case there exists.
 programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 
+
 # Notify an invalid file passed as parameter.
 if ! [ -f $programFileToCompile ] \
     || [ $# -eq 0 ]
@@ -30,6 +32,7 @@ then
     printHelp
     exit 1
 fi
+
 
 # Switch to the main/compilation directory.
 cd $EPOS
@@ -43,8 +46,6 @@ else
     printHelp
     exit 1
 fi
-
-
 
 
 # Switch back to the start command line folder.
