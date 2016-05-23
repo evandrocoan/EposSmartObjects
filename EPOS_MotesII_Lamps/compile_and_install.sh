@@ -14,8 +14,8 @@ printHelp()
     echo "The second parameter is the USB port number to install."
     echo "The third parameter is the optional value clean for a make veryclean all."
     echo "Examples:"
-    echo "./compile.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc 0 clean"
-    echo "./compile.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc 1"
+    echo "./compile_and_install.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc 0 clean"
+    echo "./compile_and_install.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc 1"
     echo "$installManual"
 }
 
