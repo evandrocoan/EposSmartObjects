@@ -49,6 +49,8 @@
 #include <semaphore.h>
 #include <traits.h>
 #include <lamps_project_debugger.h>
+#include <array_operations.h>
+
 
 __USING_SYS
 
@@ -70,6 +72,7 @@ __USING_SYS
  }
  */
 
+ 
 bool useSensor = false;
 
 int defaultPower( int power )
@@ -227,6 +230,7 @@ void turn_led( int pin, bool on )
  return 0;
  }
  */
+
 void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
 {
     unsigned int led, pow, i;
@@ -364,8 +368,8 @@ int ReceiveCommandUART()
     
     cout << "To send commands to the EPOSMotes2 by USB device, use: \n";
     cout << "echo :R100 > /dev/ttyUSB0\n\n";
-    cout << "Try also :REN, :BEN, :GEN or :AEN"
-        cout << "\nAll commnds must to start with : (colon)\n";
+    cout << "Try also :REN, :BEN, :GEN or :AEN";
+    cout << "\nAll commnds must to start with : (colon)\n";
     
     // semcout->p();
     
