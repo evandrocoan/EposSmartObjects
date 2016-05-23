@@ -83,24 +83,26 @@ int sensorCalculatePower(int power) {
  *  copied from memory_map.h
  */
 const unsigned int GPIO_BASE = 0x80000000;
+
 /**
  * DATA_SET is just so magical I can't express my thoughts into words.
  */
 const unsigned int GPIO_DATA_SET0 = GPIO_BASE + 0x48;
+
 /**
  * PAD_DIR0 contains the base address which contains the registers' values.
  */
 const unsigned int GPIO_PAD_DIR0 = GPIO_BASE + 0x00;
 
 /**
- * MSG_LEN is the maximum length of the message which can be sent and received via UART/NIC
+ * MAX_MESSAGE_LENGTH_ALLOWED is the maximum length of the message which can be sent and received via UART/NIC
  */
-const unsigned int MSG_LEN = 5;
+const unsigned int MAX_MESSAGE_LENGTH_ALLOWED = 5;
 
 /**
- *  only leds 0 to 2 (RGB) are used
+ * Only LEDs 0 to 2 (RGB) are used
  */
-const unsigned int MAX_LEDS = 3;
+const unsigned int MAX_LEDS_ALLOWED_TO_BE_USED = 3;
 
 /**
  * Please save yourself the trouble and don't read the documentation bellow. If you do
@@ -109,25 +111,32 @@ const unsigned int MAX_LEDS = 3;
  * count = 2
  * //4294967294 //4.294.967.294
  */
-unsigned int effectDelay = 1e5;
+unsigned int g_effectDelay = 1e5;
 
-bool finishThread = false;
+/**
+ * Used to stop all running threads which are running throw an while true, to perform busy wait
+ * from this board devices.
+ */
+bool g_finishThread = false;
 
 /**
  * Power of the lads.
  */
-unsigned int power[MAX_LEDS]; // only leds 0 to 2 (RGB) are used
+unsigned int power[MAX_LEDS_ALLOWED_TO_BE_USED]; // only leds 0 to 2 (RGB) are used
 
 /**
- * Stdout for debug reasons.
+ * Stdout for debuggging.
  */
 OStream cout;
 
-//Mutex* mutexEffect[MAX_LEDS];
-bool effect[MAX_LEDS];
+//Mutex* mutexEffect[MAX_LEDS_ALLOWED_TO_BE_USED];
+bool g_effect[MAX_LEDS_ALLOWED_TO_BE_USED];
 
-//Semaphore* semcout;
-NIC * nic;
+/**
+ * Semaphore* semcout;
+ */
+NIC * g_nic;
+
 /**
  * This function is used to toggle the led on or off.
  *
@@ -177,23 +186,23 @@ void turn_led(int pin, bool on) {
 
  unsigned int i;
  unsigned int cont = 0;
- int calculatedPow[MAX_LEDS];
- for (i = 0; i < MAX_LEDS; i++) {
+ int calculatedPow[MAX_LEDS_ALLOWED_TO_BE_USED];
+ for (i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; i++) {
  power[i] = 50; // leds start at 1% of the power (just to show app is running)
 
  }
 
  // PWM
- while (!finishThread) {
+ while (!g_finishThread) {
  if (!cont) {
- for (int i = 0; i < MAX_LEDS; ++i) {
+ for (int i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; ++i) {
  calculatedPow[i] = func(power[i]);
  }
  }
  //cout << "Still executing PWM. " << cont <<  "\n";
  cont == 99 ? cont = 0 : cont++;
 
- for (i = 0; i < MAX_LEDS; i++) {
+ for (i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; i++) {
  turn_led(led[i], cont < calculatedPow[i]);
  }
 
@@ -209,7 +218,7 @@ void turn_led(int pin, bool on) {
  return 0;
  }
  */
-void InterpretMessage(char msg[MSG_LEN]) {
+void InterpretMessage(char msg[MAX_MESSAGE_LENGTH_ALLOWED]) {
 	unsigned int led, pow, i;
 
 	switch (msg[0]) {
@@ -223,7 +232,7 @@ void InterpretMessage(char msg[MSG_LEN]) {
 		led = 2;
 		break;
 	case 'A':
-		led = MAX_LEDS;
+		led = MAX_LEDS_ALLOWED_TO_BE_USED;
 		break;
 	default:
 		// semcout->p();
@@ -234,44 +243,44 @@ void InterpretMessage(char msg[MSG_LEN]) {
 
 	//led = ((unsigned int)msg[0])-48; // int based on ascii
 	if (msg[1] == 'E') {
-		//effect
-		if (msg[2] == 'N') // turn ON effect
+		//g_effect
+		if (msg[2] == 'N') // turn ON g_effect
 				{
-			if (led < MAX_LEDS) // one led
+			if (led < MAX_LEDS_ALLOWED_TO_BE_USED) // one led
 					{ // mutexEffect[led]->unlock();
-				effect[led] = true;
+				g_effect[led] = true;
 			} else // all leds at once
 			{
-				for (i = 0; i < MAX_LEDS; i++) {
+				for (i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; i++) {
 					// mutexEffect[i]->unlock();
-					effect[i] = true;
+					g_effect[i] = true;
 				}
 			}
 			// semcout->p();
 
 			cout << "Effect[" << led << "]=ON\n";
 			// semcout->v();
-		} else if (msg[2] == 'F') // turn OFF effect
+		} else if (msg[2] == 'F') // turn OFF g_effect
 				{
-			if (led < MAX_LEDS) {
+			if (led < MAX_LEDS_ALLOWED_TO_BE_USED) {
 				// mutexEffect[led]->lock();
-				effect[led] = false;
+				g_effect[led] = false;
 			} else {
-				for (i = 0; i < MAX_LEDS; i++) {
+				for (i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; i++) {
 					// mutexEffect[i]->lock();
-					effect[i] = false;
+					g_effect[i] = false;
 				}
 			}
 			// semcout->p();
 			cout << "Effect[" << led << "]=OFF\n";
 			// semcout->v();
-		} else   // set effect delay
+		} else   // set g_effect delay
 		{
 			unsigned int tempDelay = ((unsigned int) msg[2]) - 48;
 			tempDelay *= 10 ^ (((unsigned int) msg[3]) - 48);
-			effectDelay = tempDelay;
+			g_effectDelay = tempDelay;
 			// semcout->p();
-			cout << "Delay=" << effectDelay << "\n";
+			cout << "Delay=" << g_effectDelay << "\n";
 			// semcout->v();
 		}
 	} else if (msg[1] == '0' || msg[1] == '1') {
@@ -284,12 +293,12 @@ void InterpretMessage(char msg[MSG_LEN]) {
 			pow = 100;
 		}
 
-		if (led < MAX_LEDS) // only one led
+		if (led < MAX_LEDS_ALLOWED_TO_BE_USED) // only one led
 				{
 			power[led] = pow;
 		} else // all leds at once
 		{
-			for (i = 0; i < MAX_LEDS; i++) {
+			for (i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; i++) {
 				power[i] = pow;
 			}
 		}
@@ -303,10 +312,10 @@ void InterpretMessage(char msg[MSG_LEN]) {
 	}
 }
 
-void SendMessageToNIC(char msg[MSG_LEN]) {
+void SendMessageToNIC(char msg[MAX_MESSAGE_LENGTH_ALLOWED]) {
 	int r;
 
-	while ((r = nic->send(NIC::BROADCAST, (NIC::Protocol) 1, &msg, sizeof(msg)))
+	while ((r = g_nic->send(NIC::BROADCAST, (NIC::Protocol) 1, &msg, sizeof(msg)))
 			== 0) // != 11 ?
 	{ // semcout->p();
 		cout << "Send failed " << r << "\n";
@@ -322,23 +331,28 @@ void SendMessageToNIC(char msg[MSG_LEN]) {
 int ReceiveCommandUART() {
 	cout << "Thread UART initing\n";
 	unsigned int i;
-	char msg[MSG_LEN]; //[DATA_SIZE];
-
+	char msg[MAX_MESSAGE_LENGTH_ALLOWED]; //[DATA_SIZE];
+    
+    cout << "To send commands to the EPOSMotes2 by USB device, use: \n";
+    cout << "echo :R100 > /dev/ttyUSB0\n\n";
+    cout << "Try also :REN, :BEN, :GEN or :AEN"
+    cout << "\nAll commnds must to start with : (colon)\n";
+    
 	// semcout->p();
 
 	// semcout->v();
 	UART * uart = new UART();
 
-	while (!finishThread) {
+	while (!g_finishThread) {
 		do {
 			msg[0] = uart->get();
 		} while (msg[0] != ':'); // messages start with ":"
 		i = 0;
 
-		while ((msg[i - 1] != '\n') && (i < MSG_LEN)) {
+		while ((msg[i - 1] != '\n') && (i < MAX_MESSAGE_LENGTH_ALLOWED)) {
 			msg[i++] = uart->get();
 		}
-		memset(msg + i, 0x00, MSG_LEN - i);
+		memset(msg + i, 0x00, MAX_MESSAGE_LENGTH_ALLOWED - i);
 		// message received.
 		SendMessageToNIC(msg);
 		InterpretMessage(msg);
@@ -353,13 +367,13 @@ int ReceiveCommandNIC() {
 	cout << "Thread NIC initing\n";
 	// semcout->v();
 
-	char msg[MSG_LEN];
+	char msg[MAX_MESSAGE_LENGTH_ALLOWED];
 
 	NIC::Protocol prot;
 	NIC::Address src;
 
-	while (!finishThread) {
-		while (!(nic->receive(&src, &prot, &msg, sizeof(msg)) > 0)) {
+	while (!g_finishThread) {
+		while (!(g_nic->receive(&src, &prot, &msg, sizeof(msg)) > 0)) {
 			// semcout->p();
 			//cout << ".";
 			// semcout->v();
@@ -378,42 +392,42 @@ int LEDPowerEffect() {
 	// semcout->p();
 	cout << "Thread Effect initing\n";
 	// semcout->v();
-	//unsigned int i = MAX_LEDS;
+	//unsigned int i = MAX_LEDS_ALLOWED_TO_BE_USED;
 	unsigned int j;
 	int pow;
 
-	while (!finishThread) {
-		//for (i=0; i<=MAX_LEDS; i++) {
+	while (!g_finishThread) {
+		//for (i=0; i<=MAX_LEDS_ALLOWED_TO_BE_USED; i++) {
 		// semcout->p();
 
 		// semcout->v();
 		for (pow = 0; pow <= 100; pow++) {
-			for (int i = 0; i < MAX_LEDS; ++i) {
+			for (int i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; ++i) {
 				// mutexEffect[i]->lock();
-				//if (i<MAX_LEDS) // only one led
-				if (effect[i]) {
+				//if (i<MAX_LEDS_ALLOWED_TO_BE_USED) // only one led
+				if (g_effect[i]) {
 					power[i] = pow;
 
 					//else // all leds at once
-					//   for (j=0; j<MAX_LEDS; j++)
+					//   for (j=0; j<MAX_LEDS_ALLOWED_TO_BE_USED; j++)
 					//      power[j]=pow;
 					// mutexEffect[i]->unlock();
-					Alarm::delay(effectDelay);
+					Alarm::delay(g_effectDelay);
 				}
 			}
 		}
 		for (pow = 100; pow >= 0; pow--) {
-			for (int i = 0; i < MAX_LEDS; ++i) {
-				if (effect[i]) {
+			for (int i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; ++i) {
+				if (g_effect[i]) {
 
 					// mutexEffect[i]->lock();
-					//if (i<MAX_LEDS)
+					//if (i<MAX_LEDS_ALLOWED_TO_BE_USED)
 					power[i] = pow;
 					//else
-					//   for (j=0; j<MAX_LEDS; j++)
+					//   for (j=0; j<MAX_LEDS_ALLOWED_TO_BE_USED; j++)
 					//      power[j]=pow;
 					// mutexEffect[i]->unlock();
-					Alarm::delay(effectDelay);
+					Alarm::delay(g_effectDelay);
 				}
 			}
 		}
@@ -433,7 +447,7 @@ void PWMInterrupt() {
 	led[2] = 11;
 	led[3] = 23;
 	led[4] = 8;
-	for (int i = 0; i < MAX_LEDS; ++i) {
+	for (int i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; ++i) {
 		if (count < power[i]) {
 			turn_led(led[i], true);
 		} else {
@@ -448,12 +462,12 @@ int main() {
 	unsigned int i;
 	TSC_Timer pwmTimer(100, &PWMInterrupt);
 //Alarm::delay(100);
-	for (i = 0; i < MAX_LEDS; i++) {
+	for (i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; i++) {
 		//   mutexEffect[i]= new Mutex();
-		//   mutexEffect[i]->lock(); // effect starts OFF (blocked)
-		effect[i] = false;
+		//   mutexEffect[i]->lock(); // g_effect starts OFF (blocked)
+		g_effect[i] = false;
 	}
-	nic = new NIC();
+	g_nic = new NIC();
 // semcout = new Semaphore(1);
 
 	Thread * thrdPWM;
