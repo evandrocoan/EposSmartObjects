@@ -48,6 +48,7 @@
 #include <mutex.h>
 #include <semaphore.h>
 #include <traits.h>
+#include <lamps_project_debugger.h>
 
 __USING_SYS
 
