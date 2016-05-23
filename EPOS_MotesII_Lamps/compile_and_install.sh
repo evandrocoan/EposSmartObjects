@@ -47,6 +47,7 @@ fi
 if [ $# -eq 0 ]
 then
     cp $EPOS/app/INE5412_EposMotesII_SmartObjects/EPOS_MotesII_Lamps/structuredLEDControl.cc $EPOS/app
+    sh _copy.sh structuredLEDControl.cc 0
     cd $EPOS
     make veryclean all
     make APPLICATION=structuredLEDControl
