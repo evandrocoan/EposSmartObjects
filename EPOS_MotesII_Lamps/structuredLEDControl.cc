@@ -38,7 +38,6 @@
  * la dentro, muda pra Round Robin
  *
  */
-
 #include <machine.h>
 #include <alarm.h>
 #include <sensor.h>
@@ -53,9 +52,7 @@
 #include <MyClass.h>
 
 
-
 __USING_SYS
-
 
 
 //TODO
@@ -74,8 +71,14 @@ __USING_SYS
  // TMR0_CTRL: CM=1,PCS=8,SCS=0,ONCE=0,LENGTH=0,DIR=0,Co_INIT=0,OM=6
  setReg(TMR0_CTRL, 0x3006);
  }
- */
+*/
 
+
+
+/**
+ * Stdout for debuggging.
+ */
+OStream cout;
  
 bool useSensor = false;
 
@@ -134,11 +137,6 @@ bool g_finishThread = false;
  * Power of the lads.
  */
 unsigned int power[ MAX_LEDS_ALLOWED_TO_BE_USED ]; // only leds 0 to 2 (RGB) are used
-
-/**
- * Stdout for debuggging.
- */
-OStream cout;
 
 //Mutex* mutexEffect[MAX_LEDS_ALLOWED_TO_BE_USED];
 bool g_effect[ MAX_LEDS_ALLOWED_TO_BE_USED ];
