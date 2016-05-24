@@ -198,33 +198,33 @@ void turn_led( int pin, bool on )
  led[3] = 23;
  led[4] = 8;
  
- unsigned int i;
+ unsigned int currentIndex;
  unsigned int cont = 0;
  int calculatedPow[MAX_LEDS_ALLOWED_TO_BE_USED];
- for (i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; i++) {
- power[i] = 50; // leds start at 1% of the power (just to show app is running)
+ for (currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++) {
+ power[currentIndex] = 50; // leds start at 1% of the power (just to show app is running)
  
  }
  
  // PWM
  while (!g_finishThread) {
  if (!cont) {
- for (int i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; ++i) {
- calculatedPow[i] = func(power[i]);
+ for (int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex) {
+ calculatedPow[currentIndex] = func(power[currentIndex]);
  }
  }
  //cout << "Still executing PWM. " << cont <<  "\n";
  cont == 99 ? cont = 0 : cont++;
  
- for (i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; i++) {
- turn_led(led[i], cont < calculatedPow[i]);
+ for (currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++) {
+ turn_led(led[currentIndex], cont < calculatedPow[currentIndex]);
  }
  
- // if (cont==0 && power[i]>0)
- //turn_led(led[i],true);
+ // if (cont==0 && power[currentIndex]>0)
+ //turn_led(led[currentIndex],true);
  //else
- //if (cont==power[i])
- //turn_led(led[i],false);
+ //if (cont==power[currentIndex])
+ //turn_led(led[currentIndex],false);
  
  }
  
@@ -235,7 +235,7 @@ void turn_led( int pin, bool on )
 
 void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
 {
-    unsigned int led, pow, i;
+    unsigned int led, pow, currentIndex;
     
     switch( msg[ 0 ] )
     {
@@ -270,10 +270,10 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
             }
             else   // all leds at once
             {
-                for( i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; i++ )
+                for( currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++ )
                 {
-                    // mutexEffect[i]->unlock();
-                    g_effect[ i ] = true;
+                    // mutexEffect[currentIndex]->unlock();
+                    g_effect[ currentIndex ] = true;
                 }
             }
             // semcout->p();
@@ -290,10 +290,10 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
             }
             else
             {
-                for( i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; i++ )
+                for( currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++ )
                 {
-                    // mutexEffect[i]->lock();
-                    g_effect[ i ] = false;
+                    // mutexEffect[currentIndex]->lock();
+                    g_effect[ currentIndex ] = false;
                 }
             }
             // semcout->p();
@@ -328,9 +328,9 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
         }
         else   // all leds at once
         {
-            for( i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; i++ )
+            for( currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++ )
             {
-                power[ i ] = pow;
+                power[ currentIndex ] = pow;
             }
         }
         // semcout->p();
@@ -365,7 +365,7 @@ void SendMessageToNIC( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
 int ReceiveCommandUART()
 {
     cout << "Thread UART initing\n";
-    unsigned int i;
+    unsigned int currentIndex;
     char         msg[ MAX_MESSAGE_LENGTH_ALLOWED ]; //[DATA_SIZE];
     
     cout << "To send commands to the EPOSMotes2 by USB device, use: \n";
@@ -385,13 +385,13 @@ int ReceiveCommandUART()
             msg[ 0 ] = uart->get();
         }
         while( msg[ 0 ] != ':' ); // messages start with ":"
-        i = 0;
+        currentIndex = 0;
         
-        while( ( msg[ i - 1 ] != '\n' ) && ( i < MAX_MESSAGE_LENGTH_ALLOWED ) )
+        while( ( msg[ currentIndex - 1 ] != '\n' ) && ( currentIndex < MAX_MESSAGE_LENGTH_ALLOWED ) )
         {
-            msg[ i++ ] = uart->get();
+            msg[ currentIndex++ ] = uart->get();
         }
-        memset( msg + i, 0x00, MAX_MESSAGE_LENGTH_ALLOWED - i );
+        memset( msg + currentIndex, 0x00, MAX_MESSAGE_LENGTH_ALLOWED - currentIndex );
         // message received.
         SendMessageToNIC( msg );
         InterpretMessage( msg );
@@ -435,30 +435,30 @@ int LEDPowerEffect()
     // semcout->p();
     cout << "Thread Effect initing\n";
     // semcout->v();
-    //unsigned int i = MAX_LEDS_ALLOWED_TO_BE_USED;
+    //unsigned int currentIndex = MAX_LEDS_ALLOWED_TO_BE_USED;
     unsigned int j;
     int          pow;
     
     while( !g_finishThread )
     {
-        //for (i=0; i<=MAX_LEDS_ALLOWED_TO_BE_USED; i++) {
+        //for (currentIndex=0; currentIndex<=MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++) {
         // semcout->p();
         
         // semcout->v();
         for( pow = 0; pow <= 100; pow++ )
         {
-            for( int i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; ++i )
+            for( int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex )
             {
-                // mutexEffect[i]->lock();
-                //if (i<MAX_LEDS_ALLOWED_TO_BE_USED) // only one led
-                if( g_effect[ i ] )
+                // mutexEffect[currentIndex]->lock();
+                //if (currentIndex<MAX_LEDS_ALLOWED_TO_BE_USED) // only one led
+                if( g_effect[ currentIndex ] )
                 {
-                    power[ i ] = pow;
+                    power[ currentIndex ] = pow;
                     
                     //else // all leds at once
                     //   for (j=0; j<MAX_LEDS_ALLOWED_TO_BE_USED; j++)
                     //      power[j]=pow;
-                    // mutexEffect[i]->unlock();
+                    // mutexEffect[currentIndex]->unlock();
                     Alarm::delay( g_effectDelay );
                 }
             }
@@ -466,17 +466,17 @@ int LEDPowerEffect()
         
         for( pow = 100; pow >= 0; pow-- )
         {
-            for( int i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; ++i )
+            for( int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex )
             {
-                if( g_effect[ i ] )
+                if( g_effect[ currentIndex ] )
                 {
-                    // mutexEffect[i]->lock();
-                    //if (i<MAX_LEDS_ALLOWED_TO_BE_USED)
-                    power[ i ] = pow;
+                    // mutexEffect[currentIndex]->lock();
+                    //if (currentIndex<MAX_LEDS_ALLOWED_TO_BE_USED)
+                    power[ currentIndex ] = pow;
                     //else
                     //   for (j=0; j<MAX_LEDS_ALLOWED_TO_BE_USED; j++)
                     //      power[j]=pow;
-                    // mutexEffect[i]->unlock();
+                    // mutexEffect[currentIndex]->unlock();
                     Alarm::delay( g_effectDelay );
                 }
             }
@@ -499,15 +499,15 @@ void PWMInterrupt()
     led[ 3 ] = 23;
     led[ 4 ] = 8;
     
-    for( int i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; ++i )
+    for( int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex )
     {
-        if( count < power[ i ] )
+        if( count < power[ currentIndex ] )
         {
-            turn_led( led[ i ], true );
+            turn_led( led[ currentIndex ], true );
         }
         else
         {
-            turn_led( led[ i ], false );
+            turn_led( led[ currentIndex ], false );
         }
     }
     count = ( count + 1 ) % 100;
@@ -523,9 +523,9 @@ int myClassObjectTest()
 {
     MyClass myClassObject;
     
-    cout << "myClassObject.get_hi(): ";
-    cout << myClassObject.get_hi();
-    cout << "\n\n\n";
+    DEBUGGER( b1, "myClassObject.get_hi(): " );
+    DEBUGGER( b1, myClassObject.get_hi() );
+    DEBUGGER( b1, "\n\n\n" );
     
     return 0;
 }
@@ -535,45 +535,49 @@ int main()
     FPRINTLN( a1, "EposMotesII app initing\n" );
     DEBUGGER( b1, myClassObjectTest() );
     
-    unsigned int i;
+    unsigned int currentIndex;
     TSC_Timer    pwmTimer( 100, &PWMInterrupt );
 
-//Alarm::delay(100);
-    for( i = 0; i < MAX_LEDS_ALLOWED_TO_BE_USED; i++ )
+    //Alarm::delay(100);
+    
+    for( currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++ )
     {
-        //   mutexEffect[i]= new Mutex();
-        //   mutexEffect[i]->lock(); // g_effect starts OFF (blocked)
-        g_effect[ i ] = false;
+        //   mutexEffect[currentIndex]= new Mutex();
+        //   mutexEffect[currentIndex]->lock(); // g_effect starts OFF (blocked)
+        g_effect[ currentIndex ] = false;
     }
+    
     g_nic = new NIC();
-// semcout = new Semaphore(1);
     
     Thread * thrdPWM;
     Thread * thrdUART;
     Thread * thrdNIC;
     Thread * thrdEffect;
-//Uncomment later when use photo sensor.
-//useSensor = myCuteSensor.enable();
+    
+    //Uncomment later when use photo sensor.
+    //useSensor = myCuteSensor.enable();
     
     thrdUART = new Thread( &ReceiveCommandUART );
 
-//thrdNIC  = new Thread(&ReceiveCommandNIC);
+    //thrdNIC  = new Thread(&ReceiveCommandNIC);
     thrdEffect = new Thread( &LEDPowerEffect );
     Alarm::delay( 5e6 );
 
-// semcout->p();
+    // semcout->p();
     cout << "Waiting for threads to finish\n";
-// semcout->v();
+    // semcout->v();
     
     int status_thrdUART = thrdUART->join();
 
-//int status_thrdNIC  = thrdNIC->join();
+    //int status_thrdNIC  = thrdNIC->join();
     int status_thrdEffect = thrdEffect->join();
     cout << "Threads finished. EposMotesII app finishing\n";
-//Lista das pessoas que se importam com essa parte do código:
+    
+    //Lista das pessoas que se importam com essa parte do código:
+    // Evandro  Coan
 
-//Fim da lista
-//thrdPWM = new Thread(&PWMLeds);
-//int status_thrdPWM = thrdPWM->join();
+    //Fim da lista
+    //thrdPWM = new Thread(&PWMLeds);
+    //int status_thrdPWM = thrdPWM->join();
     return 0;
 }

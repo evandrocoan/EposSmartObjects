@@ -18,8 +18,13 @@
 *****************************************************************************************
 */
 #include <utility/ostream.h>
+#include <semaphore.h>
+
 #include <cstdarg>
 #include <cstdio>
+#include <unistd.h>
+#include <stdio.h>
+#include <cstring>
 
 
 /**
@@ -52,7 +57,6 @@
  * b1   - MyClass object test after the main program to run,
  */
 const char* const g_debugLevel = "a1 a2 a4";
-
 #endif
 
 
@@ -61,14 +65,6 @@ const char* const g_debugLevel = "a1 a2 a4";
  * #define __USING_SYS using namespace __SYS_NS
  */
 __USING_SYS;
-
-/**
- * Preprocessor directive designed to cause the current source file to be included only once in a
- * single compilation. Thus, serves the same purpose as #include guards, but with several
- * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
- * compilation speed. In main file this is enabled by default.
- */
-#pragma once
 
 /**
  * Stdout for debuggging.
@@ -81,15 +77,12 @@ OStream cout;
  */
 #if DEBUG_LEVEL > DEBUG_LEVEL_DISABLED_DEBUG
 #define DEBUG
-#include <unistd.h>
-#include <stdio.h>
-#include <cstring>
+
 
 /**
  * The semaphore used to sincronize the debugging output.
  */
 Semaphore g_debuger_semaphore;
-
 
 /**
  * Print like function for logging putting a new line at the end of string. See the variables
@@ -154,6 +147,7 @@ do \
     } \
 } \
 while( 0 )
+
 
 /**
  * Determines whether the input char is a digit. We are not using the std
@@ -263,7 +257,7 @@ int myAtoi( const char *str )
  */
 inline bool __computeDeggingLevel( const char* debugLevel )
 {
-#define COMPUTE_DEBUGGING_LEVEL_DEBUG      1
+#define COMPUTE_DEBUGGING_LEVEL_DEBUG      0
 #define COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE 32
     
     int inputLevel;
@@ -409,6 +403,14 @@ while( 0 )
 #endif // #if DEBUG_LEVEL > 0
 
 
+
+/**
+ * Preprocessor directive designed to cause the current source file to be included only once in a
+ * single compilation. Thus, serves the same purpose as #include guards, but with several
+ * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
+ * compilation speed. In main file this is enabled by default.
+ */
+#pragma once
 
 /**
  *  Calculates a static array size.
