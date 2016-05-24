@@ -17,33 +17,9 @@
 *
 *****************************************************************************************
 */
-
-
 #include <utility/ostream.h>
 #include <cstdarg>
 #include <cstdio>
-
-
-/**
- * #define __SYS_NS	   System
- * #define __USING_SYS using namespace __SYS_NS
- */
-__USING_SYS;
-
-
-/**
- * Stdout for debuggging.
- */
-OStream cout;
-
-
-/**
- * Preprocessor directive designed to cause the current source file to be included only once in a
- * single compilation. Thus, serves the same purpose as #include guards, but with several
- * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
- * compilation speed. In main file this is enabled by default.
- */
-#pragma once
 
 
 /**
@@ -59,18 +35,7 @@ OStream cout;
 #define DEBUG_LEVEL_BASIC_DEBUG    1
 
 
-/**
- * MemoryManager debugging.
- */
 #if DEBUG_LEVEL > DEBUG_LEVEL_DISABLED_DEBUG
-
-#define DEBUG
-
-
-#include <unistd.h>
-#include <stdio.h>
-#include <cstring>
-
 
 /**
  * A value like a127 (111111) for 'g_debugLevel' enables all 'a' mask debugging levels. To enable all
@@ -89,8 +54,44 @@ OStream cout;
  * b3   - _WorstFit::allocateMemory(1) debugging.
  * b4   - _BestFit::allocateMemory(1) debugging.
  */
-const char* const g_debugLevel = "a1";
+const char* const g_debugLevel = "a1 a2 a4";
 
+#endif
+
+
+/**
+ * #define __SYS_NS	   System
+ * #define __USING_SYS using namespace __SYS_NS
+ */
+__USING_SYS;
+
+/**
+ * Preprocessor directive designed to cause the current source file to be included only once in a
+ * single compilation. Thus, serves the same purpose as #include guards, but with several
+ * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
+ * compilation speed. In main file this is enabled by default.
+ */
+#pragma once
+
+/**
+ * Stdout for debuggging.
+ */
+OStream cout;
+
+
+/**
+ * MemoryManager debugging.
+ */
+#if DEBUG_LEVEL > DEBUG_LEVEL_DISABLED_DEBUG
+#define DEBUG
+#include <unistd.h>
+#include <stdio.h>
+#include <cstring>
+
+/**
+ * The semaphore used to sincronize the debugging output.
+ */
+Semaphore g_debuger_semaphore;
 
 /**
  * Determines whether the input char is a digit. We are not using the std
@@ -101,19 +102,12 @@ int check_digit(char c)
     return 0;
 }
 
-
-
-/**
- * Downloaded from: https://github.com/KohnAir/mystrtok/blob/master/strtok.c
- */
-#define DICT_LEN 256
-
-
 /**
  * Downloaded from: https://github.com/KohnAir/mystrtok/blob/master/strtok.c
  */
 int *create_delim_dict(char *delim)
 {
+#define DICT_LEN 256
 	int *d = (int*)malloc(sizeof(int)*DICT_LEN);
 	memset((void*)d, 0, sizeof(int)*DICT_LEN);
 
@@ -129,7 +123,6 @@ int *create_delim_dict(char *delim)
  */
 char *my_strtok(char *str, char *delim)
 {
-	
 	static char *last, *to_free;
 	int *deli_dict = create_delim_dict(delim);
 
@@ -209,14 +202,16 @@ inline bool __computeDeggingLevel( const char* debugLevel )
     char inputLevelChar  [ COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE ];
     char inputLevelChars [ COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE ][ COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE ];
     
-    int        inputLevels  = 0;
+    int  inputLevels  = 0;
     char separator[2] = " ";
     
     inputLevelSize   = strlen( debugLevel );
     builtInLevelSize = strlen( g_debugLevel );
     
-    if( 2 > inputLevelSize > COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE
-        || 2 > builtInLevelSize > COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE )
+    if( ( 2 > inputLevelSize
+        && inputLevelSize > COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE )
+        || ( 2 > builtInLevelSize
+           && builtInLevelSize > COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE ) )
     {
         cout << "ERROR while processing the DEBUG LEVEL: " << debugLevel << "\n";
         cout << "! The masks sizes are " << inputLevelSize << " and " << builtInLevelSize;
@@ -316,7 +311,9 @@ do \
 { \
     if( __computeDeggingLevel( #level ) ) \
     { \
+        g_debuger_semaphore.p(); \
         cout << __VA_ARGS__ << "\n"; \
+        g_debuger_semaphore.v(); \
     } \
 } \
 while( 0 )
@@ -330,7 +327,9 @@ do \
 { \
     if( __computeDeggingLevel( #level ) ) \
     { \
+        g_debuger_semaphore.p(); \
         cout << __VA_ARGS__; \
+        g_debuger_semaphore.v(); \
     } \
 } \
 while( 0 )
@@ -344,7 +343,9 @@ do \
 { \
     if( __computeDeggingLevel( #level ) ) \
     { \
+        g_debuger_semaphore.p(); \
         cout << __VA_ARGS__; \
+        g_debuger_semaphore.v(); \
     } \
 } \
 while( 0 )
@@ -358,7 +359,9 @@ do \
 { \
     if( __computeDeggingLevel( #level ) ) \
     { \
+        g_debuger_semaphore.p(); \
         cout << __VA_ARGS__ << "\n"; \
+        g_debuger_semaphore.v(); \
     } \
 } \
 while( 0 )

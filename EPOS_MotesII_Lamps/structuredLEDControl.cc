@@ -517,7 +517,7 @@ int main()
 {
     cout << "EposMotesII app initing\n";        
     
-    FPRINTLN( a1, "Test2: " << 10 );
+    FPRINTLN( a1 a2 a4, "Test2: " << 10 ); 
     
     MyClass myClassObject;
     
