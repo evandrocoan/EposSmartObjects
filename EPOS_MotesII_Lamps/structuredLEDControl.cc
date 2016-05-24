@@ -531,19 +531,12 @@ int main()
     DEBUGGER( b1, myClassObjectTest() );
     
     TSC_Timer pwmTimer( 100, &PWMInterrupt );
-    
     configureTheLedsEffects();
     
     g_nic = new NIC();
     
-    Thread* pwmThread;
     Thread* uartThread;
-    Thread* nicThread;
     Thread* ledEffectThread;
-    
-    //Uncomment later when use photo sensor.
-    //useSensor = myCuteSensor.enable();
-    
     
     // Thread( int (* entry)(), const State & state = READY, const Criterion & criterion = NORMAL, unsigned int stack_size = STACK_SIZE )
     // 
@@ -564,29 +557,38 @@ int main()
     // stack_size:
     // defines the size of the thread's stack. By default it takes the value set by the
     // system's Traits. If a larger (or smaller) stack is desired, this parameter will allow you to do so.
-    uartThread = new Thread( &ReceiveCommandUART );
-    
-    //nicThread  = new Thread(&ReceiveCommandNIC);
+    uartThread      = new Thread( &ReceiveCommandUART );
     ledEffectThread = new Thread( &LEDPowerEffect );
-    Alarm::delay( 5e6 );
     
-    // semcout->p();
-    cout << "Waiting for threads to finish\n";
-    // semcout->v();
+    Alarm::delay( 5e6 );
+    FPRINTLN( a1, "Waiting for uartThread to finish\n" );
     
     // The join() method suspends the execution of the calling thread (i.e., the
     // thread that is running) until the called thread finishes its execution.
-    int status_thrdUART = uartThread->join();
-
-    //int status_thrdNIC  = nicThread->join();
-    int status_thrdEffect = ledEffectThread->join();
-    cout << "Threads finished. EposMotesII app finishing\n";
+    int uartThreadStatus = uartThread->join();
+    
+    DEBUGGER( a1, "uartThreadStatus: " << uartThreadStatus );
+    FPRINTLN( a1, "Waiting for uartThread to finish\n" );
+    
+    int ledEffectThreadStatus = ledEffectThread->join();
+    
+    DEBUGGER( a1, "ledEffectThreadStatus: " << ledEffectThreadStatus );
+    FPRINTLN( a1, "Threads finished. EposMotesII app finishing\n" );
     
     //Lista das pessoas que se importam com essa parte do código:
-    // Evandro  Coan
-
+    //Evandro  Coan
     //Fim da lista
+    
+    //Thread* nicThread;
+    //Thread* pwmThread;
+    
+    //Uncomment later when use photo sensor.
+    //useSensor = myCuteSensor.enable();
+    
     //pwmThread = new Thread(&PWMLeds);
+    //nicThread = new Thread(&ReceiveCommandNIC);
+    
+    //int status_thrdNIC  = nicThread->join();
     //int status_thrdPWM = pwmThread->join();
     return 0;
 }
@@ -598,7 +600,7 @@ void configureTheLedsEffects()
 {
     //Alarm::delay(100);
     
-    for( int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++ )
+    for( unsigned int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++ )
     {
         //   mutexEffect[currentIndex]= new Mutex();
         //   mutexEffect[currentIndex]->lock(); // g_effect starts OFF (blocked)

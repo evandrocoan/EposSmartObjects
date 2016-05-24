@@ -54,9 +54,9 @@
  * 
  * Algorithm Strategy debugging:
  * b0   - Disabled all debug.
- * b1   - MyClass object test after the main program to run,
+ * b1   - MyClass object test after the main program to run.
  */
-const char* const g_debugLevel = "a1 a2 a4";
+const char* const g_debugLevel = "a1 a2 b1";
 #endif
 
 
@@ -431,7 +431,7 @@ while( 0 )
  * @see http://stackoverflow.com/a/10150393/4934640
  * @see http://stackoverflow.com/questions/2342162/stdstring-formatting-like-sprintf/10150393#10150393
  */
-inline char* format(const char* fmt, ...)
+inline char* debugger_string_formatter(const char* fmt, ...)
 {
     int   size   = 512;
     char* buffer = 0;
