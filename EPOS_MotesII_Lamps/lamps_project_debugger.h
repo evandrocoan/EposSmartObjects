@@ -19,12 +19,22 @@
 */
 
 
-
-#include <iostream>
-#include <string>
+#include <utility/ostream.h>
 #include <cstdarg>
 #include <cstdio>
 
+
+/**
+ * #define __SYS_NS	   System
+ * #define __USING_SYS using namespace __SYS_NS
+ */
+__USING_SYS;
+
+
+/**
+ * Stdout for debuggging.
+ */
+OStream cout;
 
 
 /**
@@ -36,18 +46,17 @@
 #pragma once
 
 
-
 /**
  * This is to view internal program data while execution. Default value: 0
  * 
  *  0   = Disables this feature.
  *  1  >= Basic debugging.
  */
-#define DEBUG_LEVEL 0
+#define DEBUG_LEVEL 1
 
 
-#define DEBUG_LEVEL_DISABLED_DEBUG       0
-#define DEBUG_LEVEL_BASIC_DEBUG          1
+#define DEBUG_LEVEL_DISABLED_DEBUG 0
+#define DEBUG_LEVEL_BASIC_DEBUG    1
 
 
 /**
@@ -57,8 +66,7 @@
 
 #define DEBUG
 
-#include <execinfo.h>
-#include <stdlib.h>
+
 #include <unistd.h>
 #include <stdio.h>
 #include <cstring>
@@ -81,12 +89,98 @@
  * b3   - _WorstFit::allocateMemory(1) debugging.
  * b4   - _BestFit::allocateMemory(1) debugging.
  */
-const char* const g_debugLevel = "a2 a8 a16 b4 a32";
+const char* const g_debugLevel = "a1";
 
 
-// Prototype
-inline void __printBacktrace();
+/**
+ * Determines whether the input char is a digit. We are not using the std
+ */
+int check_digit(char c)
+{
+    if ((c>='0') && (c<='9')) return 1;
+    return 0;
+}
 
+
+
+/**
+ * Downloaded from: https://github.com/KohnAir/mystrtok/blob/master/strtok.c
+ */
+#define DICT_LEN 256
+
+
+/**
+ * Downloaded from: https://github.com/KohnAir/mystrtok/blob/master/strtok.c
+ */
+int *create_delim_dict(char *delim)
+{
+	int *d = (int*)malloc(sizeof(int)*DICT_LEN);
+	memset((void*)d, 0, sizeof(int)*DICT_LEN);
+
+	int i;
+	for(i=0; i< strlen(delim); i++) {
+		d[delim[i]] = 1;
+	}
+	return d;
+}
+
+/**
+ * Downloaded from: https://github.com/KohnAir/mystrtok/blob/master/strtok.c
+ */
+char *my_strtok(char *str, char *delim)
+{
+	
+	static char *last, *to_free;
+	int *deli_dict = create_delim_dict(delim);
+
+	if(!deli_dict) {
+		return NULL;
+	}
+
+	if(str) {
+		last = (char*)malloc(strlen(str)+1);
+		if(!last) {
+			free(deli_dict);
+		}
+		to_free = last;
+		strcpy(last, str);
+	}
+
+	while(deli_dict[*last] && *last != '\0') {
+		last++;
+	}
+	str = last;
+	if(*last == '\0') {
+		free(deli_dict);
+		free(to_free);
+		return NULL;
+	}
+	while (*last != '\0' && !deli_dict[*last]) {
+		last++;
+	}
+	
+	*last = '\0';
+	last++;
+
+	free(deli_dict);
+	return str;
+}
+
+/**
+ * Downloaded from: http://www.geeksforgeeks.org/write-your-own-atoi/
+ */
+int myAtoi(const char *str)
+{
+    int res = 0; // Initialize result
+  
+    // Iterate through all characters of input string and
+    // update result
+    for (int i = 0; str[i] != '\0'; ++i)
+        res = res*10 + str[i] - '0';
+  
+    // return result.
+    return res;
+}
 
 /**
  * Determines whether the given debug level is enabled.
@@ -96,7 +190,7 @@ inline void __printBacktrace();
  */
 inline bool __computeDeggingLevel( const char* debugLevel )
 {
-#define COMPUTE_DEBUGGING_LEVEL_DEBUG      0
+#define COMPUTE_DEBUGGING_LEVEL_DEBUG      1
 #define COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE 32
     
     int inputLevel;
@@ -108,15 +202,15 @@ inline bool __computeDeggingLevel( const char* debugLevel )
     int inputLevelTokenSize;
     int builtInLevelTokenSize;
     
-    char* inputLevelToken;
-    char* builtInLevelToken;
+    const char* inputLevelToken;
+    const char* builtInLevelToken;
     
     char builtInLevelChar[ COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE ];
     char inputLevelChar  [ COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE ];
     char inputLevelChars [ COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE ][ COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE ];
     
     int        inputLevels  = 0;
-    const char separator[2] = " ";
+    char separator[2] = " ";
     
     inputLevelSize   = strlen( debugLevel );
     builtInLevelSize = strlen( g_debugLevel );
@@ -124,12 +218,12 @@ inline bool __computeDeggingLevel( const char* debugLevel )
     if( 2 > inputLevelSize > COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE
         || 2 > builtInLevelSize > COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE )
     {
-        std::cout << "ERROR while processing the DEBUG LEVEL: " << debugLevel << std::endl;
-        std::cout << "! The masks sizes are " << inputLevelSize << " and " << builtInLevelSize;
-        std::cout << ", but they must to be between 1 and 32." << std::endl;
+        cout << "ERROR while processing the DEBUG LEVEL: " << debugLevel << "\n";
+        cout << "! The masks sizes are " << inputLevelSize << " and " << builtInLevelSize;
+        cout << ", but they must to be between 1 and 32." << "\n";
         
-        __printBacktrace();
-        exit( EXIT_FAILURE );
+        //exit( EXIT_FAILURE ); This could not to be included due the <stdlib.h> conflict within EPOS.
+        return false;
     }
     
     strcpy( inputLevelChar, debugLevel );
@@ -140,25 +234,25 @@ inline bool __computeDeggingLevel( const char* debugLevel )
     int currentExternLoop = 0;
     int currentInternLoop = 0;
 
-    std::cout << "\ng_debugLevel: " << g_debugLevel << ", builtInLevelSize: " << builtInLevelSize ;
-    std::cout << ", debugLevel: " << debugLevel << ", inputLevelSize: " << inputLevelSize  << std::endl;
+    cout << "\ng_debugLevel: " << g_debugLevel << ", builtInLevelSize: " << builtInLevelSize ;
+    cout << ", debugLevel: " << debugLevel << ", inputLevelSize: " << inputLevelSize  << "\n";
 #endif
     
-    inputLevelToken = strtok( inputLevelChar, separator );
+    inputLevelToken = my_strtok( inputLevelChar, separator );
     
     do
     {
         strcpy( inputLevelChars[ inputLevels++ ], inputLevelToken );
-    } while( ( inputLevelToken = strtok( NULL, separator ) ) != NULL );
+    } while( ( inputLevelToken = my_strtok( NULL, separator ) ) != NULL );
     
     while( inputLevels-- > 0 )
     {
     #if COMPUTE_DEBUGGING_LEVEL_DEBUG > 0
         currentInternLoop = 0;
-        std::cout << "CURRENT_ExternLoop: " << currentExternLoop++ << std::endl;
+        cout << "CURRENT_ExternLoop: " << currentExternLoop++ << "\n";
     #endif
         
-        builtInLevelToken   = strtok( builtInLevelChar, separator );
+        builtInLevelToken   = my_strtok( builtInLevelChar, separator );
         inputLevelTokenSize = strlen( inputLevelChars[ inputLevels ] );
         
         do
@@ -166,30 +260,30 @@ inline bool __computeDeggingLevel( const char* debugLevel )
             builtInLevelTokenSize = strlen( builtInLevelToken );
             
         #if COMPUTE_DEBUGGING_LEVEL_DEBUG > 0
-            std::cout << "space" << std::endl;
-            std::cout << "CURRENT_InternLoop: " << currentInternLoop++ << std::endl;
+            cout << "space" << "\n";
+            cout << "CURRENT_InternLoop: " << currentInternLoop++ << "\n";
             
-            std::cout << "builtInLevelToken: " << builtInLevelToken << std::endl;
-            std::cout << "builtInLevelTokenSize: " << builtInLevelTokenSize << std::endl;
-            std::cout << "inputLevelChars[" << inputLevels << "]: " << inputLevelChars[ inputLevels ] << std::endl;
-            std::cout << "inputLevelTokenSize: " << inputLevelTokenSize << std::endl;
+            cout << "builtInLevelToken: " << builtInLevelToken << "\n";
+            cout << "builtInLevelTokenSize: " << builtInLevelTokenSize << "\n";
+            cout << "inputLevelChars[" << inputLevels << "]: " << inputLevelChars[ inputLevels ] << "\n";
+            cout << "inputLevelTokenSize: " << inputLevelTokenSize << "\n";
         #endif
             
             if( inputLevelTokenSize > 0
                 && builtInLevelTokenSize > 0 )
             {
-                if( isdigit( inputLevelChars[ inputLevels ][ 1 ] )
-                    && isdigit( builtInLevelToken[ 1 ] ) )
+                if( check_digit( inputLevelChars[ inputLevels ][ 1 ] )
+                    && check_digit( builtInLevelToken[ 1 ] ) )
                 {
                     if( builtInLevelToken[ 0 ] == inputLevelChars[ inputLevels ][ 0 ] )
                     {
-                        sscanf( &inputLevelChars[ inputLevels ][ 1 ], "%d", &inputLevel );
-                        sscanf( &builtInLevelToken[ 1 ], "%d", &builtInLevel );
+                        inputLevel   = myAtoi( &inputLevelChars[ inputLevels ][ 1 ] );
+                        builtInLevel = myAtoi( &builtInLevelToken[ 1 ] );
                         
                     #if COMPUTE_DEBUGGING_LEVEL_DEBUG > 0
-                        std::cout << "builtInLevel: " << builtInLevel << std::endl;
-                        std::cout << "inputLevel: " << inputLevel << std::endl;
-                        std::cout << "Is activeated? " << ( ( inputLevel & builtInLevel ) > 0 ) << std::endl;
+                        cout << "builtInLevel: " << builtInLevel << "\n";
+                        cout << "inputLevel: " << inputLevel << "\n";
+                        cout << "Is activeated? " << ( ( inputLevel & builtInLevel ) > 0 ) << "\n";
                     #endif
                         
                         if( ( inputLevel & builtInLevel ) > 0 )
@@ -200,49 +294,14 @@ inline bool __computeDeggingLevel( const char* debugLevel )
                 }
             }
             
-        } while( ( builtInLevelToken = strtok( NULL, separator ) ) != NULL );
+        } while( ( builtInLevelToken = my_strtok( NULL, separator ) ) != NULL );
         
     #if COMPUTE_DEBUGGING_LEVEL_DEBUG > 0
-        std::cout << "space" << std::endl;
+        cout << "space" << "\n";
     #endif
     }
     
     return false;
-}
-
-/**
- * Print to the standard out stream the stack trace until this call.
- */
-inline void __printBacktrace()
-{
-#define BACKTRACE_SIZE 100
-    
-    int traceIndex;
-    int traceLevels;
-    
-    void *buffer[ BACKTRACE_SIZE ];
-    char **strings;
-    
-    traceLevels = backtrace( buffer, BACKTRACE_SIZE );
-    std::cout << "backtrace() returned " << traceLevels << " addresses" << std::endl;
-    
-    strings = backtrace_symbols( buffer, traceLevels );
-    
-    if( strings == NULL )
-    {
-        std::cout << "ERROR! We failure at failing!" << std::endl;
-        std::cout << "There are none backtrace_symbols!" << std::endl;
-        exit( EXIT_FAILURE );
-    }
-    else
-    {
-        for( traceIndex = 0; traceIndex < traceLevels; traceIndex++ )
-        {
-            std::cout << strings[traceIndex] << std::endl;
-        }
-    }
-    
-    free( strings );
 }
 
 /**
@@ -257,7 +316,7 @@ do \
 { \
     if( __computeDeggingLevel( #level ) ) \
     { \
-        std::cout << format( __VA_ARGS__ ) << std::endl; \
+        cout << __VA_ARGS__ << "\n"; \
     } \
 } \
 while( 0 )
@@ -271,7 +330,7 @@ do \
 { \
     if( __computeDeggingLevel( #level ) ) \
     { \
-            std::cout << format( __VA_ARGS__ ); \
+        cout << __VA_ARGS__; \
     } \
 } \
 while( 0 )
@@ -285,7 +344,7 @@ do \
 { \
     if( __computeDeggingLevel( #level ) ) \
     { \
-        std::cout << format( __VA_ARGS__ ); \
+        cout << __VA_ARGS__; \
     } \
 } \
 while( 0 )
@@ -299,7 +358,7 @@ do \
 { \
     if( __computeDeggingLevel( #level ) ) \
     { \
-        std::cout << format( __VA_ARGS__ ) << std::endl; \
+        cout << __VA_ARGS__ << "\n"; \
     } \
 } \
 while( 0 )
@@ -316,7 +375,7 @@ while( 0 )
 #define FPRINT( level, ... ) \
 do \
 { \
-    std::cout << format( __VA_ARGS__ ); \
+    cout << __VA_ARGS__; \
 } \
 while( 0 )
 
@@ -327,7 +386,7 @@ while( 0 )
 #define FPRINTLN( level, ... ) \
 do \
 { \
-    std::cout << format( __VA_ARGS__ ) << std::endl; \
+    cout << __VA_ARGS__ << "\n"; \
 } \
 while( 0 )
 
@@ -355,7 +414,7 @@ while( 0 )
  * @see http://stackoverflow.com/a/10150393/4934640
  * @see http://stackoverflow.com/questions/2342162/stdstring-formatting-like-sprintf/10150393#10150393
  */
-inline std::string format(const char* fmt, ...)
+inline char* format(const char* fmt, ...)
 {
     int   size   = 512;
     char* buffer = 0;
@@ -363,27 +422,17 @@ inline std::string format(const char* fmt, ...)
     buffer = new char[size];
     
     va_list vl;
-    
     va_start(vl, fmt);
     
-    int nsize = vsnprintf(buffer, size, fmt, vl);
+    int nsize = sprintf(buffer, fmt, vl);
     
     //fail delete buffer and try again
-    if(size<=nsize)
+    if(nsize < 0)
     { 
-        delete[] buffer;
-        
-        buffer = 0;
-        buffer = new char[nsize+1]; //+1 for /0
-        nsize  = vsnprintf(buffer, size, fmt, vl);
+        cout << "\nERROR ON: inline string format(const char* fmt, ...)\n";
     }
     
-    std::string ret(buffer);
-    
     va_end(vl);
-    
-    delete[] buffer;
-    
-    return ret;
-}
 
+    return buffer;
+}

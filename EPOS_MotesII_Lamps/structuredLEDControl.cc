@@ -47,12 +47,18 @@
 #include <mutex.h>
 #include <semaphore.h>
 #include <traits.h>
-//#include <lamps_project_debugger.h>
+#include <lamps_project_debugger.h>
 #include <array_operations.h>
 #include <MyClass.h>
 
 
-__USING_SYS
+
+/**
+ * #define __SYS_NS	   System
+ * #define __USING_SYS using namespace __SYS_NS
+ */
+__USING_SYS;
+
 
 
 //TODO
@@ -74,12 +80,6 @@ __USING_SYS
 */
 
 
-
-/**
- * Stdout for debuggging.
- */
-OStream cout;
- 
 bool useSensor = false;
 
 int defaultPower( int power )
@@ -515,7 +515,9 @@ void PWMInterrupt()
 
 int main()
 {
-    cout << "EposMotesII app initing\n";
+    cout << "EposMotesII app initing\n";        
+    
+    FPRINTLN( a1, "Test2: " << 10 );
     
     MyClass myClassObject;
     
