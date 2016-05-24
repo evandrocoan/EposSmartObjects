@@ -72,6 +72,9 @@ cd $EPOS
 if contains $2 "clean"
 then
     make veryclean all
+    cd $PWD_COMPILE_EPOS_LAMP
+    sh _copy.sh structuredLEDControl.cc 0
+    cd $EPOS
 else
     make
 fi

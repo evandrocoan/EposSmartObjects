@@ -47,9 +47,11 @@ fi
 if [ $# -eq 0 ]
 then
     cp $EPOS/app/INE5412_EposMotesII_SmartObjects/EPOS_MotesII_Lamps/structuredLEDControl.cc $EPOS/app
-    sh _copy.sh structuredLEDControl.cc 0
     cd $EPOS
     make veryclean all
+    cd $PWD_COMPILE_EPOS_LAMP
+    sh _copy.sh structuredLEDControl.cc 0
+    cd $EPOS
     make APPLICATION=structuredLEDControl
     arm-objcopy -I elf32-little -O binary img/structuredLEDControl.img img/structuredLEDControl.bin
     python red-bsl.py -t /dev/ttyUSB0 -f img/structuredLEDControl.bin -S
