@@ -60,33 +60,7 @@
 __USING_SYS;
 
 
-/**
- * Functions prototypes to allow they to be declared after the main function.
- */
-int myClassObjectTest();
-void configureTheLedsEffects();
-
-
-//TODO
-//Get register addresses from include/mach/mc13224v/memory_map.h and implement function.
-//Also implement method setReg.
-//Please do not suicide.
-
-/*
- void PWM1_Init(void)
- {
- setReg(TMR0_CNTR,0); // Reset counter
- /// TMR0_SCTRL: TCF=0,TCFIE=0,TOF=0,TOFIE=0,IEF=0,IEFIE=0,IPS=0,INPUT=0,
- //Capture_Mode=0,MSTR=0,EEOF=0,VAL=0,FORCE=1,OPS=0,OEN=1
- setReg(TMR0_SCTRL,0x05); // Enable output
- setReg(TMR0_COMP1,1500); // Store initial value to the duty-compare register
- // TMR0_CTRL: CM=1,PCS=8,SCS=0,ONCE=0,LENGTH=0,DIR=0,Co_INIT=0,OM=6
- setReg(TMR0_CTRL, 0x3006);
- }
-*/
-
-
-bool useSensor = false;
+//bool useSensor = false;
 
 int defaultPower( int power )
 {
@@ -151,6 +125,107 @@ bool g_effect[ MAX_LEDS_ALLOWED_TO_BE_USED ];
  * Semaphore* semcout;
  */
 NIC * g_nic;
+
+
+/**
+ * Functions prototypes to allow they to be declared after the main function.
+ */
+int myClassObjectTest();
+void configureTheLedsEffects();
+void turn_led( int pin, bool on );
+int ReceiveCommandUART();
+int ReceiveCommandNIC();
+int LEDPowerEffect();
+void PWMInterrupt();
+
+
+/**
+ * Main function entry point.
+ */
+int main()
+{
+    FPRINTLN( a1, "EposMotesII app initing\n" );
+    DEBUGGER( b1, myClassObjectTest() );
+    
+    TSC_Timer pwmTimer( 100, &PWMInterrupt );
+    configureTheLedsEffects();
+    
+    g_nic = new NIC();
+    
+    Thread* uartThread;
+    Thread* ledEffectThread;
+    
+    // Thread( int (* entry)(), const State & state = READY, const Criterion & criterion = NORMAL, unsigned int stack_size = STACK_SIZE )
+    // 
+    // Creates a thread with the following parameters:
+    //
+    // entry:
+    // entry point for the thread (defines the thread behavior). entry should be a C++
+    // function with signature int func().
+    //
+    // state:
+    // defines the state of the thread upon its creation. Default value is READY, i.e.,
+    // it is able to run the next time the defined period is reached.
+    //
+    // criterion:
+    // defines the criterion to be used for this thread. The criterion is based on the
+    // Criterion defined by the Scheduler. It is better explained in the Scheduler section of this guide.
+    //
+    // stack_size:
+    // defines the size of the thread's stack. By default it takes the value set by the
+    // system's Traits. If a larger (or smaller) stack is desired, this parameter will allow you to do so.
+    uartThread      = new Thread( &ReceiveCommandUART );
+    ledEffectThread = new Thread( &LEDPowerEffect );
+    
+    Alarm::delay( 5e6 );
+    FPRINTLN( a1, "Waiting for uartThread to finish\n" );
+    
+    // The join() method suspends the execution of the calling thread (i.e., the
+    // thread that is running) until the called thread finishes its execution.
+    int uartThreadStatus = uartThread->join();
+    
+    DEBUGGER( a1, "uartThreadStatus: " << uartThreadStatus );
+    FPRINTLN( a1, "Waiting for uartThread to finish\n" );
+    
+    int ledEffectThreadStatus = ledEffectThread->join();
+    
+    DEBUGGER( a1, "ledEffectThreadStatus: " << ledEffectThreadStatus );
+    FPRINTLN( a1, "Threads finished. EposMotesII app finishing\n" );
+    
+    //Lista das pessoas que se importam com essa parte do código:
+    //Evandro  Coan
+    //Fim da lista
+    
+    //Thread* nicThread;
+    //Thread* pwmThread;
+    
+    //Uncomment later when use photo sensor.
+    //useSensor = myCuteSensor.enable();
+    
+    //pwmThread = new Thread(&PWMLeds);
+    //nicThread = new Thread(&ReceiveCommandNIC);
+    
+    //int status_thrdNIC  = nicThread->join();
+    //int status_thrdPWM = pwmThread->join();
+    return 0;
+}
+
+//TODO
+//Get register addresses from include/mach/mc13224v/memory_map.h and implement function.
+//Also implement method setReg.
+//Please do not suicide.
+/*
+ void PWM1_Init(void)
+ {
+ setReg(TMR0_CNTR,0); // Reset counter
+ /// TMR0_SCTRL: TCF=0,TCFIE=0,TOF=0,TOFIE=0,IEF=0,IEFIE=0,IPS=0,INPUT=0,
+ //Capture_Mode=0,MSTR=0,EEOF=0,VAL=0,FORCE=1,OPS=0,OEN=1
+ setReg(TMR0_SCTRL,0x05); // Enable output
+ setReg(TMR0_COMP1,1500); // Store initial value to the duty-compare register
+ // TMR0_CTRL: CM=1,PCS=8,SCS=0,ONCE=0,LENGTH=0,DIR=0,Co_INIT=0,OM=6
+ setReg(TMR0_CTRL, 0x3006);
+ }
+*/
 
 /**
  * This function is used to toggle the led on or off.
@@ -533,74 +608,6 @@ void PWMInterrupt()
     }
     
     dummyCounter = ( dummyCounter + 1 ) % 100;
-}
-
-int main()
-{
-    FPRINTLN( a1, "EposMotesII app initing\n" );
-    DEBUGGER( b1, myClassObjectTest() );
-    
-    TSC_Timer pwmTimer( 100, &PWMInterrupt );
-    configureTheLedsEffects();
-    
-    g_nic = new NIC();
-    
-    Thread* uartThread;
-    Thread* ledEffectThread;
-    
-    // Thread( int (* entry)(), const State & state = READY, const Criterion & criterion = NORMAL, unsigned int stack_size = STACK_SIZE )
-    // 
-    // Creates a thread with the following parameters:
-    //
-    // entry:
-    // entry point for the thread (defines the thread behavior). entry should be a C++
-    // function with signature int func().
-    //
-    // state:
-    // defines the state of the thread upon its creation. Default value is READY, i.e.,
-    // it is able to run the next time the defined period is reached.
-    //
-    // criterion:
-    // defines the criterion to be used for this thread. The criterion is based on the
-    // Criterion defined by the Scheduler. It is better explained in the Scheduler section of this guide.
-    //
-    // stack_size:
-    // defines the size of the thread's stack. By default it takes the value set by the
-    // system's Traits. If a larger (or smaller) stack is desired, this parameter will allow you to do so.
-    uartThread      = new Thread( &ReceiveCommandUART );
-    ledEffectThread = new Thread( &LEDPowerEffect );
-    
-    Alarm::delay( 5e6 );
-    FPRINTLN( a1, "Waiting for uartThread to finish\n" );
-    
-    // The join() method suspends the execution of the calling thread (i.e., the
-    // thread that is running) until the called thread finishes its execution.
-    int uartThreadStatus = uartThread->join();
-    
-    DEBUGGER( a1, "uartThreadStatus: " << uartThreadStatus );
-    FPRINTLN( a1, "Waiting for uartThread to finish\n" );
-    
-    int ledEffectThreadStatus = ledEffectThread->join();
-    
-    DEBUGGER( a1, "ledEffectThreadStatus: " << ledEffectThreadStatus );
-    FPRINTLN( a1, "Threads finished. EposMotesII app finishing\n" );
-    
-    //Lista das pessoas que se importam com essa parte do código:
-    //Evandro  Coan
-    //Fim da lista
-    
-    //Thread* nicThread;
-    //Thread* pwmThread;
-    
-    //Uncomment later when use photo sensor.
-    //useSensor = myCuteSensor.enable();
-    
-    //pwmThread = new Thread(&PWMLeds);
-    //nicThread = new Thread(&ReceiveCommandNIC);
-    
-    //int status_thrdNIC  = nicThread->join();
-    //int status_thrdPWM = pwmThread->join();
-    return 0;
 }
 
 /**
