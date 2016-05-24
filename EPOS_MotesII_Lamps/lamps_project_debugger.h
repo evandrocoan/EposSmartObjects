@@ -93,84 +93,103 @@ OStream cout;
  */
 Semaphore g_debuger_semaphore;
 
+
 /**
  * Determines whether the input char is a digit. We are not using the std
  */
-int check_digit(char c)
+int check_digit( char c )
 {
-    if ((c>='0') && (c<='9')) return 1;
+    if( ( c >= '0' ) && ( c <= '9' ) )
+    {
+        return 1;
+    }
     return 0;
 }
 
 /**
  * Downloaded from: https://github.com/KohnAir/mystrtok/blob/master/strtok.c
  */
-int *create_delim_dict(char *delim)
+int* create_delim_dict( char *delim )
 {
 #define DICT_LEN 256
-	int *d = (int*)malloc(sizeof(int)*DICT_LEN);
-	memset((void*)d, 0, sizeof(int)*DICT_LEN);
-
-	int i;
-	for(i=0; i< strlen(delim); i++) {
-		d[delim[i]] = 1;
-	}
-	return d;
+    int* d = (int *) malloc( sizeof( int ) * DICT_LEN );
+    memset( (void *) d, 0, sizeof( int ) * DICT_LEN );
+    
+    int i;
+    
+    for( i = 0; i < strlen( delim ); i++ )
+    {
+        d[ delim[ i ] ] = 1;
+    }
+    return d;
 }
 
 /**
  * Downloaded from: https://github.com/KohnAir/mystrtok/blob/master/strtok.c
  */
-char *my_strtok(char *str, char *delim)
+char* my_strtok( char *str, char *delim )
 {
-	static char *last, *to_free;
-	int *deli_dict = create_delim_dict(delim);
-
-	if(!deli_dict) {
-		return NULL;
-	}
-
-	if(str) {
-		last = (char*)malloc(strlen(str)+1);
-		if(!last) {
-			free(deli_dict);
-		}
-		to_free = last;
-		strcpy(last, str);
-	}
-
-	while(deli_dict[*last] && *last != '\0') {
-		last++;
-	}
-	str = last;
-	if(*last == '\0') {
-		free(deli_dict);
-		free(to_free);
-		return NULL;
-	}
-	while (*last != '\0' && !deli_dict[*last]) {
-		last++;
-	}
-	
-	*last = '\0';
-	last++;
-
-	free(deli_dict);
-	return str;
+    static char* last;
+    static char* to_free;
+    
+    int *deli_dict = create_delim_dict( delim );
+    
+    if( !deli_dict )
+    {
+        return NULL;
+    }
+    
+    if( str )
+    {
+        last = (char *) malloc( strlen( str ) + 1 );
+        
+        if( !last )
+        {
+            free( deli_dict );
+        }
+        to_free = last;
+        strcpy( last, str );
+    }
+    
+    while( deli_dict[ *last ] && *last != '\0' )
+    {
+        last++;
+    }
+    str = last;
+    
+    if( *last == '\0' )
+    {
+        free( deli_dict );
+        free( to_free );
+        return NULL;
+    }
+    
+    while( *last != '\0' && !deli_dict[ *last ] )
+    {
+        last++;
+    }
+    
+    *last = '\0';
+    last++;
+    
+    free( deli_dict );
+    return str;
 }
 
 /**
  * Downloaded from: http://www.geeksforgeeks.org/write-your-own-atoi/
  */
-int myAtoi(const char *str)
+int myAtoi( const char *str )
 {
     int res = 0; // Initialize result
-  
+    
     // Iterate through all characters of input string and
     // update result
-    for (int i = 0; str[i] != '\0'; ++i)
-        res = res*10 + str[i] - '0';
-  
+    for( int i = 0; str[ i ] != '\0'; ++i )
+    {
+        res = res * 10 + str[ i ] - '0';
+    }
+    
     // return result.
     return res;
 }
