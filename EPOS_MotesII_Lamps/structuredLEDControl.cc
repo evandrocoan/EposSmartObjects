@@ -187,57 +187,70 @@ void turn_led( int pin, bool on )
  */
 
 /*
- int PWMLeds() {
- // semcout->p();
- cout << "Thread PWM LEDs initing\n";
- powerCalculateFunc func;
- // semcout->v();
- if (useSensor) {
- func = sensorCalculatePower;
- } else {
- func = defaultPower;
- }
- int led[5]; // not all leds are actually used. Only the RGB ones (the first 3)
- led[0] = 10;
- led[1] = 9;
- led[2] = 11;
- led[3] = 23;
- led[4] = 8;
- 
- unsigned int currentIndex;
- unsigned int cont = 0;
- int calculatedPow[MAX_LEDS_ALLOWED_TO_BE_USED];
- for (currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++) {
- power[currentIndex] = 50; // leds start at 1% of the power (just to show app is running)
- 
- }
- 
- // PWM
- while (!g_finishThread) {
- if (!cont) {
- for (int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex) {
- calculatedPow[currentIndex] = func(power[currentIndex]);
- }
- }
- //cout << "Still executing PWM. " << cont <<  "\n";
- cont == 99 ? cont = 0 : cont++;
- 
- for (currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++) {
- turn_led(led[currentIndex], cont < calculatedPow[currentIndex]);
- }
- 
- // if (cont==0 && power[currentIndex]>0)
- //turn_led(led[currentIndex],true);
- //else
- //if (cont==power[currentIndex])
- //turn_led(led[currentIndex],false);
- 
- }
- 
- cout << "Thread PWM LEDs finishing\n";
- return 0;
- }
- */
+int PWMLeds()
+{
+    FPRINTLN( a1, "Thread PWM LEDs initing\n" );
+    powerCalculateFunc func;
+    
+    if (useSensor)
+    {
+        func = sensorCalculatePower;
+    }
+    else
+    {
+        func = defaultPower;
+    }
+    
+    // not all leds are actually used. Only the RGB ones (the first 3)
+    int led[5]; 
+    
+    led[0] = 10;
+    led[1] = 9;
+    led[2] = 11;
+    led[3] = 23;
+    led[4] = 8;
+    
+    unsigned int cont;
+    unsigned int currentIndex;
+    int          calculatedPow[ MAX_LEDS_ALLOWED_TO_BE_USED ];
+    
+    cont = 0;
+    
+    for(currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++)
+    {
+        power[currentIndex] = 50; // leds start at 1% of the power (just to show app is running)
+    }
+
+    // PWM
+    while (!g_finishThread)
+    {
+        if (!cont)
+        {
+            for (int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex)
+            {
+                calculatedPow[currentIndex] = func(power[currentIndex]);
+            }
+        }
+        
+        //FPRINTLN( a1, "Still executing PWM. " << cont <<  "\n" );
+        cont == 99 ? cont = 0 : cont++;
+
+        for (currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++)
+        {
+            turn_led(led[currentIndex], cont < calculatedPow[currentIndex]);
+        }
+
+        // if (cont==0 && power[currentIndex]>0)
+        //turn_led(led[currentIndex],true);
+        //else
+        //if (cont==power[currentIndex])
+        //turn_led(led[currentIndex],false);
+    }
+     
+    FPRINTLN( a1, "Thread PWM LEDs finishing\n" );
+    return 0;
+}
+*/
 
 void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
 {
