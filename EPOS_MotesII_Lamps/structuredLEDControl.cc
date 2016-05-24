@@ -513,6 +513,7 @@ void PWMInterrupt()
     count = ( count + 1 ) % 100;
 }
 
+#if defined DEBUG
 /**
  * To creates an objecto from the test class 'MyClass' and to call its only member to printf
  * its hi int number to OStream.
@@ -529,6 +530,7 @@ int myClassObjectTest()
     
     return 0;
 }
+#endif
 
 int main()
 {
