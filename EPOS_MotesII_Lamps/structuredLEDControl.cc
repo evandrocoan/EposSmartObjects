@@ -202,13 +202,13 @@ int PWMLeds()
     }
     
     // not all leds are actually used. Only the RGB ones (the first 3)
-    int led[5]; 
+    int leds[5]; 
     
-    led[0] = 10;
-    led[1] = 9;
-    led[2] = 11;
-    led[3] = 23;
-    led[4] = 8;
+    leds[0] = 10;
+    leds[1] = 9;
+    leds[2] = 11;
+    leds[3] = 23;
+    leds[4] = 8;
     
     unsigned int cont;
     unsigned int currentIndex;
@@ -237,14 +237,14 @@ int PWMLeds()
 
         for (currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++)
         {
-            turn_led(led[currentIndex], cont < calculatedPow[currentIndex]);
+            turn_led(leds[currentIndex], cont < calculatedPow[currentIndex]);
         }
 
         // if (cont==0 && power[currentIndex]>0)
-        //turn_led(led[currentIndex],true);
+        //turn_led(leds[currentIndex],true);
         //else
         //if (cont==power[currentIndex])
-        //turn_led(led[currentIndex],false);
+        //turn_led(leds[currentIndex],false);
     }
      
     FPRINTLN( a1, "Thread PWM LEDs finishing\n" );
@@ -254,27 +254,38 @@ int PWMLeds()
 
 void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
 {
-    unsigned int led, pow, currentIndex;
+    unsigned int led;
+    unsigned int pow;
+    unsigned int tempDelay;
+    unsigned int currentIndex;
     
     switch( msg[ 0 ] )
     {
         case 'R':
+        {
             led = 0;
             break;
+        }
         case 'G':
+        {
             led = 1;
             break;
+        }
         case 'B':
+        {
             led = 2;
             break;
+        }
         case 'A':
+        {
             led = MAX_LEDS_ALLOWED_TO_BE_USED;
             break;
+        }
         default:
-            // semcout->p();
-            cout << "Invalid led value '" << msg[ 0 ] << "' on position 0\n";
-            // semcout->v();
+        {
+            FPRINTLN( a1, "Invalid led value '" << msg[ 0 ] << "' on position 0\n" );
             return;
+        }
     }
     
     //led = ((unsigned int)msg[0])-48; // int based on ascii
@@ -295,10 +306,8 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
                     g_effect[ currentIndex ] = true;
                 }
             }
-            // semcout->p();
             
-            cout << "Effect[" << led << "]=ON\n";
-            // semcout->v();
+            FPRINTLN( a1, "Effect[" << led << "]=ON\n" );
         }
         else if( msg[ 2 ] == 'F' ) // turn OFF g_effect
         {
@@ -315,18 +324,16 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
                     g_effect[ currentIndex ] = false;
                 }
             }
-            // semcout->p();
-            cout << "Effect[" << led << "]=OFF\n";
-            // semcout->v();
+            
+            FPRINTLN( a1, "Effect[" << led << "]=OFF\n" );
         }
         else     // set g_effect delay
         {
-            unsigned int tempDelay = ( (unsigned int) msg[ 2 ] ) - 48;
+            tempDelay     = ( (unsigned int) msg[ 2 ] ) - 48;
             tempDelay    *= 10 ^ ( ( (unsigned int) msg[ 3 ] ) - 48 );
             g_effectDelay = tempDelay;
-            // semcout->p();
-            cout << "Delay=" << g_effectDelay << "\n";
-            // semcout->v();
+            
+            FPRINTLN( a1, "Delay=" << g_effectDelay << "\n" );
         }
     }
     else if( msg[ 1 ] == '0' || msg[ 1 ] == '1' )
@@ -352,15 +359,12 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
                 power[ currentIndex ] = pow;
             }
         }
-        // semcout->p();
-        cout << "Power[" << led << "]=" << pow << "\n";
-        // semcout->v();
+        
+        FPRINTLN( a1, "Power[" << led << "]=" << pow << "\n" );
     }
     else
     {
-        // semcout->p();
-        cout << "Invalid value '" << msg[ 1 ] << "' on position 1\n";
-        // semcout->v();
+        FPRINTLN( a1, "Invalid value '" << msg[ 1 ] << "' on position 1\n" );
     }
 }
 
@@ -370,31 +374,25 @@ void SendMessageToNIC( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
     
     while( ( r = g_nic->send( NIC::BROADCAST, (NIC::Protocol) 1, &msg, sizeof( msg ) ) )
            == 0 ) // != 11 ?
-    { // semcout->p();
-        cout << "Send failed " << r << "\n";
-        // semcout->v();
+    {
+        FPRINTLN( a1, "Send failed " << r << "\n" );
     }
     
-    // semcout->p();
-    cout << "Message sent\n";
-    
-    // semcout->v();
+    FPRINTLN( a1, "Message sent\n" );
 }
 
 int ReceiveCommandUART()
 {
-    cout << "Thread UART initing\n";
+    FPRINTLN( a1, "Thread UART initing\n" );
+    
     unsigned int currentIndex;
     char         msg[ MAX_MESSAGE_LENGTH_ALLOWED ]; //[DATA_SIZE];
     
-    cout << "To send commands to the EPOSMotes2 by USB device, use: \n";
-    cout << "echo :R100 > /dev/ttyUSB0\n\n";
-    cout << "Try also :REN, :BEN, :GEN or :AEN";
-    cout << "\nAll commnds must to start with : (colon)\n";
+    FPRINTLN( a1, "To send commands to the EPOSMotes2 by USB device, use: \n" );
+    FPRINTLN( a1, "echo :R100 > /dev/ttyUSB0\n\n" );
+    FPRINTLN( a1, "Try also :REN, :BEN, :GEN or :AEN" );
+    FPRINTLN( a1, "\nAll commnds must to start with : (colon)\n" );
     
-    // semcout->p();
-    
-    // semcout->v();
     UART * uart = new UART();
     
     while( !g_finishThread )
@@ -416,15 +414,13 @@ int ReceiveCommandUART()
         InterpretMessage( msg );
     }
     
-    cout << "Thread UART finishing\n";
+    FPRINTLN( a1, "Thread UART finishing\n" );
     return 0;
 }
 
 int ReceiveCommandNIC()
 {
-    // semcout->p();
-    cout << "Thread NIC initing\n";
-    // semcout->v();
+    FPRINTLN( a1, "Thread NIC initing\n" );
     
     char msg[ MAX_MESSAGE_LENGTH_ALLOWED ];
     
@@ -435,48 +431,46 @@ int ReceiveCommandNIC()
     {
         while( !( g_nic->receive( &src, &prot, &msg, sizeof( msg ) ) > 0 ) )
         {
-            // semcout->p();
-            //cout << ".";
-            // semcout->v();
+            //FPRINTLN( a1, "." );
         }
-        // semcout->p();
-        cout << "\nMessage received: " << msg << "\n";
-        // semcout->v();
+        
+        FPRINTLN( a1, "\nMessage received: " << msg << "\n" );
         InterpretMessage( msg );
     }
     
-    cout << "Thread NIC finishing\n";
+    FPRINTLN( a1, "Thread NIC finishing\n" );
     return 0;
 }
 
 int LEDPowerEffect()
 {
-    // semcout->p();
-    cout << "Thread Effect initing\n";
-    // semcout->v();
-    //unsigned int currentIndex = MAX_LEDS_ALLOWED_TO_BE_USED;
-    unsigned int j;
+    FPRINTLN( a1, "Thread Effect initing\n" );
+    
     int          pow;
+    unsigned int collunmIndex;
+    unsigned int currentIndex;
+    
+    //currentIndex = MAX_LEDS_ALLOWED_TO_BE_USED;
     
     while( !g_finishThread )
     {
         //for (currentIndex=0; currentIndex<=MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++) {
-        // semcout->p();
+        //FPRINTLN( a1, "Incresing power of led[" << i << "]\n" );
         
-        // semcout->v();
         for( pow = 0; pow <= 100; pow++ )
         {
-            for( int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex )
+            for( currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex )
             {
                 // mutexEffect[currentIndex]->lock();
                 //if (currentIndex<MAX_LEDS_ALLOWED_TO_BE_USED) // only one led
+                
                 if( g_effect[ currentIndex ] )
                 {
                     power[ currentIndex ] = pow;
                     
                     //else // all leds at once
-                    //   for (j=0; j<MAX_LEDS_ALLOWED_TO_BE_USED; j++)
-                    //      power[j]=pow;
+                    //   for (collunmIndex=0; collunmIndex<MAX_LEDS_ALLOWED_TO_BE_USED; collunmIndex++)
+                    //      power[collunmIndex]=pow;
                     // mutexEffect[currentIndex]->unlock();
                     Alarm::delay( g_effectDelay );
                 }
@@ -485,7 +479,7 @@ int LEDPowerEffect()
         
         for( pow = 100; pow >= 0; pow-- )
         {
-            for( int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex )
+            for( currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex )
             {
                 if( g_effect[ currentIndex ] )
                 {
@@ -493,8 +487,8 @@ int LEDPowerEffect()
                     //if (currentIndex<MAX_LEDS_ALLOWED_TO_BE_USED)
                     power[ currentIndex ] = pow;
                     //else
-                    //   for (j=0; j<MAX_LEDS_ALLOWED_TO_BE_USED; j++)
-                    //      power[j]=pow;
+                    //   for (collunmIndex=0; collunmIndex<MAX_LEDS_ALLOWED_TO_BE_USED; collunmIndex++)
+                    //      power[collunmIndex]=pow;
                     // mutexEffect[currentIndex]->unlock();
                     Alarm::delay( g_effectDelay );
                 }
@@ -503,39 +497,42 @@ int LEDPowerEffect()
     
     }
     
-    cout << "Thread Effect finishing\n";
-    return 0;
-    
     // By calling this method, the currently running thread is stopped and put in FINISHING state.
     // If there are "joining threads" for the running thread (i.e., threads that called join() for
     // the running thread), these threads have its state set back to READY and are reinserted into
     // the scheduling queue.
     // static void exit(int status = 0)
+    
+    FPRINTLN( a1, "Thread Effect finishing\n" );
+    return 0;
 }
 
 void PWMInterrupt()
 {
-    static int  count  = 0;
-    static bool turnOn = false;
-    int         led[ 5 ]; // not all leds are actually used. Only the RGB ones (the first 3)
-    led[ 0 ] = 10;
-    led[ 1 ] = 9;
-    led[ 2 ] = 11;
-    led[ 3 ] = 23;
-    led[ 4 ] = 8;
+    static int dummyCounter;
+    int        leds[ 5 ]; // not all leds are actually used. Only the RGB ones (the first 3)
+    
+    dummyCounter = 0;
+    
+    leds[ 0 ] = 10;
+    leds[ 1 ] = 9;
+    leds[ 2 ] = 11;
+    leds[ 3 ] = 23;
+    leds[ 4 ] = 8;
     
     for( int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex )
     {
-        if( count < power[ currentIndex ] )
+        if( dummyCounter < power[ currentIndex ] )
         {
-            turn_led( led[ currentIndex ], true );
+            turn_led( leds[ currentIndex ], true );
         }
         else
         {
-            turn_led( led[ currentIndex ], false );
+            turn_led( leds[ currentIndex ], false );
         }
     }
-    count = ( count + 1 ) % 100;
+    
+    dummyCounter = ( dummyCounter + 1 ) % 100;
 }
 
 int main()
