@@ -513,17 +513,27 @@ void PWMInterrupt()
     count = ( count + 1 ) % 100;
 }
 
-int main()
+/**
+ * To creates an objecto from the test class 'MyClass' and to call its only member to printf
+ * its hi int number to OStream.
+ * 
+ * @return a dummy value just to allows it to be used within 'DEBUGGER(...)'.
+ */
+int myClassObjectTest()
 {
-    cout << "EposMotesII app initing\n";        
-    
-    FPRINTLN( a1 a2 a4, "Test2: " << 10 ); 
-    
     MyClass myClassObject;
     
     cout << "myClassObject.get_hi(): ";
     cout << myClassObject.get_hi();
     cout << "\n\n\n";
+    
+    return 0;
+}
+
+int main()
+{
+    FPRINTLN( a1, "EposMotesII app initing\n" );
+    DEBUGGER( b1, myClassObjectTest() );
     
     unsigned int i;
     TSC_Timer    pwmTimer( 100, &PWMInterrupt );

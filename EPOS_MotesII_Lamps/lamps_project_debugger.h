@@ -49,10 +49,7 @@
  * 
  * Algorithm Strategy debugging:
  * b0   - Disabled all debug.
- * b1   - _FirstFit::allocateMemory(1) debugging.
- * b2   - _NextFit::allocateMemory(1) debugging.
- * b3   - _WorstFit::allocateMemory(1) debugging.
- * b4   - _BestFit::allocateMemory(1) debugging.
+ * b1   - MyClass object test after the main program to run,
  */
 const char* const g_debugLevel = "a1 a2 a4";
 
@@ -93,6 +90,70 @@ OStream cout;
  */
 Semaphore g_debuger_semaphore;
 
+
+/**
+ * Print like function for logging putting a new line at the end of string. See the variables
+ * 'g_debugLevel', 'g_debugMask', for the avalibles levels.
+ * 
+ * @param level     the debugging desired level to be printed.
+ * @param ...       variable number os formating arguments parameters.
+ */
+#define DEBUGGERLN( level, ... ) \
+do \
+{ \
+    if( __computeDeggingLevel( #level ) ) \
+    { \
+        g_debuger_semaphore.p(); \
+        cout << __VA_ARGS__ << "\n"; \
+        g_debuger_semaphore.v(); \
+    } \
+} \
+while( 0 )
+
+/**
+ * The same as DEBUGGERLN(...) just below, but do not put automatically a new line.
+ */
+#define DEBUGGER( level, ... ) \
+do \
+{ \
+    if( __computeDeggingLevel( #level ) ) \
+    { \
+        g_debuger_semaphore.p(); \
+        cout << __VA_ARGS__; \
+        g_debuger_semaphore.v(); \
+    } \
+} \
+while( 0 )
+
+/**
+ * The same as DEBUGGER(...), but it is for standard program output.
+ */
+#define FPRINT( level, ... ) \
+do \
+{ \
+    if( __computeDeggingLevel( #level ) ) \
+    { \
+        g_debuger_semaphore.p(); \
+        cout << __VA_ARGS__; \
+        g_debuger_semaphore.v(); \
+    } \
+} \
+while( 0 )
+
+/**
+ * The same as DEBUGGERLN(...), but it is for standard program output.
+ */
+#define FPRINTLN( level, ... ) \
+do \
+{ \
+    if( __computeDeggingLevel( #level ) ) \
+    { \
+        g_debuger_semaphore.p(); \
+        cout << __VA_ARGS__ << "\n"; \
+        g_debuger_semaphore.v(); \
+    } \
+} \
+while( 0 )
 
 /**
  * Determines whether the input char is a digit. We are not using the std
@@ -318,78 +379,10 @@ inline bool __computeDeggingLevel( const char* debugLevel )
     return false;
 }
 
-/**
- * Print like function for logging putting a new line at the end of string. See the variables
- * 'g_debugLevel', 'g_debugMask', for the avalibles levels.
- * 
- * @param level     the debugging desired level to be printed.
- * @param ...       variable number os formating arguments parameters.
- */
-#define DEBUGGERLN( level, ... ) \
-do \
-{ \
-    if( __computeDeggingLevel( #level ) ) \
-    { \
-        g_debuger_semaphore.p(); \
-        cout << __VA_ARGS__ << "\n"; \
-        g_debuger_semaphore.v(); \
-    } \
-} \
-while( 0 )
-
-
-/**
- * The same as DEBUGGERLN(...) just below, but do not put automatically a new line.
- */
-#define DEBUGGER( level, ... ) \
-do \
-{ \
-    if( __computeDeggingLevel( #level ) ) \
-    { \
-        g_debuger_semaphore.p(); \
-        cout << __VA_ARGS__; \
-        g_debuger_semaphore.v(); \
-    } \
-} \
-while( 0 )
-
-
-/**
- * The same as DEBUGGER(...), but it is for standard program output.
- */
-#define FPRINT( level, ... ) \
-do \
-{ \
-    if( __computeDeggingLevel( #level ) ) \
-    { \
-        g_debuger_semaphore.p(); \
-        cout << __VA_ARGS__; \
-        g_debuger_semaphore.v(); \
-    } \
-} \
-while( 0 )
-
-
-/**
- * The same as DEBUGGERLN(...), but it is for standard program output.
- */
-#define FPRINTLN( level, ... ) \
-do \
-{ \
-    if( __computeDeggingLevel( #level ) ) \
-    { \
-        g_debuger_semaphore.p(); \
-        cout << __VA_ARGS__ << "\n"; \
-        g_debuger_semaphore.v(); \
-    } \
-} \
-while( 0 )
-
 
 #else
     #define DEBUGGER( stream, ... )
     #define DEBUGGERLN( stream, ... )
-
 
 /**
  * The same as DEBUGGER(...), but it is for standard program output when the debugging is disabled.
