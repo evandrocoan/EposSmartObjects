@@ -60,6 +60,12 @@
 __USING_SYS;
 
 
+/**
+ * Functions prototypes to allow they to be declared after the main function.
+ */
+int myClassObjectTest();
+void configureTheLedsEffects();
+
 
 //TODO
 //Get register addresses from include/mach/mc13224v/memory_map.h and implement function.
@@ -513,41 +519,14 @@ void PWMInterrupt()
     count = ( count + 1 ) % 100;
 }
 
-#if defined DEBUG
-/**
- * To creates an objecto from the test class 'MyClass' and to call its only member to printf
- * its hi int number to OStream.
- * 
- * @return a dummy value just to allows it to be used within 'DEBUGGER(...)'.
- */
-int myClassObjectTest()
-{
-    MyClass myClassObject;
-    
-    DEBUGGER( b1, "myClassObject.get_hi(): " );
-    DEBUGGER( b1, myClassObject.get_hi() );
-    DEBUGGER( b1, "\n\n\n" );
-    
-    return 0;
-}
-#endif
-
 int main()
 {
     FPRINTLN( a1, "EposMotesII app initing\n" );
     DEBUGGER( b1, myClassObjectTest() );
     
-    unsigned int currentIndex;
-    TSC_Timer    pwmTimer( 100, &PWMInterrupt );
-
-    //Alarm::delay(100);
+    TSC_Timer pwmTimer( 100, &PWMInterrupt );
     
-    for( currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++ )
-    {
-        //   mutexEffect[currentIndex]= new Mutex();
-        //   mutexEffect[currentIndex]->lock(); // g_effect starts OFF (blocked)
-        g_effect[ currentIndex ] = false;
-    }
+    configureTheLedsEffects();
     
     g_nic = new NIC();
     
@@ -583,3 +562,37 @@ int main()
     //int status_thrdPWM = thrdPWM->join();
     return 0;
 }
+
+/**
+ * Stills a mystery what does it do exactly. Maybe to initialize the led effects.
+ */
+void configureTheLedsEffects()
+{
+    //Alarm::delay(100);
+    
+    for( int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++ )
+    {
+        //   mutexEffect[currentIndex]= new Mutex();
+        //   mutexEffect[currentIndex]->lock(); // g_effect starts OFF (blocked)
+        g_effect[ currentIndex ] = false;
+    }
+}
+
+#if defined DEBUG
+/**
+ * To creates an objecto from the test class 'MyClass' and to call its only member to printf
+ * its hi int number to OStream.
+ * 
+ * @return a dummy value just to allows it to be used within 'DEBUGGER(...)'.
+ */
+int myClassObjectTest()
+{
+    MyClass myClassObject;
+    
+    DEBUGGER( b1, "myClassObject.get_hi(): " );
+    DEBUGGER( b1, myClassObject.get_hi() );
+    DEBUGGER( b1, "\n\n\n" );
+    
+    return 0;
+}
+#endif
