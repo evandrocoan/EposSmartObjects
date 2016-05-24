@@ -492,6 +492,12 @@ int LEDPowerEffect()
     
     cout << "Thread Effect finishing\n";
     return 0;
+    
+    // By calling this method, the currently running thread is stopped and put in FINISHING state.
+    // If there are "joining threads" for the running thread (i.e., threads that called join() for
+    // the running thread), these threads have its state set back to READY and are reinserted into
+    // the scheduling queue.
+    // static void exit(int status = 0)
 }
 
 void PWMInterrupt()
@@ -538,16 +544,38 @@ int main()
     //Uncomment later when use photo sensor.
     //useSensor = myCuteSensor.enable();
     
+    
+    // Thread( int (* entry)(), const State & state = READY, const Criterion & criterion = NORMAL, unsigned int stack_size = STACK_SIZE )
+    // 
+    // Creates a thread with the following parameters:
+    //
+    // entry:
+    // entry point for the thread (defines the thread behavior). entry should be a C++
+    // function with signature int func().
+    //
+    // state:
+    // defines the state of the thread upon its creation. Default value is READY, i.e.,
+    // it is able to run the next time the defined period is reached.
+    //
+    // criterion:
+    // defines the criterion to be used for this thread. The criterion is based on the
+    // Criterion defined by the Scheduler. It is better explained in the Scheduler section of this guide.
+    //
+    // stack_size:
+    // defines the size of the thread's stack. By default it takes the value set by the
+    // system's Traits. If a larger (or smaller) stack is desired, this parameter will allow you to do so.
     uartThread = new Thread( &ReceiveCommandUART );
-
+    
     //nicThread  = new Thread(&ReceiveCommandNIC);
     ledEffectThread = new Thread( &LEDPowerEffect );
     Alarm::delay( 5e6 );
-
+    
     // semcout->p();
     cout << "Waiting for threads to finish\n";
     // semcout->v();
     
+    // The join() method suspends the execution of the calling thread (i.e., the
+    // thread that is running) until the called thread finishes its execution.
     int status_thrdUART = uartThread->join();
 
     //int status_thrdNIC  = nicThread->join();
