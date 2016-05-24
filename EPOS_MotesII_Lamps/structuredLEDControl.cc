@@ -530,36 +530,36 @@ int main()
     
     g_nic = new NIC();
     
-    Thread * thrdPWM;
-    Thread * thrdUART;
-    Thread * thrdNIC;
-    Thread * thrdEffect;
+    Thread* pwmThread;
+    Thread* uartThread;
+    Thread* nicThread;
+    Thread* ledEffectThread;
     
     //Uncomment later when use photo sensor.
     //useSensor = myCuteSensor.enable();
     
-    thrdUART = new Thread( &ReceiveCommandUART );
+    uartThread = new Thread( &ReceiveCommandUART );
 
-    //thrdNIC  = new Thread(&ReceiveCommandNIC);
-    thrdEffect = new Thread( &LEDPowerEffect );
+    //nicThread  = new Thread(&ReceiveCommandNIC);
+    ledEffectThread = new Thread( &LEDPowerEffect );
     Alarm::delay( 5e6 );
 
     // semcout->p();
     cout << "Waiting for threads to finish\n";
     // semcout->v();
     
-    int status_thrdUART = thrdUART->join();
+    int status_thrdUART = uartThread->join();
 
-    //int status_thrdNIC  = thrdNIC->join();
-    int status_thrdEffect = thrdEffect->join();
+    //int status_thrdNIC  = nicThread->join();
+    int status_thrdEffect = ledEffectThread->join();
     cout << "Threads finished. EposMotesII app finishing\n";
     
     //Lista das pessoas que se importam com essa parte do código:
     // Evandro  Coan
 
     //Fim da lista
-    //thrdPWM = new Thread(&PWMLeds);
-    //int status_thrdPWM = thrdPWM->join();
+    //pwmThread = new Thread(&PWMLeds);
+    //int status_thrdPWM = pwmThread->join();
     return 0;
 }
 
