@@ -9,8 +9,6 @@ PWD_COMPILE_EPOS_LAMP=$(pwd)
 # Print help to the output stream.
 printHelp()
 {
-    printf "The start directory is $PWD_COMPILE_EPOS_LAMP\n"
-    printf "The current directory is $EPOS\n"
     printf "$installManual\n"
 }
 
@@ -46,14 +44,14 @@ programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 if ! [ -f $programFileToCompile ] \
     || [ $# -eq 0 ]
 then
-    printf "\nERROR! Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile\n"
+    printf "\nINSTALL ERROR:\n Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile\n"
     printHelp
     exit 1
 fi
 
 if isInteger $computerUSBNumber
 then
-    printf "\nERROR! Bad USB port number $computerUSBNumber!\n"
+    printf "\nINSTALL ERROR:\n Bad USB port number $computerUSBNumber!\n"
     printf "Use: ./install.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc 0\n"
     exit 1
 else
@@ -78,19 +76,19 @@ fi
 
 # To send the compiled application to the EPOSMotes2 board.
 # python red-bsl.py -t /dev/ttyUSB0 -f img/structuredLEDControl.bin -S
-sudo python $EPOS_MOTES2_INSTALLER -t /dev/ttyUSB$computerUSBNumber -f img/$programNameToCompile.bin -S
-
+if sudo python $EPOS_MOTES2_INSTALLER -t /dev/ttyUSB$computerUSBNumber -f img/$programNameToCompile.bin -S
+then
+    printf "ATTENTION: Install/use cutecom to read the EPOSMotes2 cout stream output.\n"
+    printf "To install it, use: sudo apt-get install cutecom\n"
+    printf "To run it, use: sudo cutecom /dev/ttyUSB<number> &\n"
+    printf "Example: sudo cutecom /dev/ttyUSB0 &\n"
+    printf "After open cutecom, click on the open button then press the EPOSMotes2 reset\n"
+    printf "button, otherwise it will not work, to send commands to the EPOSMotes2\n"
+    printf "by USB device. As: echo :R100 > /dev/ttyUSB0\n"
+fi
 
 # Switch back to the start command line folder.
 cd $PWD_COMPILE_EPOS_LAMP
-
-printf "\nATTENTION! Install cutecom to read the EPOSMotes2 cout stream output.\n"
-printf "To install it, use: sudo apt-get install cutecom\n"
-printf "To run it, use: sudo cutecom /dev/ttyUSB<number> &\n"
-printf "Example: sudo cutecom /dev/ttyUSB0 &\n"
-printf "\nAfter open cutecom, click on the open button then press the EPOSMotes2 reset button, otherwise\n"
-printf "it will not work, to send commands to the EPOSMotes2 by USB device. As: echo :R100 > /dev/ttyUSB0\n\n"
-
 
 # Print help when it is not passed a third command line argument integer
 if isInteger $3

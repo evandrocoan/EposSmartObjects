@@ -9,8 +9,6 @@ PWD_COMPILE_EPOS_LAMP=$(pwd)
 # Print help to the output stream.
 printHelp()
 {
-    printf "The start directory is $PWD_COMPILE_EPOS_LAMP\n"
-    printf "The current directory is $EPOS\n"
     printf "$installManual\n"
 }
 
@@ -44,10 +42,6 @@ isInteger()
     fi
 }
 
-
-# The EPOSMotes2 installer
-EPOS_MOTES2_INSTALLER="red-bsl.py"
-
 # Read the command line argument. The programs name must to be without type extension.
 programFileToCompile=$1
 
@@ -59,7 +53,7 @@ programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 if ! [ -f $programFileToCompile ] \
     || [ $# -eq 0 ]
 then
-    printf "\nERROR! Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile\n"
+    printf "\nMAKE ERROR:\n Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile\n"
     printHelp
     exit 1
 fi
@@ -81,15 +75,15 @@ fi
 
 
 # To compile the application passed as parameter '$programNameToCompile'
-make APPLICATION=$programNameToCompile
+if ! make APPLICATION=$programNameToCompile
+then
+    printf "\nMAKE ERROR:\nThe start directory is $PWD_COMPILE_EPOS_LAMP\n"
+    printf "The current directory is $EPOS\n"
+    printHelp
+    exit 1
+fi
 
 # Switch back to the start command line folder.
 cd $PWD_COMPILE_EPOS_LAMP
-
-# Print help when it is not passed a third command line argument integer
-if isInteger $3
-then
-    printHelp
-fi
 
 
