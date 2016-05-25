@@ -9,9 +9,9 @@ PWD_COMPILE_EPOS_LAMP=$(pwd)
 # Print help to the output stream.
 printHelp()
 {
-    echo "The start directory is $PWD_COMPILE_EPOS_LAMP"
-    echo "The current directory is $EPOS"
-    echo "$installManual"
+    printf "The start directory is $PWD_COMPILE_EPOS_LAMP"
+    printf "The current directory is $EPOS"
+    printf "$installManual"
 }
 
 # contains(string, substring)
@@ -59,7 +59,7 @@ programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 if ! [ -f $programFileToCompile ] \
     || [ $# -eq 0 ]
 then
-    echo "\nERROR! Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile"
+    printf "\nERROR! Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile"
     printHelp
     exit 1
 fi

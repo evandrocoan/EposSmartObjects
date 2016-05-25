@@ -9,7 +9,7 @@ PWD_COMPILE_EPOS_LAMP=$(pwd)
 # Print help to the output stream.
 printHelp()
 {
-    echo "$installManual"
+    printf "$installManual"
 }
 
 # Determine whether the first parameter is an integer or not.
@@ -41,9 +41,9 @@ programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 if ! [ -f $programFileToCompile ] \
     || [ $# -eq 0 ]
 then
-    echo "\nERROR! Could not find '$PWD_COMPILE_EPOS_LAMP/$programFileToCompile'"
-    echo "The start directory is '$PWD_COMPILE_EPOS_LAMP'"
-    echo "The current directory is $EPOS"
+    printf "\nERROR! Could not find '$PWD_COMPILE_EPOS_LAMP/$programFileToCompile'"
+    printf "The start directory is '$PWD_COMPILE_EPOS_LAMP'"
+    printf "The current directory is $EPOS"
     printHelp
     exit 1
 fi
@@ -52,9 +52,9 @@ fi
 # To install the new scheduler.
 if cp $EPOS/app/INE5412_EposMotesII_SmartObjects/EPOS_MotesII_Lamps/$NEW_SCHEDULER_FILE $EPOS/include/
 then
-    echo "The copy of '$NEW_SCHEDULER_FILE' to '$EPOS/include' was successful"
+    printf "The copy of '$NEW_SCHEDULER_FILE' to '$EPOS/include' was successful"
 else
-    echo "ERROR! Could not to copy $NEW_SCHEDULER_FILE to $EPOS/include"
+    printf "ERROR! Could not to copy $NEW_SCHEDULER_FILE to $EPOS/include"
     printHelp
     exit 1
 fi
@@ -62,9 +62,9 @@ fi
 # To install the new compiler.
 if cp $EPOS/app/INE5412_EposMotesII_SmartObjects/EPOS_MotesII_Lamps/$NEW_EPOS_COMPILER_FILE $EPOS/tools/eposcc/
 then
-    echo "The copy of '$NEW_EPOS_COMPILER_FILE' to $EPOS//tools/eposcc/ was successful"
+    printf "The copy of '$NEW_EPOS_COMPILER_FILE' to $EPOS//tools/eposcc/ was successful"
 else
-    echo "ERROR! Could not to copy $NEW_SCHEDULER_FILE to $EPOS/include"
+    printf "ERROR! Could not to copy $NEW_SCHEDULER_FILE to $EPOS/include"
     printHelp
     exit 1
 fi
@@ -77,9 +77,9 @@ then
     # --quiet | Do not print the number of blocks copied
     find . -name '*.cc' | cpio -updm --quiet $EPOS/app/
     find . -name '*.h' | cpio -updm --quiet $EPOS/include/
-    echo "The copy of '$programFileToCompile' to '$EPOS/app' was successful"
+    printf "The copy of '$programFileToCompile' to '$EPOS/app' was successful"
 else
-    echo "ERROR! Could not to copy '$programFileToCompile' to '$EPOS/app'"
+    printf "ERROR! Could not to copy '$programFileToCompile' to '$EPOS/app'"
     printHelp
     exit 1
 fi

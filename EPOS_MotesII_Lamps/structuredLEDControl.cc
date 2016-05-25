@@ -37,7 +37,8 @@
  * vai ter um Traits<Thread>
  * la dentro, muda pra Round Robin
  *
- */
+*/
+
 #include <machine.h>
 #include <alarm.h>
 #include <sensor.h>

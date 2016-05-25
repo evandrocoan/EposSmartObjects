@@ -9,9 +9,9 @@ PWD_COMPILE_EPOS_LAMP=$(pwd)
 # Print help to the output stream.
 printHelp()
 {
-    echo "The start directory is $PWD_COMPILE_EPOS_LAMP"
-    echo "The current directory is $EPOS"
-    echo "$installManual"
+    printf "The start directory is $PWD_COMPILE_EPOS_LAMP"
+    printf "The current directory is $EPOS"
+    printf "$installManual"
 }
 
 # Determine whether the first parameter is an integer or not.
@@ -46,15 +46,15 @@ programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 if ! [ -f $programFileToCompile ] \
     || [ $# -eq 0 ]
 then
-    echo "\nERROR! Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile"
+    printf "\nERROR! Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile"
     printHelp
     exit 1
 fi
 
 if isInteger $computerUSBNumber
 then
-    echo "\nERROR! Bad USB port number $computerUSBNumber!"
-    echo "Use: ./install.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc 0"
+    printf "\nERROR! Bad USB port number $computerUSBNumber!"
+    printf "Use: ./install.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc 0"
     exit 1
 else
     computerUSBNumber=0
@@ -84,12 +84,12 @@ sudo python $EPOS_MOTES2_INSTALLER -t /dev/ttyUSB$computerUSBNumber -f img/$prog
 # Switch back to the start command line folder.
 cd $PWD_COMPILE_EPOS_LAMP
 
-echo "\nATTENTION! Install cutecom to read the EPOSMotes2 cout stream output."
-echo "To install it, use: sudo apt-get install cutecom"
-echo "To run it, use: sudo cutecom /dev/ttyUSB<number> &"
-echo "Example: sudo cutecom /dev/ttyUSB0 &"
-echo "\nAfter open cutecom, click on the open button then press the EPOSMotes2 reset button, otherwise"
-echo "it will not work, to send commands to the EPOSMotes2 by USB device. As: echo :R100 > /dev/ttyUSB0\n"
+printf "\nATTENTION! Install cutecom to read the EPOSMotes2 cout stream output."
+printf "To install it, use: sudo apt-get install cutecom"
+printf "To run it, use: sudo cutecom /dev/ttyUSB<number> &"
+printf "Example: sudo cutecom /dev/ttyUSB0 &"
+printf "\nAfter open cutecom, click on the open button then press the EPOSMotes2 reset button, otherwise"
+printf "it will not work, to send commands to the EPOSMotes2 by USB device. As: echo :R100 > /dev/ttyUSB0\n"
 
 
 # Print help when it is not passed a third command line argument integer
