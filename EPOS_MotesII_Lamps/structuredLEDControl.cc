@@ -145,8 +145,13 @@ void PWMInterrupt();
  */
 int main()
 {
-    FPRINTLN( a1, "EposMotesII app initing\n" );
-    DEBUGGER( b1, myClassObjectTest() );
+    int i = 0;
+    
+    FPRINTLN( a1, "EposMotesII app initing\n" ); 
+    
+#if defined DEBUG
+    myClassObjectTest();  
+#endif
     
     TSC_Timer pwmTimer( 100, &PWMInterrupt );
     configureTheLedsEffects();
