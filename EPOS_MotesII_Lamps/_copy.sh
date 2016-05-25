@@ -41,7 +41,7 @@ programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 if ! [ -f $programFileToCompile ] \
     || [ $# -eq 0 ]
 then
-    printf "\nCOPY ERROR:\n Could not find '$PWD_COMPILE_EPOS_LAMP/$programFileToCompile'\n"
+    printf "\nCOPY ERROR!\nCould not find '$PWD_COMPILE_EPOS_LAMP/$programFileToCompile'\n"
     printf "The start directory is '$PWD_COMPILE_EPOS_LAMP'\n"
     printf "The current directory is $EPOS\n"
     printHelp
@@ -54,7 +54,7 @@ if cp $PWD_COMPILE_EPOS_LAMP/$NEW_SCHEDULER_FILE $EPOS/include/
 then
     printf "The copy of '$NEW_SCHEDULER_FILE' to '$EPOS/include' was successful\n"
 else
-    printf "\nCOPY ERROR:\n Could not to copy $NEW_SCHEDULER_FILE to $EPOS/include\n"
+    printf "\nCOPY ERROR!\nCould not to copy $NEW_SCHEDULER_FILE to $EPOS/include\n"
     printHelp
     exit 1
 fi
@@ -64,7 +64,7 @@ if cp $PWD_COMPILE_EPOS_LAMP/$NEW_EPOS_COMPILER_FILE $EPOS/tools/eposcc/
 then
     printf "The copy of '$NEW_EPOS_COMPILER_FILE' to $EPOS//tools/eposcc/ was successful\n"
 else
-    printf "\nCOPY ERROR:\n Could not to copy $NEW_EPOS_COMPILER_FILE to $EPOS/include\n"
+    printf "\nCOPY ERROR!\nCould not to copy $NEW_EPOS_COMPILER_FILE to $EPOS/include\n"
     printHelp
     exit 1
 fi
@@ -79,7 +79,7 @@ then
     find . -name '*.h' | cpio -updm --quiet $EPOS/include/
     printf "The copy of '$programFileToCompile' to '$EPOS/app' was successful\n"
 else
-    printf "\nCOPY ERROR:\n Could not to copy '$programFileToCompile' to '$EPOS/app'\n"
+    printf "\nCOPY ERROR!\nCould not to copy '$programFileToCompile' to '$EPOS/app'\n"
     printHelp
     exit 1
 fi

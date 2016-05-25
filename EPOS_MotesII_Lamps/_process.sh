@@ -39,7 +39,7 @@ programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 if ! [ -f $programFileToCompile ] \
     || [ $# -eq 0 ]
 then
-    printf "\nPROCESSING ERROR:\n Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile\n"
+    printf "\nPROCESS ERROR!\nCould not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile\n"
     printHelp
     exit 1
 fi
@@ -51,9 +51,9 @@ cd $EPOS
 # To prepare the binary file to be exported the the EPOSMotes2 board.
 if arm-objcopy -I elf32-little -O binary img/$programNameToCompile.img img/$programNameToCompile.bin
 then
-    printf "\nThe arm-objcop $programFileToCompile was successful\n"
+    printf "The arm-objcop $programFileToCompile was successful\n"
 else
-    printf "\nPROCESSING ERROR:\n Could not to copy $programFileToCompile to $EPOS/app\n"
+    printf "\nPROCESS ERROR!\nCould not to copy $programFileToCompile to $EPOS/app\n"
     printHelp
     exit 1
 fi

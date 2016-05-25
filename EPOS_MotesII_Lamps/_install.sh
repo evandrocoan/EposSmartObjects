@@ -44,14 +44,14 @@ programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 if ! [ -f $programFileToCompile ] \
     || [ $# -eq 0 ]
 then
-    printf "\nINSTALL ERROR:\n Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile\n"
+    printf "\nINSTALL ERROR!\nCould not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile\n"
     printHelp
     exit 1
 fi
 
 if isInteger $computerUSBNumber
 then
-    printf "\nINSTALL ERROR:\n Bad USB port number $computerUSBNumber!\n"
+    printf "\nINSTALL ERROR!\nBad USB port number $computerUSBNumber!\n"
     printf "Use: ./install.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc 0\n"
     exit 1
 else
@@ -86,7 +86,7 @@ then
     printf "button, otherwise it will not work, to send commands to the EPOSMotes2\n"
     printf "by USB device. As: echo :R100 > /dev/ttyUSB0\n"
 else
-    printf "\nERROR: Could not send the application to the EPOSMotes2 board!\n"
+    printf "\nINSTALL ERROR!\nCould not send the application to the EPOSMotes2 board!\n"
     printHelp
     exit 1
 fi
