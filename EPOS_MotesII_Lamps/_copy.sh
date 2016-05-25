@@ -9,7 +9,7 @@ PWD_COMPILE_EPOS_LAMP=$(pwd)
 # Print help to the output stream.
 printHelp()
 {
-    printf "$installManual"
+    printf "$installManual\n"
 }
 
 # Determine whether the first parameter is an integer or not.
@@ -41,45 +41,45 @@ programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 if ! [ -f $programFileToCompile ] \
     || [ $# -eq 0 ]
 then
-    printf "\nERROR! Could not find '$PWD_COMPILE_EPOS_LAMP/$programFileToCompile'"
-    printf "The start directory is '$PWD_COMPILE_EPOS_LAMP'"
-    printf "The current directory is $EPOS"
+    printf "\nERROR! Could not find '$PWD_COMPILE_EPOS_LAMP/$programFileToCompile'\n"
+    printf "The start directory is '$PWD_COMPILE_EPOS_LAMP'\n"
+    printf "The current directory is $EPOS\n"
     printHelp
     exit 1
 fi
 
 
 # To install the new scheduler.
-if cp $EPOS/app/INE5412_EposMotesII_SmartObjects/EPOS_MotesII_Lamps/$NEW_SCHEDULER_FILE $EPOS/include/
+if cp $PWD_COMPILE_EPOS_LAMP/$NEW_SCHEDULER_FILE $EPOS/include/
 then
-    printf "The copy of '$NEW_SCHEDULER_FILE' to '$EPOS/include' was successful"
+    printf "The copy of '$NEW_SCHEDULER_FILE' to '$EPOS/include' was successful\n"
 else
-    printf "ERROR! Could not to copy $NEW_SCHEDULER_FILE to $EPOS/include"
+    printf "ERROR! Could not to copy $NEW_SCHEDULER_FILE to $EPOS/include\n"
     printHelp
     exit 1
 fi
 
 # To install the new compiler.
-if cp $EPOS/app/INE5412_EposMotesII_SmartObjects/EPOS_MotesII_Lamps/$NEW_EPOS_COMPILER_FILE $EPOS/tools/eposcc/
+if cp $PWD_COMPILE_EPOS_LAMP/$NEW_EPOS_COMPILER_FILE $EPOS/tools/eposcc/
 then
-    printf "The copy of '$NEW_EPOS_COMPILER_FILE' to $EPOS//tools/eposcc/ was successful"
+    printf "The copy of '$NEW_EPOS_COMPILER_FILE' to $EPOS//tools/eposcc/ was successful\n"
 else
-    printf "ERROR! Could not to copy $NEW_SCHEDULER_FILE to $EPOS/include"
+    printf "ERROR! Could not to copy $NEW_EPOS_COMPILER_FILE to $EPOS/include\n"
     printHelp
     exit 1
 fi
 
 
 # To copy the program to the main/compilation directory.
-if cp $EPOS/app/INE5412_EposMotesII_SmartObjects/EPOS_MotesII_Lamps/$programFileToCompile $EPOS/app/
+if cp $PWD_COMPILE_EPOS_LAMP/$programFileToCompile $EPOS/app/
 then
     # -updm | For overwrite destination content.
     # --quiet | Do not print the number of blocks copied
     find . -name '*.cc' | cpio -updm --quiet $EPOS/app/
     find . -name '*.h' | cpio -updm --quiet $EPOS/include/
-    printf "The copy of '$programFileToCompile' to '$EPOS/app' was successful"
+    printf "The copy of '$programFileToCompile' to '$EPOS/app' was successful\n"
 else
-    printf "ERROR! Could not to copy '$programFileToCompile' to '$EPOS/app'"
+    printf "ERROR! Could not to copy '$programFileToCompile' to '$EPOS/app'\n"
     printHelp
     exit 1
 fi
