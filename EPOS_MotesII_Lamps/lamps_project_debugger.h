@@ -29,6 +29,8 @@
 
 /**
  * This is to view internal program data while execution. Default value: 0
+ * The biggest string to output at once by the EPOSMotes2 within multiple PRINTLN, cout, etc is
+ * 127 chars long.
  * 
  *  0   = Disables this feature.
  *  1  >= Basic debugging.

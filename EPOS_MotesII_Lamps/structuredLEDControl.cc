@@ -469,10 +469,10 @@ int ReceiveCommandUART()
     unsigned int currentIndex;
     char         msg[ MAX_MESSAGE_LENGTH_ALLOWED ]; //[DATA_SIZE];
     
-    PRINTLN( a1, "To send commands to the EPOSMotes2 by USB device, use: \n" );
-    PRINTLN( a1, "echo :R100 > /dev/ttyUSB0\n\n" );
-    PRINTLN( a1, "Try also :REN, :BEN, :GEN or :AEN" );
-    PRINTLN( a1, "\nAll commnds must to start with : (colon)\n" );
+    // The biggest string to output at once, or within multiple PRINTLN, cout, etc is 127 chars long.
+    PRINTLN( a1, "To send commands to the EPOSMotes2 by USB device, use: \n"
+            << "echo :R100 > /dev/ttyUSB0 \n"
+            << "Try also :REN, :BEN, :GEN or :AEN" );
     
     UART * uart = new UART();
     
