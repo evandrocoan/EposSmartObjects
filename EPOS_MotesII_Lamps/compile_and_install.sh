@@ -9,35 +9,34 @@ PWD_COMPILE_EPOS_LAMP=$(pwd)
 # Print help to the output stream.
 printHelp()
 {
-    echo "The start directory is $PWD_COMPILE_EPOS_LAMP"
-    echo "The current directory is $EPOS"
-    echo "The second parameter is the USB port number to install."
-    echo "The third parameter is the optional value clean for a make veryclean all."
-    echo "Examples:"
-    echo "./compile_and_install.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc 0 clean"
-    echo "./compile_and_install.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc 1"
-    echo "$installManual"
+    printf "\nATTENTION:\nThe second parameter is the USB port number to install.\n"
+    printf "The third parameter is the optional value clean for a make veryclean all.\n"
+    printf "Examples:\n"
+    printf "./compile_and_install.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc 0 clean\n"
+    printf "./compile_and_install.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc 1\n"
+    printf "$installManual\n"
 }
 
 
 
 # Read the command line argument. The programs name must to be without type extension.
 programFileToCompile=$1
-
+usbPortNumberToInstall=$2
+isVeryCleanCompilation=$3
 
 # Notify an invalid file passed as parameter.
 if ! [ -f $programFileToCompile ]
 then
-    echo "\nERROR! Could not to find your program $programFileToCompile!"
-    echo "Please try again providing an correct program. Example:"
-    echo "./compile.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc\n"
+    printf "\nERROR! Could not to find your program $programFileToCompile!\n"
+    printf "Please try again providing an correct program. Example:\n"
+    printf "./compile.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc\n"
     printHelp
     exit 1
 elif ! [ -f structuredLEDControl.cc ]
 then
-    echo "\nERROR! Could not to find your program 'structuredLEDControl.cc'!"
-    echo "Please try again providing an correct program. Example:"
-    echo "./compile.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc\n"
+    printf "\nERROR! Could not to find your program 'structuredLEDControl.cc'!\n"
+    printf "Please try again providing an correct program. Example:\n"
+    printf "./compile.sh MY_COOL_PROGRAM_NAME_WITHOUT_HYPHEN.cc\n"
     printHelp
     exit 1
 fi
@@ -57,30 +56,32 @@ then
     python red-bsl.py -t /dev/ttyUSB0 -f img/structuredLEDControl.bin -S
     cd $PWD_COMPILE_EPOS_LAMP
 else
-    if ! sh _copy.sh $programFileToCompile 0
+    if sh _copy.sh $programFileToCompile 0
     then
-        echo "\nERROR! Could not to copy the initial files!"
-        printHelp
-        exit 1
-    fi
-    
-    if ! sh _make.sh $programFileToCompile $3 0
-    then
-        echo "\nERROR! Could not to compile the program!"
-        printHelp
-        exit 1
-    fi
-    
-    if ! sh _process.sh $programFileToCompile 0
-    then
-        echo "\nERROR! Could not to process the objcopy!"
-        printHelp
-        exit 1
-    fi
-    
-    if ! sh _install.sh $programFileToCompile $2 0
-    then
-        echo "\nERROR! Could not to install the program into the EPOSMotes2!"
+        if sh _make.sh $programFileToCompile $isVeryCleanCompilation a
+        then
+            if sh _process.sh $programFileToCompile 0
+            then
+                if sh _install.sh $programFileToCompile $usbPortNumberToInstall 0
+                then
+                    printf "\n"
+                else
+                    printf "\nERROR! Could not to install the program into the EPOSMotes2!\n"
+                    printHelp
+                    exit 1
+                fi
+            else
+                printf "\nERROR! Could not to process the objcopy!\n"
+                printHelp
+                exit 1
+            fi
+        else
+            printf "\nERROR! Could not to compile the program!\n"
+            printHelp
+            exit 1
+        fi
+    else
+        printf "\nERROR! Could not to copy the initial files!\n"
         printHelp
         exit 1
     fi

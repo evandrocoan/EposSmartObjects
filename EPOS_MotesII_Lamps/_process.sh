@@ -9,8 +9,6 @@ PWD_COMPILE_EPOS_LAMP=$(pwd)
 # Print help to the output stream.
 printHelp()
 {
-    printf "The start directory is $PWD_COMPILE_EPOS_LAMP\n"
-    printf "The current directory is $EPOS\n"
     printf "$installManual\n"
 }
 
@@ -41,7 +39,7 @@ programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 if ! [ -f $programFileToCompile ] \
     || [ $# -eq 0 ]
 then
-    printf "\nERROR! Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile\n"
+    printf "\nPROCESSING ERROR:\n Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile\n"
     printHelp
     exit 1
 fi
@@ -53,9 +51,9 @@ cd $EPOS
 # To prepare the binary file to be exported the the EPOSMotes2 board.
 if arm-objcopy -I elf32-little -O binary img/$programNameToCompile.img img/$programNameToCompile.bin
 then
-    printf "The arm-objcop $programFileToCompile was successful\n"
+    printf "\nThe arm-objcop $programFileToCompile was successful\n"
 else
-    printf "ERROR! Could not to copy $programFileToCompile to $EPOS/app\n"
+    printf "\nPROCESSING ERROR:\n Could not to copy $programFileToCompile to $EPOS/app\n"
     printHelp
     exit 1
 fi
