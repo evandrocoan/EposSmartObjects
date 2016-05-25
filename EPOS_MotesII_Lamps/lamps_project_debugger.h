@@ -121,7 +121,7 @@ while( 0 )
 /**
  * The same as DEBUGGER(...), but it is for standard program output.
  */
-#define FPRINT( level, ... ) \
+#define PRINT( level, ... ) \
 do \
 { \
     if( __computeDeggingLevel( #level ) ) \
@@ -136,7 +136,7 @@ while( 0 )
 /**
  * The same as DEBUGGERLN(...), but it is for standard program output.
  */
-#define FPRINTLN( level, ... ) \
+#define PRINTLN( level, ... ) \
 do \
 { \
     if( __computeDeggingLevel( #level ) ) \
@@ -381,7 +381,7 @@ inline bool __computeDeggingLevel( const char* debugLevel )
 /**
  * The same as DEBUGGER(...), but it is for standard program output when the debugging is disabled.
  */
-#define FPRINT( level, ... ) \
+#define PRINT( level, ... ) \
 do \
 { \
     cout << __VA_ARGS__; \
@@ -392,7 +392,7 @@ while( 0 )
 /**
  * The same as DEBUGGERLN(...), but it is for standard program output when the debugging is disabled.
  */
-#define FPRINTLN( level, ... ) \
+#define PRINTLN( level, ... ) \
 do \
 { \
     cout << __VA_ARGS__ << "\n"; \
