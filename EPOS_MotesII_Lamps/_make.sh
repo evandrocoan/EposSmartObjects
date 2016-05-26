@@ -2,45 +2,11 @@
 
 
 # Saves the current opened path, to restore it when this scripts finish.
-installManual=$(cat "__installManual.txt")
-PWD_COMPILE_EPOS_LAMP=$(pwd)
+PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))
 
+#import the helper functions.
+. ./__helper_functions.sh
 
-# Print help to the output stream.
-printHelp()
-{
-    printf "$installManual\n"
-}
-
-# contains(string, substring)
-#
-# Returns 0 if the specified string contains the specified substring,
-# otherwise returns 1.
-contains()
-{
-    string="$1"
-    substring="$2"
-    
-    if test "${string#*$substring}" != "$string"
-    then
-        return 0    # $substring is in $string
-    else
-        return 1    # $substring is not in $string
-    fi
-}
-
-# Determine whether the first parameter is an integer or not.
-#
-# Returns 1 if the specified string is an integer, otherwise returns 0.
-isInteger()
-{
-    if [ "$1" -eq "$1" ] 2>/dev/null
-    then
-        return 1
-    else
-        return 0
-    fi
-}
 
 # Read the command line argument. The programs name must to be without type extension.
 programFileToCompile=$1
@@ -51,7 +17,7 @@ programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 
 # Notify an invalid file passed as parameter.
 if ! [ -f $programFileToCompile ] \
-    || [ $# -eq 0 ]
+     || [ $# -eq 0 ]
 then
     printf "\nMAKE ERROR:\n Could not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile\n"
     printHelp
@@ -62,8 +28,14 @@ fi
 cd $EPOS
 
 
+# Calculates whether the seconds program parameter contains the clean word
+contains $2 "clean"
+
+# Captures the return value of the previous function call command
+containsReturnValue=$?
+
 # To clear any last compilation data.
-if contains $2 "clean"
+if ! [ $containsReturnValue -eq 1 ]
 then
     make veryclean all
     cd $PWD_COMPILE_EPOS_LAMP
@@ -83,7 +55,11 @@ then
     exit 1
 fi
 
+
 # Switch back to the start command line folder.
 cd $PWD_COMPILE_EPOS_LAMP
+
+# Exits the program using a successful exit status code.
+exit 0
 
 
