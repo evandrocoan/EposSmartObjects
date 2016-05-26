@@ -12,9 +12,9 @@ printHelp()
 {
     printf "\nCOMPILE AND INSTALL HELP:\n"
     printf "The './compile_and_install.sh' parameters are:\n"
-    printf "The first parameter is the file name to install.\n"
-    printf "The second parameter is the USB port number to install.\n"
-    printf "The third parameter is the optional value clean for a 'make veryclean' all.\n"
+    printf "The FIRST parameter is the file name to install.\n"
+    printf "The SECOND parameter is the USB port number to install.\n"
+    printf "The THIRD parameter is the optional value clean for a 'make veryclean' all.\n"
     printf "Examples:\n"
     printf "./compile_and_install.sh PROGRAM_NAME.cc 0 clean\n"
     printf "./compile_and_install.sh PROGRAM_NAME.cc 1\n"
