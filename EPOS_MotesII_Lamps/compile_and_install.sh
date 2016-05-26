@@ -10,7 +10,7 @@ PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))
 # Print help to the output stream.
 printHelp()
 {
-    printf "\nATTENTION:\n"
+    printf "\nCOMPILE AND INSTALL HELP:\n"
     printf "The './compile_and_install.sh' parameters are:\n"
     printf "The first parameter is the file name to install.\n"
     printf "The second parameter is the USB port number to install.\n"
