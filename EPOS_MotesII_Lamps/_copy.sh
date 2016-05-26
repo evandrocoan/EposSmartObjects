@@ -26,7 +26,7 @@ isInteger()
 }
 
 # Notify when $EPOS environment variable is not found.
-if ! [ -f $EPOS/tools/makefiled ]
+if ! [ -f $EPOS/tools/makefile ]
 then
     printf "\nINSTALL ERROR!\nCould not find the \$EPOS\n"
     printf "The start directory is '$PWD_COMPILE_EPOS_LAMP'\n"

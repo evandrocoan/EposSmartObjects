@@ -36,6 +36,17 @@ EPOS_MOTES2_INSTALLER_BINARY2="ssl.bin"
 programFileToCompile=$1
 computerUSBNumber=$2
 
+
+# Read the EPOSMotes2 installer flags, if omitted, use as default one '-S' to write the program
+# to the flash memory.
+if [ $# -gt 2 ]
+then
+    installerFlags=""
+else
+    installerFlags="-S"
+fi
+
+
 # Removed the file extension, just in case there exists.
 programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 
@@ -76,7 +87,7 @@ fi
 
 # To send the compiled application to the EPOSMotes2 board.
 # python red-bsl.py -t /dev/ttyUSB0 -f img/structuredLEDControl.bin -S
-if sudo python $EPOS_MOTES2_INSTALLER -t /dev/ttyUSB$computerUSBNumber -f img/$programNameToCompile.bin
+if sudo python $EPOS_MOTES2_INSTALLER -t /dev/ttyUSB$computerUSBNumber -f img/$programNameToCompile.bin $installerFlags
 then
     printf "\nATTENTION: Install/use cutecom to read the EPOSMotes2 cout stream output.\n"
     printf "To install it, use: sudo apt-get install cutecom\n"
@@ -94,11 +105,7 @@ fi
 # Switch back to the start command line folder.
 cd $PWD_COMPILE_EPOS_LAMP
 
-# Print help when it is not passed a third command line argument integer
-if isInteger $3
-then
-    printHelp
-fi
+
 
 
 

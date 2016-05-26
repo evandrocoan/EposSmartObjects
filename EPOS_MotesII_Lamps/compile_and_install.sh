@@ -49,7 +49,7 @@ else
         then
             if sh _process.sh $programFileToCompile 0
             then
-                if sh _install.sh $programFileToCompile $usbPortNumberToInstall 0
+                if sh _install.sh $programFileToCompile $usbPortNumberToInstall
                 then
                     printf "\n"
                 else
