@@ -1,6 +1,9 @@
 #!/bin/sh
 
 
+# Read the general tools system manual file.
+installManual=$(cat "__install_manual.txt")
+
 # Determine whether its first parameter is empty or not.
 #
 # Returns 1 if empty, otherwise returns 0.
@@ -42,7 +45,7 @@ isInteger()
 # Print help to the output stream.
 printHelp()
 {
-    printf "$installManual"
+    printf "$installManual\n"
 }
 
 
