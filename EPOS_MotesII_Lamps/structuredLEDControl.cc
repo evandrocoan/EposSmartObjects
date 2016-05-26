@@ -145,9 +145,9 @@ void PWMInterrupt();
  */
 int main()
 {
-    int i = 0;
+    const char* const PROGRAM_VERSION = "2.0";
     
-    PRINTLN( a1, "EposMotesII app initing\n" ); 
+    PRINTLN( a1, "EposMotesII app initing... Program version: " << PROGRAM_VERSION );
     
 #if defined DEBUG
     myClassObjectTest();  
@@ -482,17 +482,22 @@ int ReceiveCommandUART()
         {
             msg[ 0 ] = uart->get();
         }
-        while( msg[ 0 ] != ':' ); // messages start with ":"
+        
+        // messages start with ":"
+        while( msg[ 0 ] != ':' );
+        
         currentIndex = 0;
         
-        while( ( msg[ currentIndex - 1 ] != '\n' ) && ( currentIndex < MAX_MESSAGE_LENGTH_ALLOWED ) )
+        while( ( msg[ currentIndex ] != '\n' ) && ( currentIndex < MAX_MESSAGE_LENGTH_ALLOWED ) )
         {
             msg[ currentIndex++ ] = uart->get();
         }
+        
         memset( msg + currentIndex, 0x00, MAX_MESSAGE_LENGTH_ALLOWED - currentIndex );
+        
         // message received.
-        SendMessageToNIC( msg );
-        InterpretMessage( msg );
+        SendMessageToNIC( &msg[ 1 ] );
+        InterpretMessage( &msg[ 1 ] );
     }
     
     PRINTLN( a1, "Thread UART finishing\n" );
@@ -528,8 +533,8 @@ int LEDPowerEffect()
     PRINTLN( a1, "Thread Effect initing\n" );
     
     int          pow;
-    unsigned int collunmIndex;
     unsigned int currentIndex;
+    //unsigned int collunmIndex;
     
     //currentIndex = MAX_LEDS_ALLOWED_TO_BE_USED;
     
@@ -590,7 +595,7 @@ int LEDPowerEffect()
 
 void PWMInterrupt()
 {
-    static int dummyCounter = 0;
+    static unsigned int dummyCounter = 0;
     
     // not all leds are actually used. Only the RGB ones (the first 3)
     int leds[ 5 ]; 
@@ -601,7 +606,7 @@ void PWMInterrupt()
     leds[ 3 ] = 23;
     leds[ 4 ] = 8;
     
-    for( int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex )
+    for( unsigned int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex )
     {
         if( dummyCounter < power[ currentIndex ] )
         {
