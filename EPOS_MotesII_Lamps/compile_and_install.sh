@@ -30,6 +30,21 @@ usbPortNumberToInstall=$2
 isVeryCleanCompilation=$3
 
 
+# Calculates whether the $isVeryCleanCompilation is a number
+isInteger $isVeryCleanCompilation
+
+# Captures the return value of the previous function call command
+isIntegerReturnValue=$?
+
+# Notify an invalid USB port number passed as parameter.
+if ! [ $isIntegerReturnValue -eq 1 ]
+then
+    usbPortNumberToInstallTemp=$usbPortNumberToInstall
+    usbPortNumberToInstall=$isVeryCleanCompilation
+    isVeryCleanCompilation=$usbPortNumberToInstallTemp
+fi
+
+
 # Notify an invalid file passed as parameter.
 if ! [ -f $programFileToCompile ]
 then
