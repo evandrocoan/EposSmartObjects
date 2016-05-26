@@ -1,14 +1,18 @@
 #!/bin/sh
 
-
 # Saves the current opened path, to restore it when this scripts finish.
-PWD_COMPILE_EPOS_LAMP=$(pwd)
+PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))
+
+#import the helper functions.
+. ./__helper_functions.sh
 
 
 # Print help to the output stream.
 printHelp()
 {
-    printf "\nATTENTION:\nThe first parameter is the file name to install.\n"
+    printf "\nATTENTION:\n"
+    printf "The './compile_and_install.sh' parameters are:\n"
+    printf "The first parameter is the file name to install.\n"
     printf "The second parameter is the USB port number to install.\n"
     printf "The third parameter is the optional value clean for a 'make veryclean' all.\n"
     printf "Examples:\n"
@@ -51,7 +55,7 @@ else
             then
                 if sh _install.sh $programFileToCompile $usbPortNumberToInstall
                 then
-                    printf "\n"
+                    printf "\nThe COMPILE_AND_INSTALL.SH was executed successfully!\n"
                 else
                     printf "\n_INSTALL.SH ERROR! Could not to install the program into the EPOSMotes2!\n"
                     printHelp
@@ -74,8 +78,6 @@ else
     fi
 fi
 
-
-printf "\nThe COMPILE_AND_INSTALL.SH was executed successfully!\n"
 
 # Exits the program using a successful exit status code.
 exit 0
