@@ -69,9 +69,9 @@ template <> struct Traits<System>: public Traits<void>
 template <> struct Traits<Serial_Display>: public Traits<void>
 {
     static const bool enabled = true;
-    static const int COLUMNS = 80;
+    static const int COLUMNS = 120;
     static const int LINES = 24;
-    static const int TAB_SIZE = 8;
+    static const int TAB_SIZE = 4;
 };
 
 

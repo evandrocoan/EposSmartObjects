@@ -39,6 +39,7 @@
  *
 */
 
+#include <utility/ostream.h>
 #include <machine.h>
 #include <alarm.h>
 #include <sensor.h>
@@ -125,7 +126,7 @@ bool g_effect[ MAX_LEDS_ALLOWED_TO_BE_USED ];
 /**
  * Semaphore* semcout;
  */
-NIC * g_nic;
+NIC* g_nic;
 
 
 /**
@@ -146,11 +147,10 @@ void PWMInterrupt();
 int main()
 {
     const char* const PROGRAM_VERSION = "2.0";
-    
-    PRINTLN( a1, "EposMotesII app initing... Program version: " << PROGRAM_VERSION );
+    PRINTLN( a1, "EposMotesII app initing... \nProgram version: " << PROGRAM_VERSION );
     
 #if defined DEBUG
-    myClassObjectTest();  
+    myClassObjectTest();
 #endif
     
     // To creates a interrupt by stealing one Operation System Interrupt. This theft has know side
@@ -483,7 +483,7 @@ int ReceiveCommandUART()
     PRINTLN( a1, "echo :R100 > /dev/ttyUSB0" );
     PRINTLN( a1, "Try also :REN, :BEN, :GEN or :AEN" );
     
-    UART * uart = new UART();
+    UART* uart = new UART();
     
     while( !g_finishThread )
     {
@@ -656,9 +656,7 @@ int myClassObjectTest()
 {
     MyClass myClassObject;
     
-    DEBUGGER( b1, "myClassObject.get_hi(): " );
-    DEBUGGER( b1, myClassObject.get_hi() );
-    
+    DEBUGGERLN( b1, "myClassObject.get_hi(): " << myClassObject.get_hi() );
     return 0;
 }
 #endif

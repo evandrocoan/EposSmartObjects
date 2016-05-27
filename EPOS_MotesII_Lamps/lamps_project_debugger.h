@@ -65,7 +65,7 @@ const char* const g_debugLevel = "a1 a2 b1";
 /**
  * Before every cout, to do a delay using the class Alarm::delay(1) static function.
  */
-#define COUT_DELAY 1000
+#define COUT_DELAY 0
 
 /**
  * #define __SYS_NS	   System
@@ -105,7 +105,7 @@ do \
     { \
         g_debuger_semaphore.p(); \
         Alarm::delay( COUT_DELAY ); \
-        cout << __VA_ARGS__ << "\n"; \
+        cout << __VA_ARGS__ << endl; \
         g_debuger_semaphore.v(); \
     } \
 } \
@@ -153,7 +153,7 @@ do \
     { \
         g_debuger_semaphore.p(); \
         Alarm::delay( COUT_DELAY ); \
-        cout << __VA_ARGS__ << "\n"; \
+        cout << __VA_ARGS__ << endl; \
         g_debuger_semaphore.v(); \
     } \
 } \
@@ -298,9 +298,9 @@ inline bool __computeDeggingLevel( const char* debugLevel )
         || ( 2 > builtInLevelSize
            && builtInLevelSize > COMPUTE_DEBUGGING_DEBUG_INPUT_SIZE ) )
     {
-        cout << "ERROR while processing the DEBUG LEVEL: " << debugLevel << "\n";
+        cout << "ERROR while processing the DEBUG LEVEL: " << debugLevel << endl;
         cout << "! The masks sizes are " << inputLevelSize << " and " << builtInLevelSize;
-        cout << ", but they must to be between 1 and 32." << "\n";
+        cout << ", but they must to be between 1 and 32." << endl;
         
         //exit( EXIT_FAILURE ); This could not to be included due the <stdlib.h> conflict within EPOS.
         return false;
@@ -315,7 +315,7 @@ inline bool __computeDeggingLevel( const char* debugLevel )
     int currentInternLoop = 0;
 
     cout << "\ng_debugLevel: " << g_debugLevel << ", builtInLevelSize: " << builtInLevelSize ;
-    cout << ", debugLevel: " << debugLevel << ", inputLevelSize: " << inputLevelSize  << "\n";
+    cout << ", debugLevel: " << debugLevel << ", inputLevelSize: " << inputLevelSize  << endl;
 #endif
     
     inputLevelToken = my_strtok( inputLevelChar, separator );
@@ -329,7 +329,7 @@ inline bool __computeDeggingLevel( const char* debugLevel )
     {
     #if COMPUTE_DEBUGGING_LEVEL_DEBUG > 0
         currentInternLoop = 0;
-        cout << "CURRENT_ExternLoop: " << currentExternLoop++ << "\n";
+        cout << "CURRENT_ExternLoop: " << currentExternLoop++ << endl;
     #endif
         
         builtInLevelToken   = my_strtok( builtInLevelChar, separator );
@@ -340,13 +340,13 @@ inline bool __computeDeggingLevel( const char* debugLevel )
             builtInLevelTokenSize = strlen( builtInLevelToken );
             
         #if COMPUTE_DEBUGGING_LEVEL_DEBUG > 0
-            cout << "space" << "\n";
-            cout << "CURRENT_InternLoop: " << currentInternLoop++ << "\n";
+            cout << "space" << endl;
+            cout << "CURRENT_InternLoop: " << currentInternLoop++ << endl;
             
-            cout << "builtInLevelToken: " << builtInLevelToken << "\n";
-            cout << "builtInLevelTokenSize: " << builtInLevelTokenSize << "\n";
-            cout << "inputLevelChars[" << inputLevels << "]: " << inputLevelChars[ inputLevels ] << "\n";
-            cout << "inputLevelTokenSize: " << inputLevelTokenSize << "\n";
+            cout << "builtInLevelToken: " << builtInLevelToken << endl;
+            cout << "builtInLevelTokenSize: " << builtInLevelTokenSize << endl;
+            cout << "inputLevelChars[" << inputLevels << "]: " << inputLevelChars[ inputLevels ] << endl;
+            cout << "inputLevelTokenSize: " << inputLevelTokenSize << endl;
         #endif
             
             if( inputLevelTokenSize > 0
@@ -361,9 +361,9 @@ inline bool __computeDeggingLevel( const char* debugLevel )
                         builtInLevel = myAtoi( &builtInLevelToken[ 1 ] );
                         
                     #if COMPUTE_DEBUGGING_LEVEL_DEBUG > 0
-                        cout << "builtInLevel: " << builtInLevel << "\n";
-                        cout << "inputLevel: " << inputLevel << "\n";
-                        cout << "Is activeated? " << ( ( inputLevel & builtInLevel ) > 0 ) << "\n";
+                        cout << "builtInLevel: " << builtInLevel << endl;
+                        cout << "inputLevel: " << inputLevel << endl;
+                        cout << "Is activeated? " << ( ( inputLevel & builtInLevel ) > 0 ) << endl;
                     #endif
                         
                         if( ( inputLevel & builtInLevel ) > 0 )
@@ -377,7 +377,7 @@ inline bool __computeDeggingLevel( const char* debugLevel )
         } while( ( builtInLevelToken = my_strtok( NULL, separator ) ) != NULL );
         
     #if COMPUTE_DEBUGGING_LEVEL_DEBUG > 0
-        cout << "space" << "\n";
+        cout << "space" << endl;
     #endif
     }
     
@@ -408,7 +408,7 @@ while( 0 )
 do \
 { \
     Alarm::delay( COUT_DELAY ); \
-    cout << __VA_ARGS__ << "\n"; \
+    cout << __VA_ARGS__ << endl; \
 } \
 while( 0 )
 
