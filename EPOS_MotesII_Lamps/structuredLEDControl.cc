@@ -153,6 +153,15 @@ int main()
     myClassObjectTest();  
 #endif
     
+    // To creates a interrupt by stealing one Operation System Interrupt. This theft has know side
+    // affects until now, but it could be causing the 'traits.h' debug level info, to crash this
+    // program while running. The the file at 'file/trace_debug_info_error.txt' on this project
+    // for more information about it.
+    // The values tested as the interruption time to cause the LEDs to show a human visual blink
+    // when the LEDs power are set to lower values as 1, instead of 100 are 250. Note that not all
+    // colors showed blinking when using higher values. Some color as Red and Green, just presented
+    // themselves with lower bight then they should when the their minimum power is set.
+    // When it is set to 100, there are any blink perception.
     TSC_Timer pwmTimer( 100, &PWMInterrupt );
     configureTheLedsEffects();
     
@@ -184,19 +193,19 @@ int main()
     ledEffectThread = new Thread( &LEDPowerEffect );
     
     Alarm::delay( 5e6 );
-    PRINTLN( a1, "Waiting for uartThread to finish\n" );
+    PRINTLN( a1, "Waiting for uartThread to finish" );
     
     // The join() method suspends the execution of the calling thread (i.e., the
     // thread that is running) until the called thread finishes its execution.
     int uartThreadStatus = uartThread->join();
     
     DEBUGGER( a1, "uartThreadStatus: " << uartThreadStatus );
-    PRINTLN( a1, "Waiting for uartThread to finish\n" );
+    PRINTLN( a1, "Waiting for uartThread to finish" );
     
     int ledEffectThreadStatus = ledEffectThread->join();
     
     DEBUGGER( a1, "ledEffectThreadStatus: " << ledEffectThreadStatus );
-    PRINTLN( a1, "Threads finished. EposMotesII app finishing\n" );
+    PRINTLN( a1, "Threads finished. EposMotesII app finishing" );
     
     //Lista das pessoas que se importam com essa parte do código:
     //Evandro  Coan
@@ -270,7 +279,7 @@ void turn_led( int pin, bool on )
 /*
 int PWMLeds()
 {
-    PRINTLN( a1, "Thread PWM LEDs initing\n" );
+    PRINTLN( a1, "Thread PWM LEDs initing" );
     powerCalculateFunc func;
     
     if (useSensor)
@@ -313,7 +322,7 @@ int PWMLeds()
             }
         }
         
-        //PRINTLN( a1, "Still executing PWM. " << cont <<  "\n" );
+        //PRINTLN( a1, "Still executing PWM. " << cont );
         cont == 99 ? cont = 0 : cont++;
 
         for (currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++)
@@ -328,7 +337,7 @@ int PWMLeds()
         //turn_led(leds[currentIndex],false);
     }
      
-    PRINTLN( a1, "Thread PWM LEDs finishing\n" );
+    PRINTLN( a1, "Thread PWM LEDs finishing" );
     return 0;
 }
 */
@@ -364,7 +373,7 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
         }
         default:
         {
-            PRINTLN( a1, "Invalid led value '" << msg[ 0 ] << "' on position 0\n" );
+            PRINTLN( a1, "Invalid led value '" << msg[ 0 ] << "' on position 0" );
             return;
         }
     }
@@ -388,7 +397,7 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
                 }
             }
             
-            PRINTLN( a1, "Effect[" << led << "]=ON\n" );
+            PRINTLN( a1, "Effect[" << led << "]=ON" );
         }
         else if( msg[ 2 ] == 'F' ) // turn OFF g_effect
         {
@@ -406,7 +415,7 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
                 }
             }
             
-            PRINTLN( a1, "Effect[" << led << "]=OFF\n" );
+            PRINTLN( a1, "Effect[" << led << "]=OFF" );
         }
         else     // set g_effect delay
         {
@@ -414,7 +423,7 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
             tempDelay    *= 10 ^ ( ( (unsigned int) msg[ 3 ] ) - 48 );
             g_effectDelay = tempDelay;
             
-            PRINTLN( a1, "Delay=" << g_effectDelay << "\n" );
+            PRINTLN( a1, "Delay=" << g_effectDelay );
         }
     }
     else if( msg[ 1 ] == '0' || msg[ 1 ] == '1' )
@@ -441,11 +450,11 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
             }
         }
         
-        PRINTLN( a1, "Power[" << led << "]=" << pow << "\n" );
+        PRINTLN( a1, "Power[" << led << "]=" << pow );
     }
     else
     {
-        PRINTLN( a1, "Invalid value '" << msg[ 1 ] << "' on position 1\n" );
+        PRINTLN( a1, "Invalid value '" << msg[ 1 ] << "' on position 1" );
     }
 }
 
@@ -456,23 +465,23 @@ void SendMessageToNIC( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
     // != 11 ?
     while( ( r = g_nic->send( NIC::BROADCAST, (NIC::Protocol) 1, &msg, sizeof( msg ) ) ) == 0 )
     {
-        PRINTLN( a1, "Send failed " << r << "\n" );
+        PRINTLN( a1, "Send failed " << r );
     }
     
-    PRINTLN( a1, "Message sent\n" );
+    PRINTLN( a1, "Message sent" );
 }
 
 int ReceiveCommandUART()
 {
-    PRINTLN( a1, "Thread UART initing\n" );
+    PRINTLN( a1, "Thread UART initing" );
     
     unsigned int currentIndex;
     char         msg[ MAX_MESSAGE_LENGTH_ALLOWED ]; //[DATA_SIZE];
     
     // The biggest string to output at once, or within multiple PRINTLN, cout, etc is 127 chars long.
-    PRINTLN( a1, "To send commands to the EPOSMotes2 by USB device, use: \n"
-            << "echo :R100 > /dev/ttyUSB0 \n"
-            << "Try also :REN, :BEN, :GEN or :AEN" );
+    PRINTLN( a1, "To send commands to the EPOSMotes2 by USB device, use:" );
+    PRINTLN( a1, "echo :R100 > /dev/ttyUSB0" );
+    PRINTLN( a1, "Try also :REN, :BEN, :GEN or :AEN" );
     
     UART * uart = new UART();
     
@@ -496,17 +505,17 @@ int ReceiveCommandUART()
         memset( msg + currentIndex, 0x00, MAX_MESSAGE_LENGTH_ALLOWED - currentIndex );
         
         // message received.
-        SendMessageToNIC( &msg[ 1 ] );
-        InterpretMessage( &msg[ 1 ] );
+        SendMessageToNIC( &msg[ 0 ] );
+        InterpretMessage( &msg[ 0 ] );
     }
     
-    PRINTLN( a1, "Thread UART finishing\n" );
+    PRINTLN( a1, "Thread UART finishing" );
     return 0;
 }
 
 int ReceiveCommandNIC()
 {
-    PRINTLN( a1, "Thread NIC initing\n" );
+    PRINTLN( a1, "Thread NIC initing" );
     
     char msg[ MAX_MESSAGE_LENGTH_ALLOWED ];
     
@@ -520,17 +529,17 @@ int ReceiveCommandNIC()
             //PRINTLN( a1, "." );
         }
         
-        PRINTLN( a1, "\nMessage received: " << msg << "\n" );
+        PRINTLN( a1, "\nMessage received: " << msg );
         InterpretMessage( msg );
     }
     
-    PRINTLN( a1, "Thread NIC finishing\n" );
+    PRINTLN( a1, "Thread NIC finishing" );
     return 0;
 }
 
 int LEDPowerEffect()
 {
-    PRINTLN( a1, "Thread Effect initing\n" );
+    PRINTLN( a1, "Thread Effect initing" );
     
     int          pow;
     unsigned int currentIndex;
@@ -541,7 +550,7 @@ int LEDPowerEffect()
     while( !g_finishThread )
     {
         //for (currentIndex=0; currentIndex<=MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++) {
-        //PRINTLN( a1, "Incresing power of led[" << i << "]\n" );
+        //PRINTLN( a1, "Incresing power of led[" << i << "]" );
         
         for( pow = 0; pow <= 100; pow++ )
         {
@@ -589,7 +598,7 @@ int LEDPowerEffect()
     // the scheduling queue.
     // static void exit(int status = 0)
     
-    PRINTLN( a1, "Thread Effect finishing\n" );
+    PRINTLN( a1, "Thread Effect finishing" );
     return 0;
 }
 
