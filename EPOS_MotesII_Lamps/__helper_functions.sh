@@ -4,6 +4,40 @@
 # Read the general tools system manual file.
 installManual=$(cat "__install_manual.txt")
 
+# The time flag file path
+updateFlagFilePath="/home/$USER/epos_flag_file.txt"
+
+# Save the current seconds
+if ! [ -f $updateFlagFilePath ]
+then
+    # Allow this variable to be visible form multiples shell script executions.
+    export scriptStartSecond=$(date +%s)
+    
+    # Create a flag file to avoid override the initial time.
+    echo "The EPOS 1.1 time flag" > $updateFlagFilePath
+fi
+
+
+# Calculates and prints to the screen the seconds elapsed since this script started.
+showTheElapsedSeconds()
+{
+    scripExecutionTimeResult=$(($(date +%s)-scriptStartSecond))
+    printf "Took '$scripExecutionTimeResult' seconds to run this script.\n"
+    
+    cleanUpdateFlagFile
+}
+
+
+# Clean the flag file
+cleanUpdateFlagFile()
+{
+    if [ -f $updateFlagFilePath ]
+    then
+        rm $updateFlagFilePath
+    fi
+}
+
+
 # Determine whether its first parameter is empty or not.
 #
 # Returns 1 if empty, otherwise returns 0.
@@ -46,6 +80,7 @@ isInteger()
 printHelp()
 {
     printf "$installManual\n"
+    showTheElapsedSeconds
 }
 
 

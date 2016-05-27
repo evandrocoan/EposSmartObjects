@@ -3,7 +3,7 @@
 # Saves the current opened path, to restore it when this scripts finish.
 PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))
 
-#import the helper functions.
+# Import the helper functions.
 . ./__helper_functions.sh
 
 
@@ -71,6 +71,7 @@ else
                 if sh _install.sh $programFileToCompile $usbPortNumberToInstall
                 then
                     printf "\nThe COMPILE_AND_INSTALL.SH was executed successfully!\n"
+                    showTheElapsedSeconds
                 else
                     printf "\n_INSTALL.SH ERROR! Could not to install the program into the EPOSMotes2!\n"
                     printHelp
