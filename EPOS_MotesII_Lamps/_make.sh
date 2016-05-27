@@ -10,6 +10,7 @@ PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))
 
 # Read the command line argument. The programs name must to be without type extension.
 programFileToCompile=$1
+secondCommandLineArgument=$2
 
 # Removed the file extension, just in case there exists.
 programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
@@ -29,7 +30,7 @@ cd $EPOS
 
 
 # Calculates whether the seconds program parameter contains the clean word
-contains $2 "clean"
+contains $secondCommandLineArgument "clean"
 
 # Captures the return value of the previous function call command
 containsReturnValue=$?

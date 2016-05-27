@@ -106,7 +106,6 @@ fi
 # Switch back to the start command line folder.
 cd $PWD_COMPILE_EPOS_LAMP
 
-
 # Exits the program using a successful exit status code.
 exit 0
 

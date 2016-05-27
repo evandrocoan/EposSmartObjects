@@ -16,6 +16,7 @@ NEW_EPOS_PLASMA_MAKEFILE_FILE="makefile_plasma"
 
 # Read the command line argument. The programs name must to be without type extension.
 programFileToCompile=$1
+secondCommandLineArgument=$2
 
 # Removed the file extension, just in case there exists.
 programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
@@ -102,18 +103,8 @@ else
 fi
 
 
-# Calculates whether the seconds program parameter is an integer number
-isInteger $2
-
-# Captures the return value of the previous function call command
-isIntegerReturnValue=$?
-
-# Print help when it is not passed a second command line argument integer
-if ! [ $isIntegerReturnValue -eq 1 ]
-then
-    printHelp
-fi
-
+# Print help to the output stream, when the second parameter is not an integer.
+tryPrintHelp $secondCommandLineArgument
 
 # Exits the program using a successful exit status code.
 exit 0

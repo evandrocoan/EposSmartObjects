@@ -84,6 +84,25 @@ printHelp()
 }
 
 
+# Try to print help to the output stream.
+#
+# If its first parameter is not an integer, to print print help to the output stream. 
+tryPrintHelp()
+{
+    # Calculates whether the seconds program parameter is an integer number
+    isInteger $1
+
+    # Captures the return value of the previous function call command
+    isIntegerReturnValue=$?
+
+    # Print help when it is not passed a second command line argument integer
+    if ! [ $isIntegerReturnValue -eq 1 ]
+    then
+        printHelp
+    fi
+}
+
+
 # contains(string, substring)
 #
 # Returns 0 if the specified string contains the specified substring,

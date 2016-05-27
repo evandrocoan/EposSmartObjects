@@ -64,7 +64,7 @@ const char* const g_debugLevel = "a1 a2 b1 a4";
 
 
 /**
- * This is used to print the same message 1C_OUT_REPEATED_OUTPUT_NUMBER1 times. This is because the
+ * This is used to print the same message 'C_OUT_REPEATED_OUTPUT_NUMBER' times. This is because the
  * EPOS 1.1 motherfucker just ignores some messages outputs some times it feels it needs to ignores
  * you.
  */
