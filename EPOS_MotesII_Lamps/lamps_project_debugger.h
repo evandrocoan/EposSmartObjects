@@ -64,11 +64,11 @@ const char* const g_debugLevel = "a1 a2 b1 a4";
 
 
 /**
- * Before every cout, to do a delay using the class Alarm::delay(1) static function. This is used
- * to print the same message 5 times. This is because the EPOS 1.1 motherfucker just ignores some
- * messages outputs some times it feels it need to ignores you.
+ * This is used to print the same message 1C_OUT_REPEATED_OUTPUT_NUMBER1 times. This is because the
+ * EPOS 1.1 motherfucker just ignores some messages outputs some times it feels it needs to ignores
+ * you.
  */
-#define COUT_DELAY 3
+#define C_OUT_REPEATED_OUTPUT_NUMBER 3
 
 /**
  * #define __SYS_NS	   System
@@ -107,8 +107,7 @@ do \
     if( __computeDeggingLevel( #level ) ) \
     { \
         g_debuger_semaphore.p(); \
-        Alarm::delay( COUT_DELAY ); \
-        for( int i = 0; i < COUT_DELAY; i++ ) \
+        for( int i = 0; i < C_OUT_REPEATED_OUTPUT_NUMBER; i++ ) \
             cout << __VA_ARGS__ << endl; \
         g_debuger_semaphore.v(); \
     } \
@@ -124,8 +123,7 @@ do \
     if( __computeDeggingLevel( #level ) ) \
     { \
         g_debuger_semaphore.p(); \
-        Alarm::delay( COUT_DELAY ); \
-        for( int i = 0; i < COUT_DELAY; i++ ) \
+        for( int i = 0; i < C_OUT_REPEATED_OUTPUT_NUMBER; i++ ) \
             cout << __VA_ARGS__; \
         g_debuger_semaphore.v(); \
     } \
@@ -141,8 +139,7 @@ do \
     if( __computeDeggingLevel( #level ) ) \
     { \
         g_debuger_semaphore.p(); \
-        Alarm::delay( COUT_DELAY ); \
-        for( int i = 0; i < COUT_DELAY; i++ ) \
+        for( int i = 0; i < C_OUT_REPEATED_OUTPUT_NUMBER; i++ ) \
             cout << __VA_ARGS__; \
         g_debuger_semaphore.v(); \
     } \
@@ -158,8 +155,7 @@ do \
     if( __computeDeggingLevel( #level ) ) \
     { \
         g_debuger_semaphore.p(); \
-        Alarm::delay( COUT_DELAY ); \
-        for( int i = 0; i < COUT_DELAY; i++ ) \
+        for( int i = 0; i < C_OUT_REPEATED_OUTPUT_NUMBER; i++ ) \
             cout << __VA_ARGS__ << endl; \
         g_debuger_semaphore.v(); \
     } \
@@ -402,8 +398,7 @@ inline bool __computeDeggingLevel( const char* debugLevel )
 #define PRINT( level, ... ) \
 do \
 { \
-    Alarm::delay( COUT_DELAY ); \
-    for( int i = 0; i < COUT_DELAY; i++ ) \
+    for( int i = 0; i < C_OUT_REPEATED_OUTPUT_NUMBER; i++ ) \
         cout << __VA_ARGS__; \
 } \
 while( 0 )
@@ -415,8 +410,7 @@ while( 0 )
 #define PRINTLN( level, ... ) \
 do \
 { \
-    Alarm::delay( COUT_DELAY ); \
-    for( int i = 0; i < COUT_DELAY; i++ ) \
+    for( int i = 0; i < C_OUT_REPEATED_OUTPUT_NUMBER; i++ ) \
         cout << __VA_ARGS__ << endl; \
 } \
 while( 0 )
