@@ -658,7 +658,6 @@ int myClassObjectTest()
     
     DEBUGGER( b1, "myClassObject.get_hi(): " );
     DEBUGGER( b1, myClassObject.get_hi() );
-    DEBUGGER( b1, "\n\n\n" );
     
     return 0;
 }

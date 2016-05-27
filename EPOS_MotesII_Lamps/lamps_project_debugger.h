@@ -63,6 +63,11 @@ const char* const g_debugLevel = "a1 a2 b1";
 
 
 /**
+ * Before every cout, to do a delay using the class Alarm::delay(1) static function.
+ */
+#define COUT_DELAY 1000
+
+/**
  * #define __SYS_NS	   System
  * #define __USING_SYS using namespace __SYS_NS
  */
@@ -99,6 +104,7 @@ do \
     if( __computeDeggingLevel( #level ) ) \
     { \
         g_debuger_semaphore.p(); \
+        Alarm::delay( COUT_DELAY ); \
         cout << __VA_ARGS__ << "\n"; \
         g_debuger_semaphore.v(); \
     } \
@@ -114,6 +120,7 @@ do \
     if( __computeDeggingLevel( #level ) ) \
     { \
         g_debuger_semaphore.p(); \
+        Alarm::delay( COUT_DELAY ); \
         cout << __VA_ARGS__; \
         g_debuger_semaphore.v(); \
     } \
@@ -129,6 +136,7 @@ do \
     if( __computeDeggingLevel( #level ) ) \
     { \
         g_debuger_semaphore.p(); \
+        Alarm::delay( COUT_DELAY ); \
         cout << __VA_ARGS__; \
         g_debuger_semaphore.v(); \
     } \
@@ -144,6 +152,7 @@ do \
     if( __computeDeggingLevel( #level ) ) \
     { \
         g_debuger_semaphore.p(); \
+        Alarm::delay( COUT_DELAY ); \
         cout << __VA_ARGS__ << "\n"; \
         g_debuger_semaphore.v(); \
     } \
@@ -386,6 +395,7 @@ inline bool __computeDeggingLevel( const char* debugLevel )
 #define PRINT( level, ... ) \
 do \
 { \
+    Alarm::delay( COUT_DELAY ); \
     cout << __VA_ARGS__; \
 } \
 while( 0 )
@@ -397,6 +407,7 @@ while( 0 )
 #define PRINTLN( level, ... ) \
 do \
 { \
+    Alarm::delay( COUT_DELAY ); \
     cout << __VA_ARGS__ << "\n"; \
 } \
 while( 0 )
