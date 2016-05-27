@@ -53,19 +53,22 @@
  * a0   - Disabled all debug.
  * a1   - Basic debug messages.
  * a2   - Functions entrances.
+ * a4   - Step by step functions.
  * 
  * Algorithm Strategy debugging:
  * b0   - Disabled all debug.
  * b1   - MyClass object test after the main program to run.
  */
-const char* const g_debugLevel = "a1 a2 b1";
+const char* const g_debugLevel = "a1 a2 b1 a4";
 #endif
 
 
 /**
- * Before every cout, to do a delay using the class Alarm::delay(1) static function.
+ * Before every cout, to do a delay using the class Alarm::delay(1) static function. This is used
+ * to print the same message 5 times. This is because the EPOS 1.1 motherfucker just ignores some
+ * messages outputs some times it feels it need to ignores you.
  */
-#define COUT_DELAY 0
+#define COUT_DELAY 3
 
 /**
  * #define __SYS_NS	   System
@@ -105,7 +108,8 @@ do \
     { \
         g_debuger_semaphore.p(); \
         Alarm::delay( COUT_DELAY ); \
-        cout << __VA_ARGS__ << endl; \
+        for( int i = 0; i < COUT_DELAY; i++ ) \
+            cout << __VA_ARGS__ << endl; \
         g_debuger_semaphore.v(); \
     } \
 } \
@@ -121,7 +125,8 @@ do \
     { \
         g_debuger_semaphore.p(); \
         Alarm::delay( COUT_DELAY ); \
-        cout << __VA_ARGS__; \
+        for( int i = 0; i < COUT_DELAY; i++ ) \
+            cout << __VA_ARGS__; \
         g_debuger_semaphore.v(); \
     } \
 } \
@@ -137,7 +142,8 @@ do \
     { \
         g_debuger_semaphore.p(); \
         Alarm::delay( COUT_DELAY ); \
-        cout << __VA_ARGS__; \
+        for( int i = 0; i < COUT_DELAY; i++ ) \
+            cout << __VA_ARGS__; \
         g_debuger_semaphore.v(); \
     } \
 } \
@@ -153,7 +159,8 @@ do \
     { \
         g_debuger_semaphore.p(); \
         Alarm::delay( COUT_DELAY ); \
-        cout << __VA_ARGS__ << endl; \
+        for( int i = 0; i < COUT_DELAY; i++ ) \
+            cout << __VA_ARGS__ << endl; \
         g_debuger_semaphore.v(); \
     } \
 } \
@@ -396,7 +403,8 @@ inline bool __computeDeggingLevel( const char* debugLevel )
 do \
 { \
     Alarm::delay( COUT_DELAY ); \
-    cout << __VA_ARGS__; \
+    for( int i = 0; i < COUT_DELAY; i++ ) \
+        cout << __VA_ARGS__; \
 } \
 while( 0 )
 
@@ -408,7 +416,8 @@ while( 0 )
 do \
 { \
     Alarm::delay( COUT_DELAY ); \
-    cout << __VA_ARGS__ << endl; \
+    for( int i = 0; i < COUT_DELAY; i++ ) \
+        cout << __VA_ARGS__ << endl; \
 } \
 while( 0 )
 

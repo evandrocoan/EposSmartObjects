@@ -147,11 +147,17 @@ void PWMInterrupt();
 int main()
 {
     const char* const PROGRAM_VERSION = "2.0";
-    PRINTLN( a1, "EposMotesII app initing... \nProgram version: " << PROGRAM_VERSION );
+    
+    PRINTLN( a1, "EposMotesII app initing..." );
+    PRINTLN( a1, "Program version: " << PROGRAM_VERSION );
     
 #if defined DEBUG
     myClassObjectTest();
 #endif
+    
+    PRINTLN( a1, "To send commands to the EPOSMotes2 by USB device, use:" );
+    PRINTLN( a1, "echo :R100 > /dev/ttyUSB0" );
+    PRINTLN( a1, "Try also :REN, :BEN, :GEN or :AEN" ); 
     
     // To creates a interrupt by stealing one Operation System Interrupt. This theft has know side
     // affects until now, but it could be causing the 'traits.h' debug level info, to crash this
@@ -162,9 +168,13 @@ int main()
     // colors showed blinking when using higher values. Some color as Red and Green, just presented
     // themselves with lower bight then they should when the their minimum power is set.
     // When it is set to 100, there are any blink perception.
+    DEBUGGERLN( a4, "RUNNING: TSC_Timer pwmTimer( 100, &PWMInterrupt )" );
     TSC_Timer pwmTimer( 100, &PWMInterrupt );
+    
+    DEBUGGERLN( a4, "RUNNING: configureTheLedsEffects()" );
     configureTheLedsEffects();
     
+    DEBUGGERLN( a4, "RUNNING: g_nic = new NIC()" );
     g_nic = new NIC();
     
     Thread* uartThread;
@@ -189,19 +199,23 @@ int main()
     // stack_size:
     // defines the size of the thread's stack. By default it takes the value set by the
     // system's Traits. If a larger (or smaller) stack is desired, this parameter will allow you to do so.
-    uartThread      = new Thread( &ReceiveCommandUART );
+    DEBUGGERLN( a4, "RUNNING: uartThread = new Thread..." );
+    uartThread = new Thread( &ReceiveCommandUART );
+    
+    DEBUGGERLN( a4, "RUNNING: ledEffectThread = new Thread..." );
     ledEffectThread = new Thread( &LEDPowerEffect );
     
-    Alarm::delay( 5e6 );
-    PRINTLN( a1, "Waiting for uartThread to finish" );
+    // To wait one second to be able to see the following messages after the uartThread and
+    // ledEffectThread messages.
+    Alarm::delay( 1e6 );
     
     // The join() method suspends the execution of the calling thread (i.e., the
     // thread that is running) until the called thread finishes its execution.
+    PRINTLN( a1, "Waiting for uartThread to finish" );
     int uartThreadStatus = uartThread->join();
     
     DEBUGGER( a1, "uartThreadStatus: " << uartThreadStatus );
     PRINTLN( a1, "Waiting for uartThread to finish" );
-    
     int ledEffectThreadStatus = ledEffectThread->join();
     
     DEBUGGER( a1, "ledEffectThreadStatus: " << ledEffectThreadStatus );
@@ -473,28 +487,23 @@ void SendMessageToNIC( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
 
 int ReceiveCommandUART()
 {
-    PRINTLN( a1, "Thread UART initing" );
+    PRINTLN( a1, "Thread UART initing..." );
     
     unsigned int currentIndex;
     char         msg[ MAX_MESSAGE_LENGTH_ALLOWED ]; //[DATA_SIZE];
-    
-    // The biggest string to output at once, or within multiple PRINTLN, cout, etc is 127 chars long.
-    PRINTLN( a1, "To send commands to the EPOSMotes2 by USB device, use:" );
-    PRINTLN( a1, "echo :R100 > /dev/ttyUSB0" );
-    PRINTLN( a1, "Try also :REN, :BEN, :GEN or :AEN" );
     
     UART* uart = new UART();
     
     while( !g_finishThread )
     {
+        // messages start with ":"
         do
         {
+            PRINTLN( a1, "uart->get()..." );
             msg[ 0 ] = uart->get();
-        }
+        } while( msg[ 0 ] != ':' );
         
-        // messages start with ":"
-        while( msg[ 0 ] != ':' );
-        
+        PRINTLN( a1, "currentIndex = 0..." );
         currentIndex = 0;
         
         while( ( msg[ currentIndex ] != '\n' ) && ( currentIndex < MAX_MESSAGE_LENGTH_ALLOWED ) )
@@ -509,13 +518,13 @@ int ReceiveCommandUART()
         InterpretMessage( &msg[ 0 ] );
     }
     
-    PRINTLN( a1, "Thread UART finishing" );
+    PRINTLN( a1, "Thread UART finishing..." );
     return 0;
 }
 
 int ReceiveCommandNIC()
 {
-    PRINTLN( a1, "Thread NIC initing" );
+    PRINTLN( a1, "Thread NIC initing..." );
     
     char msg[ MAX_MESSAGE_LENGTH_ALLOWED ];
     
@@ -533,13 +542,13 @@ int ReceiveCommandNIC()
         InterpretMessage( msg );
     }
     
-    PRINTLN( a1, "Thread NIC finishing" );
+    PRINTLN( a1, "Thread NIC finishing..." );
     return 0;
 }
 
 int LEDPowerEffect()
 {
-    PRINTLN( a1, "Thread Effect initing" );
+    PRINTLN( a1, "Thread Effect initing..." );
     
     int          pow;
     unsigned int currentIndex;
@@ -598,7 +607,7 @@ int LEDPowerEffect()
     // the scheduling queue.
     // static void exit(int status = 0)
     
-    PRINTLN( a1, "Thread Effect finishing" );
+    PRINTLN( a1, "Thread Effect finishing..." );
     return 0;
 }
 
