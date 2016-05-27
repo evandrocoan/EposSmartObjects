@@ -88,13 +88,14 @@ fi
 # python red-bsl.py -t /dev/ttyUSB0 -f img/structuredLEDControl.bin -S
 if sudo python $EPOS_MOTES2_INSTALLER -t /dev/ttyUSB$computerUSBNumber -f img/$programNameToCompile.bin $installerFlags
 then
-    printf "\nATTENTION: Install/use cutecom to read the EPOSMotes2 cout stream output.\n"
-    printf "To install it, use: sudo apt-get install cutecom\n"
-    printf "To run it, use: sudo cutecom /dev/ttyUSB<number> &\n"
-    printf "Example: sudo cutecom /dev/ttyUSB0 &\n"
+    printf "\nATTENTION:\nInstall/use cutecom to read the EPOSMotes2 cout stream output.\n"
+    printf "To install it, use:\n"
+    printf "sudo apt-get install cutecom\n"
+    printf "To run it, use:\n"
+    printf "sudo cutecom /dev/ttyUSB0 &\n"
     printf "After open cutecom, click on the open button then press the EPOSMotes2 reset\n"
-    printf "button, otherwise it will not work, to send commands to the EPOSMotes2\n"
-    printf "by USB device. As: echo :R100 > /dev/ttyUSB0\n"
+    printf "button, otherwise it will not work, to send commands to the EPOSMotes2 by\n"
+    printf "USB device. As: echo :R100 > /dev/ttyUSB0\n"
 else
     printf "\nINSTALL ERROR!\nCould not send the application to the EPOSMotes2 board!\n"
     printHelp
