@@ -9,7 +9,7 @@ There are 2 projects hosted over this repository. See each one of them specifica
 
 #Installation
 
-1. First, to install EPOS 1.1 for the "EPOSMote II" device, download these files:
+1. Firstly, to install EPOS 1.1 for the "EPOSMote II" device, download these files:
   * [File: "OpenEPOS-1.1RC.tgz" - OpenEPOS-1.1 RC tree snapshot from October 18, 2011](http://epos.lisha.ufsc.br/dl95)
   * [File: "arm-gcc-4.4.4.tar.gz" - ARM (ARM7 and others)](http://epos.lisha.ufsc.br/dl88)
 1. To extract the contents of "OpenEPOS-1.1RC.tgz" file where you would like most.
@@ -20,10 +20,8 @@ There are 2 projects hosted over this repository. See each one of them specifica
   * For instance, if you downloaded the ia32 toolchain, you should extract it at /usr/local/ia32/
     * If you do not have access to that path, you'll have to adjust the makedefs file in EPOS' 
     main directory accordingly.
-1. You don't need to bother about the chosen path nor set any environment variable. EPOS is fully 
-self contained.
 1. To place these environment variables bellow  to your user's bash configuration file "~/.bashrc").
-To open the "~/.bashrc" use a command as gedit ~/.bashrc
+To open the "~/.bashrc", just use a command as gedit ~/.bashrc
 ```
 # Replace this '/PLACE/HERE/THE/PATH/TO/EPOS/PATH' by the path to folder "OpenEPOS-1.1RC"
 # where you extracted the contents of the "OpenEPOS-1.1RC.tgz" file on the step 1.
