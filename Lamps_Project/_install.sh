@@ -1,12 +1,8 @@
 #!/bin/sh
 
 
-# Saves the current opened path, to restore it when this scripts finish.
-PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))
-
 # Import the helper functions.
-. ./__helper_functions.sh
-
+. ./files/__helper_functions.sh
 
 # The EPOSMotes2 installer
 EPOS_MOTES2_INSTALLER="red-bsl.py"
@@ -16,6 +12,7 @@ EPOS_MOTES2_INSTALLER_BINARY2="ssl.bin"
 # Read the command line argument. The programs name must to be without type extension.
 programFileToCompile=$1
 computerUSBNumber=$2
+
 
 # Read the EPOSMotes2 installer flags, if omitted, use as default one '-S' to write the program
 # to the flash memory.
@@ -36,7 +33,7 @@ programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
 if ! [ -f $programFileToCompile ] \
      || [ $# -eq 0 ]
 then
-    printf "\nINSTALL ERROR!\nCould not find $PWD_COMPILE_EPOS_LAMP/$programFileToCompile\n"
+    printf "\nINSTALL ERROR!\nCould not find '$PWD_COMPILE_EPOS_LAMP/$programFileToCompile'\n"
     printHelp
     exit 1
 fi
