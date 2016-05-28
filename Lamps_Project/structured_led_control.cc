@@ -49,9 +49,9 @@
 #include <mutex.h>
 #include <semaphore.h>
 #include <traits.h>
-#include <lamps_project_debugger.h>
-#include <array_operations.h>
-#include <MyClass.h>
+#include <headers/lamps_project_debugger.h>
+#include <headers/array_operations.h>
+#include <classes/MyClass.h>
 
 
 
