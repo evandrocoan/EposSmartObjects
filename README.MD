@@ -2,7 +2,7 @@
 
 There are 2 projects hosted over this repository. See each one of them specifications:
 
-1. [Integrated Control and Distributed Lamps](EPOS_MotesII_Lamps).
+1. [Integrated Control and Distributed Lamps](Lamps_Project).
 1. [Integrated Control and Smart Energy Plugs](EPOS_MotesII_Plugs).
 
 
