@@ -49,9 +49,9 @@
 #include <mutex.h>
 #include <semaphore.h>
 #include <traits.h>
-#include <lamps_project_debugger.h>
-#include <array_operations.h>
-#include <MyClass.h>
+#include <headers/lamps_project_debugger.h>
+#include <headers/array_operations.h>
+#include <classes/MyClass.h>
 
 
 
@@ -146,18 +146,18 @@ void PWMInterrupt();
  */
 int main()
 {
-    const char* const PROGRAM_VERSION = "2.0";
+    const char* const PROGRAM_VERSION = "2.1";
     
-    PRINTLN( a1, "EposMotesII app initing..." );
-    PRINTLN( a1, "Program version: " << PROGRAM_VERSION );
+    PRINTLN( 1, "EposMotesII app initing..." ); 
+    PRINTLN( 1, "Program version: " << PROGRAM_VERSION );
     
 #if defined DEBUG
     myClassObjectTest();
 #endif
     
-    PRINTLN( a1, "To send commands to the EPOSMotes2 by USB device, use:" );
-    PRINTLN( a1, "echo :R100 > /dev/ttyUSB0" );
-    PRINTLN( a1, "Try also :REN, :BEN, :GEN or :AEN" ); 
+    PRINTLN( 1, "To send commands to the EPOSMotes2 by USB device, use:" );
+    PRINTLN( 1, "echo :R100 > /dev/ttyUSB0" );
+    PRINTLN( 1, "Try also :REN, :BEN, :GEN or :AEN" ); 
     
     // To creates a interrupt by stealing one Operation System Interrupt. This theft has know side
     // affects until now, but it could be causing the 'traits.h' debug level info, to crash this
@@ -168,13 +168,13 @@ int main()
     // colors showed blinking when using higher values. Some color as Red and Green, just presented
     // themselves with lower bight then they should when the their minimum power is set.
     // When it is set to 100, there are any blink perception.
-    DEBUGGERLN( a4, "RUNNING: TSC_Timer pwmTimer( 100, &PWMInterrupt )" );
+    DEBUGGERLN( 4, "RUNNING: TSC_Timer pwmTimer( 100, &PWMInterrupt )" );
     TSC_Timer pwmTimer( 100, &PWMInterrupt );
     
-    DEBUGGERLN( a4, "RUNNING: configureTheLedsEffects()" );
+    DEBUGGERLN( 4, "RUNNING: configureTheLedsEffects()" );
     configureTheLedsEffects();
     
-    DEBUGGERLN( a4, "RUNNING: g_nic = new NIC()" );
+    DEBUGGERLN( 4, "RUNNING: g_nic = new NIC()" );
     g_nic = new NIC();
     
     Thread* uartThread;
@@ -199,10 +199,10 @@ int main()
     // stack_size:
     // defines the size of the thread's stack. By default it takes the value set by the
     // system's Traits. If a larger (or smaller) stack is desired, this parameter will allow you to do so.
-    DEBUGGERLN( a4, "RUNNING: uartThread = new Thread..." );
+    DEBUGGERLN( 4, "RUNNING: uartThread = new Thread..." );
     uartThread = new Thread( &ReceiveCommandUART );
     
-    DEBUGGERLN( a4, "RUNNING: ledEffectThread = new Thread..." );
+    DEBUGGERLN( 4, "RUNNING: ledEffectThread = new Thread..." );
     ledEffectThread = new Thread( &LEDPowerEffect );
     
     // To wait one second to be able to see the following messages after the uartThread and
@@ -211,15 +211,15 @@ int main()
     
     // The join() method suspends the execution of the calling thread (i.e., the
     // thread that is running) until the called thread finishes its execution.
-    PRINTLN( a1, "Waiting for uartThread to finish" );
+    PRINTLN( 1, "Waiting for uartThread to finish" );
     int uartThreadStatus = uartThread->join();
     
-    DEBUGGER( a1, "uartThreadStatus: " << uartThreadStatus );
-    PRINTLN( a1, "Waiting for uartThread to finish" );
+    DEBUGGER( 1, "uartThreadStatus: " << uartThreadStatus );
+    PRINTLN( 1, "Waiting for uartThread to finish" );
     int ledEffectThreadStatus = ledEffectThread->join();
     
-    DEBUGGER( a1, "ledEffectThreadStatus: " << ledEffectThreadStatus );
-    PRINTLN( a1, "Threads finished. EposMotesII app finishing" );
+    DEBUGGER( 1, "ledEffectThreadStatus: " << ledEffectThreadStatus );
+    PRINTLN( 1, "Threads finished. EposMotesII app finishing" );
     
     //Lista das pessoas que se importam com essa parte do código:
     //Evandro  Coan
@@ -293,7 +293,7 @@ void turn_led( int pin, bool on )
 /*
 int PWMLeds()
 {
-    PRINTLN( a1, "Thread PWM LEDs initing" );
+    PRINTLN( 1, "Thread PWM LEDs initing" );
     powerCalculateFunc func;
     
     if (useSensor)
@@ -336,7 +336,7 @@ int PWMLeds()
             }
         }
         
-        //PRINTLN( a1, "Still executing PWM. " << cont );
+        //PRINTLN( 1, "Still executing PWM. " << cont );
         cont == 99 ? cont = 0 : cont++;
 
         for (currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++)
@@ -351,7 +351,7 @@ int PWMLeds()
         //turn_led(leds[currentIndex],false);
     }
      
-    PRINTLN( a1, "Thread PWM LEDs finishing" );
+    PRINTLN( 1, "Thread PWM LEDs finishing" );
     return 0;
 }
 */
@@ -387,7 +387,7 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
         }
         default:
         {
-            PRINTLN( a1, "Invalid led value '" << msg[ 0 ] << "' on position 0" );
+            PRINTLN( 1, "Invalid led value '" << msg[ 0 ] << "' on position 0" );
             return;
         }
     }
@@ -411,7 +411,7 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
                 }
             }
             
-            PRINTLN( a1, "Effect[" << led << "]=ON" );
+            PRINTLN( 1, "Effect[" << led << "]=ON" );
         }
         else if( msg[ 2 ] == 'F' ) // turn OFF g_effect
         {
@@ -429,7 +429,7 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
                 }
             }
             
-            PRINTLN( a1, "Effect[" << led << "]=OFF" );
+            PRINTLN( 1, "Effect[" << led << "]=OFF" );
         }
         else     // set g_effect delay
         {
@@ -437,7 +437,7 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
             tempDelay    *= 10 ^ ( ( (unsigned int) msg[ 3 ] ) - 48 );
             g_effectDelay = tempDelay;
             
-            PRINTLN( a1, "Delay=" << g_effectDelay );
+            PRINTLN( 1, "Delay=" << g_effectDelay );
         }
     }
     else if( msg[ 1 ] == '0' || msg[ 1 ] == '1' )
@@ -464,11 +464,11 @@ void InterpretMessage( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
             }
         }
         
-        PRINTLN( a1, "Power[" << led << "]=" << pow );
+        PRINTLN( 1, "Power[" << led << "]=" << pow );
     }
     else
     {
-        PRINTLN( a1, "Invalid value '" << msg[ 1 ] << "' on position 1" );
+        PRINTLN( 1, "Invalid value '" << msg[ 1 ] << "' on position 1" );
     }
 }
 
@@ -479,15 +479,15 @@ void SendMessageToNIC( char msg[ MAX_MESSAGE_LENGTH_ALLOWED ] )
     // != 11 ?
     while( ( r = g_nic->send( NIC::BROADCAST, (NIC::Protocol) 1, &msg, sizeof( msg ) ) ) == 0 )
     {
-        PRINTLN( a1, "Send failed " << r );
+        PRINTLN( 1, "Send failed " << r );
     }
     
-    PRINTLN( a1, "Message sent" );
+    PRINTLN( 1, "Message sent" );
 }
 
 int ReceiveCommandUART()
 {
-    PRINTLN( a1, "Thread UART initing..." );
+    PRINTLN( 1, "Thread UART initing..." );
     
     unsigned int currentIndex;
     char         msg[ MAX_MESSAGE_LENGTH_ALLOWED ]; //[DATA_SIZE];
@@ -499,11 +499,11 @@ int ReceiveCommandUART()
         // messages start with ":"
         do
         {
-            PRINTLN( a1, "uart->get()..." );
+            PRINTLN( 1, "uart->get()..." );
             msg[ 0 ] = uart->get();
         } while( msg[ 0 ] != ':' );
         
-        PRINTLN( a1, "currentIndex = 0..." );
+        PRINTLN( 1, "currentIndex = 0..." );
         currentIndex = 0;
         
         while( ( msg[ currentIndex ] != '\n' ) && ( currentIndex < MAX_MESSAGE_LENGTH_ALLOWED ) )
@@ -518,13 +518,13 @@ int ReceiveCommandUART()
         InterpretMessage( &msg[ 0 ] );
     }
     
-    PRINTLN( a1, "Thread UART finishing..." );
+    PRINTLN( 1, "Thread UART finishing..." );
     return 0;
 }
 
 int ReceiveCommandNIC()
 {
-    PRINTLN( a1, "Thread NIC initing..." );
+    PRINTLN( 1, "Thread NIC initing..." );
     
     char msg[ MAX_MESSAGE_LENGTH_ALLOWED ];
     
@@ -535,20 +535,20 @@ int ReceiveCommandNIC()
     {
         while( !( g_nic->receive( &src, &prot, &msg, sizeof( msg ) ) > 0 ) )
         {
-            //PRINTLN( a1, "." );
+            //PRINTLN( 1, "." );
         }
         
-        PRINTLN( a1, "\nMessage received: " << msg );
+        PRINTLN( 1, "\nMessage received: " << msg );
         InterpretMessage( msg );
     }
     
-    PRINTLN( a1, "Thread NIC finishing..." );
+    PRINTLN( 1, "Thread NIC finishing..." );
     return 0;
 }
 
 int LEDPowerEffect()
 {
-    PRINTLN( a1, "Thread Effect initing..." );
+    PRINTLN( 1, "Thread Effect initing..." );
     
     int          pow;
     unsigned int currentIndex;
@@ -559,7 +559,7 @@ int LEDPowerEffect()
     while( !g_finishThread )
     {
         //for (currentIndex=0; currentIndex<=MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++) {
-        //PRINTLN( a1, "Incresing power of led[" << i << "]" );
+        //PRINTLN( 1, "Incresing power of led[" << i << "]" );
         
         for( pow = 0; pow <= 100; pow++ )
         {
@@ -607,7 +607,7 @@ int LEDPowerEffect()
     // the scheduling queue.
     // static void exit(int status = 0)
     
-    PRINTLN( a1, "Thread Effect finishing..." );
+    PRINTLN( 1, "Thread Effect finishing..." );
     return 0;
 }
 
@@ -665,7 +665,7 @@ int myClassObjectTest()
 {
     MyClass myClassObject;
     
-    DEBUGGERLN( b1, "myClassObject.get_hi(): " << myClassObject.get_hi() );
+    DEBUGGERLN( 1, "myClassObject.get_hi(): " << myClassObject.get_hi() );
     return 0;
 }
 #endif

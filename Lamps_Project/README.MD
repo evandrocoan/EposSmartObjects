@@ -73,6 +73,11 @@ echo :R100 > /dev/ttyUSB0
 1. Handshake: (x)Software, (x)Hardware
 1. Open for: (x)Reading, (x)Writing, (x)Apply settings when opening
 
+Serial Linux Permissions setserial dialout groups usermod. *Restart you computer to this command to apply.
+```
+sudo usermod -a -G dialout $USER
+```
+
 ![Cutecom Config](http://i.imgur.com/w51H2Up.png)
 
 
