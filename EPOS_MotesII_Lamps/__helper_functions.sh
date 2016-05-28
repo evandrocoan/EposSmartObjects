@@ -23,8 +23,20 @@ showTheElapsedSeconds()
 {
     cleanUpdateFlagFile
     
-    scripExecutionTimeResult=$(awk "BEGIN {printf \"%.2f\",$(date +%s.%N)-$scriptStartSecond}")
-    printf "Took '$scripExecutionTimeResult' seconds to run this script.\n"
+    # Calculates whether the seconds program parameter is an integer number
+    isInteger $scriptStartSecond
+    
+    # Captures the return value of the previous function call command
+    isIntegerReturnValue=$?
+    
+    # Print help when it is not passed a second command line argument integer
+    if ! [ $isIntegerReturnValue -eq 1 ]
+    then
+        scripExecutionTimeResult=$(awk "BEGIN {printf \"%.2f\",$(date +%s.%N)-$scriptStartSecond}")
+        printf "Took '$scripExecutionTimeResult' seconds to run this script.\n"
+    else
+        printf "Could not calculate the seconds to run this script this time.\n"
+    fi
 }
 
 
@@ -91,10 +103,10 @@ tryPrintHelp()
 {
     # Calculates whether the seconds program parameter is an integer number
     isInteger $1
-
+    
     # Captures the return value of the previous function call command
     isIntegerReturnValue=$?
-
+    
     # Print help when it is not passed a second command line argument integer
     if ! [ $isIntegerReturnValue -eq 1 ]
     then

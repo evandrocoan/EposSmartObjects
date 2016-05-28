@@ -6,11 +6,16 @@ PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))
 # Import the helper functions.
 . ./__helper_functions.sh
 
+# Current Version
+COMPILE_AND_INSTALL_VERSION="1.0"
+
+printf "Running the script './compile_and_install.sh' version $COMPILE_AND_INSTALL_VERSION...\n"
+
 
 # Print help to the output stream.
 printHelp()
 {
-    printf "\nCOMPILE AND INSTALL HELP:\n"
+    printf "\nCOMPILE AND INSTALL v$COMPILE_AND_INSTALL_VERSION HELP :\n"
     printf "The './compile_and_install.sh' parameters are:\n"
     printf "The FIRST parameter is the file name to install.\n"
     printf "The SECOND parameter is the USB port number to install.\n"
