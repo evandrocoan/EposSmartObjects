@@ -52,14 +52,14 @@ public:
      * 
      * @param 
      */
-    void sendMessage( const char* ) = 0;
+    virtual void sendMessage( const char* ) = 0;
     
     /**
      * 
      * 
      * @param 
      */
-    void receiveMessage( const char* ) = 0;
+    virtual void receiveMessage( const char* ) = 0;
 
 };
 

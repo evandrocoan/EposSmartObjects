@@ -53,7 +53,7 @@ public:
      * 
      * @see SmartObject interface declaration.
      */
-    void receiveMessage( const char* ) = 0;
+    virtual void receiveMessage( const char* ) = 0;
     
     
 protected:
