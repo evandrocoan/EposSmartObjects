@@ -91,6 +91,7 @@ then
     # -updm | For overwrite destination content.
     # --quiet | Do not print the number of blocks copied
     find . -name '*.cc' | cpio -updm --quiet $EPOS/app/
+    find . -name '*.cc' | cpio -updm --quiet $EPOS/include/
     find . -name '*.h' | cpio -updm --quiet $EPOS/include/
     printf "The copy of '$programFileToCompile' and it dependents files to '$EPOS/app/' was successful\n"
 else

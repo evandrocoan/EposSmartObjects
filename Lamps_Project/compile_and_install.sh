@@ -8,6 +8,9 @@ PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))
 
 # Change log
 # 
+# v1.1.2
+# Added to the '_copy.sh' script to copy the '.cc' files to the same location as the '.h' files.
+# 
 # v1.1.1
 # Placed the compiler files into the folder 'installer_files'.
 # 
