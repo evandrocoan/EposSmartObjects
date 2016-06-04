@@ -36,7 +36,8 @@ __USING_SYS;
 
 /**
  * This is an abstract class which aggregates to the SmartObject interface the observer design
- * pattern subject object.
+ * pattern subject object. It inherits the SmartObject interface and is meant to be used within
+ * the EPOSMotes2 board.
  */
 class EposMotes2Communication : private SmartObject
 {

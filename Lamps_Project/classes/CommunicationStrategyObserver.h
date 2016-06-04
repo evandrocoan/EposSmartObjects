@@ -30,9 +30,9 @@ __USING_SYS;
 
 
 /**
- * This defines an interface for an smart object. Every smart object must to be able to communicates
- * with the other. To accomplish that they also need to use the same communication interface
- * compatible technology as the TCP/IP or the ARM MC13224V built-in 2.4 GHz 802.15.4 RF Radio.
+ * This class is the interface used to allow the observers to be called when the observed object
+ * is changed. The classes which want to be notified when the observed object changes, must to
+ * extend this abstract class and implements its methods.
  */
 class CommunicationStrategyObserver
 {
