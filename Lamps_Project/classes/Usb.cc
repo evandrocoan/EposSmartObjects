@@ -11,9 +11,9 @@
 */
 
 
-#include <classes/SmartObject.h>
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
+#include <interfaces/SmartObject.h>
 
 
 
