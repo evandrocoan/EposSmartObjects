@@ -118,11 +118,9 @@ static CommunicationSubject& CommunicationSubject::getInstance()
 /**
  * @see CommunicationSubject::CommunicationSubject() member class declaration.
  */
-CommunicationSubject::CommunicationSubject()
+CommunicationSubject::CommunicationSubject() : isTheObserverAdded( false )
 {
     DEBUGGERLN( 2, "I AM ENTERING ON THE CommunicationSubject::CommunicationSubject(0) CONSTRUCTOR!" );
-    
-    isTheObserverAdded = false;
 }
 
 /**
