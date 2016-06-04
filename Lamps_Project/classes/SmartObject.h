@@ -47,9 +47,9 @@ public:
     /**
      * 
      * 
-     * @param 
+     * @return 
      */
-    virtual void receiveMessage( const char* ) = 0;
+    virtual const char* receiveMessage() = 0;
 
 };
 

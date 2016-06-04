@@ -66,6 +66,7 @@ public:
      * This calls the observer and to send its message.
      * 
      * @param message      the message to send to the observer
+     * @see SmartObject::receiveMessage( const char* ) member class declaration for the message protocol.
      */
     void notifyObserver( const char* );
     
@@ -90,16 +91,12 @@ private:
     CommunicationSubject();
     
     /**
-     * Disable the copy constructor to avoid multiple singleton object copies. Do not implement it.
-     * 
-     * @param subject         a CommunicationSubject object.
+     * Do not implement it. Disable the copy constructor to avoid multiple singleton object copies.
      */
     CommunicationSubject( CommunicationSubject const& );
     
     /**
-     * Disable the assignment operator to avoid multiple singleton object copies. Do not implement it.
-     * 
-     * @param subject         a CommunicationSubject object.
+     * Do not implement it. Disable the assignment operator to avoid multiple singleton object copies.
      */
     void operator=( CommunicationSubject const& );
     

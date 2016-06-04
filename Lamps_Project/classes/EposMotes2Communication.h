@@ -49,9 +49,9 @@ public:
     virtual void sendMessage( const char* ) = 0;
     
     /**
-     * @see SmartObject::receiveMessage( const char* ) member class declaration.
+     * @see SmartObject::receiveMessage() member class declaration.
      */
-    virtual void receiveMessage( const char* ) = 0;
+    virtual const char* receiveMessage() = 0;
     
     
 protected:
