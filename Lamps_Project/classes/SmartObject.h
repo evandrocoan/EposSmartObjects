@@ -1,32 +1,14 @@
 /**
- * Structured LED EposMotesII Controlling
- *
- * This work is licensed under the EPOS Software License v1.0.
- * A copy of this license is available at the EPOS system source tree root.
- * Note that EPOS Software License applies to both source code and executables.
- *
- *  You should have received a copy of the EPOS Software License v1.0 along
- *  with this program. If not, see
- *  <http://epos.lisha.ufsc.br/EPOS+Software+License+v1.0>.
- *
- * *****************************************************************************
- * 
- * 
+* This work is licensed under the EPOS Software License v1.0.
+* A copy of this license is available at the EPOS system source tree root.
+* Note that EPOS Software License applies to both source code and executables.
+*
+*  You should have received a copy of the EPOS Software License v1.0 along
+*  with this program. If not, see
+*  <http://epos.lisha.ufsc.br/EPOS+Software+License+v1.0>.
+*
+******************************************************************************
 */
-
-#include <utility/ostream.h>
-#include <machine.h>
-#include <alarm.h>
-#include <sensor.h>
-#include <battery.h>
-#include <uart.h>
-#include <thread.h>
-#include <mutex.h>
-#include <semaphore.h>
-#include <traits.h>
-#include <headers/lamps_project_debugger.h>
-#include <headers/array_operations.h>
-#include <classes/MyClass.h>
 
 
 /**
