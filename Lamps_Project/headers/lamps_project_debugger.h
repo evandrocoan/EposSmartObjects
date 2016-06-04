@@ -28,6 +28,15 @@
 
 
 /**
+ * Preprocessor directive designed to cause the current source file to be included only once in a
+ * single compilation. Thus, serves the same purpose as #include guards, but with several
+ * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
+ * compilation speed. In main file this is enabled by default.
+ */
+#pragma once
+
+
+/**
  * This is to view internal program data while execution. Default value: 0
  * 
  *  0   = Disables this feature.
@@ -187,14 +196,6 @@ while( 0 )
 #endif // #if DEBUG_LEVEL > 0
 
 
-
-/**
- * Preprocessor directive designed to cause the current source file to be included only once in a
- * single compilation. Thus, serves the same purpose as #include guards, but with several
- * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
- * compilation speed. In main file this is enabled by default.
- */
-#pragma once
 
 /**
  *  Calculates a static array size.
