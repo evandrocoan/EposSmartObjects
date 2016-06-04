@@ -40,18 +40,21 @@ __USING_SYS;
 
 /**
  * This is the subject which is used the the observed object to call/notify its observer to
- * perform their operations. On this implementation there is only one observer allowed to due this
- * also implements the Strategy Design Pattern, then only one strategy can be allowed to be used
- * at a time.
+ * perform their operations.
+ * 
+ * On this implementation there is only one observer allowed to due this also implements the
+ * Strategy Design Pattern, then only one strategy can be allowed to be used at a time.
  */
 class CommunicationSubject
 {
 public:
     
     /**
-     * Creates an Subject object ready to be used.
+     * Gets the only allowed CommunicationSubject's instance by lazy initialization.
+     * 
+     * @return the unique existent CommunicationSubject's instance.
      */
-    CommunicationSubject();
+    static CommunicationSubject& getInstance();
     
     /**
      * Adds the only one observer allowed which will be allowed to observe the EposMotes2Communication.
@@ -85,16 +88,47 @@ private:
      * Indicates whether the observer is added or not.
      */
     bool isTheObserverAdded;
+    
+    /**
+     * Creates an Subject object ready to be used by the singleton design pattern.
+     */
+    CommunicationSubject();
+    
+    /**
+     * Disable the copy constructor to avoid multiple singleton object copies. Do not implement it.
+     * 
+     * @param subject         a CommunicationSubject object.
+     */
+    CommunicationSubject( CommunicationSubject const& );
+    
+    /**
+     * Disable the assignment operator to avoid multiple singleton object copies. Do not implement it.
+     * 
+     * @param subject         a CommunicationSubject object.
+     */
+    void operator=( CommunicationSubject const& );
+    
 };
 
 
+
+/**
+ * @see CommunicationSubject::getInstance() member class declaration.
+ */
+static CommunicationSubject& CommunicationSubject::getInstance()
+{
+    DEBUGGERLN( 2, "I AM ENTERING ON THE CommunicationSubject::getInstance(0)" );
+    
+    static CommunicationSubject INSTANCE;
+    return &INSTANCE;
+}
 
 /**
  * @see CommunicationSubject::CommunicationSubject() member class declaration.
  */
 CommunicationSubject::CommunicationSubject()
 {
-    DEBUGGERLN( 2, "I AM ENTERING ON THE CommunicationSubject::CommunicationSubject() CONSTRUCTOR!" );
+    DEBUGGERLN( 2, "I AM ENTERING ON THE CommunicationSubject::CommunicationSubject(0) CONSTRUCTOR!" );
     
     isTheObserverAdded = false;
 }
@@ -127,6 +161,9 @@ bool CommunicationSubject::notifyObserver( const char* message )
     if( isTheObserverAdded )
     {
         this->observer->receiveMessage( message );
+        return true;
     }
+    
+    return false;
 }
 
