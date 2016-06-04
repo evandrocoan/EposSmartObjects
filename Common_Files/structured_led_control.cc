@@ -141,6 +141,34 @@ int LEDPowerEffect();
 void PWMInterrupt();
 
 
+
+/**
+ * A dummy testing class.
+ */
+class MyClass
+{
+public:
+
+    int hi;
+    
+    MyClass();
+    
+    int get_hi();
+
+};
+
+MyClass::MyClass()
+{
+    this->hi = 5;
+}
+
+int MyClass::get_hi()
+{
+    return this->hi;
+}
+
+
+
 /**
  * Main function entry point.
  */
