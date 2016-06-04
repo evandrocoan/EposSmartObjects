@@ -11,6 +11,10 @@
 */
 
 
+#include <classes/Radio.cc>
+#include <classes/Usb.cc>
+
+
 
 /**
  * Preprocessor directive designed to cause the current source file to be included only once in a
