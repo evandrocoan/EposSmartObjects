@@ -36,9 +36,12 @@ __USING_SYS;
 
 
 /**
- * This class is the interface used to allow the observers to be called when the observed object
- * is changed. The classes which want to be notified when the observed object changes, must to
- * extend this abstract class and implements its methods.
+ * This class implements the interface used to allow the observers to be called when the observed
+ * object is changed.
+ * 
+ * This class is meant to represent a user board.
+ * 
+ * @see CommunicationStrategyObserver abstract class declaration.
  */
 class UserBoard : private CommunicationStrategyObserver
 {

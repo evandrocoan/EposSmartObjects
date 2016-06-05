@@ -37,9 +37,12 @@ __USING_SYS;
 
 
 /**
- * This class is the interface used to allow the observers to be called when the observed object
- * is changed. The classes which want to be notified when the observed object changes, must to
- * extend this abstract class and implements its methods.
+ * This class implements the interface used to allow the observers to be called when the observed
+ * object is changed.
+ * 
+ * This class is meant to represent a lamp board.
+ * 
+ * @see CommunicationStrategyObserver abstract class declaration.
  */
 class LampBoard : private CommunicationStrategyObserver
 {
@@ -81,7 +84,7 @@ private:
     /**
      * An unique integer representing this lamp identification number.
      */
-    const int lampBoardId: 
+    const int lampBoardId;
     
     /**
      * The default lamp configuration used the there is no user around.
@@ -98,7 +101,7 @@ private:
     /**
      * Disables the default constructor.
      */
-    UserBoard();
+    LampBoard();
 };
 
 
@@ -108,7 +111,7 @@ private:
  */
 LampBoard::LampBoard()
 {
-    DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::UserBoard(0) THE DISABLED CONSTRUCTOR!" );
+    DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(0) THE DISABLED CONSTRUCTOR!" );
 }
 
 /**
@@ -119,7 +122,7 @@ lampBoardId( identification ),
 defaultConfiguration( configuration ),
 priorityUsers()
 {
-    DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::UserBoard(2) CONSTRUCTOR!" );
+    DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(2) CONSTRUCTOR!" );
 }
 
 /**
@@ -127,7 +130,7 @@ priorityUsers()
  */
 void LampBoard::receiveMessage( const char* message )
 {
-    DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::receiveMessage(1) | message: \n" << message );
+    DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::receiveMessage(1) | message: \n" << message );
 }
 
 
