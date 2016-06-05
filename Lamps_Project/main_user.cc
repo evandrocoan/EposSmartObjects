@@ -26,7 +26,6 @@
 #include <traits.h>
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
-#include <classes/MyClass.h>
 
 
 
