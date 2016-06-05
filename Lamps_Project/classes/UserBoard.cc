@@ -47,10 +47,10 @@ public:
     /**
      * To creates a new userBoard object and sets this board ID and priority.
      * 
-     * @param userBoardId             the current board user ID as an integer number.
-     * @param profile                 the first and initial user's board profile to use.
+     * @param boardId             the current board user ID as an integer number.
+     * @param configuration       the first and initial user's board configuration to use.
      */
-    public UserBoard( const int, Profile );
+    UserBoard( const int, LampConfigurationStrategy );
     
     /**
      * @see CommunicationStrategyObserver::receiveMessage abstract member class declaration.
@@ -60,34 +60,35 @@ public:
     /**
      * Gets the current board unique user identification number.
      * 
-     * @return this board user identification as and const integer.
+     * @return this user board identification as a const integer.
      */
     const int getUserId();
     
     /**
-     * Add a new user's profile to this user's board.
+     * Add a new user's configuration to this user's board.
      * 
-     * @param profile          the user's new profile to add.
-     * @return true when the user profile is successfully added, otherwise false.
+     * @param configuration          the user's new configuration to add.
+     * @return true when the user configuration is successfully added, otherwise false.
      */
-    bool addUserProfile( Profile );
+    bool addUserConfiguration( LampConfigurationStrategy );
     
     /**
-     * Gets a specified user's profile by a given index.
+     * Gets a specified user's configuration by a given index.
      * 
-     * @param index           the user's profile index as an integer value.
-     * @return the specified user's profile. NULL when an invalid index is provided.
+     * @param index           the user's configuration index as an integer value.
+     * @return the specified user's configuration. NULL when an invalid index is provided.
      */
-    Profile getUserProfile( int );
+    LampConfigurationStrategy getUserConfiguration( int );
     
     /**
-     * Set a specified user's profile as the current active profile ready to be used the passed
-     * to the LampBoards.
+     * Set a specified user's configuration as the current active configuration ready to be passed
+     * to the LampBoard as soon as the user approach one lamp device.
      * 
-     * @param index           the user's profile index as an integer value.
-     * @return true when the specified user's profile is set as the current profile, otherwise false.
+     * @param index           the user's configuration index as an integer value.
+     * @return true when the specified user's configuration is set as the current configuration,
+     *         otherwise false.
      */
-    bool setUserProfile( int );
+    bool setUserConfiguration( int );
     
     
 private:
@@ -98,11 +99,11 @@ private:
     const int userBoardId;
     
     /**
-     * Contains the user's board profiles registered.
+     * Contains the user's board configurations registered.
      * 
      * @see LISHA's website <http://epos.lisha.ufsc.br/EPOS+User+Guide#Simple_Ordered_List>
      */
-    Ordered_List< Profile > profiles;
+    Ordered_List< LampConfigurationStrategy > configurations;
     
     /**
      * Disables the default constructor.
