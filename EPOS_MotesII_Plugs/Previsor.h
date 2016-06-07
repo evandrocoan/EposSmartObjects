@@ -12,6 +12,16 @@ class Previsor{
 
 public:
 
+static double preverDia(int mediaHoraria[24],int horaAtual){
+	double soma = 0;
+	for(int i = 0; i < horaAtual+1;i++){
+		soma += mediaHoraria[i];
+	}
+	double media = soma / horaAtual;
+	soma += media * (24 - horaAtual);
+	return soma;
+}
+
 static double preverProprio(int mediaDiariaPorMes[30], int diaAtual){
 	double soma = 0;
 	for(int i = 0; i < diaAtual; i++){

@@ -1,4 +1,4 @@
-#import <string.h>
+#include <string.h>
 
 __USING_SYS
 
