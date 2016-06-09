@@ -33,7 +33,7 @@ __USING_SYS;
  * with the other. To accomplish that they also need to use the same communication interface
  * compatible technology as the TCP/IP or the ARM MC13224V built-in 2.4 GHz 802.15.4 RF Radio.
  */
-class SmartObject
+class SmartObjectCommunication
 {
 public:
     
@@ -44,13 +44,6 @@ public:
      */
     virtual void sendMessage( const char* ) = 0;
     
-    /**
-     * 
-     * 
-     * @return 
-     */
-    virtual const char* receiveMessage() = 0;
-
 };
 
 

@@ -13,7 +13,7 @@
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
-#include <interfaces/SmartObject.h>
+#include <interfaces/SmartObjectCommunication.h>
 
 
 
@@ -50,12 +50,12 @@ class Usb : private EposMotes2Communication
 public:
     
     /**
-     * @see SmartObject::sendMessage( const char* ) member class declaration.
+     * @see SmartObjectCommunication::sendMessage( const char* ) member class declaration.
      */
     void sendMessage( const char* );
     
     /**
-     * @see SmartObject::receiveMessage() member class declaration.
+     * @see SmartObjectCommunication::receiveMessage() member class declaration.
      */
     const char* receiveMessage();
     

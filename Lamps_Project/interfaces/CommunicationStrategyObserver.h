@@ -46,7 +46,7 @@ public:
      * This defines the communication observer notifier function to be used by this project concrete
      * classes.
      * 
-     * @see SmartObject interface declaration.
+     * @see SmartObjectCommunication interface declaration.
      */
     virtual void receiveMessage( const char* ) = 0;
     

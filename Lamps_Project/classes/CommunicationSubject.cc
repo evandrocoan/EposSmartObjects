@@ -66,7 +66,7 @@ public:
      * This calls the observer and to send its message.
      * 
      * @param message      the message to send to the observer
-     * @see SmartObject::receiveMessage( const char* ) member class declaration for the message protocol.
+     * @see SmartObjectCommunication::receiveMessage( const char* ) member class declaration for the message protocol.
      */
     void notifyObserver( const char* );
     
