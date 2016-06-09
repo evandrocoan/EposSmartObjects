@@ -45,20 +45,16 @@ __USING_SYS;
  * @see CommunicationSubject::notifyObserver( const char* ) member class declaration for the subject
  *      object use.
  */
-class Usb : private EposMotes2Communication
+class Usb
 {
 public:
     
     /**
-     * @see SmartObjectCommunication::sendMessage( const char* ) member class declaration.
+     * Gets the only allowed Usb's instance by lazy initialization.
+     * 
+     * @return the unique existent Usb's instance.
      */
-    void sendMessage( const char* );
-    
-    /**
-     * @see SmartObjectCommunication::receiveMessage() member class declaration.
-     */
-    const char* receiveMessage();
-    
+    Usb& getInstance();
     
 private:
     
@@ -102,22 +98,6 @@ Usb::Usb()
     DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::Usb(0) THE PRIVATE CONSTRUCTOR!" );
 }
 
-/**
- * @see Usb::sendMessage( const char* ) member class declaration.
- */
-void Usb::sendMessage( const char* message )
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::sendMessage(1) | message: \n" << message );
-}
-
-/**
- * @see Usb::receiveMessage() member class declaration.
- */
-const char* Usb::receiveMessage()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::receiveMessage(0)" );
-    return NULL;
-}
 
 
 

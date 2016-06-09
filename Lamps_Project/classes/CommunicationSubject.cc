@@ -52,13 +52,13 @@ public:
     static CommunicationSubject& getInstance();
     
     /**
-     * Adds the only one observer allowed which will be allowed to observe the EposMotes2Communication.
+     * Adds the only one observer which will be allowed to observe the CommunicationStrategyObserver.
      * 
-     * @param observer        the EposMotes2Communication observer.
+     * @param observer        the CommunicationStrategyObserver observer.
      * @return true when successfully add the observer, false otherwise.
      * 
      * @note only one observer can be added on this implementation.
-     * @see CommunicationSubject class declaration.
+     * @see CommunicationSubject class declaration/doc.
      */
     bool addObserver( CommunicationStrategyObserver* );
     

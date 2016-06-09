@@ -44,7 +44,7 @@ __USING_SYS;
  * @see CommunicationSubject::notifyObserver( const char* ) member class declaration for the subject
  *      object use.
  */
-class Radio : private EposMotes2Communication
+class Radio : private SmartObjectCommunication
 {
 public:
 
@@ -59,11 +59,6 @@ public:
      * @see SmartObjectCommunication::sendMessage( const char* ) member class declaration.
      */
     void sendMessage( const char* );
-    
-    /**
-     * @see SmartObjectCommunication::receiveMessage() member class declaration.
-     */
-    const char* receiveMessage();
     
     
 private:
@@ -116,14 +111,6 @@ void Radio::sendMessage( const char* message )
     DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::sendMessage(1) | message: \n" << message );
 }
 
-/**
- * @see Radio::receiveMessage() member class declaration.
- */
-const char* Radio::receiveMessage()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::receiveMessage(0)" );
-    return NULL;
-}
 
 
 
