@@ -2,6 +2,7 @@
 #include <machine.h>
 #include <nic.h>
 #include <utility/ostream.h>
+#include <sensor.h>
 
 __USING_SYS
 
@@ -24,7 +25,7 @@ void sender(unsigned char id) {
     int i;
     while (true) {
         for (i = 5; i < 8; i++) {
-            CPU::out8(Machine::IO::PORTB, (1 << i));
+            //CPU::out8(Machine::IO::PORTB, (1 << i));
 
             msg.id = id;
             msg.x  = 10;
@@ -38,13 +39,15 @@ void sender(unsigned char id) {
 }
 
 int receiver() {
-    NIC nic;
+	NIC nic;
+    NIC::Protocol prot;
+    NIC::Address src;
 
     Msg msg;
 
     OStream cout;
 
-    unsigned char src, prot;
+    //unsigned char src, prot;
     int i;
     
     cout << "Sink\n";
