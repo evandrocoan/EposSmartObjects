@@ -62,17 +62,44 @@
 __USING_SYS;
 
 
-//bool useSensor = false;
+typedef int (*LightVariationFunc)(int);
 
-int defaultPower( int power )
-{
-    return power;
+const int lightMax = 4000;
+
+
+//Should use constant here that set whether user wants a darker or a brighter environment.
+const int lightMin = 2400;
+
+//Max - ( Read - Min )
+// = Max + Min - Read
+
+ADC adc(ADC::SINGLE_ENDED_ADC7);
+
+int DefaultLightVal(int val) {
+	return val;
 }
 
-int sensorCalculatePower( int power )
-{
-    return 0;
+int Alternative1(int val) {
+	static int transformValue = lightMax + lightMin;
+	int temp = transformValue - adc.get();
+	double perc = ((double) temp) / lightMax;
+	int parcial = val - 100 * perc;
+
+	if (parcial < 0)
+		return 0;
+	return parcial;
 }
+
+int Alternative2(int val) {
+	static int transformValue = lightMax + lightMin;
+	int temp = transformValue - adc.get();
+	int perc = (int) 100 * (((double) temp) / lightMax);
+	int percToApply = 100 - perc;
+	if(percToApply < 0)
+		percToApply = 0;
+	return (int) percToApply * ((double) val) / 100;
+}
+
 
 /**
  *  Base IO adress. GPIO Base is the base address of all IO operations.
@@ -642,19 +669,22 @@ int LEDPowerEffect()
 void PWMInterrupt()
 {
     static unsigned int dummyCounter = 0;
+    static unsigned int checkSensor = 0;
+    static int powerToApply [MAX_LEDS_ALLOWED_TO_BE_USED];
+    static int leds[] = {10, 9, 11, 23, 8};
+    if(!checkSensor)
+    {
+    	for (unsigned int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex)
+    	{
+    		powerToApply[currentIndex] = Alternative2(power[currentIndex]);
+    	}
+    }
     
     // not all leds are actually used. Only the RGB ones (the first 3)
-    int leds[ 5 ]; 
-    
-    leds[ 0 ] = 10;
-    leds[ 1 ] = 9;
-    leds[ 2 ] = 11;
-    leds[ 3 ] = 23;
-    leds[ 4 ] = 8;
     
     for( unsigned int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex )
     {
-        if( dummyCounter < power[ currentIndex ] )
+        if( dummyCounter < powerToApply[ currentIndex ] )
         {
             turn_led( leds[ currentIndex ], true );
         }
@@ -663,7 +693,8 @@ void PWMInterrupt()
             turn_led( leds[ currentIndex ], false );
         }
     }
-    
+    //Check sensor every 3 frames.
+    checkSensor = ( checkSensor + 1 ) % 300;
     dummyCounter = ( dummyCounter + 1 ) % 100;
 }
 
