@@ -9,20 +9,11 @@ namespace pj{
 
 struct Serial: public pj::ofstream, public pj::ifstream{
 
-	  Serial(int n=20, char control='?');
+	  Serial(int n=20, char control=':');
 	  ~Serial(){}
 
 
-     ifstream& operator>>(int& a);
-     ifstream& operator>>(unsigned int& a);
-
-     ifstream& operator>>(char& a);
-
-     ifstream& operator>>(char* a);
-
-     ifstream& operator>>(double* a);
-
-     ifstream& operator>>(float* a);
+     
 
      ofstream& operator<<(const int& a);
 	 ofstream& operator<<(const char* a) ;
@@ -33,19 +24,24 @@ struct Serial: public pj::ofstream, public pj::ifstream{
 
      ofstream& operator<<(const double a)  ;
      
-      void getLine(char*);
+    
 
 	 protected:
-
+	 
         __SYS_NS::OStream cout;
+        __SYS_NS::UART * uart;
         char* inputBuffer;
-        int pointer;
+      
         unsigned int MSG_LEN ;
         char control;
+        
+       char* getBuffer(){return inputBuffer;}
+	   void readInput();
+	   int getBufferLength(){return MSG_LEN;}
 
-         void getNextInput(char* input);
+      
 
-	     int readInput();
+	    
 
 
 };
