@@ -91,8 +91,8 @@ static Radio& Radio::getInstance()
 {
     DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::getInstance(0)" );
     
-    static Radio INSTANCE;
-    return &INSTANCE;
+    static Radio instance;
+    return &instance;
 }
 
 /**
