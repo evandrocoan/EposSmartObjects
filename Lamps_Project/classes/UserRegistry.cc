@@ -44,24 +44,38 @@ public:
     /**
      * To creates a new lampBoard object and sets this board ID and priority.
      * 
-     * @param boardId                 the current board user ID as an integer number.
-     * @param configuration           the LampConfigurationStrategy default lamp configuration object.
+     * @param boardId                 @see UserRegistry::userBoardId member class variable declaration/doc.
+     * @param priority                @see UserRegistry::userBoardPriority member class variable declaration/doc.
      */
-    UserRegistry( const int, const int );
+    UserRegistry( const int identification, const int priority ) :
+                  userBoardId( identification ),
+                  userBoardPriority( priority )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserRegistry::UserRegistry(2) CONSTRUCTOR! | "
+                << "identification: " << identification << " priority: " << priority );
+    }
     
     /**
      * Gets the current user identification number.
      * 
      * @return the current user identification number as an integer number.
      */
-    const int getUserID();
+    const int getUserID()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserRegistry::getUserID(0)" );
+        return 0; // Just like a Guto's EPOS implementation.
+    }
     
     /**
      * Gets the current user priority.
      * 
      * @return the current user priority as an integer number.
      */
-    const int getUserPriority();
+    const int getUserPriority()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserRegistry::getUserPriority(0)" );
+        return 0; // Just like a Guto's EPOS implementation.
+    }
     
     
 private:
@@ -79,29 +93,19 @@ private:
     /**
      * Disables the default constructor.
      */
-    UserRegistry();
+    UserRegistry()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserRegistry::UserRegistry(0) THE DISABLED CONSTRUCTOR!" );
+    }
+    
+    // private magic stuff
+    
+    
     
 };
 
 
 
-/**
- * @see UserRegistry::UserRegistry() member class declaration.
- */
-UserRegistry::UserRegistry()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE UserRegistry::UserRegistry(0) THE DISABLED CONSTRUCTOR!" );
-}
-
-/**
- * @see UserRegistry::UserRegistry() member class declaration.
- */
-UserRegistry::UserRegistry( const int identification, const int configuration ) :
-userBoardId( identification ),
-userBoardPriority( configuration )
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE UserRegistry::UserRegistry(2) CONSTRUCTOR!" );
-}
 
 
 

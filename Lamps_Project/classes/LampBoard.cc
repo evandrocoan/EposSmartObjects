@@ -54,12 +54,21 @@ public:
      * @param boardId                 the current board user ID as an integer number.
      * @param configuration           the LampConfigurationStrategy default lamp configuration object.
      */
-    LampBoard( const int, LampConfigurationStrategy );
+    LampBoard( const int, LampConfigurationStrategy ) :
+               lampBoardId( identification ),
+               defaultConfiguration( configuration ),
+               priorityUsers()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(2) CONSTRUCTOR!" );
+    }
     
     /**
      * @see CommunicationStrategyObserver::receiveMessage abstract member class declaration.
      */
-    void receiveMessage( const char* );
+    void receiveMessage( const char* message )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::receiveMessage(1) | message: \n" << message );
+    }
     
     /**
      * Add a new user's priority to this lamp.
@@ -69,14 +78,24 @@ public:
      * 
      * @return true when the priority user is successfully added, otherwise false.
      */
-    bool addPriorityUser( const int, const int );
+    bool addPriorityUser( const int userPriority, const int userId )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::addPriorityUser(2) | userPriority: "
+                << userPriority
+                << "userId: " << userId );
+    }
     
     /**
      * Gets the current board unique board identification number.
      * 
      * @return this lamp board identification as a const integer.
      */
-    const int getLampBoardId();
+    const int getLampBoardId()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::getLampBoardId(0)" );
+        
+        return 0; return 0; // Just like a Guto's EPOS implementation.
+    }
     
     
 private:
@@ -108,37 +127,19 @@ private:
     /**
      * Disables the default constructor.
      */
-    LampBoard();
+    LampBoard()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(0) THE DISABLED CONSTRUCTOR!" );
+    }
+    
+    // private magic stuff
+    
+    
+    
 };
 
 
 
-/**
- * @see LampBoard::LampBoard() member class declaration.
- */
-LampBoard::LampBoard()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(0) THE DISABLED CONSTRUCTOR!" );
-}
-
-/**
- * @see LampBoard::LampBoard() member class declaration.
- */
-LampBoard::LampBoard( const int identification, LampConfigurationStrategy configuration ) :
-lampBoardId( identification ),
-defaultConfiguration( configuration ),
-priorityUsers()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(2) CONSTRUCTOR!" );
-}
-
-/**
- * @see LampBoard::receiveMessage() member class declaration.
- */
-void LampBoard::receiveMessage( const char* message )
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::receiveMessage(1) | message: \n" << message );
-}
 
 
 

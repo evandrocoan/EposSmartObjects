@@ -53,14 +53,24 @@ public:
      * 
      * @return the unique existent Usb's instance.
      */
-    Usb& getInstance();
+    Usb& getInstance()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::getInstance(0)" );
+        
+        static Usb instance;
+        return &instance;
+    }
+
     
 private:
     
     /**
      * Creates an USB object ready to be used by the singleton design pattern.
      */
-    Usb();
+    Usb()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::Usb(0) THE PRIVATE CONSTRUCTOR!" );
+    }
     
     /**
      * Do not implement it. Disable the copy constructor to avoid multiple singleton object copies.
@@ -78,24 +88,6 @@ private:
 
 
 
-/**
- * @see Usb::getInstance() member class declaration.
- */
-static Usb& Usb::getInstance()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::getInstance(0)" );
-    
-    static Usb INSTANCE;
-    return &INSTANCE;
-}
-
-/**
- * @see Usb::Usb() member class declaration.
- */
-Usb::Usb()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::Usb(0) THE PRIVATE CONSTRUCTOR!" );
-}
 
 
 

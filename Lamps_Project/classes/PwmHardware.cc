@@ -44,17 +44,29 @@ public:
      * 
      * @return the unique existent PwmHardware's instance.
      */
-    static PwmHardware& getInstance();
+    static PwmHardware& getInstance()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::getInstance(0)" );
+        
+        static PwmHardware instance;
+        return &instance;
+    }
     
     /**
      * @see LampControlStrategy::addNewLamp( Lamp, LampConfigurationStrategy ) member abstract class declaration.
      */
-    void addNewLamp( lamp Lamp, setting LampConfigurationStrategy ) = 0;
+    void addNewLamp( lamp Lamp, setting LampConfigurationStrategy )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::addNewLamp(2)" );
+    }
     
     /**
      * @see LampControlStrategy::setNewUserSettings( Lamp, LampConfigurationStrategy ) member abstract class declaration.
      */
-    void setNewUserSettings( lamp Lamp, newSetting LampConfigurationStrategy ) = 0;
+    void setNewUserSettings( lamp Lamp, newSetting LampConfigurationStrategy )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::setNewUserSettings(2)" );
+    }
     
     
 private:
@@ -62,7 +74,10 @@ private:
     /**
      * Creates an PwmHardware object ready to be used by the singleton design pattern.
      */
-    PwmHardware();
+    PwmHardware()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::PwmHardware(0) THE PRIVATE CONSTRUCTOR!" );
+    }
     
     /**
      * Do not implement it. Disable the copy constructor to avoid multiple singleton object copies.
@@ -74,30 +89,14 @@ private:
      */
     void operator=( PwmHardware const& );
     
-    // PwmHardware magic methods
+    // PwmHardware magic private methods
+    
+    
     
 };
 
 
 
-/**
- * @see PwmHardware::getInstance() member class declaration.
- */
-static PwmHardware& PwmHardware::getInstance()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::getInstance(0)" );
-    
-    static PwmHardware instance;
-    return &instance;
-}
-
-/**
- * @see PwmHardware::PwmHardware() member class declaration.
- */
-PwmHardware::PwmHardware()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::PwmHardware(0) THE PRIVATE CONSTRUCTOR!" );
-}
 
 
 

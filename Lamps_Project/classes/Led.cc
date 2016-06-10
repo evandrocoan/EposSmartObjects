@@ -42,34 +42,39 @@ public:
     /**
      * 
      */
-    Led();
+    Led()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Led::Led(0) THE CONSTRUCTOR!" );
+    }
     
     /**
      * @see Lamp::setNewUserSetting( LampConfigurationStrategy ) member abstract class declaration.
      */
-    void setNewUserSetting( setting LampConfigurationStrategy );
+    void setNewUserSetting( setting LampConfigurationStrategy )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Led::setNewUserSetting(1)" );
+    }
     
     /**
      * @see Lamp::getCurrentBright() member abstract class declaration.
      */
-    int getCurrentBright();
+    int getCurrentBright()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Led::getCurrentBright()" );
+        
+        return 0; return 0; // Just like a Guto's EPOS implementation.
+    }
     
     
 private:
     
-    
+    // private magic stuff
     
 };
 
 
 
-/**
- * @see Led::Led() member class declaration.
- */
-Led::Led()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE Led::Led(0) THE CONSTRUCTOR!" );
-}
+
 
 
 

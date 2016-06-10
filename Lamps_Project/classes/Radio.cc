@@ -53,12 +53,21 @@ public:
      * 
      * @return the unique existent Radio's instance.
      */
-    static Radio& getInstance();
+    static Radio& getInstance()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::getInstance(0)" );
+        
+        static Radio instance;
+        return &instance;
+    }
     
     /**
      * @see SmartObjectCommunication::sendMessage( const char* ) member class declaration.
      */
-    void sendMessage( const char* );
+    void sendMessage( const char* message )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::sendMessage(1) | message: \n" << message );
+    }
     
     
 private:
@@ -66,7 +75,10 @@ private:
     /**
      * Creates an radio object ready to be used by the singleton design pattern.
      */
-    Radio();
+    Radio()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::Radio(0) THE PRIVATE CONSTRUCTOR!" );
+    }
     
     /**
      * Do not implement it. Disable the copy constructor to avoid multiple singleton object copies.
@@ -80,36 +92,10 @@ private:
     
     // radio magic methods
     
+    
+    
 };
 
-
-
-/**
- * @see Radio::getInstance() member class declaration.
- */
-static Radio& Radio::getInstance()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::getInstance(0)" );
-    
-    static Radio instance;
-    return &instance;
-}
-
-/**
- * @see Radio::Radio() member class declaration.
- */
-Radio::Radio()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::Radio(0) THE PRIVATE CONSTRUCTOR!" );
-}
-
-/**
- * @see Radio::sendMessage( const char* ) member class declaration.
- */
-void Radio::sendMessage( const char* message )
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::sendMessage(1) | message: \n" << message );
-}
 
 
 

@@ -53,19 +53,33 @@ public:
      * @param boardId             the current board user ID as an integer number.
      * @param configuration       the first and initial user's board configuration to use.
      */
-    UserBoard( const int, LampConfigurationStrategy );
+    UserBoard( const int boardId, LampConfigurationStrategy configuration ) :
+               userBoardId( boardId )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::UserBoard(2) CONSTRUCTOR! | boardId: "
+                << boardId );
+        
+        this->addUserConfiguration( configuration );
+    }
     
     /**
      * @see CommunicationStrategyObserver::receiveMessage abstract member class declaration.
      */
-    void receiveMessage( const char* );
+    void receiveMessage( const char* message )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::receiveMessage(1) | message: \n" << message );
+    }
     
     /**
      * Gets the current board unique user identification number.
      * 
      * @return this user board identification as a const integer.
      */
-    const int getUserId();
+    const int getUserId()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::getUserId() | userBoardId: " << this->userBoardId );
+        return this->userBoardId;
+    }
     
     /**
      * Add a new user's configuration to this user's board.
@@ -73,7 +87,11 @@ public:
      * @param configuration          the user's new configuration to add.
      * @return true when the user configuration is successfully added, otherwise false.
      */
-    bool addUserConfiguration( LampConfigurationStrategy );
+    bool addUserConfiguration( LampConfigurationStrategy configuration )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::addUserConfiguration(1)");
+        return false; // Just like a Guto's EPOS implementation.
+    }
     
     /**
      * Gets a specified user's configuration by a given index.
@@ -81,7 +99,11 @@ public:
      * @param index           the user's configuration index as an integer value.
      * @return the specified user's configuration. NULL when an invalid index is provided.
      */
-    LampConfigurationStrategy getUserConfiguration( int );
+    LampConfigurationStrategy getUserConfiguration( int index )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::getUserConfiguration(1) | index: " << index );
+        return NULL; // Just like a Guto's EPOS implementation.
+    }
     
     /**
      * Set a specified user's configuration as the current active configuration ready to be passed
@@ -91,7 +113,11 @@ public:
      * @return true when the specified user's configuration is set as the current configuration,
      *         otherwise false.
      */
-    bool setUserConfiguration( int );
+    bool setUserConfiguration( int index )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::setUserConfiguration(1) | index: " << index );
+        return false; // Just like a Guto's EPOS implementation.
+    }
     
     
 private:
@@ -111,44 +137,20 @@ private:
     /**
      * Disables the default constructor.
      */
-    UserBoard();
+    UserBoard()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::UserBoard(0) THE DISABLED CONSTRUCTOR!" );
+    }
+    
+    // private magic stuff
+    
+    
     
 };
 
 
 
-/**
- * @see UserBoard::UserBoard() member class declaration.
- */
-UserBoard::UserBoard()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::UserBoard(0) THE DISABLED CONSTRUCTOR!" );
-}
 
-/**
- * @see UserBoard::UserBoard( const int ) member class declaration.
- */
-UserBoard::UserBoard( const int userId) : userBoardId( userId )
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::UserBoard(1) CONSTRUCTOR!" );
-}
-
-/**
- * @see UserBoard::receiveMessage() member class declaration.
- */
-void UserBoard::receiveMessage( const char* message )
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::receiveMessage(1) | message: \n" << message );
-}
-
-/**
- * @see UserBoard::getUserId() member class declaration.
- */
-const int UserBoard::getUserId()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::getUserId() | userBoardId: " << this->userBoardId );
-    return this->userBoardId;
-}
 
 
 

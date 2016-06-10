@@ -42,22 +42,40 @@ public:
     /**
      * 
      */
-    LightSensor();
+    LightSensor()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LightSensor::LightSensor(0) THE CONSTRUCTOR!" );
+    }
     
     /**
      * @see LampConfigurationStrategy::getBright() member abstract class declaration.
      */
-    int getBright();
+    int getBright()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LightSensor::getBright(0)" );
+        
+        return 0; // Just like a Guto's EPOS implementation.
+    }
     
     /**
      * @see LampConfigurationStrategy::getCurrentBright() member abstract class declaration.
      */
-    int getCurrentBright();
+    int getCurrentBright()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LightSensor::getCurrentBright(0)" );
+        
+        return 0; // Just like a Guto's EPOS implementation.
+    }
     
     /**
      * @see LampConfigurationStrategy::setBright(int) member abstract class declaration.
      */
-    bool setBright( int );
+    bool setBright( int brigth )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LightSensor::setBright(1) | brigth: " << brigth );
+        
+        return false; // Just like a Guto's EPOS implementation.
+    }
     
     
 private:
@@ -68,13 +86,6 @@ private:
 
 
 
-/**
- * @see LightSensor::LightSensor() member class declaration.
- */
-LightSensor::LightSensor()
-{
-    DEBUGGERLN( 2, "I AM ENTERING ON THE LightSensor::LightSensor(0) THE CONSTRUCTOR!" );
-}
 
 
 
