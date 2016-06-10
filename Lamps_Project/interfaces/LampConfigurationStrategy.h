@@ -34,38 +34,41 @@ __USING_SYS;
 
 
 /**
- * This class is the abstract class to the Lamp's objects.
+ * This class is the interface to an strategy to hold the the Lamp's objects configuration.
  */
-class Lamp
+class LampConfigurationStrategy
 {
 public:
     
     /**
-     * Adds a new lamp into the controlling system.
+     * Gets the maximum bright desired to the lamp achieve.
      * 
-     * @param setting        an LampConfigurationStrategy configuration object.
+     * @return an integer as the desired bright to the lamp. This is changed by setBright(int).
      */
-    virtual void setNewUserSetting( setting LampConfigurationStrategy ) = 0;
+    virtual int getBright() = 0;
     
     /**
-     * Reads the lamp configuration and get it current desired bright.
+     * Gets the current bright to the lamp achieve.
      * 
-     * @return an int as the current lamp bright.
+     * @return an integer as current lamp bright to be show. This is changed by some variable as
+     *         the current environment temperature.
      */
     virtual int getCurrentBright() = 0;
+    
+    /**
+     * Adjust the maximum bright desired to the lamp achieve.
+     * 
+     * @param newBright              an integer as the new desired bright to the lamp.
+     */
+    virtual bool setBright( int ) = 0;
     
     
 protected:
     
     /**
-     * Contains this lamp configuration.
+     * The current maximum bright desired to the lamp achieve.
      */
-    LampConfigurationStrategy configuration;
-    
-    /**
-     * Contains this lamp configuration.
-     */
-    char* lampColor;
+    int maximumBright;
     
 };
 
