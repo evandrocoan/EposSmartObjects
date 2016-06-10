@@ -11,8 +11,7 @@
 */
 
 
-#include <classes/Radio.cc>
-#include <classes/Usb.cc>
+#include <interfaces/Lamp.h>
 
 
 

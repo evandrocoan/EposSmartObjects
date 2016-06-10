@@ -13,7 +13,6 @@
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
-#include <interfaces/SmartObjectCommunication.h>
 
 
 

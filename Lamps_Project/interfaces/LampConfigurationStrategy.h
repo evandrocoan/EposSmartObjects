@@ -11,8 +11,8 @@
 */
 
 
-#include <classes/Radio.cc>
-#include <classes/Usb.cc>
+#include <headers/lamps_project_debugger.h>
+#include <headers/array_operations.h>
 
 
 
