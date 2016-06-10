@@ -76,7 +76,7 @@ public:
      * 
      * @return this lamp board identification as a const integer.
      */
-    const int getLampId();
+    const int getLampBoardId();
     
     
 private:
@@ -90,6 +90,13 @@ private:
      * The default lamp configuration used the there is no user around.
      */
     LampConfigurationStrategy defaultConfiguration;
+    
+    /**
+     * Contains the control strategies this board is using.
+     * 
+     * @see LISHA's website <http://epos.lisha.ufsc.br/EPOS+User+Guide#Simple_Ordered_List>
+     */
+    Ordered_List< LampControlStrategy > controlStrategies;
     
     /**
      * Contains the user's which have priority over non-registered users.
