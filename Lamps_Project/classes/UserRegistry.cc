@@ -42,7 +42,7 @@ class UserRegistry
 public:
     
     /**
-     * To creates a new lampBoard object and sets this board ID and priority.
+     * Creates a new UserRegistry object and sets this board ID and priority.
      * 
      * @param boardId                 @see UserRegistry::userBoardId member class variable declaration/doc.
      * @param priority                @see UserRegistry::userBoardPriority member class variable declaration/doc.
@@ -63,7 +63,7 @@ public:
     const int getUserID()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE UserRegistry::getUserID(0)" );
-        return 0; // Just like a Guto's EPOS implementation.
+        return this->userBoardId; // Just like a Guto's EPOS implementation.
     }
     
     /**
@@ -74,7 +74,7 @@ public:
     const int getUserPriority()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE UserRegistry::getUserPriority(0)" );
-        return 0; // Just like a Guto's EPOS implementation.
+        return this->userBoardPriority; // Just like a Guto's EPOS implementation.
     }
     
     
