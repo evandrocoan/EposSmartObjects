@@ -35,7 +35,7 @@ __USING_SYS;
 /**
  * This class implements Led lamps using the abstract class Lamp.
  */
-class Led : private Lamp
+class Led : public Lamp
 {
 public:
     
@@ -50,7 +50,7 @@ public:
     /**
      * @see Lamp::setNewUserSetting( LampConfigurationStrategy ) member abstract class declaration.
      */
-    void setNewUserSetting( setting LampConfigurationStrategy )
+    void setNewUserSetting( LampConfigurationStrategy* setting )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE Led::setNewUserSetting(1)" );
     }

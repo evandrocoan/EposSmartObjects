@@ -13,16 +13,12 @@
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
+#include <interfaces/LampConfigurationStrategy.h>
 
 
 
-/**
- * Preprocessor directive designed to cause the current source file to be included only once in a
- * single compilation. Thus, serves the same purpose as #include guards, but with several
- * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
- * compilation speed. In main file this is enabled by default.
- */
-#pragma once
+#ifndef __LAMP_H
+#define __LAMP_H
 
 
 /**
@@ -45,7 +41,7 @@ public:
      * 
      * @param setting        an LampConfigurationStrategy configuration object.
      */
-    virtual void setNewUserSetting( setting LampConfigurationStrategy ) = 0;
+    virtual void setNewUserSetting( LampConfigurationStrategy* ) = 0;
     
     /**
      * Reads the lamp configuration and get it current desired bright.
@@ -60,7 +56,7 @@ protected:
     /**
      * Contains this lamp configuration.
      */
-    LampConfigurationStrategy configuration;
+    LampConfigurationStrategy* configuration;
     
     /**
      * Contains this lamp configuration.
@@ -68,6 +64,10 @@ protected:
     char* lampColor;
     
 };
+
+#endif // __LAMP_H
+
+
 
 
 

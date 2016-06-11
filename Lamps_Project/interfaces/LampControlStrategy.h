@@ -13,6 +13,7 @@
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
+#include <interfaces/Lamp.h>
 
 
 
@@ -46,7 +47,7 @@ public:
      * @param lamp              the lamp to be updated/receive its new setting.
      * @param newSetting        an LampConfigurationStrategy configuration object.
      */
-    virtual void addNewLamp( lamp Lamp, setting LampConfigurationStrategy ) = 0;
+    virtual void addNewLamp( Lamp* lamp, LampConfigurationStrategy* setting ) = 0;
     
     /**
      * Given one lamp, changes its configuration.
@@ -54,7 +55,7 @@ public:
      * @param lamp              the lamp to be updated/receive its new setting.
      * @param newSetting        an LampConfigurationStrategy configuration object.
      */
-    virtual void setNewUserSettings( lamp Lamp, newSetting LampConfigurationStrategy ) = 0;
+    virtual void setNewUserSettings( Lamp* lamp, LampConfigurationStrategy* newSetting ) = 0;
     
     
 protected:
@@ -64,7 +65,7 @@ protected:
      * 
      * @see LISHA's website <http://epos.lisha.ufsc.br/EPOS+User+Guide#Simple_Ordered_List>
      */
-    Ordered_List< Lamp > lamps;
+    Ordered_List< Lamp* > lamps;
     
 };
 

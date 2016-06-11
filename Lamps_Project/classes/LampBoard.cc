@@ -16,6 +16,8 @@
 #include <headers/array_operations.h>
 #include <interfaces/CommunicationStrategyObserver.h>
 #include <classes/UserRegistry.cc>
+#include <classes/LightSensor.cc>
+#include <classes/PwmHardware.cc>
 
 
 
@@ -44,7 +46,7 @@ __USING_SYS;
  * 
  * @see CommunicationStrategyObserver abstract class declaration.
  */
-class LampBoard : private CommunicationStrategyObserver
+class LampBoard : public CommunicationStrategyObserver
 {
 public:
     
@@ -54,10 +56,11 @@ public:
      * @param boardId                 the current board user ID as an integer number.
      * @param configuration           the LampConfigurationStrategy default lamp configuration object.
      */
-    LampBoard( const int, LampConfigurationStrategy ) :
-               lampBoardId( identification ),
-               defaultConfiguration( configuration ),
-               priorityUsers()
+    LampBoard( const int boardId, LampConfigurationStrategy* configuration ) :
+           lampBoardId( 0 ),
+           defaultConfiguration( NULL ),
+           controlStrategies(),
+           priorityUsers()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(2) CONSTRUCTOR!" );
     }
@@ -83,6 +86,8 @@ public:
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::addPriorityUser(2) | userPriority: "
                 << userPriority
                 << "userId: " << userId );
+        
+        return false;
     }
     
     /**
@@ -94,7 +99,7 @@ public:
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::getLampBoardId(0)" );
         
-        return 0; return 0; // Just like a Guto's EPOS implementation.
+        return 0; // Just like a Guto's EPOS implementation.
     }
     
     
@@ -108,7 +113,7 @@ private:
     /**
      * The default lamp configuration used the there is no user around.
      */
-    LampConfigurationStrategy defaultConfiguration;
+    LampConfigurationStrategy* defaultConfiguration;
     
     /**
      * Contains the control strategies this board is using.
@@ -127,7 +132,11 @@ private:
     /**
      * Disables the default constructor.
      */
-    LampBoard()
+    LampBoard() :
+           lampBoardId( 0 ),
+           defaultConfiguration( NULL ),
+           controlStrategies(),
+           priorityUsers()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(0) THE DISABLED CONSTRUCTOR!" );
     }

@@ -58,7 +58,7 @@ public:
         DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::getInstance(0)" );
         
         static Usb instance;
-        return &instance;
+        return instance;
     }
 
     

@@ -44,7 +44,7 @@ __USING_SYS;
  * @see CommunicationSubject::notifyObserver( const char* ) member class declaration for the subject
  *      object use.
  */
-class Radio : private SmartObjectCommunication
+class Radio : public SmartObjectCommunication
 {
 public:
 
@@ -58,7 +58,7 @@ public:
         DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::getInstance(0)" );
         
         static Radio instance;
-        return &instance;
+        return instance;
     }
     
     /**

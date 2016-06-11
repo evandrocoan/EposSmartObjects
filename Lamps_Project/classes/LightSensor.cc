@@ -35,7 +35,7 @@ __USING_SYS;
 /**
  * This class implementes the Lamp's objects using the LampConfigurationStrategy abstract class.
  */
-class LightSensor : private LampConfigurationStrategy
+class LightSensor : public LampConfigurationStrategy
 {
 public:
     

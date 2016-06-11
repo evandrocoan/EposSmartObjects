@@ -24,6 +24,16 @@
 #include <mutex.h>
 #include <semaphore.h>
 #include <traits.h>
+
+#include <classes/LampBoard.cc>
+#include <classes/Led.cc>
+#include <classes/LightSensor.cc>
+#include <classes/PwmHardware.cc>
+#include <classes/Radio.cc>
+#include <classes/Usb.cc>
+#include <classes/UserBoard.cc>
+#include <classes/UserRegistry.cc>
+
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
 
@@ -47,10 +57,12 @@ int main()
     PRINTLN( 1, "EposMotesII app MAIN_LAMP initing..." );
     PRINTLN( 1, "Program version: " << PROGRAM_VERSION );
     
+    LightSensor defaultConfiguration;
     
+    LampBoard lampBoard( 1, &defaultConfiguration );
+    lampBoard.getLampBoardId();
     
     PRINTLN( 1, "EposMotesII app finishing" );
-    
     return 0;
 }
 

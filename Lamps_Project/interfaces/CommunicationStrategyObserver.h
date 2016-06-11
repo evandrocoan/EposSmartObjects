@@ -58,12 +58,12 @@ protected:
     /**
      * Handle all radio communications needed by this project.
      */
-    Radio radio;
+    Radio* radio;
     
     /**
      * Handle all USB serial communications needed by this project.
      */
-    Usb usb;
+    Usb* usb;
     
 };
 

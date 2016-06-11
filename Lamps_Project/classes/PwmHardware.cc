@@ -35,7 +35,7 @@ __USING_SYS;
 /**
  * This class is the interface to an strategy to control the Lamp's objects.
  */
-class PwmHardware : private LampControlStrategy
+class PwmHardware : public LampControlStrategy
 {
 public:
     
@@ -49,13 +49,13 @@ public:
         DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::getInstance(0)" );
         
         static PwmHardware instance;
-        return &instance;
+        return instance;
     }
     
     /**
      * @see LampControlStrategy::addNewLamp( Lamp, LampConfigurationStrategy ) member abstract class declaration.
      */
-    void addNewLamp( lamp Lamp, setting LampConfigurationStrategy )
+    void addNewLamp( Lamp* lamp, LampConfigurationStrategy* setting )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::addNewLamp(2)" );
     }
@@ -63,7 +63,7 @@ public:
     /**
      * @see LampControlStrategy::setNewUserSettings( Lamp, LampConfigurationStrategy ) member abstract class declaration.
      */
-    void setNewUserSettings( lamp Lamp, newSetting LampConfigurationStrategy )
+    void setNewUserSettings( Lamp* lamp, LampConfigurationStrategy* setting )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::setNewUserSettings(2)" );
     }

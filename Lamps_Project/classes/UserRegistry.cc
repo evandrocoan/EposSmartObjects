@@ -93,7 +93,9 @@ private:
     /**
      * Disables the default constructor.
      */
-    UserRegistry()
+    UserRegistry() :
+            userBoardId( 0 ),
+            userBoardPriority( 0 )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE UserRegistry::UserRegistry(0) THE DISABLED CONSTRUCTOR!" );
     }
