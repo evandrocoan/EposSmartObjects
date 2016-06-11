@@ -58,7 +58,7 @@ public:
      */
     LampBoard( const int boardId, LampConfiguration* configuration ) :
            lampBoardId( 0 ),
-           defaultConfiguration( NULL ),
+           defaultConfigurations(),
            controlStrategies(),
            priorityUsers()
     {
@@ -113,7 +113,7 @@ private:
     /**
      * The default lamp configuration used the there is no user around.
      */
-    LampConfiguration* defaultConfiguration;
+    Ordered_List< LampConfiguration* > defaultConfigurations;
     
     /**
      * Contains the control strategies this board is using.
@@ -134,7 +134,7 @@ private:
      */
     LampBoard() :
            lampBoardId( 0 ),
-           defaultConfiguration( NULL ),
+           defaultConfigurations(),
            controlStrategies(),
            priorityUsers()
     {

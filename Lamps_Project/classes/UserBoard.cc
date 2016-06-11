@@ -54,7 +54,8 @@ public:
      * @param configuration       the first and initial user's board configuration to use.
      */
     UserBoard( const int boardId, LampConfiguration* configuration ) :
-               userBoardId( boardId )
+               userBoardId( boardId ),
+               configurations()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::UserBoard(2) CONSTRUCTOR! | boardId: "
                 << boardId );
@@ -138,7 +139,8 @@ private:
      * Disables the default constructor.
      */
     UserBoard() :
-            userBoardId( 0 )
+            userBoardId( 0 ),
+            configurations()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::UserBoard(0) THE DISABLED CONSTRUCTOR!" );
     }
