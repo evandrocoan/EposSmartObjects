@@ -57,7 +57,7 @@ int main()
     PRINTLN( 1, "EposMotesII app MAIN_LAMP initing..." );
     PRINTLN( 1, "Program version: " << PROGRAM_VERSION );
     
-    LampConfiguration defaultConfiguration;
+    LampConfiguration defaultConfiguration( "blueLed", "nothing", 100 );
     
     LampBoard lampBoard( 1, &defaultConfiguration );
     lampBoard.getLampBoardId();

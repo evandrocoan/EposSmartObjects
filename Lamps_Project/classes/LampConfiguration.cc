@@ -36,44 +36,84 @@ __USING_SYS;
 /**
  * This class implementes the Lamp's objects using the LampConfiguration abstract class.
  */
-class LampConfiguration
+struct LampConfiguration
 {
 public:
     
     /**
-     * 
+     * Whether the lamp is to fade when the user get out the lamp environment/area.
      */
-    LampConfiguration()
+    bool isToFadeOut;
+    
+    /**
+     * Whether the lamp is to fade when the user get out the lamp environment/area.
+     */
+    bool isToFadeIn;
+    
+    /**
+     * This is to what lamp this configuration to apply. Example: blueLed, redLed, partyColors.
+     */
+    const char* const lampType;
+    
+    /**
+     * Specifies special behaviors allowed as party style.
+     */
+    const char* const specialFlags;
+    
+    /**
+     * Creates an configuration initializing the constant and private class attributes.
+     * 
+     * @param lampType          see LampConfiguration::lampType public constant class atribute.
+     * @param specialFlags      see LampConfiguration::specialFlags public constant class atribute.
+     * @param maximumBright     see LampConfiguration::maximumBright private class atribute.
+     * 
+     * @see LampConfiguration::isToFadeOut public class atribute.
+     * @see LampConfiguration::isToFadeIn public class atribute.
+     */
+    LampConfiguration( const char* const lampType, const char* const specialFlags, int maximumBright ) :
+            lampType( lampType ),
+            specialFlags( specialFlags )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampConfiguration::LampConfiguration(0) THE CONSTRUCTOR!" );
+        
+        this->isToFadeOut = isToFadeOut;
+        this->isToFadeIn  = isToFadeIn;
+        
+        if( !this->setBright( maximumBright ) )
+        {
+            DEBUGGERLN( 1, "ERROR! Could not set the bright correctly! maximumBright: " << maximumBright );
+        }
     }
     
     /**
-     * @see LampConfiguration::getBright() member abstract class declaration.
+     * Gets the maximum bright desired to the lamp achieve.
+     * 
+     * @return an integer as the desired bright to the lamp. This is changed by setBright(int).
+     * @see LampConfiguration::maximumBright private class atribute.
      */
     int getBright()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampConfiguration::getBright(0)" );
         
-        return 0; // Just like a Guto's EPOS implementation.
+        return this->maximumBright; // Just like a Guto's EPOS implementation.
     }
     
     /**
-     * @see LampConfiguration::getCurrentBright() member abstract class declaration.
-     */
-    int getCurrentBright()
-    {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE LampConfiguration::getCurrentBright(0)" );
-        
-        return 0; // Just like a Guto's EPOS implementation.
-    }
-    
-    /**
-     * @see LampConfiguration::setBright(int) member abstract class declaration.
+     * Adjust the maximum bright desired to the lamp achieve. Usually a value between 0 and 100.
+     * 
+     * @param newBright              an integer as the new desired bright to the lamp.
+     * @see LampConfiguration::maximumBright private class atribute.
      */
     bool setBright( int brigth )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampConfiguration::setBright(1) | brigth: " << brigth );
+        
+        if( brigth > -1
+            && brigth < 101 )
+        {
+            this->maximumBright = brigth;
+            return true;
+        }
         
         return false; // Just like a Guto's EPOS implementation.
     }
@@ -82,14 +122,9 @@ public:
 private:
     
     /**
-     * 
+     * The maximum bight allowed to this lamp. It is a value between 0 and 100, as in percents.
      */
     int maximumBright;
-    
-    /**
-     * 
-     */
-    const char* lampType;
     
     
 };
