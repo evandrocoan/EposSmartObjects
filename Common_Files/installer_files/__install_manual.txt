@@ -1,5 +1,5 @@
 
-REMENBER, firstly run in order:
+REMENBER, run in order these sub-installers:
 ./_copy.sh    PROGRAM_NAME.cc
 ./_make.sh    PROGRAM_NAME.cc OPTION_NAME         Use 'clean' as 2nd parameter to perform a make veryclean all.
 ./_process.sh PROGRAM_NAME.cc
