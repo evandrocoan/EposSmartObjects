@@ -81,6 +81,15 @@ public:
     
 private:
     
+    /**
+     * 
+     */
+    int maximumBright;
+    
+    /**
+     * 
+     */
+    const char* lampType;
     
     
 };
