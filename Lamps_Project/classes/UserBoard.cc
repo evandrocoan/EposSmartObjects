@@ -53,7 +53,7 @@ public:
      * @param boardId             the current board user ID as an integer number.
      * @param configuration       the first and initial user's board configuration to use.
      */
-    UserBoard( const int boardId, LampConfigurationStrategy* configuration ) :
+    UserBoard( const int boardId, LampConfiguration* configuration ) :
                userBoardId( boardId )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::UserBoard(2) CONSTRUCTOR! | boardId: "
@@ -87,7 +87,7 @@ public:
      * @param configuration          the user's new configuration to add.
      * @return true when the user configuration is successfully added, otherwise false.
      */
-    bool addUserConfiguration( LampConfigurationStrategy* configuration )
+    bool addUserConfiguration( LampConfiguration* configuration )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::addUserConfiguration(1)");
         return false; // Just like a Guto's EPOS implementation.
@@ -99,7 +99,7 @@ public:
      * @param index           the user's configuration index as an integer value.
      * @return the specified user's configuration. NULL when an invalid index is provided.
      */
-    LampConfigurationStrategy* getUserConfiguration( int index )
+    LampConfiguration* getUserConfiguration( int index )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::getUserConfiguration(1) | index: " << index );
         return NULL; // Just like a Guto's EPOS implementation.
@@ -132,7 +132,7 @@ private:
      * 
      * @see LISHA's website <http://epos.lisha.ufsc.br/EPOS+User+Guide#Simple_Ordered_List>
      */
-    Ordered_List< LampConfigurationStrategy* > configurations;
+    Ordered_List< LampConfiguration* > configurations;
     
     /**
      * Disables the default constructor.

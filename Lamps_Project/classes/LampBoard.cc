@@ -16,8 +16,8 @@
 #include <headers/array_operations.h>
 #include <interfaces/CommunicationStrategyObserver.h>
 #include <classes/UserRegistry.cc>
-#include <classes/LightSensor.cc>
 #include <classes/PwmHardware.cc>
+#include <classes/LampConfiguration.cc>
 
 
 
@@ -54,9 +54,9 @@ public:
      * To creates a new lampBoard object and sets this board ID and priority.
      * 
      * @param boardId                 the current board user ID as an integer number.
-     * @param configuration           the LampConfigurationStrategy default lamp configuration object.
+     * @param configuration           the LampConfiguration default lamp configuration object.
      */
-    LampBoard( const int boardId, LampConfigurationStrategy* configuration ) :
+    LampBoard( const int boardId, LampConfiguration* configuration ) :
            lampBoardId( 0 ),
            defaultConfiguration( NULL ),
            controlStrategies(),
@@ -113,7 +113,7 @@ private:
     /**
      * The default lamp configuration used the there is no user around.
      */
-    LampConfigurationStrategy* defaultConfiguration;
+    LampConfiguration* defaultConfiguration;
     
     /**
      * Contains the control strategies this board is using.

@@ -48,9 +48,9 @@ public:
     }
     
     /**
-     * @see Lamp::setNewUserSetting( LampConfigurationStrategy ) member abstract class declaration.
+     * @see Lamp::setNewUserSetting( LampConfiguration ) member abstract class declaration.
      */
-    void setNewUserSetting( LampConfigurationStrategy* setting )
+    void setNewUserSetting( LampConfiguration* setting )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE Led::setNewUserSetting(1)" );
     }

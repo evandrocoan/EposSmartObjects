@@ -34,43 +34,63 @@ __USING_SYS;
 
 
 /**
- * This class is the interface to an strategy to hold the the Lamp's objects configuration.
+ * This class implementes the Lamp's objects using the LampConfiguration abstract class.
  */
-class LampConfigurationStrategy
+class LampConfiguration
 {
 public:
     
     /**
-     * Gets the maximum bright desired to the lamp achieve.
      * 
-     * @return an integer as the desired bright to the lamp. This is changed by setBright(int).
      */
-    virtual int getBright() = 0;
+    LampConfiguration()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampConfiguration::LampConfiguration(0) THE CONSTRUCTOR!" );
+    }
     
     /**
-     * Gets the current bright to the lamp achieve.
-     * 
-     * @return an integer as current lamp bright to be show. This is changed by some variable as
-     *         the current environment temperature.
+     * @see LampConfiguration::getBright() member abstract class declaration.
      */
-    virtual int getCurrentBright() = 0;
+    int getBright()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampConfiguration::getBright(0)" );
+        
+        return 0; // Just like a Guto's EPOS implementation.
+    }
     
     /**
-     * Adjust the maximum bright desired to the lamp achieve.
-     * 
-     * @param newBright              an integer as the new desired bright to the lamp.
+     * @see LampConfiguration::getCurrentBright() member abstract class declaration.
      */
-    virtual bool setBright( int ) = 0;
-    
-    
-protected:
+    int getCurrentBright()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampConfiguration::getCurrentBright(0)" );
+        
+        return 0; // Just like a Guto's EPOS implementation.
+    }
     
     /**
-     * The current maximum bright desired to the lamp achieve.
+     * @see LampConfiguration::setBright(int) member abstract class declaration.
      */
-    int maximumBright;
+    bool setBright( int brigth )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampConfiguration::setBright(1) | brigth: " << brigth );
+        
+        return false; // Just like a Guto's EPOS implementation.
+    }
+    
+    
+private:
+    
+    
     
 };
+
+
+
+
+
+
+
 
 
 

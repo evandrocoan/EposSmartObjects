@@ -13,7 +13,7 @@
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
-#include <interfaces/LampConfigurationStrategy.h>
+#include <classes/LampConfiguration.cc>
 
 
 
@@ -39,9 +39,9 @@ public:
     /**
      * Adds a new lamp into the controlling system.
      * 
-     * @param setting        an LampConfigurationStrategy configuration object.
+     * @param setting        an LampConfiguration configuration object.
      */
-    virtual void setNewUserSetting( LampConfigurationStrategy* ) = 0;
+    virtual void setNewUserSetting( LampConfiguration* ) = 0;
     
     /**
      * Reads the lamp configuration and get it current desired bright.
@@ -56,7 +56,7 @@ protected:
     /**
      * Contains this lamp configuration.
      */
-    LampConfigurationStrategy* configuration;
+    LampConfiguration* configuration;
     
     /**
      * Contains this lamp configuration.

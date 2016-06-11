@@ -45,17 +45,17 @@ public:
      * Adds a new lamp into the controlling system.
      * 
      * @param lamp              the lamp to be updated/receive its new setting.
-     * @param newSetting        an LampConfigurationStrategy configuration object.
+     * @param setting           an LampConfiguration configuration object.
      */
-    virtual void addNewLamp( Lamp* lamp, LampConfigurationStrategy* setting ) = 0;
+    virtual void addNewLamp( Lamp* lamp, LampConfiguration* setting ) = 0;
     
     /**
      * Given one lamp, changes its configuration.
      * 
      * @param lamp              the lamp to be updated/receive its new setting.
-     * @param newSetting        an LampConfigurationStrategy configuration object.
+     * @param newSetting        an LampConfiguration configuration object.
      */
-    virtual void setNewUserSettings( Lamp* lamp, LampConfigurationStrategy* newSetting ) = 0;
+    virtual void setNewUserSettings( Lamp* lamp, LampConfiguration* newSetting ) = 0;
     
     
 protected:

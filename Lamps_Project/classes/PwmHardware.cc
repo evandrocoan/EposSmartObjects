@@ -53,17 +53,17 @@ public:
     }
     
     /**
-     * @see LampControlStrategy::addNewLamp( Lamp, LampConfigurationStrategy ) member abstract class declaration.
+     * @see LampControlStrategy::addNewLamp( Lamp, LampConfiguration ) member abstract class declaration.
      */
-    void addNewLamp( Lamp* lamp, LampConfigurationStrategy* setting )
+    void addNewLamp( Lamp* lamp, LampConfiguration* setting )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::addNewLamp(2)" );
     }
     
     /**
-     * @see LampControlStrategy::setNewUserSettings( Lamp, LampConfigurationStrategy ) member abstract class declaration.
+     * @see LampControlStrategy::setNewUserSettings( Lamp, LampConfiguration ) member abstract class declaration.
      */
-    void setNewUserSettings( Lamp* lamp, LampConfigurationStrategy* setting )
+    void setNewUserSettings( Lamp* lamp, LampConfiguration* newSetting )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::setNewUserSettings(2)" );
     }

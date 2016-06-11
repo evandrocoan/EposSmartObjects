@@ -27,7 +27,7 @@
 
 #include <classes/LampBoard.cc>
 #include <classes/Led.cc>
-#include <classes/LightSensor.cc>
+#include <classes/LampConfiguration.cc>
 #include <classes/PwmHardware.cc>
 #include <classes/Radio.cc>
 #include <classes/Usb.cc>
@@ -57,7 +57,7 @@ int main()
     PRINTLN( 1, "EposMotesII app MAIN_USER initing..." );
     PRINTLN( 1, "Program version: " << PROGRAM_VERSION );
     
-    LightSensor defaultConfiguration;
+    LampConfiguration defaultConfiguration;
     
     UserBoard lampBoard( 1, &defaultConfiguration );
     lampBoard.getUserId();
