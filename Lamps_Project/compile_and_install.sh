@@ -7,8 +7,12 @@ PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))
 . ./installer_files/__helper_functions.sh
 
 
-COMPILE_AND_INSTALL_VERSION="1.1.3"
+COMPILE_AND_INSTALL_VERSION="1.1.4"
 # Change log
+# 
+# v1.1.4
+# Added to the '_install.sh' script the option 'notsend' to allow skipt the last
+# './compile_and_install.sh' script part.
 # 
 # v1.1.3
 # Added to the '_copy.sh' script to force the make re-compile the project files when the main file
@@ -36,11 +40,13 @@ printHelp()
 {
     printf "\nCOMPILE AND INSTALL v$COMPILE_AND_INSTALL_VERSION HELP :\n"
     printf "The './compile_and_install.sh' parameters are:\n"
-    printf "The FIRST parameter is the file name to install.\n"
-    printf "The SECOND parameter is the USB port number to install.\n"
-    printf "The THIRD parameter is the optional value clean for a 'make veryclean' all.\n"
+    printf "1) The FIRST parameter is the file name to install.\n"
+    printf "2) The SECOND parameter is the USB port number to install, or the keyword 'notsend' \n"
+    printf "   to skip the last part and do not send the application to the EPOSMotes2 board.\n"
+    printf "3) The THIRD parameter is the optional value clean for a 'make veryclean' all.\n\n"
     printf "Examples:\n"
     printf "./compile_and_install.sh PROGRAM_NAME.cc 0 clean\n"
+    printf "./compile_and_install.sh PROGRAM_NAME.cc notsend\n"
     printf "./compile_and_install.sh PROGRAM_NAME.cc 1\n"
 }
 
@@ -49,6 +55,7 @@ printHelp()
 programFileToCompile=$1
 usbPortNumberToInstall=$2
 isVeryCleanCompilation=$3
+
 
 
 # Calculates whether the $isVeryCleanCompilation is a number
@@ -77,7 +84,7 @@ then
 fi
 
 
-# Notify an invalid file passed as parameter.
+# To perform subscripts calls.
 if [ $# -eq 0 ]
 then
     printHelp
@@ -89,14 +96,29 @@ else
         then
             if sh _process.sh $programFileToCompile 0
             then
-                if sh _install.sh $programFileToCompile $usbPortNumberToInstall
+                # Calculates whether the seconds program parameter contains the 'notsend' word
+                contains $isVeryCleanCompilation "notsend"
+                
+                # Captures the return value of the previous function call command
+                containsReturnValue=$?
+                
+                # To clear any last compilation data.
+                if ! [ $containsReturnValue -eq 1 ]
                 then
-                    printf "\nThe COMPILE_AND_INSTALL.SH was executed successfully!\n"
+                    printf "\nExiting because the 'notsend' argument was supplied...\n"
+                    printf "The COMPILE_AND_INSTALL.SH was executed successfully!\n"
                     showTheElapsedSeconds
                 else
-                    printf "\n_INSTALL.SH ERROR! Could not to install the program into the EPOSMotes2!\n"
-                    printHelp
-                    exit 1
+                    # To perform the last part, send the application to the board.
+                    if sh _install.sh $programFileToCompile $usbPortNumberToInstall
+                    then
+                        printf "\nThe COMPILE_AND_INSTALL.SH was executed successfully!\n"
+                        showTheElapsedSeconds
+                    else
+                        printf "\n_INSTALL.SH ERROR! Could not to install the program into the EPOSMotes2!\n"
+                        printHelp
+                        exit 1
+                    fi
                 fi
             else
                 printf "\n_PROCESS.SH ERROR! Could not to process the objcopy!\n"
