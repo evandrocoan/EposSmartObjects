@@ -46,7 +46,8 @@ public:
     
     /**
      * This defines the communication observer notifier function to be used by this project concrete
-     * classes.
+     * classes. This function is responsible for interpret the received messages by the board, and
+     * take the properly action.
      * 
      * @see SmartObjectCommunication interface declaration.
      */
