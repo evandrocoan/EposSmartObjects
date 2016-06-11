@@ -6,7 +6,13 @@ PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))
 # Import the helper functions.
 . ./installer_files/__helper_functions.sh
 
+
+COMPILE_AND_INSTALL_VERSION="1.1.3"
 # Change log
+# 
+# v1.1.3
+# Added to the '_copy.sh' script to force the make re-compile the project files when the main file
+# is not changed.
 # 
 # v1.1.2
 # Added to the '_copy.sh' script to copy the '.cc' files to the same location as the '.h' files.
@@ -21,7 +27,6 @@ PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))
 # v1.0
 # Initial release.
 # 
-COMPILE_AND_INSTALL_VERSION="1.1.2"
 
 printf "Running the script './compile_and_install.sh' version $COMPILE_AND_INSTALL_VERSION...\n"
 

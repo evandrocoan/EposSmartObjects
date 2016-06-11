@@ -93,6 +93,11 @@ then
     find . -name '*.cc' | cpio -updm --quiet $EPOS/app/
     find . -name '*.cc' | cpio -updm --quiet $EPOS/include/
     find . -name '*.h' | cpio -updm --quiet $EPOS/include/
+    
+    # Force the compiler/make to recompile the program.
+    echo "/** */" >> $EPOS/app/$programFileToCompile
+    
+    # To print the successful message
     printf "The copy of '$programFileToCompile' and it dependents files to '$EPOS/app/' was successful\n"
 else
     printf "\nCOPY ERROR!\nCould not to copy '$programFileToCompile' to '$EPOS/app/'\n"
