@@ -34,7 +34,7 @@ __USING_SYS;
 
 
 /**
- * This class groups together the user id and the its priority used to help decides which user wins
+ * This class groups together the user id and the its priority used to help decide which user wins
  * the lamp configuration control.
  */
 class UserRegistry
