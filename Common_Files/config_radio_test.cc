@@ -7,6 +7,8 @@
 __USING_SYS
 
 const unsigned char SINK_ID = 0x01;
+OStream cout;
+
 
 struct LampConfiguration
 {
@@ -101,21 +103,23 @@ private:
     
 };
 
-void sender(char id[10]) {
+void sender()
+{
     NIC nic;
 
     unsigned char src, prot;
     unsigned int size;
 
     LampConfiguration config ("eu", "presto", 100);
-
     int i;
-    while (true) {
-        for (i = 5; i < 8; i++) {
-            //CPU::out8(Machine::IO::PORTB, (1 << i));
-
-	    config.setBright(69);
-
+    
+    cout << "Sender\n";
+    
+    while (true)
+    {
+        for (i = 5; i < 8; i++)
+        {
+            config.setBright(69);
             nic.send(SINK_ID, 0, &config, sizeof(config));
 
             Alarm::delay(100000);
@@ -123,33 +127,35 @@ void sender(char id[10]) {
     }
 }
 
-int receiver() {
+int receiver()
+{
 	NIC nic;
     NIC::Protocol prot;
     NIC::Address src;
 
-    LampConfiguration config ("eu", "presto", 100);
-
-    OStream cout;
-
-    //unsigned char src, prot;
-    //int i;
+    LampConfiguration config ("a", "b", 33);
     
-    cout << "Sink\n";
+    cout << "Receiver\n";
 
-    while (true) {
+    while (true)
+    {
         while (!(nic.receive(&src, &prot, &config, sizeof(config)) > 0));
 
         cout << "####################\n";
-	cout <<"Configured brightness: " << config.getBright() << "\n";
-	cout << "Lamp type: " << config.lampType << "\n";
-	cout << "Flags: " << config.specialFlags << "\n";
+        cout <<"Configured brightness: " << config.getBright() << "\n";
+        cout << "Lamp type: " << config.lampType << "\n";
+        cout << "Flags: " << config.specialFlags << "\n";
     }
+    
 	return 0;
 }
 
-int main() {
-	char mensagem[10] = {'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd'};
-    sender(mensagem);
+/**
+ * 1) Uncomment receiver() and comment the sender() to build a application for the receiver board.
+ * 2) Comment receiver() and uncomment the sender() to build a application for the sender board.
+ */
+int main() 
+{
+    sender();
    // receiver();
 }
