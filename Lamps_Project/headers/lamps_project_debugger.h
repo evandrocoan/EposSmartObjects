@@ -17,14 +17,6 @@
 *
 *****************************************************************************************
 */
-#include <utility/ostream.h>
-#include <semaphore.h>
-
-#include <cstdarg>
-#include <cstdio>
-#include <unistd.h>
-#include <stdio.h>
-#include <cstring>
 
 
 /**
@@ -34,6 +26,18 @@
  * compilation speed. In main file this is enabled by default.
  */
 #pragma once
+
+
+
+#include <utility/ostream.h>
+#include <semaphore.h>
+
+#include <cstdarg>
+#include <cstdio>
+#include <unistd.h>
+#include <stdio.h>
+#include <cstring>
+
 
 
 /**

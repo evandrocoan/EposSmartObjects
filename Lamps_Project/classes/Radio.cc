@@ -10,17 +10,13 @@
 ******************************************************************************
 */
 
-//#ifndef LAMP_RADIO_CC
-//#define LAMP_RADIO_CC
-
-
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
 
-#include <interfaces/SmartObjectCommunication.h>
 
-#include <classes/CommunicationSubject.cc>
+
+#include <classes/PwmHardware.cc>
 
 
 
@@ -174,7 +170,6 @@ private:
 bool Radio::isThisObjectCreated = false;
 
 
-//#endif // #ifndef LAMP_RADIO_CC
 
 
 

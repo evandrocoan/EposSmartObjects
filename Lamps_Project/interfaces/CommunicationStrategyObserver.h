@@ -11,14 +11,12 @@
 */
 
 
-//#ifndef COMMUNICATION_STRATEGY_OBSERVER_CC
-//#define COMMUNICATION_STRATEGY_OBSERVER_CC
-
-
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
 
-#include <classes/Message.cc>
+
+
+#include <interfaces/SmartObjectCommunication.h>
 
 
 
@@ -44,7 +42,6 @@ public:
 };
 
 
-//#endif // #ifndef COMMUNICATION_STRATEGY_OBSERVER_CC
 
 
 

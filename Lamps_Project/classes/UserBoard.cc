@@ -11,25 +11,14 @@
 */
 
 
-/**
- * Preprocessor directive designed to cause the current source file to be included only once in a
- * single compilation. Thus, serves the same purpose as #include guards, but with several
- * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
- * compilation speed. In main file this is enabled by default.
- */
-//#pragma once
-
-
-
 #include <utility/malloc.h>
 #include <utility/list.h>
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
 
-#include <interfaces/CommunicationSubject.h> // Usb and Radio
-#include <classes/Usb.cc>
-#include <classes/Radio.cc>
+#include <interfaces/Lamp.h>
+
 
 
 /**

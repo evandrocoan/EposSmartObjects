@@ -11,36 +11,39 @@
 */
 
 
-/**
- * Preprocessor directive designed to cause the current source file to be included only once in a
- * single compilation. Thus, serves the same purpose as #include guards, but with several
- * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
- * compilation speed. In main file this is enabled by default.
- */
-//#pragma once
-
-
-
 #include <utility/malloc.h>
 #include <utility/list.h>
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
 
-#include <classes/UserRegistry.cc>
-#include <classes/PwmHardware.cc>
-
-#include <classes/CommunicationSubject.cc> // Usb and Radio
-#include <classes/Usb.cc>
-#include <classes/Radio.cc>
-
 
 
 /**
- * #define __SYS_NS	   System
- * #define __USING_SYS using namespace __SYS_NS
+ * These includes must to form a fucking line! 
+ * Those lines means Usb (line 1) is included by UserRegistry (line 2), etc.
+ * 
+ * Usb
+ * UserRegistry
+ * LampConfiguration
+ * Message
+ * SmartObjectCommunication
+ * CommunicationStrategyObserver
+ * CommunicationSubject
+ * Lamp
+ * LampControlStrategy
+ * PwmHardware
+ * Radio
+ * Led
+ * LampBoard > main_lamp
+ * UserBoard > main_user
+ * 
+ * This damn ass thang, is because this compiler cannot resolve right the include guards 'ifndef',
+ * neither 'pragma once'. So, to solve that and do not put everything in one big file, the files
+ * are included as they were in one big file, i.e., following a linear include without the broken
+ * include guards.
  */
-__USING_SYS;
+#include <classes/Led.cc>
 
 
 

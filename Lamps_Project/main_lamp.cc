@@ -25,10 +25,10 @@
 #include <semaphore.h>
 #include <traits.h>
 
-#include <classes/LampBoard.cc>
-
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
+
+#include <classes/LampBoard.cc>
 
 
 
