@@ -73,7 +73,7 @@ public:
             lampType( lampType ),
             specialFlags( specialFlags )
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE LampConfiguration::LampConfiguration(0) THE CONSTRUCTOR!" );
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampConfiguration::LampConfiguration(0) CONSTRUCTOR!" );
         
         this->isToFadeOut = isToFadeOut;
         this->isToFadeIn  = isToFadeIn;

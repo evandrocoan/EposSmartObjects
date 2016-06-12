@@ -111,6 +111,15 @@ public:
         return 0; // Just like a Guto's EPOS implementation.
     }
     
+    /**
+     * @see Radio::waitForCommunications() member class declaration.
+     */
+    void waitForCommunications()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::waitForCommunications(0)" );
+        this->radio->waitForCommunications();
+    }
+    
     
 private:
     

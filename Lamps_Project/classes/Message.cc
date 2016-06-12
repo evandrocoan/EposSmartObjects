@@ -39,7 +39,7 @@ public:
     /**
      * This is the configuration object sent by the UserBoard, and to be received by the LampBoard.
      */
-    LampConfiguration config;
+    LampConfiguration* config;
     
     /**
      * Creates a new message to be sent by the radio.
@@ -47,12 +47,14 @@ public:
      * @param lampType          see Message::message public constant class atribute.
      * @param specialFlags      see Message::config public constant class atribute.
      */
-    Message( const char* message, LampConfiguration config ) :
+    Message( const char* message, LampConfiguration* config ) :
             message( message ),
             config( config )
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE Message::Message(0) THE CONSTRUCTOR! Message: "
-                << message << ", Bright: " << config.getBright() );
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Message::Message(0) CONSTRUCTOR! Message: " << message );
+        
+        // TODO: To find out why calling this here, crashes/breaks the program execution.
+        // DEBUGGERLN( 2, ", Bright: ", config->getBright() );
     }
     
 };

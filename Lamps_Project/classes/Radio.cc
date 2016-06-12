@@ -43,7 +43,7 @@ public:
      * 
      * @return the unique existent Radio's instance.
      */
-    static Radio& getInstance( const unsigned char sink_id )
+    static Radio& getInstance( const unsigned char sinkId )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::getInstance(0)" );
         
@@ -51,7 +51,7 @@ public:
         
         if( !isThisObjectCreated )
         {
-            Radio::sink_id             = sink_id;
+            Radio::sinkId             = sinkId;
             Radio::thisObject          = &instance;
             Radio::subject             = &CommunicationSubject::getInstance();
             Radio::nicThread           = new Thread( &receiver );
@@ -72,11 +72,23 @@ public:
         
         for( currentIndex = 1; currentIndex < 8; currentIndex++ )
         {
-            radio_nic_controller->send( Radio::sink_id, 0, &message, sizeof( message ) );
+            radioNicController->send( Radio::sinkId, 0, &message, sizeof( message ) );
             Alarm::delay( 100000 );
         }
     }
     
+    /**
+     * This must to be called at the end of the program, after its configurations to the radio keep
+     * listening messages and properly call its handlers functions.
+     */
+    void waitForCommunications()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::waitForCommunications(0)" );
+        PRINTLN( 1, "Waiting for NIC thread to finish..." );
+        
+        int uartThreadStatus = Radio::nicThread->join();
+        DEBUGGER( 1, "NIC thread finished with uartThreadStatus: " << uartThreadStatus );
+    }
     
 private:
     
@@ -85,7 +97,7 @@ private:
      * 
      * @see <http://epos.lisha.ufsc.br/EPOS+User+Guide#NIC>
      */
-    static NIC* radio_nic_controller;
+    static NIC* radioNicController;
     
     /**
      * This is the thread responsible for pooling the radio board to receive new incoming messages
@@ -110,9 +122,9 @@ private:
     static bool isThisObjectCreated;
     
     /**
-     * 
+     * This board id to identify its sent messages.
      */
-    static unsigned char sink_id;
+    static unsigned char sinkId;
     
     /**
      * Creates an radio object ready to be used by the singleton design pattern.
@@ -135,18 +147,19 @@ private:
         NIC::Address  src;
         
         LampConfiguration config( "unused", "unused", 50 );
-        Message message( "Empty", config );
+        Message message( "Empty", &config );
         
-        DEBUGGERLN( 1, "\nReceiver" );
-
+        DEBUGGERLN( 1, "Receiver: " );
+        
         while( true )
         {
-            while ( !( radio_nic_controller->receive( &src, &prot, &message, sizeof( message ) ) > 0 ) );
+            while ( !( radioNicController->receive( &src, &prot, &message, sizeof( message ) ) > 0 ) );
             
             DEBUGGERLN( 1, "####################\n" );
-            DEBUGGERLN( 1, "Configured brightness: " << message.config.getBright() << "\n" );
-            DEBUGGERLN( 1, "Lamp type: " << message.config.lampType << "\n" );
-            DEBUGGERLN( 1, "Flags: " << message.config.specialFlags << "\n" );
+            DEBUGGERLN( 1, "Sent Message: " << message.message << "\n" );
+            DEBUGGERLN( 1, "Configured brightness: " << message.config->getBright() << "\n" );
+            DEBUGGERLN( 1, "Lamp type: " << message.config->lampType << "\n" );
+            DEBUGGERLN( 1, "Flags: " << message.config->specialFlags << "\n" );
             
             thisObject->subject->notifyObserver( message );
         }
@@ -175,12 +188,12 @@ private:
 /**
  * To initialize the static class variable.
  */
-bool                  Radio::isThisObjectCreated  = false;
-unsigned char         Radio::sink_id              = 0;
-Radio*                Radio::thisObject           = NULL;
-CommunicationSubject* Radio::subject              = NULL;
-Thread*               Radio::nicThread            = NULL;
-NIC*                  Radio::radio_nic_controller = NULL;
+bool                  Radio::isThisObjectCreated = false;
+unsigned char         Radio::sinkId             = 0;
+Radio*                Radio::thisObject          = NULL;
+CommunicationSubject* Radio::subject             = NULL;
+Thread*               Radio::nicThread           = NULL;
+NIC*                  Radio::radioNicController  = NULL;
 
 
 

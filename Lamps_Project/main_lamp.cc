@@ -40,9 +40,10 @@ int main()
     PRINTLN( 1, "Program version: " << PROGRAM_VERSION );
     
     LampConfiguration defaultConfiguration( "blueLed", "nothing", 100 );
-    
     LampBoard lampBoard( 1, &defaultConfiguration );
+    
     lampBoard.getLampBoardId();
+    lampBoard.waitForCommunications();
     
     PRINTLN( 1, "EposMotesII app finishing" );
     return 0;

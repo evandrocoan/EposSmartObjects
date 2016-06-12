@@ -112,7 +112,7 @@ private:
     CommunicationSubject() :
             isTheObserverAdded( false )
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE CommunicationSubject::CommunicationSubject(0) CONSTRUCTOR!" );
+        DEBUGGERLN( 2, "I AM ENTERING ON THE CommunicationSubject::CommunicationSubject(0) THE PRIVATE CONSTRUCTOR!" );
     }
     
     /**
