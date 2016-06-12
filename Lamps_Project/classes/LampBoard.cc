@@ -10,31 +10,40 @@
 ******************************************************************************
 */
 
+
 #include <utility/malloc.h>
 #include <utility/list.h>
+
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
-#include <interfaces/CommunicationStrategyObserver.h>
-#include <classes/UserRegistry.cc>
-#include <classes/PwmHardware.cc>
-#include <classes/LampConfiguration.cc>
 
 
 
 /**
- * Preprocessor directive designed to cause the current source file to be included only once in a
- * single compilation. Thus, serves the same purpose as #include guards, but with several
- * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
- * compilation speed. In main file this is enabled by default.
+ * These includes must to form a fucking line! 
+ * Those lines means Usb (line 1) is included by UserRegistry (line 2), etc.
+ * 
+ * Usb
+ * UserRegistry
+ * LampConfiguration
+ * Message
+ * SmartObjectCommunication
+ * CommunicationStrategyObserver
+ * CommunicationSubject
+ * Lamp
+ * LampControlStrategy
+ * PwmHardware
+ * Radio
+ * Led
+ * LampBoard > main_lamp
+ * UserBoard > main_user
+ * 
+ * This damn ass thang, is because this compiler cannot resolve right the include guards 'ifndef',
+ * neither 'pragma once'. So, to solve that and do not put everything in one big file, the files
+ * are included as they were in one big file, i.e., following a linear include without the broken
+ * include guards.
  */
-#pragma once
-
-
-/**
- * #define __SYS_NS	   System
- * #define __USING_SYS using namespace __SYS_NS
- */
-__USING_SYS;
+#include <classes/Led.cc>
 
 
 
@@ -68,9 +77,9 @@ public:
     /**
      * @see CommunicationStrategyObserver::receiveMessage abstract member class declaration.
      */
-    void receiveMessage( const char* message )
+    void receiveMessage( Message message )
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::receiveMessage(1) | message: \n" << message );
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::receiveMessage(1) | message: \n" << message.message );
     }
     
     /**
@@ -111,6 +120,16 @@ private:
     const int lampBoardId;
     
     /**
+     * Handle all radio communications needed by this project.
+     */
+    Radio* radio;
+    
+    /**
+     * Handle all USB serial communications needed by this project.
+     */
+    Usb* usb;
+    
+    /**
      * The default lamp configuration used the there is no user around.
      */
     Ordered_List< LampConfiguration* > defaultConfigurations;
@@ -139,6 +158,9 @@ private:
            priorityUsers()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(0) THE DISABLED CONSTRUCTOR!" );
+        
+        this->usb   = &Usb::getInstance();
+        this->radio = &Radio::getInstance( this->lampBoardId );
     }
     
     // private magic stuff

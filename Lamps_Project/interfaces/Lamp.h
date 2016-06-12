@@ -13,12 +13,11 @@
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
-#include <classes/LampConfiguration.cc>
 
 
 
-#ifndef __LAMP_H
-#define __LAMP_H
+#include <classes/CommunicationSubject.cc>
+
 
 
 /**
@@ -65,7 +64,6 @@ protected:
     
 };
 
-#endif // __LAMP_H
 
 
 
