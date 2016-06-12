@@ -11,6 +11,11 @@
 */
 
 
+/**
+ * DO NOT MODIFIY IT!
+ * 
+ * @see The Class LampBoard main include declaration/explanation.
+ */
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
 

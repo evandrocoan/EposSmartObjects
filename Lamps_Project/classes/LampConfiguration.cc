@@ -15,7 +15,11 @@
 #include <headers/array_operations.h>
 
 
-
+/**
+ * DO NOT MODIFIY IT!
+ * 
+ * @see The Class LampBoard main include declaration/explanation.
+ */
 #include <classes/UserRegistry.cc>
 
 

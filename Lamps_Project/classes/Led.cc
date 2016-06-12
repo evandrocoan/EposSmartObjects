@@ -11,15 +11,12 @@
 */
 
 
-#include <classes/Radio.cc>
-
-
-
 /**
- * #define __SYS_NS	   System
- * #define __USING_SYS using namespace __SYS_NS
+ * DO NOT MODIFIY IT!
+ * 
+ * @see The Class LampBoard main include declaration/explanation.
  */
-__USING_SYS;
+#include <classes/Radio.cc>
 
 
 

@@ -15,16 +15,13 @@
 #include <headers/array_operations.h>
 
 
-
+/**
+ * DO NOT MODIFIY IT!
+ * 
+ * @see The Class LampBoard main include declaration/explanation.
+ */
 #include <classes/LampConfiguration.cc>
 
-
-
-/**
- * #define __SYS_NS	   System
- * #define __USING_SYS using namespace __SYS_NS
- */
-__USING_SYS;
 
 
 /**
