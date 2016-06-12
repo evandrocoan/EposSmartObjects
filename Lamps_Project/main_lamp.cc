@@ -26,13 +26,6 @@
 #include <traits.h>
 
 #include <classes/LampBoard.cc>
-#include <classes/Led.cc>
-#include <classes/PwmHardware.cc>
-#include <classes/LampConfiguration.cc>
-#include <classes/Radio.cc>
-#include <classes/Usb.cc>
-#include <classes/UserBoard.cc>
-#include <classes/UserRegistry.cc>
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>

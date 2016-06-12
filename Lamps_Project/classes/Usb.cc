@@ -11,18 +11,19 @@
 */
 
 
-#include <headers/lamps_project_debugger.h>
-#include <headers/array_operations.h>
-
-
-
 /**
  * Preprocessor directive designed to cause the current source file to be included only once in a
  * single compilation. Thus, serves the same purpose as #include guards, but with several
  * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
  * compilation speed. In main file this is enabled by default.
  */
-#pragma once
+//#pragma once
+
+
+
+#include <headers/lamps_project_debugger.h>
+#include <headers/array_operations.h>
+
 
 
 /**
@@ -53,7 +54,7 @@ public:
      * 
      * @return the unique existent Usb's instance.
      */
-    Usb& getInstance()
+    static Usb& getInstance()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::getInstance(0)" );
         

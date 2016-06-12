@@ -10,13 +10,6 @@
 ******************************************************************************
 */
 
-#include <utility/malloc.h>
-#include <utility/list.h>
-#include <headers/lamps_project_debugger.h>
-#include <headers/array_operations.h>
-#include <interfaces/CommunicationStrategyObserver.h>
-
-
 
 /**
  * Preprocessor directive designed to cause the current source file to be included only once in a
@@ -24,7 +17,19 @@
  * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
  * compilation speed. In main file this is enabled by default.
  */
-#pragma once
+//#pragma once
+
+
+
+#include <utility/malloc.h>
+#include <utility/list.h>
+
+#include <headers/lamps_project_debugger.h>
+#include <headers/array_operations.h>
+
+#include <interfaces/CommunicationSubject.h> // Usb and Radio
+#include <classes/Usb.cc>
+#include <classes/Radio.cc>
 
 
 /**
@@ -66,9 +71,9 @@ public:
     /**
      * @see CommunicationStrategyObserver::receiveMessage abstract member class declaration.
      */
-    void receiveMessage( const char* message )
+    void receiveMessage( Message message )
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::receiveMessage(1) | message: \n" << message );
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::receiveMessage(1) | message: \n" << message.message );
     }
     
     /**
@@ -127,6 +132,16 @@ private:
      * An unique integer representing this user identification number.
      */
     const int userBoardId;
+    
+    /**
+     * Handle all radio communications needed by this project.
+     */
+    Radio* radio;
+    
+    /**
+     * Handle all USB serial communications needed by this project.
+     */
+    Usb* usb;
     
     /**
      * Contains the user's board configurations registered.

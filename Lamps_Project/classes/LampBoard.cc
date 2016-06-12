@@ -10,16 +10,6 @@
 ******************************************************************************
 */
 
-#include <utility/malloc.h>
-#include <utility/list.h>
-#include <headers/lamps_project_debugger.h>
-#include <headers/array_operations.h>
-#include <interfaces/CommunicationStrategyObserver.h>
-#include <classes/UserRegistry.cc>
-#include <classes/PwmHardware.cc>
-#include <classes/LampConfiguration.cc>
-
-
 
 /**
  * Preprocessor directive designed to cause the current source file to be included only once in a
@@ -27,7 +17,23 @@
  * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
  * compilation speed. In main file this is enabled by default.
  */
-#pragma once
+//#pragma once
+
+
+
+#include <utility/malloc.h>
+#include <utility/list.h>
+
+#include <headers/lamps_project_debugger.h>
+#include <headers/array_operations.h>
+
+#include <classes/UserRegistry.cc>
+#include <classes/PwmHardware.cc>
+
+#include <classes/CommunicationSubject.cc> // Usb and Radio
+#include <classes/Usb.cc>
+#include <classes/Radio.cc>
+
 
 
 /**
@@ -68,9 +74,9 @@ public:
     /**
      * @see CommunicationStrategyObserver::receiveMessage abstract member class declaration.
      */
-    void receiveMessage( const char* message )
+    void receiveMessage( Message message )
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::receiveMessage(1) | message: \n" << message );
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::receiveMessage(1) | message: \n" << message.message );
     }
     
     /**
@@ -111,6 +117,16 @@ private:
     const int lampBoardId;
     
     /**
+     * Handle all radio communications needed by this project.
+     */
+    Radio* radio;
+    
+    /**
+     * Handle all USB serial communications needed by this project.
+     */
+    Usb* usb;
+    
+    /**
      * The default lamp configuration used the there is no user around.
      */
     Ordered_List< LampConfiguration* > defaultConfigurations;
@@ -139,6 +155,9 @@ private:
            priorityUsers()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(0) THE DISABLED CONSTRUCTOR!" );
+        
+        this->usb   = &Usb::getInstance();
+        this->radio = &Radio::getInstance( this->lampBoardId );
     }
     
     // private magic stuff

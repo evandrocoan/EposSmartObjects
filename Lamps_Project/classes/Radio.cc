@@ -10,27 +10,17 @@
 ******************************************************************************
 */
 
+//#ifndef LAMP_RADIO_CC
+//#define LAMP_RADIO_CC
+
+
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
+
 #include <interfaces/SmartObjectCommunication.h>
 
-
-
-/**
- * Preprocessor directive designed to cause the current source file to be included only once in a
- * single compilation. Thus, serves the same purpose as #include guards, but with several
- * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
- * compilation speed. In main file this is enabled by default.
- */
-#pragma once
-
-
-/**
- * #define __SYS_NS	   System
- * #define __USING_SYS using namespace __SYS_NS
- */
-__USING_SYS;
+#include <classes/CommunicationSubject.cc>
 
 
 
@@ -47,30 +37,82 @@ __USING_SYS;
 class Radio : public SmartObjectCommunication
 {
 public:
-
+    
     /**
      * Gets the only allowed Radio's instance by lazy initialization.
      * 
      * @return the unique existent Radio's instance.
      */
-    static Radio& getInstance()
+    static Radio& getInstance( const unsigned char sink_id )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::getInstance(0)" );
         
         static Radio instance;
+        
+        if( !isThisObjectCreated )
+        {
+            Radio::sink_id             = sink_id;
+            Radio::thisObject          = &instance;
+            Radio::subject             = &CommunicationSubject::getInstance();
+            Radio::nicThread           = new Thread( &receiver );
+            Radio::isThisObjectCreated = true;
+        }
+        
         return instance;
     }
     
     /**
      * @see SmartObjectCommunication::sendMessage( const char* ) member class declaration.
      */
-    void sendMessage( const char* message )
+    void sendMessage( Message message )
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::sendMessage(1) | message: \n" << message );
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::sendMessage(1) | message: \n" << message.message );
+        
+        int currentIndex;
+        
+        for( currentIndex = 1; currentIndex < 8; currentIndex++ )
+        {
+            nic.send( sink_id, 0, &message, sizeof( message ) );
+            Alarm::delay( 100000 );
+        }
     }
     
     
 private:
+    
+    /**
+     * The EPOS radio controller.
+     * 
+     * @see <http://epos.lisha.ufsc.br/EPOS+User+Guide#NIC>
+     */
+    static NIC nic;
+    
+    /**
+     * This is the thread responsible for pooling the radio board to receive new incoming messages
+     * and is responsible to notify the subject if receives any message.
+     */
+    static Thread* nicThread;
+    
+    /**
+     * This object be allowed access the the thread, because it cannot receive parameters. This
+     * static variable must to be setted on this objects creation.
+     */
+    static Radio* thisObject;
+    
+    /**
+     * Used to notify the CommunicationStrategyObserver's observes when a message is received.
+     */
+    static CommunicationSubject* subject;
+    
+    /**
+     * Indicates whether this object is already initialized.
+     */
+    static bool isThisObjectCreated;
+    
+    /**
+     * 
+     */
+    static unsigned char sink_id;
     
     /**
      * Creates an radio object ready to be used by the singleton design pattern.
@@ -78,6 +120,38 @@ private:
     Radio()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::Radio(0) THE PRIVATE CONSTRUCTOR!" );
+    }
+    
+    /**
+     * Runs the thread which calls the subject.
+     * 
+     * @see Radio::nicThread class attribute declaration.
+     */
+    static int receiver()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::receiver(0)" );
+        
+        NIC::Protocol prot;
+        NIC::Address  src;
+        
+        LampConfiguration config( "unused", "unused", 50 );
+        Message message( "Empty", config );
+        
+        DEBUGGERLN( 1, "\nReceiver" );
+
+        while( true )
+        {
+            while ( !( nic.receive( &src, &prot, &message, sizeof( message ) ) > 0 ) );
+            
+            DEBUGGERLN( 1, "####################\n" );
+            DEBUGGERLN( 1, "Configured brightness: " << message.config.getBright() << "\n" );
+            DEBUGGERLN( 1, "Lamp type: " << message.config.lampType << "\n" );
+            DEBUGGERLN( 1, "Flags: " << message.config.specialFlags << "\n" );
+            
+            thisObject->subject->notifyObserver( message );
+        }
+        
+        return 0;
     }
     
     /**
@@ -97,7 +171,10 @@ private:
 };
 
 
+bool Radio::isThisObjectCreated = false;
 
+
+//#endif // #ifndef LAMP_RADIO_CC
 
 
 

@@ -11,27 +11,14 @@
 */
 
 
-#include <classes/Radio.cc>
-#include <classes/Usb.cc>
+//#ifndef COMMUNICATION_STRATEGY_OBSERVER_CC
+//#define COMMUNICATION_STRATEGY_OBSERVER_CC
+
+
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
 
-
-
-/**
- * Preprocessor directive designed to cause the current source file to be included only once in a
- * single compilation. Thus, serves the same purpose as #include guards, but with several
- * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
- * compilation speed. In main file this is enabled by default.
- */
-#pragma once
-
-
-/**
- * #define __SYS_NS	   System
- * #define __USING_SYS using namespace __SYS_NS
- */
-__USING_SYS;
+#include <classes/Message.cc>
 
 
 
@@ -51,23 +38,13 @@ public:
      * 
      * @see SmartObjectCommunication interface declaration.
      */
-    virtual void receiveMessage( const char* ) = 0;
+    virtual void receiveMessage( Message ) = 0;
     
-    
-protected:
-    
-    /**
-     * Handle all radio communications needed by this project.
-     */
-    Radio* radio;
-    
-    /**
-     * Handle all USB serial communications needed by this project.
-     */
-    Usb* usb;
     
 };
 
+
+//#endif // #ifndef COMMUNICATION_STRATEGY_OBSERVER_CC
 
 
 

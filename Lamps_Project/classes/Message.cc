@@ -24,8 +24,6 @@
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
 
-#include <classes/Led.cc>
-
 
 
 /**
@@ -35,41 +33,45 @@
 __USING_SYS;
 
 
-
 /**
- * This class is the interface to an strategy to control the Lamp's objects.
+ * This the message send by the boards to communicate with each other.
  */
-class LampControlStrategy
+struct Message
 {
 public:
     
     /**
-     * Adds a new lamp into the controlling system.
-     * 
-     * @param lamp              the lamp to be updated/receive its new setting.
-     * @param setting           an LampConfiguration configuration object.
+     * This is the text message to be send.
      */
-    virtual void addNewLamp( Lamp* lamp, LampConfiguration* setting ) = 0;
+    const char* message;
     
     /**
-     * Given one lamp, changes its configuration.
-     * 
-     * @param lamp              the lamp to be updated/receive its new setting.
-     * @param newSetting        an LampConfiguration configuration object.
+     * This is the configuration object sent by the UserBoard, and to be received by the LampBoard.
      */
-    virtual void setNewUserSettings( Lamp* lamp, LampConfiguration* newSetting ) = 0;
-    
-    
-protected:
+    LampConfiguration config;
     
     /**
-     * Contains the lamps this strategy is controlling.
+     * Creates a new message to be sent by the radio.
      * 
-     * @see LISHA's website <http://epos.lisha.ufsc.br/EPOS+User+Guide#Simple_Ordered_List>
+     * @param lampType          see Message::message public constant class atribute.
+     * @param specialFlags      see Message::config public constant class atribute.
      */
-    Ordered_List< Lamp* > lamps;
+    Message( const char* message, LampConfiguration config ) :
+            message( message ),
+            config( config )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Message::Message(0) THE CONSTRUCTOR! Message: "
+                << message << ", Bright: " << config.getBright() );
+    }
     
 };
+
+
+
+
+
+
+
 
 
 
