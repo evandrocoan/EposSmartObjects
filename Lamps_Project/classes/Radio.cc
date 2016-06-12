@@ -72,7 +72,7 @@ public:
         
         for( currentIndex = 1; currentIndex < 8; currentIndex++ )
         {
-            nic.send( Radio::sink_id, 0, &message, sizeof( message ) );
+            radio_nic_controller->send( Radio::sink_id, 0, &message, sizeof( message ) );
             Alarm::delay( 100000 );
         }
     }
@@ -85,7 +85,7 @@ private:
      * 
      * @see <http://epos.lisha.ufsc.br/EPOS+User+Guide#NIC>
      */
-    static NIC nic;
+    static NIC* radio_nic_controller;
     
     /**
      * This is the thread responsible for pooling the radio board to receive new incoming messages
@@ -141,7 +141,7 @@ private:
 
         while( true )
         {
-            while ( !( nic.receive( &src, &prot, &message, sizeof( message ) ) > 0 ) );
+            while ( !( radio_nic_controller->receive( &src, &prot, &message, sizeof( message ) ) > 0 ) );
             
             DEBUGGERLN( 1, "####################\n" );
             DEBUGGERLN( 1, "Configured brightness: " << message.config.getBright() << "\n" );
@@ -175,7 +175,12 @@ private:
 /**
  * To initialize the static class variable.
  */
-bool Radio::isThisObjectCreated = false;
+bool                  Radio::isThisObjectCreated  = false;
+unsigned char         Radio::sink_id              = 0;
+Radio*                Radio::thisObject           = NULL;
+CommunicationSubject* Radio::subject              = NULL;
+Thread*               Radio::nicThread            = NULL;
+NIC*                  Radio::radio_nic_controller = NULL;
 
 
 

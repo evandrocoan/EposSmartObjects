@@ -70,8 +70,8 @@ public:
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(2) CONSTRUCTOR!" );
         
-        //this->usb   = &Usb::getInstance();
-        //this->radio = &Radio::getInstance( this->lampBoardId );
+        this->usb   = &Usb::getInstance();
+        this->radio = &Radio::getInstance( this->lampBoardId );
     }
     
     /**

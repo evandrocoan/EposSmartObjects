@@ -65,7 +65,7 @@
  * 2   - Functions entrances.
  * 4   - Step by step functions.
  */
-const int g_debugLevel = 7;
+const int g_debugLevel = 127;
 #endif
 
 
