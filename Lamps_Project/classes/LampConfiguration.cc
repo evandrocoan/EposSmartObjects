@@ -41,12 +41,12 @@ struct LampConfiguration
 public:
     
     /**
-     * Whether the lamp is to fade when the user get out the lamp environment/area.
+     * Whether the lamp is to fade out when the user get out the lamp environment/area.
      */
     bool isToFadeOut;
     
     /**
-     * Whether the lamp is to fade when the user get out the lamp environment/area.
+     * Whether the lamp is to fade in when the user get in the lamp environment/area.
      */
     bool isToFadeIn;
     

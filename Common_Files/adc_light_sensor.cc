@@ -24,15 +24,14 @@
 #include <mutex.h>
 #include <semaphore.h>
 #include <traits.h>
-#include <headers/lamps_project_debugger.h>
-#include <headers/array_operations.h>
-#include <classes/MyClass.h>
 
 /**
  * #define __SYS_NS	   System
  * #define __USING_SYS using namespace __SYS_NS
  */
 __USING_SYS;
+
+OStream cout;
 
 typedef int (*LightVariationFunc)(int);
 
@@ -81,16 +80,21 @@ int Alternative2(int val) {
 int main() {
 	const char* const PROGRAM_VERSION = "0.1";
 
-	PRINTLN(1, "EposMotesII app ADC_LIGHT_SENSOR initing...");
-	PRINTLN(1, "Program version: " << PROGRAM_VERSION);
+	cout << "EposMotesII app ADC_LIGHT_SENSOR initing...";
+	cout << "Program version: " << PROGRAM_VERSION;
 
 	int i = 0;
 
-	while (true) {
-		// Alarm::delay( 3e6 );
-		// PRINTLN( 1, "THE GREAT LIGHT VALUE IS: " << adc.sample() );
-		if (i == 100)
-			cout << "Hoi!! \n";
+	while( true )
+    {
+		Alarm::delay( 1e6 );
+        
+		if( i == 100 )
+        {
+            i = 0;
+			cout << "\nHoi!! \n";
+        }
+        
 		cout << "THE GREAT LIGHT VALUE IS: " << adc.get() << endl;
 		cout << "DEFAULT: " << DefaultLightVal(30) << endl;
 		cout << "ALTERNATIVE 1 : " << Alternative1(30) << endl;
@@ -101,10 +105,12 @@ int main() {
 		cout << "DEFAULT: " << DefaultLightVal(100) << endl;
 		cout << "ALTERNATIVE 1 : " << Alternative1(100) << endl;
 		cout << "ALTERNATIVE 2 : " << Alternative2(100) << endl;
-		// PRINTLN( 1, "THE WRONG GUY: " << adc.get() );
+		cout << "THE WRONG GUY: " << adc.get() << endl;
+        
+        ++i;
 	}
 
-	PRINTLN(1, "Threads finished. EposMotesII app finishing");
+	cout << "Threads finished. EposMotesII app finishing";
 
 	return 0;
 }
