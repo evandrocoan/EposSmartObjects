@@ -11,9 +11,6 @@
 */
 
 
-#include <utility/malloc.h>
-#include <utility/list.h>
-
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
 
@@ -40,7 +37,7 @@
  * 
  * This damn ass thang, is because this compiler cannot resolve right the include guards 'ifndef',
  * neither 'pragma once'. So, to solve that and do not put everything in one big file, the files
- * are included as they were in one big file, i.e., following a linear include without the broken
+ * are included as they were in one big file, i.e., following a linear include order without the
  * include guards.
  */
 #include <classes/Led.cc>
@@ -72,6 +69,9 @@ public:
            priorityUsers()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(2) CONSTRUCTOR!" );
+        
+        //this->usb   = &Usb::getInstance();
+        //this->radio = &Radio::getInstance( this->lampBoardId );
     }
     
     /**
@@ -147,21 +147,6 @@ private:
      * @see LISHA's website <http://epos.lisha.ufsc.br/EPOS+User+Guide#Simple_Ordered_List>
      */
     Ordered_List< UserRegistry > priorityUsers;
-    
-    /**
-     * Disables the default constructor.
-     */
-    LampBoard() :
-           lampBoardId( 0 ),
-           defaultConfigurations(),
-           controlStrategies(),
-           priorityUsers()
-    {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(0) THE DISABLED CONSTRUCTOR!" );
-        
-        this->usb   = &Usb::getInstance();
-        this->radio = &Radio::getInstance( this->lampBoardId );
-    }
     
     // private magic stuff
     

@@ -72,7 +72,7 @@ public:
         
         for( currentIndex = 1; currentIndex < 8; currentIndex++ )
         {
-            nic.send( sink_id, 0, &message, sizeof( message ) );
+            nic.send( Radio::sink_id, 0, &message, sizeof( message ) );
             Alarm::delay( 100000 );
         }
     }
@@ -171,6 +171,10 @@ private:
 };
 
 
+
+/**
+ * To initialize the static class variable.
+ */
 bool Radio::isThisObjectCreated = false;
 
 

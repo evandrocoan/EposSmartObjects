@@ -81,16 +81,6 @@ private:
      */
     const int userBoardPriority;
     
-    /**
-     * Disables the default constructor.
-     */
-    UserRegistry() :
-            userBoardId( 0 ),
-            userBoardPriority( 0 )
-    {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE UserRegistry::UserRegistry(0) THE DISABLED CONSTRUCTOR!" );
-    }
-    
     // private magic stuff
     
     

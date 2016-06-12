@@ -11,11 +11,9 @@
 */
 
 
-#include <utility/malloc.h>
-#include <utility/list.h>
-
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
+
 
 
 /**
@@ -136,16 +134,6 @@ private:
      * @see LISHA's website <http://epos.lisha.ufsc.br/EPOS+User+Guide#Simple_Ordered_List>
      */
     Ordered_List< LampConfiguration* > configurations;
-    
-    /**
-     * Disables the default constructor.
-     */
-    UserBoard() :
-            userBoardId( 0 ),
-            configurations()
-    {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::UserBoard(0) THE DISABLED CONSTRUCTOR!" );
-    }
     
     // private magic stuff
     

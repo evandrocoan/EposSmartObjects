@@ -14,29 +14,18 @@
  * 
 */
 
-#include <utility/ostream.h>
-#include <machine.h>
-#include <alarm.h>
-#include <sensor.h>
-#include <battery.h>
-#include <uart.h>
-#include <thread.h>
-#include <mutex.h>
-#include <semaphore.h>
-#include <traits.h>
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
 
-#include <classes/LampBoard.cc>
-
 
 
 /**
- * #define __SYS_NS	   System
- * #define __USING_SYS using namespace __SYS_NS
+ * DO NOT MODIFIY IT!
+ * 
+ * @see The Class LampBoard main include declaration/explanation.
  */
-__USING_SYS;
+#include <classes/LampBoard.cc>
 
 
 

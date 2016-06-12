@@ -11,6 +11,21 @@
 */
 
 
+#include <utility/ostream.h>
+#include <utility/malloc.h>
+#include <utility/list.h>
+#include <machine.h>
+#include <alarm.h>
+#include <sensor.h>
+#include <battery.h>
+#include <uart.h>
+#include <thread.h>
+#include <mutex.h>
+#include <semaphore.h>
+#include <traits.h>
+
+
+
 /**
  * DO NOT MODIFIY IT!
  * 
