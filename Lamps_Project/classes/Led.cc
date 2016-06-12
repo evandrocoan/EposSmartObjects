@@ -16,7 +16,7 @@
  * 
  * @see The Class LampBoard main include declaration/explanation.
  */
-#include <classes/Radio.cc>
+#include <classes/PwmHardware.cc>
 
 
 

@@ -30,10 +30,10 @@
  * SmartObjectCommunication
  * CommunicationStrategyObserver
  * CommunicationSubject
+ * Radio
  * Lamp
  * LampControlStrategy
  * PwmHardware
- * Radio
  * Led
  * LampBoard > main_lamp
  * UserBoard > main_user

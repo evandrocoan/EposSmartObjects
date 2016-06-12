@@ -20,7 +20,7 @@
  * 
  * @see The Class LampBoard main include declaration/explanation.
  */
-#include <classes/CommunicationSubject.cc>
+#include <classes/Radio.cc>
 
 
 
