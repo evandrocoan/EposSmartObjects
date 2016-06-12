@@ -1,6 +1,6 @@
-#import <Mensagem.h>
-#import <Previsor.h>
-#import <Tomada.h>
+#include "Mensagem.h"
+#include "Previsor.h"
+#include "Tomada.h"
 
 __USING_SYS
 
