@@ -75,28 +75,35 @@ public:
     /**
      * This calls the observer and to send its message.
      * 
-     * @param textMessage      the message to send to the observer
+     * @param config      the configuration to send to the observer
+     * @see SmartObjectCommunication::receiveMessage( const char* ) member class declaration for the message protocol.
+     */
+    bool notifyObserver( LampConfiguration* config )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE CommunicationSubject::notifyObserver(1)" );
+        
+        Message message( "Config", config );
+        return this->notifyObserver( message );
+    }
+    
+    /**
+     * This calls the observer and to send its message.
+     * 
+     * @param textMessage      the text message to send to the observer
      * @see SmartObjectCommunication::receiveMessage( const char* ) member class declaration for the message protocol.
      */
     bool notifyObserver( char* textMessage )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE CommunicationSubject::notifyObserver(1)" );
         
-        if( this->isTheObserverAdded )
-        {
-            Message message( const_cast<char *>( textMessage ), NULL );
-            
-            this->observer->receiveMessage( message );
-            return true;
-        }
-        
-        return false;
+        Message message( const_cast<char *>( textMessage ), NULL );
+        return this->notifyObserver( message );
     }
     
     /**
      * This calls the observer and to send its message.
      * 
-     * @param message      the message to send to the observer
+     * @param message      the Message class object to send to the observer
      * @see SmartObjectCommunication::receiveMessage( const char* ) member class declaration for the message protocol.
      */
     bool notifyObserver( Message message )

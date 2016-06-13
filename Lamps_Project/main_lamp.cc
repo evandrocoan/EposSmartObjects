@@ -44,7 +44,9 @@ int main()
     PRINTLN( 1, "Try also :REN, :BEN, :GEN or :AEN" ); 
     
     LampConfiguration defaultConfiguration( "blueLed", "nothing", 100 );
+    
     LampBoard lampBoard( 1, &defaultConfiguration );
+    CommunicationSubject::getInstance().addObserver( &lampBoard );
     
     lampBoard.getLampBoardId();
     lampBoard.waitForCommunications();
