@@ -44,8 +44,13 @@ public:
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE CommunicationSubject::getInstance(0)" );
         
-        static CommunicationSubject instance;
-        return instance;
+        if( !CommunicationSubject::isThisObjectCreated )
+        {
+            CommunicationSubject::isThisObjectCreated = true;
+            CommunicationSubject::thisObject          = new CommunicationSubject();
+        }
+        
+        return *( CommunicationSubject::thisObject );
     }
     
     /**
@@ -63,12 +68,14 @@ public:
         
         if( !this->isTheObserverAdded )
         {
-            this->observer     = observer;
+            this->observer           = observer;
             this->isTheObserverAdded = true;
             
+            DEBUGGERLN( 1, "    ( addObserver ) Returning true." );
             return true;
         }
         
+        DEBUGGERLN( 1, "    ( addObserver ) Returning false." );
         return false;
     }
     
@@ -113,9 +120,12 @@ public:
         if( this->isTheObserverAdded )
         {
             this->observer->receiveMessage( message );
+            
+            DEBUGGERLN( 1, "    ( notifyObserver ) Returning true." );
             return true;
         }
         
+        DEBUGGERLN( 1, "    ( notifyObserver ) Returning false." );
         return false;
     }
     
@@ -130,9 +140,20 @@ private:
     CommunicationStrategyObserver* observer;
     
     /**
+     * This static variable must to be setted on this objects creation. This is to allow the object
+     * access within the static context.
+     */
+    static CommunicationSubject* thisObject;
+    
+    /**
      * Indicates whether the observer is added or not.
      */
     bool isTheObserverAdded;
+    
+    /**
+     * Indicates whether this object is already initialized.
+     */
+    static bool isThisObjectCreated;
     
     /**
      * Creates an Subject object ready to be used by the singleton design pattern.
@@ -154,5 +175,19 @@ private:
     void operator=( CommunicationSubject const& );
     
 };
+
+
+
+/**
+ * To initialize the static class variable.
+ */
+bool                   CommunicationSubject::isThisObjectCreated = false;
+CommunicationSubject*  CommunicationSubject::thisObject          = NULL;
+
+
+
+
+
+
 
 
