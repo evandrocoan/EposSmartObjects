@@ -40,22 +40,6 @@ public:
         return instance;
     }
     
-    /**
-     * @see LampControlStrategy::addNewLamp( Lamp, LampConfiguration ) member abstract class declaration.
-     */
-    void addNewLamp( Lamp* lamp, LampConfiguration* setting )
-    {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::addNewLamp(2)" );
-    }
-    
-    /**
-     * @see LampControlStrategy::setNewUserSettings( Lamp, LampConfiguration ) member abstract class declaration.
-     */
-    void setNewUserSettings( Lamp* lamp, LampConfiguration* newSetting )
-    {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::setNewUserSettings(2)" );
-    }
-    
     
 private:
     
@@ -89,7 +73,7 @@ private:
         for( unsigned int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex )
         {
             // Comment this when the maximum power is setted by the LampBoard object.
-            g_maximum_leds_power[ currentIndex ] = 100;
+            //g_maximum_leds_power[ currentIndex ] = 100;
         }
     #endif
         
@@ -104,6 +88,9 @@ private:
         // When it is set to 100, there are any blink perception.
         DEBUGGERLN( 4, "RUNNING: TSC_Timer pwmTimer( 100, &PWMInterrupt )..." );
         TSC_Timer pwmTimer( 100, &( PwmHardware::PWMInterrupt ) );
+        
+        this->lamps = new Vector<Lamp, 10>(); 
+        this->size  = 0;
     }
     
     /**

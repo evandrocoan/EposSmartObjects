@@ -30,17 +30,41 @@ public:
     /**
      * 
      */
-    Led()
+    Led( LampConfiguration* configuration )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE Led::Led(0) THE CONSTRUCTOR!" );
+        
+        this->configuration = configuration;
     }
     
     /**
      * @see Lamp::setNewUserSetting( LampConfiguration ) member abstract class declaration.
      */
-    void setNewUserSetting( LampConfiguration* setting )
+    bool setNewUserSetting( LampConfiguration* newSetting )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE Led::setNewUserSetting(1)" );
+        
+        if( this->configuration == NULL )
+        {
+            this->configuration = newSetting;
+            
+            DEBUGGERLN( 1, "    ( setNewUserSetting ) Returning true." );
+            return true;
+        }
+        else if( newSetting != NULL )
+        {
+            if( !compareCharArray( newSetting->lampType, this->configuration->lampType ) )
+            {
+                delete configuration;
+                this->configuration = newSetting;
+                
+                DEBUGGERLN( 1, "    ( setNewUserSetting ) Returning true." );
+                return true;
+            }
+        }
+        
+        DEBUGGERLN( 1, "    ( setNewUserSetting ) Returning false." );
+        return false;
     }
     
     /**
@@ -49,8 +73,15 @@ public:
     int getCurrentBright()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE Led::getCurrentBright()" );
-        
-        return 0; return 0; // Just like a Guto's EPOS implementation.
+        return this->configuration->getBright();
+    }
+    
+    /**
+     * @see Lamp::getLampType() member abstract class declaration.
+     */
+    virtual const char* getLampType()
+    {
+        return this->configuration->lampType;
     }
     
     

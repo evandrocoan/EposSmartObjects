@@ -43,12 +43,14 @@ int main()
     PRINTLN( 1, "echo :R100 > /dev/ttyUSB0" );
     PRINTLN( 1, "Try also :REN, :BEN, :GEN or :AEN" ); 
     
-    LampConfiguration defaultConfiguration( "blueLed", "nothing", 100 );
-    
-    LampBoard lampBoard( 1, &defaultConfiguration );
+    LampBoard lampBoard( 1 );
     CommunicationSubject::getInstance().addObserver( &lampBoard );
     
-    lampBoard.getLampBoardId();
+    lampBoard.addNewLamp( new Led( new LampConfiguration( "BlueLed", "light_sensor", 100 ) ) );
+    lampBoard.addNewLamp( new Led( new LampConfiguration( "RedLed", "light_sensor", 100 ) ) );
+    lampBoard.addNewLamp( new Led( new LampConfiguration( "BlueLed", "light_sensor", 100 ) ) );
+    
+    DEBUGGERLN( 1, "lampBoard.getLampBoardId(): " << lampBoard.getLampBoardId() );
     lampBoard.waitForCommunications();
     
     PRINTLN( 1, "EposMotesII app finishing" );

@@ -41,16 +41,16 @@ public:
      * To creates a new userBoard object and sets this board ID and priority.
      * 
      * @param boardId             the current board user ID as an integer number.
-     * @param configuration       the first and initial user's board configuration to use.
      */
-    UserBoard( const int boardId, LampConfiguration* configuration ) :
+    UserBoard( const int boardId ) :
                userBoardId( boardId ),
                configurations()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::UserBoard(2) CONSTRUCTOR! | boardId: "
                 << boardId );
         
-        this->addUserConfiguration( configuration );
+        this->usb             = &Usb::getInstance();
+        this->radio           = &Radio::getInstance( boardId );
     }
     
     /**
@@ -85,7 +85,7 @@ public:
     }
     
     /**
-     * Gets a specified user's configuration by a given index.
+     * Gets a specified user's configuration by an index.
      * 
      * @param index           the user's configuration index as an integer value.
      * @return the specified user's configuration. NULL when an invalid index is provided.
@@ -97,17 +97,44 @@ public:
     }
     
     /**
-     * Set a specified user's configuration as the current active configuration ready to be passed
-     * to the LampBoard as soon as the user approach one lamp device.
+     * Changes a specified user's configuration to be passed to the LampBoard as soon as the user
+     * approach one lamp device.
      * 
      * @param index           the user's configuration index as an integer value.
-     * @return true when the specified user's configuration is set as the current configuration,
-     *         otherwise false.
+     * @param config          the new configuration to replace the existent one.
+     * @return true when the specified user's configuration is set, otherwise false.
      */
-    bool setUserConfiguration( int index )
+    bool setUserConfiguration( int index, LampConfiguration* config )
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::setUserConfiguration(1) | index: " << index );
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::setUserConfiguration(2) | index: " << index );
         return false; // Just like a Guto's EPOS implementation.
+    }
+    
+    /**
+     * Print to the screen all the users created configurations.
+     */
+    void showLampSettingsAndIndex()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE UserBoard::showLampSettingsAndIndex(0)" );
+        
+        /*int currentIndex  = 0;
+        int numberOfLamps = this->configurations->tamanho();
+        
+        while( currentIndex < numberOfLamps )
+        {
+            DEBUGGERLN( 1, "Lamp(" << currentIndex << ")" << this->configurations->mostra( currentIndex )->getLampType() );
+            
+            ++currentIndex;
+        }*/
+    }
+    
+    /**
+     * @see Radio::waitForCommunications() member class declaration.
+     */
+    void waitForCommunications()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::waitForCommunications(0)" );
+        this->radio->waitForCommunications();
     }
     
     

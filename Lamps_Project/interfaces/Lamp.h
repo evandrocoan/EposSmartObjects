@@ -36,7 +36,7 @@ public:
      * 
      * @param setting        an LampConfiguration configuration object.
      */
-    virtual void setNewUserSetting( LampConfiguration* ) = 0;
+    virtual bool setNewUserSetting( LampConfiguration* newSetting ) = 0;
     
     /**
      * Reads the lamp configuration and get it current desired bright.
@@ -45,6 +45,13 @@ public:
      */
     virtual int getCurrentBright() = 0;
     
+    /**
+     * Reads the lamp configuration and get it current lamp type. Example: BlueLed.
+     * 
+     * @return an int as the current lamp bright.
+     */
+    virtual const char* getLampType() = 0;
+    
     
 protected:
     
@@ -52,11 +59,6 @@ protected:
      * Contains this lamp configuration.
      */
     LampConfiguration* configuration;
-    
-    /**
-     * Contains this lamp configuration.
-     */
-    char* lampColor;
     
 };
 

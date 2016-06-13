@@ -14,6 +14,7 @@
 #include <utility/ostream.h>
 #include <utility/malloc.h>
 #include <utility/list.h>
+#include <utility/vector.h>
 #include <machine.h>
 #include <alarm.h>
 #include <sensor.h>
@@ -52,6 +53,18 @@ const unsigned int MAX_MESSAGE_LENGTH_ALLOWED = 5;
  * #define __USING_SYS using namespace __SYS_NS
  */
 __USING_SYS;
+
+
+
+/**
+ * 
+ * @return true when both char* are equal ignoring case, false otherwise.
+ */
+bool compareCharArray( const char* first, const char* second )
+{
+    DEBUGGERLN( 2, "I AM ENTERING ON THE GLOBAL_CFUNCTION::compareCharArray(2) | first: " << first << " second:" << second );
+    return true;
+}
 
 
 

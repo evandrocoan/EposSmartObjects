@@ -39,13 +39,22 @@ int main()
     PRINTLN( 1, "EposMotesII app MAIN_USER initing..." );
     PRINTLN( 1, "Program version: " << PROGRAM_VERSION );
     
-    LampConfiguration defaultConfiguration( "blueLed", "nothing", 100 );
+    PRINTLN( 1, "To send commands to the EPOSMotes2 by USB device, " ); 
+    PRINTLN( 1, "to others EPOSMotes2 devices listening by Radio, use: " );
+    PRINTLN( 1, "echo :R100 > /dev/ttyUSB0" );
+    PRINTLN( 1, "Try also :REN, :BEN, :GEN or :AEN" ); 
     
-    UserBoard lampBoard( 1, &defaultConfiguration );
-    lampBoard.getUserId();
+    UserBoard userBoard( 1 );
+    CommunicationSubject::getInstance().addObserver( &userBoard );
+    
+    userBoard.addUserConfiguration( new LampConfiguration( "BlueLed", "light_sensor", 100 ) );
+    userBoard.addUserConfiguration( new LampConfiguration( "RedLed", "light_sensor", 100 ) );
+    userBoard.addUserConfiguration( new LampConfiguration( "GreenLed", "light_sensor", 100 ) );
+    
+    DEBUGGERLN( 1, "userBoard.getLampBoardId(): " << userBoard.getLampBoardId() );
+    userBoard.waitForCommunications();
     
     PRINTLN( 1, "EposMotesII app finishing" );
-    
     return 0;
 }
 

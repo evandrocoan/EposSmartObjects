@@ -62,7 +62,7 @@ public:
      * @param boardId                 the current board user ID as an integer number.
      * @param configuration           the LampConfiguration default lamp configuration object.
      */
-    LampBoard( const int boardId, LampConfiguration* configuration ) :
+    LampBoard( const int boardId ) :
            lampBoardId( boardId ),
            defaultConfigurations(),
            controlStrategies(),
@@ -70,9 +70,8 @@ public:
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(2) CONSTRUCTOR!" );
         
-        this->usb   = &Usb::getInstance();
-        this->radio = &Radio::getInstance( boardId );
-        
+        this->usb             = &Usb::getInstance();
+        this->radio           = &Radio::getInstance( boardId );
         this->controlStrategy = &( PwmHardware::getInstance() );
     }
     
@@ -110,8 +109,7 @@ public:
     const int getLampBoardId()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::getLampBoardId(0)" );
-        
-        return 0; // Just like a Guto's EPOS implementation.
+        return this->lampBoardId;
     }
     
     /**
@@ -121,6 +119,24 @@ public:
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::waitForCommunications(0)" );
         this->radio->waitForCommunications();
+    }
+    
+    /**
+     * @see LampControlStrategy::addNewLamp() member class declaration.
+     */
+    bool addNewLamp( Lamp* lamp )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::addNewLamp(1)" );
+        return this->controlStrategy->addNewLamp( lamp );
+    }
+    
+    /**
+     * @see LampControlStrategy::showLampSettingsAndIndex() member class declaration.
+     */
+    void showLampSettingsAndIndex()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::showLampSettingsAndIndex(0)" );
+        this->controlStrategy->showLampSettingsAndIndex();
     }
     
     
@@ -152,7 +168,6 @@ private:
      * @see LISHA's website <http://epos.lisha.ufsc.br/EPOS+User+Guide#Simple_Ordered_List>
      */
     Ordered_List< LampControlStrategy* > controlStrategies;
-    
     //temp for testing
     LampControlStrategy* controlStrategy;
     

@@ -143,18 +143,58 @@ public:
     /**
      * Adds a new lamp into the controlling system.
      * 
-     * @param lamp              the lamp to be updated/receive its new setting.
-     * @param setting           an LampConfiguration configuration object.
+     * @param lamp           the lamp to be updated/receive its new setting.
+     * @return true when the operation is succeed, otherwise false.
      */
-    virtual void addNewLamp( Lamp* lamp, LampConfiguration* setting ) = 0;
+    bool addNewLamp( Lamp* lamp )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampControlStrategy::addNewLamp(1)" );
+        
+        // is causing segfault
+        /*
+        Vector< Lamp, 10 >::Element* e;
+        
+        e = new Vector<Lamp, 10>::Element(lamp);
+        
+        this->lamps->insert(e, this->size++ );
+        
+        cout << "this->lamps->get(0)->object()->getCurrentBright(): " << this->lamps->get(0)->object()->getCurrentBright() << endl;
+        */
+        return false;
+    }
     
     /**
      * Given one lamp, changes its configuration.
      * 
-     * @param lamp              the lamp to be updated/receive its new setting.
+     * @param lampIndex         the lamp to be updated/receive its new setting.
      * @param newSetting        an LampConfiguration configuration object.
+     * @return true when the operation is succeed, otherwise false.
      */
-    virtual void setNewUserSettings( Lamp* lamp, LampConfiguration* newSetting ) = 0;
+    bool setNewUserSettings( int lampIndex, LampConfiguration* newSetting )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampControlStrategy::setNewUserSettings(2)" );
+        
+        
+        return false;
+    }
+    
+    /**
+     * Print to the screen all the users created lamp with its configurations.
+     */
+    void showLampSettingsAndIndex()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampControlStrategy::showLampSettingsAndIndex(0)" );
+        
+        /*int currentIndex  = 0;
+        int numberOfLamps = this->lamps->tamanho();
+        
+        while( currentIndex < numberOfLamps )
+        {
+            DEBUGGERLN( 1, "Lamp(" << currentIndex << ")" << this->lamps->mostra( currentIndex )->getLampType() );
+            
+            ++currentIndex;
+        }*/
+    }
     
     
 protected:
@@ -164,7 +204,9 @@ protected:
      * 
      * @see LISHA's website <http://epos.lisha.ufsc.br/EPOS+User+Guide#Simple_Ordered_List>
      */
-    Ordered_List< Lamp* > lamps;
+    Vector< Lamp, 10>* lamps;
+    
+    int size;
     
 };
 
