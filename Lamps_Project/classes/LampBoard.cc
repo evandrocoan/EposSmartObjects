@@ -72,6 +72,8 @@ public:
         
         this->usb   = &Usb::getInstance();
         this->radio = &Radio::getInstance( boardId );
+        
+        this->controlStrategy = &( PwmHardware::getInstance() );
     }
     
     /**
@@ -79,7 +81,7 @@ public:
      */
     void receiveMessage( Message message )
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::receiveMessage(1) | message: \n" << message.message );
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::receiveMessage(1) | message: " << message.message );
         this->InterpretMessage( message.message );
     }
     
@@ -149,7 +151,10 @@ private:
      * 
      * @see LISHA's website <http://epos.lisha.ufsc.br/EPOS+User+Guide#Simple_Ordered_List>
      */
-    Ordered_List< LampControlStrategy > controlStrategies;
+    Ordered_List< LampControlStrategy* > controlStrategies;
+    
+    //temp for testing
+    LampControlStrategy* controlStrategy;
     
     /**
      * Contains the user's which have priority over non-registered users.
@@ -165,6 +170,8 @@ private:
      */
     void InterpretMessage( const char message[ MAX_MESSAGE_LENGTH_ALLOWED ] )
     {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::InterpretMessage(1) | message: " << message );
+        
         unsigned int led;
         unsigned int pow;
         //unsigned int tempDelay;

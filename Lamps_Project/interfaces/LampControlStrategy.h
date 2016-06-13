@@ -41,6 +41,10 @@ int DefaultLightVal( int val )
 	return val;
 }
 
+/**
+ * Move this into 'LampControlStrategy' as static and protected to allow they to be accessed by the PwmHardware
+ * and PwmSoftware.
+ */
 int Alternative1( int val )
 {
 	static int transformValue = lightMax + lightMin;
@@ -53,6 +57,10 @@ int Alternative1( int val )
 	return parcial;
 }
 
+/**
+ * Move this into 'LampControlStrategy' as static and protected to allow they to be accessed by the PwmHardware
+ * and PwmSoftware.
+ */
 int Alternative2( int val )
 {
 	static int transformValue = lightMax + lightMin;
@@ -89,27 +97,9 @@ const unsigned int GPIO_PAD_DIR0 = GPIO_BASE + 0x00;
 const unsigned int MAX_LEDS_ALLOWED_TO_BE_USED = 3;
 
 /**
- * Please save yourself the trouble and don't read the documentation bellow. If you do
- * and still don't get it like me, then please increase the following counter to warn
- * future code revisor and save them the trouble. You have been warned.
- * count = 2
- * //4294967294 //4.294.967.294
- */
-unsigned int g_effectDelay = 1e5;
-
-/**
- * Used to stop all running threads which are running throw an while true, to perform busy wait
- * from this board devices.
- */
-bool g_finishThread = false;
-
-/**
  * Power of the lads.
  */
-unsigned int power[ MAX_LEDS_ALLOWED_TO_BE_USED ]; // only leds 0 to 2 (RGB) are used
-
-//Mutex* mutexEffect[MAX_LEDS_ALLOWED_TO_BE_USED];
-bool g_effect[ MAX_LEDS_ALLOWED_TO_BE_USED ];
+unsigned int g_maximum_leds_power[ MAX_LEDS_ALLOWED_TO_BE_USED ]; // only leds 0 to 2 (RGB) are used
 
 
 

@@ -144,6 +144,7 @@ private:
     static int receiver()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE Radio::receiver(0)" );
+        PRINTLN( 1, "Thread NIC initing..." );
         
         NIC::Protocol prot;
         NIC::Address  src;

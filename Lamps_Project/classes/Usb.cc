@@ -123,11 +123,19 @@ private:
             DEBUGGERLN( 1, "currentIndex = 0..." );
             currentIndex = 0;
             
+            DEBUGGERLN( 1, "RUNNING: while( ( msg[ currentIndex ] != '\\n' ) && ( currentIndex < MAX_MESSAGE_LENGTH_ALLOWED ) )" );
             while( ( msg[ currentIndex ] != '\n' ) && ( currentIndex < MAX_MESSAGE_LENGTH_ALLOWED ) )
             {
+                DEBUGGERLN( 1, "RUNNING: msg[ currentIndex++ ] = Usb::usbUartController->get();" );
+                DEBUGGERLN( 1, "RUNNING: currentIndex = " << currentIndex );
+                
                 msg[ currentIndex++ ] = Usb::usbUartController->get();
+                DEBUGGERLN( 1, "RUNNING: msg[" << currentIndex << "] = " << msg[ currentIndex ] );
             }
             
+            msg[ currentIndex ] = '\0';
+            
+            DEBUGGERLN( 1, "RUNNING: memset( msg + currentIndex, 0x00, MAX_MESSAGE_LENGTH_ALLOWED - currentIndex );" );
             memset( msg + currentIndex, 0x00, MAX_MESSAGE_LENGTH_ALLOWED - currentIndex );
             
             // message received.
