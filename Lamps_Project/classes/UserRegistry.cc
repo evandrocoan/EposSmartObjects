@@ -11,8 +11,19 @@
 */
 
 
-#include <headers/lamps_project_debugger.h>
-#include <headers/array_operations.h>
+#include <utility/ostream.h>
+#include <utility/malloc.h>
+#include <utility/list.h>
+#include <machine.h>
+#include <alarm.h>
+#include <sensor.h>
+#include <battery.h>
+#include <uart.h>
+#include <thread.h>
+#include <mutex.h>
+#include <semaphore.h>
+#include <traits.h>
+
 
 
 /**
@@ -20,7 +31,27 @@
  * 
  * @see The Class LampBoard main include declaration/explanation.
  */
-#include <classes/Usb.cc>
+#include <headers/lamps_project_debugger.h>
+#include <headers/array_operations.h>
+
+
+
+/**
+ * MAX_MESSAGE_LENGTH_ALLOWED is the maximum length of the message which can be sent and received via UART/NIC
+ */
+const unsigned int MAX_MESSAGE_LENGTH_ALLOWED = 5;
+
+
+
+/**
+ * DO NOT REMOVE IT! Always move this into the main include linear order.
+ * 
+ * @see The Class LampBoard main include declaration/explanation.
+ * 
+ * #define __SYS_NS	   System
+ * #define __USING_SYS using namespace __SYS_NS
+ */
+__USING_SYS;
 
 
 

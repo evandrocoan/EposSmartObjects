@@ -11,36 +11,12 @@
 */
 
 
-#include <utility/ostream.h>
-#include <utility/malloc.h>
-#include <utility/list.h>
-#include <machine.h>
-#include <alarm.h>
-#include <sensor.h>
-#include <battery.h>
-#include <uart.h>
-#include <thread.h>
-#include <mutex.h>
-#include <semaphore.h>
-#include <traits.h>
-
-
-
 /**
  * DO NOT MODIFIY IT!
  * 
  * @see The Class LampBoard main include declaration/explanation.
  */
-#include <headers/lamps_project_debugger.h>
-#include <headers/array_operations.h>
-
-
-
-/**
- * #define __SYS_NS	   System
- * #define __USING_SYS using namespace __SYS_NS
- */
-__USING_SYS;
+#include <classes/CommunicationSubject.cc>
 
 
 
@@ -67,13 +43,51 @@ public:
     static Usb& getInstance()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::getInstance(0)" );
-        
         static Usb instance;
+        
+        if( !Usb::isThisObjectCreated )
+        {
+            Usb::thisObject          = &instance;
+            Usb::usbUartController   = new UART();
+            Usb::subject             = &CommunicationSubject::getInstance();
+            Usb::uartThread          = new Thread( &receiver );
+            Usb::isThisObjectCreated = true;
+        }
+        
         return instance;
     }
-
+    
     
 private:
+    
+    /**
+     * The EPOS UART controller.
+     * 
+     * @see <http://epos.lisha.ufsc.br/EPOS+User+Guide#UART>
+     */
+    static UART* usbUartController;
+    
+    /**
+     * This is the thread responsible for pooling the USB board to receive new incoming messages
+     * and is responsible to notify the subject if receives any message.
+     */
+    static Thread* uartThread;
+    
+    /**
+     * This static variable must to be setted on this objects creation. This is to allow the object
+     * access within the static context.
+     */
+    static Usb* thisObject;
+    
+    /**
+     * Used to notify the CommunicationStrategyObserver's observes when a message is received.
+     */
+    static CommunicationSubject* subject;
+    
+    /**
+     * Indicates whether this object is already initialized.
+     */
+    static bool isThisObjectCreated;
     
     /**
      * Creates an USB object ready to be used by the singleton design pattern.
@@ -81,6 +95,48 @@ private:
     Usb()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::Usb(0) THE PRIVATE CONSTRUCTOR!" );
+    }
+    
+    /**
+     * Runs the thread which calls the subject.
+     * 
+     * @see Usb::uartThread class attribute declaration.
+     */
+    static int receiver()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::receiver(0)" );
+        PRINTLN( 1, "Thread UART initing..." );
+        
+        unsigned int currentIndex;
+        char         msg[ MAX_MESSAGE_LENGTH_ALLOWED ]; //[DATA_SIZE];
+        
+        while( true )
+        {
+            // messages start with ":"
+            do
+            {
+                DEBUGGERLN( 1, "Usb::usbUartController->get()..." );
+                msg[ 0 ] = Usb::usbUartController->get();
+                
+            } while( msg[ 0 ] != ':' );
+            
+            DEBUGGERLN( 1, "currentIndex = 0..." );
+            currentIndex = 0;
+            
+            while( ( msg[ currentIndex ] != '\n' ) && ( currentIndex < MAX_MESSAGE_LENGTH_ALLOWED ) )
+            {
+                msg[ currentIndex++ ] = Usb::usbUartController->get();
+            }
+            
+            memset( msg + currentIndex, 0x00, MAX_MESSAGE_LENGTH_ALLOWED - currentIndex );
+            
+            // message received.
+            DEBUGGERLN( 1, "USB/UART Message received: " << &msg[ 0 ] );
+            subject->notifyObserver( &msg[ 0 ] );
+        }
+        
+        PRINTLN( 1, "Thread UART finishing..." );
+        return 0;
     }
     
     /**
@@ -99,6 +155,14 @@ private:
 
 
 
+/**
+ * To initialize the static class variable.
+ */
+bool                  Usb::isThisObjectCreated = false;
+Usb*                  Usb::thisObject          = NULL;
+CommunicationSubject* Usb::subject             = NULL;
+Thread*               Usb::uartThread          = NULL;
+UART*                 Usb::usbUartController   = NULL;
 
 
 

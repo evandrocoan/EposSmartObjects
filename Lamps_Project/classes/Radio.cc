@@ -20,7 +20,7 @@
  * 
  * @see The Class LampBoard main include declaration/explanation.
  */
-#include <classes/CommunicationSubject.cc>
+#include <classes/Usb.cc>
 
 
 
@@ -49,10 +49,11 @@ public:
         
         static Radio instance;
         
-        if( !isThisObjectCreated )
+        if( !Radio::isThisObjectCreated )
         {
-            Radio::sinkId             = sinkId;
+            Radio::sinkId              = sinkId;
             Radio::thisObject          = &instance;
+            Radio::radioNicController  = new NIC();
             Radio::subject             = &CommunicationSubject::getInstance();
             Radio::nicThread           = new Thread( &receiver );
             Radio::isThisObjectCreated = true;
@@ -90,6 +91,7 @@ public:
         DEBUGGER( 1, "NIC thread finished with uartThreadStatus: " << uartThreadStatus );
     }
     
+    
 private:
     
     /**
@@ -106,8 +108,8 @@ private:
     static Thread* nicThread;
     
     /**
-     * This object be allowed access the the thread, because it cannot receive parameters. This
-     * static variable must to be setted on this objects creation.
+     * This static variable must to be setted on this objects creation. This is to allow the object
+     * access within the static context.
      */
     static Radio* thisObject;
     

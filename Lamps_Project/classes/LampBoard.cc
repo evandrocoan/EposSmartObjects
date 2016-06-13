@@ -18,15 +18,15 @@
 
 /**
  * These includes must to form a fucking line! 
- * Those lines means Usb (line 1) is included by UserRegistry (line 2), etc.
+ * Those lines means UserRegistry (line 1) is included by LampConfiguration (line 2), etc.
  * 
- * Usb
  * UserRegistry
  * LampConfiguration
  * Message
  * SmartObjectCommunication
  * CommunicationStrategyObserver
  * CommunicationSubject
+ * Usb
  * Radio
  * Lamp
  * LampControlStrategy
@@ -63,7 +63,7 @@ public:
      * @param configuration           the LampConfiguration default lamp configuration object.
      */
     LampBoard( const int boardId, LampConfiguration* configuration ) :
-           lampBoardId( 0 ),
+           lampBoardId( boardId ),
            defaultConfigurations(),
            controlStrategies(),
            priorityUsers()
@@ -71,7 +71,7 @@ public:
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(2) CONSTRUCTOR!" );
         
         this->usb   = &Usb::getInstance();
-        this->radio = &Radio::getInstance( this->lampBoardId );
+        this->radio = &Radio::getInstance( boardId );
     }
     
     /**
@@ -80,6 +80,7 @@ public:
     void receiveMessage( Message message )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::receiveMessage(1) | message: \n" << message.message );
+        this->InterpretMessage( message.message );
     }
     
     /**
@@ -157,9 +158,129 @@ private:
      */
     Ordered_List< UserRegistry > priorityUsers;
     
-    // private magic stuff
-    
-    
+    /**
+     * 
+     * 
+     * @param message       the message to interpret.           
+     */
+    void InterpretMessage( const char message[ MAX_MESSAGE_LENGTH_ALLOWED ] )
+    {
+        unsigned int led;
+        unsigned int pow;
+        //unsigned int tempDelay;
+        unsigned int currentIndex;
+        
+        switch( message[ 0 ] )
+        {
+            case 'R':
+            {
+                led = 0;
+                break;
+            }
+            case 'G':
+            {
+                led = 1;
+                break;
+            }
+            case 'B':
+            {
+                led = 2;
+                break;
+            }
+            case 'A':
+            {
+                led = MAX_LEDS_ALLOWED_TO_BE_USED;
+                break;
+            }
+            default:
+            {
+                PRINTLN( 1, "Invalid led value '" << message[ 0 ] << "' on position 0" );
+                return;
+            }
+        }
+        
+        //led = ((unsigned int)message[0])-48; // int based on ascii
+        /*if( message[ 1 ] == 'E' )
+        {
+            //g_effect
+            if( message[ 2 ] == 'N' ) // turn ON g_effect
+            {
+                if( led < MAX_LEDS_ALLOWED_TO_BE_USED ) // one led
+                {         // mutexEffect[led]->unlock();
+                    g_effect[ led ] = true;
+                }
+                else   // all leds at once
+                {
+                    for( currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++ )
+                    {
+                        // mutexEffect[currentIndex]->unlock();
+                        g_effect[ currentIndex ] = true;
+                    }
+                }
+                
+                PRINTLN( 1, "Effect[" << led << "]=ON" );
+            }
+            else if( message[ 2 ] == 'F' ) // turn OFF g_effect
+            {
+                if( led < MAX_LEDS_ALLOWED_TO_BE_USED )
+                {
+                    // mutexEffect[led]->lock();
+                    g_effect[ led ] = false;
+                }
+                else
+                {
+                    for( currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++ )
+                    {
+                        // mutexEffect[currentIndex]->lock();
+                        g_effect[ currentIndex ] = false;
+                    }
+                }
+                
+                PRINTLN( 1, "Effect[" << led << "]=OFF" );
+            }
+            else     // set g_effect delay
+            {
+                tempDelay     = ( (unsigned int) message[ 2 ] ) - 48;
+                tempDelay    *= 10 ^ ( ( (unsigned int) message[ 3 ] ) - 48 );
+                g_effectDelay = tempDelay;
+                
+                PRINTLN( 1, "Delay=" << g_effectDelay );
+            }
+        }*/
+        
+        if( message[ 1 ] == '0' || message[ 1 ] == '1' )
+        {
+            // fixed power
+            pow  = 100 * ( ( (unsigned int) message[ 1 ] ) - 48 );
+            pow += 10 * ( ( (unsigned int) message[ 2 ] ) - 48 );
+            pow += 1 * ( ( (unsigned int) message[ 3 ] ) - 48 );
+            
+            if( pow > 100 )
+            {
+                pow = 100;
+            }
+            
+            if( led < MAX_LEDS_ALLOWED_TO_BE_USED ) // only one led
+            {
+                // TODO delegate it to PwmHardware power[]
+                //power[ led ] = pow;
+            }
+            else   // all leds at once
+            {
+                for( currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; currentIndex++ )
+                {
+                    // TODO delegate it to PwmHardware power[]
+                    //power[ currentIndex ] = pow;
+                }
+            }
+            
+            PRINTLN( 1, "Power[" << led << "]=" << pow );
+        }
+        else
+        {
+            PRINTLN( 1, "Invalid value '" << message[ 1 ] << "' on position 1" );
+        }
+    }
     
 };
 
