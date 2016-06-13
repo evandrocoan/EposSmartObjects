@@ -29,9 +29,9 @@
  * Usb
  * Radio
  * Lamp
+ * Led
  * LampControlStrategy
  * PwmHardware
- * Led
  * LampBoard > main_lamp
  * UserBoard > main_user
  * 
@@ -40,7 +40,7 @@
  * are included as they were in one big file, i.e., following a linear include order without the
  * include guards.
  */
-#include <classes/Led.cc>
+#include <classes/PwmHardware.cc>
 
 
 

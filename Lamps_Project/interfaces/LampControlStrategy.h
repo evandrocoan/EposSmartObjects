@@ -20,7 +20,7 @@
  * 
  * @see The Class LampBoard main include declaration/explanation.
  */
-#include <interfaces/Lamp.h>
+#include <classes/Led.cc>
 
 
 
