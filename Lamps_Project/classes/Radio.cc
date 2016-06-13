@@ -149,7 +149,7 @@ private:
         NIC::Protocol prot;
         NIC::Address  src;
         
-        LampConfiguration config( "unused", "unused", 50 );
+        LampConfiguration config( "unused", 50 );
         Message message( "Empty", &config );
         
         DEBUGGERLN( 1, "Receiver: " );
@@ -161,7 +161,6 @@ private:
             DEBUGGERLN( 1, "####################\n" );
             DEBUGGERLN( 1, "Sent Message: " << message.message << "\n" );
             DEBUGGERLN( 1, "Configured brightness: " << message.config->getBright() << "\n" );
-            DEBUGGERLN( 1, "Lamp type: " << message.config->lampType << "\n" );
             DEBUGGERLN( 1, "Flags: " << message.config->specialFlags << "\n" );
             
             thisObject->subject->notifyObserver( message );

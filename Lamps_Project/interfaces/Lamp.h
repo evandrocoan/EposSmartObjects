@@ -45,12 +45,19 @@ public:
      */
     virtual int getCurrentBright() = 0;
     
-    /**
-     * Reads the lamp configuration and get it current lamp type. Example: BlueLed.
+    /**c
+     * Get the current lamp type. Example: BlueLed.
      * 
-     * @return an int as the current lamp bright.
+     * @return an const char* as the current lamp type.
      */
     virtual const char* getLampType() = 0;
+    
+    /**
+     * Reads the lamp configuration and get it current lamp special flags. Example: "use_light_sensor".
+     * 
+     * @return an const char* as the current lamp special flags.
+     */
+    virtual const char* getSpecialFlags() = 0;
     
     
 protected:

@@ -21,19 +21,19 @@
 
 
 /**
- * This class implements Led lamps using the abstract class Lamp.
+ * This class implements LedBlue lamp using the abstract class Lamp.
  */
-class Led : public Lamp
+class LedBlue : public Lamp
 {
 public:
     
     /**
      * 
      */
-    Led( LampConfiguration* configuration )
+    LedBlue( LampConfiguration* configuration ) :
+            lampType( "BlueLed" )
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE Led::Led(0) THE CONSTRUCTOR!" );
-        
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LedBlue::LedBlue(0) THE CONSTRUCTOR!" );
         this->configuration = configuration;
     }
     
@@ -42,7 +42,7 @@ public:
      */
     bool setNewUserSetting( LampConfiguration* newSetting )
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE Led::setNewUserSetting(1)" );
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LedBlue::setNewUserSetting(1)" );
         
         if( this->configuration == NULL )
         {
@@ -53,14 +53,11 @@ public:
         }
         else if( newSetting != NULL )
         {
-            if( !compareCharArray( newSetting->lampType, this->configuration->lampType ) )
-            {
-                delete configuration;
-                this->configuration = newSetting;
-                
-                DEBUGGERLN( 1, "    ( setNewUserSetting ) Returning true." );
-                return true;
-            }
+            delete configuration;
+            this->configuration = newSetting;
+            
+            DEBUGGERLN( 1, "    ( setNewUserSetting ) Returning true." );
+            return true;
         }
         
         DEBUGGERLN( 1, "    ( setNewUserSetting ) Returning false." );
@@ -72,27 +69,39 @@ public:
      */
     int getCurrentBright()
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE Led::getCurrentBright()" );
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LedBlue::getCurrentBright()" );
         return this->configuration->getBright();
     }
     
     /**
      * @see Lamp::getLampType() member abstract class declaration.
      */
-    virtual const char* getLampType()
+    const char* getLampType()
     {
-        return this->configuration->lampType;
+        return this->lampType;
+    }
+    
+    /**
+     * @see Lamp::getSpecialFlags() member abstract class declaration.
+     */
+    const char* getSpecialFlags()
+    {
+        return this->configuration->specialFlags;
     }
     
     
 private:
+    
+    /**
+     * This is to what lamp this configuration to apply. Example: blueLed, redLed, partyColors.
+     */
+    const char* lampType;
     
     // private magic stuff
     
     
     
 };
-
 
 
 

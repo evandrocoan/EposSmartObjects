@@ -47,9 +47,9 @@ int main()
     UserBoard userBoard( 1 );
     CommunicationSubject::getInstance().addObserver( &userBoard );
     
-    userBoard.addUserConfiguration( new LampConfiguration( "BlueLed", "light_sensor", 100 ) );
-    userBoard.addUserConfiguration( new LampConfiguration( "RedLed", "light_sensor", 100 ) );
-    userBoard.addUserConfiguration( new LampConfiguration( "GreenLed", "light_sensor", 100 ) );
+    lampBoard.addNewLamp( new LedBlue( new LampConfiguration( "BlueLed", "light_sensor", 100 ) ) );
+    //lampBoard.addNewLamp( new LedRed( new LampConfiguration( "RedLed", "light_sensor", 100 ) ) );
+    //lampBoard.addNewLamp( new LedGreen( new LampConfiguration( "BlueLed", "light_sensor", 100 ) ) );
     
     DEBUGGERLN( 1, "userBoard.getLampBoardId(): " << userBoard.getLampBoardId() );
     userBoard.waitForCommunications();
