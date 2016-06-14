@@ -62,6 +62,8 @@ public:
     /**
      * Adds a new lamp into the controlling system.
      * 
+     * TODO: Check whether the LampConfiguration has the same lampType as this Lamp.
+     * 
      * @param setting        an LampConfiguration configuration object.
      * @return true when the new setting is successfully setted, otherwise false.
      */
@@ -87,6 +89,17 @@ public:
         
         DEBUGGERLN( 1, "    ( setNewUserSetting ) Returning false." );
         return false;
+    }
+    
+    /**
+     * Gets its user configuration.
+     * 
+     * @return an LampConfiguration configuration object, if not configuration exists NULL.
+     */
+    LampConfiguration* getUserSetting()
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LedBlue::setNewUserSetting(1)" );
+        return this->configuration;
     }
     
     /**

@@ -47,16 +47,16 @@ int main()
     UserBoard userBoard( 1 );
     CommunicationSubject::getInstance().addObserver( &userBoard );
     
-    userBoard.addNewLamp( new Lamp( "BlueLed", 10, new LampConfiguration( "light_sensor", 100 ) ) );
-    //userBoard.addNewLamp( new Lamp( "RedLed", 9, new LampConfiguration( "light_sensor", 100 ) ) );
-    //userBoard.addNewLamp( new Lamp( "GreenLed", 11, new LampConfiguration( "light_sensor", 100 ) ) );
+    userBoard.addUserConfiguration( new LampConfiguration( "BlueLed", "light_sensor", 100 ) );
+    //userBoard.addUserConfiguration( new LampConfiguration( "RedLed", "light_sensor", 100 ) );
+    //userBoard.addUserConfiguration( new LampConfiguration( "GreenLed", "light_sensor", 100 ) );
     
     // DO NOT USE 'cout' ON FUNCTIONS WHICH RETURN 'const types'! First save it into a variable,
     // then ONLY THEN USE 'cout' ON IT! If you do it, it will crash the EPOS.
-    DEBUGGERLN( 1, "RUNNING: const int lampBoardId = userBoard.getLampBoardId();");
-    const int userBoardId = userBoard.getBoardId();
+    DEBUGGERLN( 1, "RUNNING: const int lampBoardId = userBoard.getLampId();");
+    const int userBoardId = userBoard.getUserId();
     
-    DEBUGGERLN( 1, "userBoard.getLampBoardId(): " << userBoardId );
+    DEBUGGERLN( 1, "userBoard.getLampId(): " << userBoardId );
     userBoard.waitForCommunications();
     
     PRINTLN( 1, "EposMotesII app finishing" );

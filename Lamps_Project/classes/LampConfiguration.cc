@@ -50,6 +50,11 @@ public:
     bool isToFadeIn;
     
     /**
+     * This is to what lamp this configuration to apply. Example: blueLed, redLed, partyColors.
+     */
+    const char* const lampType;
+    
+    /**
      * Specifies special behaviors allowed as party style.
      */
     const char* const specialFlags;
@@ -64,7 +69,8 @@ public:
      * @see LampConfiguration::isToFadeOut public class atribute.
      * @see LampConfiguration::isToFadeIn public class atribute.
      */
-    LampConfiguration( const char* const specialFlags, int maximumBright ) :
+    LampConfiguration( const char* const lampType, const char* const specialFlags, int maximumBright ) :
+            lampType( lampType ),
             specialFlags( specialFlags )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampConfiguration::LampConfiguration(0) CONSTRUCTOR!" );

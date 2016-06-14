@@ -149,7 +149,7 @@ private:
         NIC::Protocol prot;
         NIC::Address  src;
         
-        LampConfiguration config( "unused", 50 );
+        LampConfiguration config( "unused", "unused", 50 );
         Message message( "Empty", &config );
         
         DEBUGGERLN( 1, "Receiver: " );

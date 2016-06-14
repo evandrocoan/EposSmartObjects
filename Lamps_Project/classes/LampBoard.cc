@@ -105,9 +105,9 @@ public:
      * 
      * @return this lamp board identification as a const integer.
      */
-    const int getLampBoardId()
+    const int getLampId()
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::getLampBoardId(0)" );
+        DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::getLampId(0)" );
         return this->lampBoardId;
     }
     
@@ -121,11 +121,17 @@ public:
     }
     
     /**
+     * When adding a new lamp, saves its first/default configuration to be restaured later.
+     * 
      * @see LampControlStrategy::addNewLamp() member class declaration.
      */
     bool addNewLamp( Lamp* lamp )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::addNewLamp(1)" );
+        
+        // TODO: To save this lamp index, to find out it later to restore the configuration.
+        //defaultConfigurations.insert( lamp->getUserSetting() );
+        
         return this->controlStrategy->addNewLamp( lamp );
     }
     
