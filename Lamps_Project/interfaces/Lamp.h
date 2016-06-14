@@ -31,6 +31,11 @@ class Lamp
 {
 public:
     
+    Lamp() : lampType( "BlueLed" )
+    {
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Lamp::Lamp(0) THE CONSTRUCTOR! lampType: " << this->lampType );
+    }
+    
     /**
      * Adds a new lamp into the controlling system.
      * 
@@ -61,6 +66,11 @@ public:
     
     
 protected:
+    
+    /**
+     * This is to what lamp this configuration to apply. Example: blueLed, redLed, partyColors.
+     */
+    const char* const lampType;
     
     /**
      * Contains this lamp configuration.

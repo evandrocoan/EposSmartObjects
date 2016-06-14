@@ -73,7 +73,7 @@ private:
         for( unsigned int currentIndex = 0; currentIndex < MAX_LEDS_ALLOWED_TO_BE_USED; ++currentIndex )
         {
             // Comment this when the maximum power is setted by the LampBoard object.
-            //g_maximum_leds_power[ currentIndex ] = 100;
+            g_maximum_leds_power[ currentIndex ] = 100;
         }
     #endif
         
@@ -89,12 +89,14 @@ private:
         DEBUGGERLN( 4, "RUNNING: TSC_Timer pwmTimer( 100, &PWMInterrupt )..." );
         TSC_Timer pwmTimer( 100, &( PwmHardware::PWMInterrupt ) );
         
-        this->lamps = new Vector<Lamp, 10>(); 
-        this->size  = 0;
+        //this->lamps = new Vector<Lamp, 10>(); 
+        //this->size  = 0;
+        
+        DEBUGGERLN( 2, "EXITING THE PwmHardware::PwmHardware(0)!" );
     }
     
     /**
-     * PWM Interrupt handler.
+     * PWM Interrupt handler. DO NOT USE 'DEBUGGERLN(...)' inside this! If you do it, it will crash the EPOS.
      */
     static void PWMInterrupt()
     {
@@ -108,9 +110,18 @@ private:
         static int leds[] = { 10, 9, 11, 23, 8 };
         
     #if defined DEBUG
-        // DEBUGGERLN( 2, "I AM ENTERING ON THE PwmHardware::PWMInterrupt(0)" );
         // cout << "PWMInterrupt(0)";
         // cout << "dummyCounter: " << dummyCounter << endl;
+        static bool firstTime = 0;
+        
+        if( !( firstTime ) )
+        {
+            cout << "\nI AM ENTERING ON THE PwmHardware::PWMInterrupt(0)\n";
+            cout << "I AM ENTERING ON THE PwmHardware::PWMInterrupt(0)\n";
+            cout << "I AM ENTERING ON THE PwmHardware::PWMInterrupt(0)\n" << endl;
+            ++firstTime;
+        }
+        
     #endif
         
         if( !checkSensor )

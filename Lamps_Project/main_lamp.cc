@@ -50,7 +50,12 @@ int main()
     //lampBoard.addNewLamp( new LedRed( new LampConfiguration( "light_sensor", 100 ) ) );
     //lampBoard.addNewLamp( new LedGreen( new LampConfiguration( "light_sensor", 100 ) ) );
     
-    DEBUGGERLN( 1, "lampBoard.getLampBoardId(): " << lampBoard.getLampBoardId() );
+    // DO NOT USE 'cout' ON FUNCTIONS WHICH RETURN 'const types'! First save it into a variable,
+    // then ONLY THEN USE 'cout' ON IT! If you do it, it will crash the EPOS.
+    DEBUGGERLN( 1, "RUNNING: const int lampBoardId = lampBoard.getLampBoardId();");
+    const int lampBoardId = lampBoard.getLampBoardId();
+    
+    DEBUGGERLN( 1, "lampBoard.getLampBoardId(): " << lampBoardId );
     lampBoard.waitForCommunications();
     
     PRINTLN( 1, "EposMotesII app finishing" );

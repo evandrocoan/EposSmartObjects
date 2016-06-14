@@ -30,10 +30,10 @@ public:
     /**
      * 
      */
-    LedBlue( LampConfiguration* configuration ) :
-            lampType( "BlueLed" )
+    LedBlue( LampConfiguration* configuration )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LedBlue::LedBlue(0) THE CONSTRUCTOR!" );
+        
         this->configuration = configuration;
     }
     
@@ -91,11 +91,6 @@ public:
     
     
 private:
-    
-    /**
-     * This is to what lamp this configuration to apply. Example: blueLed, redLed, partyColors.
-     */
-    const char* lampType;
     
     // private magic stuff
     
