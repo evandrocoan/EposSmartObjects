@@ -69,8 +69,8 @@ public:
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampConfiguration::LampConfiguration(0) CONSTRUCTOR!" );
         
-        this->isToFadeOut = isToFadeOut;
-        this->isToFadeIn  = isToFadeIn;
+        this->isToFadeOut = false;
+        this->isToFadeIn  = false;
         
         if( !this->setBright( maximumBright ) )
         {

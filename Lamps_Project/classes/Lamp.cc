@@ -52,13 +52,18 @@ public:
             lampPin( lampPin )
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE Lamp::Lamp(0) THE CONSTRUCTOR! lampType: " << this->lampType );
-        this->setNewUserSetting( configuration );
+        
+        if( !this->setNewUserSetting( configuration ) )
+        {
+            DEBUGGERLN( 1, "ERROR! Could not set the new setting correctly!" );
+        }
     }
     
     /**
      * Adds a new lamp into the controlling system.
      * 
      * @param setting        an LampConfiguration configuration object.
+     * @return true when the new setting is successfully setted, otherwise false.
      */
     bool setNewUserSetting( LampConfiguration* newSetting )
     {
@@ -87,7 +92,7 @@ public:
     /**
      * Gets whether is to fade out when the user runaway its proximities.
      * 
-     * @return a boolean value.
+     * @return whether is to fade or not.
      * @see LampConfiguration::isToFadeOut member class public atribute.
      */
     bool getIsToFadeOut()
@@ -99,7 +104,7 @@ public:
     /**
      * Gets whether is to fade in when the lamp is started at the first time by the user proximity.
      * 
-     * @return a boolean value.
+     * @return whether is to fade or not.
      * @see LampConfiguration::isToFadeIn member class public atribute.
      */
     bool getIsToFadeIn()
