@@ -20,7 +20,7 @@
  * 
  * @see The Class LampBoard main include declaration/explanation.
  */
-#include <classes/LedBlue.cc>
+#include <classes/Lamp.cc>
 
 
 

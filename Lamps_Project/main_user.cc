@@ -47,9 +47,9 @@ int main()
     UserBoard userBoard( 1 );
     CommunicationSubject::getInstance().addObserver( &userBoard );
     
-    userBoard.addNewLamp( new LedBlue( new LampConfiguration( "BlueLed", "light_sensor", 100 ) ) );
-    //userBoard.addNewLamp( new LedRed( new LampConfiguration( "RedLed", "light_sensor", 100 ) ) );
-    //userBoard.addNewLamp( new LedGreen( new LampConfiguration( "BlueLed", "light_sensor", 100 ) ) );
+    userBoard.addNewLamp( new Lamp( "BlueLed", 10, new LampConfiguration( "light_sensor", 100 ) ) );
+    //userBoard.addNewLamp( new Lamp( "RedLed", 9, new LampConfiguration( "light_sensor", 100 ) ) );
+    //userBoard.addNewLamp( new Lamp( "GreenLed", 11, new LampConfiguration( "light_sensor", 100 ) ) );
     
     // DO NOT USE 'cout' ON FUNCTIONS WHICH RETURN 'const types'! First save it into a variable,
     // then ONLY THEN USE 'cout' ON IT! If you do it, it will crash the EPOS.

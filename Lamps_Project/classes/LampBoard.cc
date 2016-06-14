@@ -29,7 +29,6 @@
  * Usb
  * Radio
  * Lamp
- * LedBlue
  * LampControlStrategy
  * PwmHardware
  * LampBoard > main_lamp
