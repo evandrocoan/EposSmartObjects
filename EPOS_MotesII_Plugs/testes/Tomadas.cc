@@ -17,7 +17,14 @@ typedef struct {
 	int address;
 	int prioridade;
 	int tipo;
+	bool atualizado;
 } infoTomadas;
+
+enum acao {ATUALIZACAO = 0, NONE = 1, DESLIGAR = 2, DIM = 3, LIGAR = 4};
+
+//Retirei o pule pois mesmo que a tomada esteja desligada ela ainda assim mandará atualizações que basicamente dirao que ela esta desligada.
+//Afinal se ela desligar por comleto quando que ela vai ligar se parar até de receber mensagens? E o consumo dela até o momento que ela desligou?
+//Nao entra em consideracao?
 
 class Gerente;
 
@@ -28,7 +35,7 @@ public:
 	void enviarViaNIC(infoTomadas msg){
 		NIC nic;
 		nic.send(NIC::BROADCAST, (NIC::Protocol)1, &msg,sizeof(msg));
-		Alarm::delay(100000);
+		Alarm::delay(10000);
 	}
 	static int receberViaNIC();	
 
@@ -40,6 +47,47 @@ private:
 };
 
 Gerente * Mensageiro::gerente;
+
+//----------------------------------Previsor---------------------------------------
+
+class Previsor{
+
+public:
+
+static double preverDia(double mediaPorHora[24],int horaAtual){
+	double soma = 0;
+	for(int i = 0; i < horaAtual+1;i++){
+		soma += mediaPorHora[i];
+	}
+	double media = soma / horaAtual;
+	soma += media * (24 - horaAtual);
+	return soma;
+}
+
+static double preverProprio(double mediaPorDia[30], int diaAtual){
+	double soma = 0;
+	for(int i = 0; i < diaAtual; i++){
+		soma += mediaPorDia[i];
+	}
+	 
+	double media = soma/diaAtual;
+	
+	soma += media * (30 - diaAtual);
+	
+	return soma;
+}
+
+static double preverTotal(infoTomadas *tomadas, int sizeTomadas, double previsaoPropria){
+	double previsaoTotal = 0;
+	for(int i = 0; i < sizeTomadas;i++){
+		previsaoTotal += tomadas->previsao;
+	}
+	previsaoTotal += previsaoPropria;
+	return previsaoTotal;
+}
+
+};
+
 
 //--------------------------Leds---------------------------------------------------
 
@@ -91,9 +139,14 @@ public:
 		ledTest::turn_led(23,false);
 	}
 
+	int getTipo(){
+		return -1;
+	}
+
 protected:
 	bool ligado;
 };
+
 
 class TomadaComSensor : public Tomada{
 public:
@@ -111,6 +164,9 @@ public:
 		} else {
 			return -1;
 		}
+	}
+	int getTipo(){
+		return 0;
 	}
 	int getAddress(){
 		return address;
@@ -130,18 +186,25 @@ public:
 	void setPowerSavingMode(bool on){
 		PowerSaving = on;
 	}
+	void setPowerSavingLimit(int limit = 0){
+		limite = limit;
+	}
+	int getPowerSavingLimit(){
+		return limite;
+	}
 	int getPrioridade(){
 		return prioridade;
 	}
-	void setPrioridade(int prio){
+	void setPrioridade(int prio = 0){
 		prioridade = prio;
 	}
 	TomadaComSensor(){
 		PowerSaving = false;
-		prioridade = 15;
+		prioridade = 0;
 		consumoMaximo = 1220;
 		consumoMinimo = 255000;
-		address = 0x2;
+		address = 0x1;
+		limite = 0;
 	}
 protected:
 	int prioridade;
@@ -149,6 +212,43 @@ protected:
 	double consumoMinimo;
 	bool PowerSaving;
 	int address;
+	double limite;
+};
+
+
+class TomadaDimer : public Tomada{
+
+public:
+
+void dim(int porcentagem){
+	if(porcentagem < 100 && porcentagem > 0){
+		dimPorcent = porcentagem;
+	} else {
+		cout<< "porcentagem invalida\n";
+	}
+}
+
+void dimLed(){
+}
+
+TomadaDimer() {//: dimerThread(&dimLed){
+	dimPorcent = 0;
+}
+
+private:
+	int dimPorcent;
+	//Thread dimerThread;
+
+};
+
+class TomadaTop : public TomadaComSensor , public TomadaDimer{
+
+int getTipo(){
+	return 1;
+}
+
+TomadaTop(){}
+
 };
 
 //--------------------------Gerente-----------------------------------------
@@ -157,23 +257,103 @@ class Gerente{
 
 public:
 
-void enviarAtualizacao(){
+void enviarMensagem(int tipo){
 	infoTomadas msg;
-	msg.previsao = tomada.getConsumo();
+	fazerPrevisaoPropria();
+	msg.previsao = previsaoPropria;
 	msg.address = tomada.getAddress();
 	msg.prioridade = tomada.getPrioridade();
-	msg.tipo = 0;
+	msg.tipo = tipo;
 	msngr.enviarViaNIC(msg);
 }
 
-void receberAtualizacao(infoTomadas msg){
-	cout<<"###########################\n";
-	cout<<"MensagemRecebida!\n";
-	cout<<"Sua previsao eh: " << msg.previsao << "\n";
-	cout<<"Seu endereco eh: " << msg.address << "\n";
-	cout<<"Sua prioridade eh: " << msg.prioridade << "\n";
-	cout<<"Seu tipo eh: " << msg.tipo << "\n";
+void receberMensagem(infoTomadas msg){
+	for(int i = 0; i < numTomadasExternas; i++){
+		if(msg.address == tomadasExternas[i].address){
+			tomadasExternas[i].atualizado = true;
+			tomadasExternas[i].previsao = msg.previsao;
+			tomadasExternas[i].prioridade = msg.prioridade;
+			tomadasExternas[i].tipo = msg.tipo;
+			imprimirArray(); //debug purposes
+			return;
+		}
+	}
+	adicionarTomada(msg);
+	imprimirArray(); //debug purposes
 }
+
+void fazerPrevisaoPropria(){
+	previsaoPropria = Previsor::preverProprio(mediaPorDia,diaAtual);
+}
+
+void fazerPrevisaoTotal(){
+	previsaoGeral = Previsor::preverTotal(tomadasExternas,numTomadasExternas,previsaoPropria);
+}
+
+void adicionarTomada(infoTomadas t){
+	if(numTomadasExternas <= 20){ // deve ser depois alterado para algo como uma lista encadeada, de tamanho variavel.
+		tomadasExternas[numTomadasExternas].atualizado = true;
+		tomadasExternas[numTomadasExternas].address = t.address;
+		tomadasExternas[numTomadasExternas].previsao = t.previsao;
+		tomadasExternas[numTomadasExternas].prioridade = t.prioridade;
+		tomadasExternas[numTomadasExternas].tipo = t.tipo;
+
+		numTomadasExternas++; 
+	}
+}
+
+void imprimirArray(){  //function for debug purposes
+	for(int i = 0; i < numTomadasExternas; i++){
+		cout<<"##################\n";
+		cout<<"tomada " << i << "\n";
+		cout<<"endereco: " << tomadasExternas[i].address << "\n";
+		cout<<"previsao: " << tomadasExternas[i].previsao<< "\n";
+		cout<<"prioridade: " << tomadasExternas[i].prioridade << "\n";
+		cout<<"atualizado: " << tomadasExternas[i].atualizado << "\n";
+	}
+}
+
+void tomadaInteligente(){
+	
+	bool myTurn = true;
+
+	if(previsaoGeral > tomada.getPowerSavingLimit()){
+		for(int i = 0; i < numTomadasExternas;i++){
+			if(tomadasExternas[i].prioridade < tomada.getPrioridade()){
+				if(tomadasExternas[i].tipo == NONE){
+					myTurn = false;
+					break;
+				} 
+			}
+		}
+	} else {
+		if(tomada.estaLigado()){
+			enviarMensagem(NONE);
+		} else {
+			if(tomada.getConsumoMaximo() + previsaoGeral > tomada.getPowerSavingLimit()){
+				enviarMensagem(DESLIGAR);
+			} else {
+				enviarMensagem(LIGAR);
+			}
+		}
+	}
+
+	if(myTurn){
+		if(tomada.getConsumo() < tomada.getMediaDeConsumo()){
+			// tipo 0 = sem dimer
+			if(tomada.getTipo() == 0){
+				tomada.desligar();
+				enviarMensagem(DESLIGAR);
+				
+			} else {
+				//tomada.dim(50);
+				enviarMensagem(DIM);
+			}
+		}
+			
+	}
+}
+
 
 Gerente(TomadaComSensor t) :tomada(t), msngr(this){
 	numTomadasExternas = 0;
@@ -184,7 +364,7 @@ Gerente(TomadaComSensor t) :tomada(t), msngr(this){
 }
 
 private:
-infoTomadas tomadasExternas[0];
+infoTomadas tomadasExternas[20];
 int numTomadasExternas;
 double mediaPorHora[24];
 double mediaPorDia[30];
@@ -192,6 +372,7 @@ int diaAtual;
 int horaAtual;
 double previsaoPropria;
 double previsaoGeral;
+
 
 TomadaComSensor tomada;
 Mensageiro msngr;
@@ -208,7 +389,7 @@ int Mensageiro::receberViaNIC(){
 		while(1){
 			while(!nic.receive(&src, &prot,&meg,sizeof(meg)) >0);
 			if(meg.address != 0){
-				gerente->receberAtualizacao(meg);
+				gerente->receberMensagem(meg);
 			}
 			meg.address = 0;
 		}
@@ -220,6 +401,7 @@ Mensageiro::Mensageiro(Gerente * gnt){
 		Thread *thread;
 		thread = new Thread( &receberViaNIC );
 }
+
 
 
 //------------------------------------Main-------------------------------------------
@@ -238,6 +420,7 @@ int main(){
 	cout<< t.getPrioridade() << "\n";
 	cout<< t.estaLigado() << "\n";
 
-	g.enviarAtualizacao();
+	g.enviarMensagem(0);
+
 
 }
