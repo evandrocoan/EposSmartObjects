@@ -20,7 +20,6 @@ typedef struct {
 	int address;	/**< Endereco da tomada. */
 	int prioridade;	/**< Prioridade da tomada. */
 	int tipo;	/**< Tipo da tomada (dimerizavel, ou nao, por exemplo). */
-	bool pule;
 	bool atualizado;	/**< Flag para verificar se o valor da previsao atual esta atualizado. */
 } infoTomadas;
 
@@ -100,9 +99,7 @@ static double preverProprio(double mediaPorDia[30], int diaAtual){
 	}
 
 	double media = soma/diaAtual;
-
 	soma += media * (30 - diaAtual);
-
 	return soma;
 }
 
@@ -170,7 +167,6 @@ static int turn_led(int led, bool on){
 class Tomada{
 
 public:
-
 	/**
 	* Verifica se a tomada esta ligada ou nao.
 	* @return ligado: valor que indica se a tomada esta ligada ou nao.
@@ -212,7 +208,6 @@ protected:
 */
 class TomadaComSensor : public Tomada{
 public:
-
 	/**
 	* Busca o consumo atual da tomada.
 	* @return consumo: consumo atual de energia da tomada. Caso ela estiver desligada
