@@ -13,6 +13,7 @@
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
+#include <utility/list.h>
 
 
 
@@ -96,8 +97,13 @@ public:
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::addPriorityUser(2) | userPriority: "
                 << userPriority
                 << "userId: " << userId );
+
+        UserRegistry* user = new UserRegistry(userPriority, userId);
+        Ordered_List< UserRegistry* >::Element* element = new Ordered_List< UserRegistry* >::Element(&user);
+
+        priorityUsers.insert(element);
         
-        return false;
+        return true;
     }
     
     /**
@@ -181,7 +187,7 @@ private:
      * 
      * @see LISHA's website <http://epos.lisha.ufsc.br/EPOS+User+Guide#Simple_Ordered_List>
      */
-    Ordered_List< UserRegistry > priorityUsers;
+    Ordered_List< UserRegistry* > priorityUsers;
     
     /**
      * 
