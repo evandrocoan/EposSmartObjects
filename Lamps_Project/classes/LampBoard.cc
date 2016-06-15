@@ -178,7 +178,8 @@ private:
      * 
      * @see LISHA's website <http://epos.lisha.ufsc.br/EPOS+User+Guide#Simple_Ordered_List>
      */
-    Ordered_List< LampControlStrategy* > controlStrategies;
+    // Let it out for simplification and time saving, so just use one strategy, the PwmHardware.
+    //Ordered_List< LampControlStrategy* > controlStrategies;
     //temp for testing
     LampControlStrategy* controlStrategy;
     
