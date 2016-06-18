@@ -11,14 +11,6 @@
 */
 
 
-/**
- * DO NOT MODIFIY IT!
- * 
- * @see The Class LampBoard main include declaration/explanation.
- */
-#include <interfaces/LampControlStrategy.h>
-
-
 
 /**
  * This class is the interface to an strategy to control the Lamp's objects.

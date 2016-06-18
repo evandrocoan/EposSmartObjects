@@ -11,18 +11,6 @@
 */
 
 
-#include <headers/lamps_project_debugger.h>
-#include <headers/array_operations.h>
-
-
-/**
- * DO NOT MODIFIY IT!
- * 
- * @see The Class LampBoard main include declaration/explanation.
- */
-#include <classes/Usb.cc>
-
-
 
 /**
  * This class implements the EPOSMotes 2 radio use. It radio is an ARM MC13224V built-in 2.4 GHz

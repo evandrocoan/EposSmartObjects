@@ -11,18 +11,6 @@
 */
 
 
-#include <headers/lamps_project_debugger.h>
-#include <headers/array_operations.h>
-
-
-/**
- * DO NOT MODIFIY IT!
- * 
- * @see The Class LampBoard main include declaration/explanation.
- */
-#include <interfaces/CommunicationStrategyObserver.h>
-
-
 
 /**
  * This is the subject which is used the the observed object to call/notify its observer to

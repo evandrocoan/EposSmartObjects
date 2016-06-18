@@ -11,14 +11,6 @@
 */
 
 
-/**
- * DO NOT MODIFIY IT!
- * 
- * @see The Class LampBoard main include declaration/explanation.
- */
-#include <classes/CommunicationSubject.cc>
-
-
 
 /**
  * This class implements the EPOSMotes 2 serial USB use. The Startup Board is equipped with and UART

@@ -11,38 +11,6 @@
 */
 
 
-#include <headers/lamps_project_debugger.h>
-#include <headers/array_operations.h>
-#include <utility/list.h>
-
-
-
-/**
- * These includes must to form a fucking line! 
- * Those lines means UserRegistry (line 1) is included by LampConfiguration (line 2), etc.
- * 
- * UserRegistry
- * LampConfiguration
- * Message
- * SmartObjectCommunication
- * CommunicationStrategyObserver
- * CommunicationSubject
- * Usb
- * Radio
- * Lamp
- * LampControlStrategy
- * PwmHardware
- * LampBoard > main_lamp
- * UserBoard > main_user
- * 
- * This damn ass thang, is because this compiler cannot resolve right the include guards 'ifndef',
- * neither 'pragma once'. So, to solve that and do not put everything in one big file, the files
- * are included as they were in one big file, i.e., following a linear include order without the
- * include guards.
- */
-#include <classes/PwmHardware.cc>
-
-
 
 /**
  * This class implements the interface used to allow the observers to be called when the observed
@@ -65,7 +33,7 @@ public:
     LampBoard( const int boardId ) :
            lampBoardId( boardId ),
            defaultConfigurations(),
-           controlStrategies(),
+           //controlStrategies(),
            priorityUsers()
     {
         DEBUGGERLN( 2, "I AM ENTERING ON THE LampBoard::LampBoard(2) CONSTRUCTOR!" );

@@ -11,14 +11,6 @@
 */
 
 
-/**
- * DO NOT MODIFIY IT!
- * 
- * @see The Class LampBoard main include declaration/explanation.
- */
-#include <classes/Message.cc>
-
-
 
 /**
  * This defines an interface for an smart object. Every smart object must to be able to communicates

@@ -29,17 +29,6 @@
 
 
 
-#include <utility/ostream.h>
-#include <semaphore.h>
-
-#include <cstdarg>
-#include <cstdio>
-#include <unistd.h>
-#include <stdio.h>
-#include <cstring>
-
-
-
 /**
  * This is to view internal program data while execution. Default value: 0
  * 

@@ -11,18 +11,6 @@
 */
 
 
-#include <headers/lamps_project_debugger.h>
-#include <headers/array_operations.h>
-
-
-/**
- * DO NOT MODIFIY IT!
- * 
- * @see The Class LampBoard main include declaration/explanation.
- */
-#include <interfaces/SmartObjectCommunication.h>
-
-
 
 /**
  * This class is the interface used to allow the observers to be called when the observed object

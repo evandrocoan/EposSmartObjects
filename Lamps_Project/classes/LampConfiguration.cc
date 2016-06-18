@@ -11,18 +11,6 @@
 */
 
 
-#include <headers/lamps_project_debugger.h>
-#include <headers/array_operations.h>
-
-
-/**
- * DO NOT MODIFIY IT!
- * 
- * @see The Class LampBoard main include declaration/explanation.
- */
-#include <classes/UserRegistry.cc>
-
-
 
 /**
  * #define __SYS_NS	   System
