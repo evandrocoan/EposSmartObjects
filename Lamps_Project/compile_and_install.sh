@@ -76,7 +76,7 @@ fi
 # Notify an invalid file passed as parameter.
 if ! [ -f $programFileToCompile ]
 then
-    printf "\nERROR! Could not to find your program '$programFileToCompile'!\n"
+    printf "\nERROR! The COMPILE_AND_INSTALL.SH version $COMPILE_AND_INSTALL_VERSION could not to find your program '$programFileToCompile'!\n"
     printf "Please try again providing an correct program. Example:\n"
     printf "./compile.sh PROGRAM_NAME.cc\n"
     printHelp
@@ -106,13 +106,13 @@ else
                 if ! [ $containsReturnValue -eq 1 ]
                 then
                     printf "\nExiting because the 'notsend' argument was supplied...\n"
-                    printf "The COMPILE_AND_INSTALL.SH was executed successfully!\n"
+                    printf "The COMPILE_AND_INSTALL.SH version $COMPILE_AND_INSTALL_VERSION was executed successfully!\n"
                     showTheElapsedSeconds
                 else
                     # To perform the last part, send the application to the board.
                     if sh _install.sh $programFileToCompile $usbPortNumberToInstall
                     then
-                        printf "\nThe COMPILE_AND_INSTALL.SH was executed successfully!\n"
+                        printf "\nThe COMPILE_AND_INSTALL.SH version $COMPILE_AND_INSTALL_VERSION was executed successfully!\n"
                         showTheElapsedSeconds
                     else
                         printf "\n_INSTALL.SH ERROR! Could not to install the program into the EPOSMotes2!\n"
