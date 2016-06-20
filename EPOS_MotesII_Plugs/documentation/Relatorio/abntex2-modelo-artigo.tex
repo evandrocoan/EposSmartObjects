@@ -1,0 +1,290 @@
+%% abtex2-modelo-artigo.tex, v<VERSION> laurocesar
+%% Copyright 2012-2013 by abnTeX2 group at http://abntex2.googlecode.com/ 
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on 
+%% http://abntex2.googlecode.com/
+%%
+%% This work consists of the files abntex2-modelo-artigo.tex and
+%% abntex2-modelo-references.bib
+%%
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Artigo Acadêmico em conformidade com
+% ABNT NBR 6022:2003: Informação e documentação - Artigo em publicação 
+% periódica científica impressa - Apresentação
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+% oneside = apenas frente
+% twocolumn = artigo em duas colunas
+\documentclass[article,11pt,oneside,a4paper,english,brazil]{abntex2}	
+
+% ---
+% PACOTES
+% ---
+
+% ---
+% Pacotes fundamentais 
+% ---
+\usepackage{cmap}				% Mapear caracteres especiais no PDF
+\usepackage{lmodern}			% Usa a fonte Latin Modern
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl} 			% Lista de simbolos
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+% ---
+		
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}				% para geração de dummy text
+% ---
+		
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+% ---
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Agrupamento 6: NULL : 2.2. - Controle integrado e distribuído de tomadas inteligentes}
+\autor{Luca Fachini Campelli \and Marcio Monteiro \and  Rodrigo Pedro Marques}
+\local{Brasil}
+\data{Florianópolis, 2016}
+% ---
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={Modelo de artigo científico com abnTeX2},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=blue,
+		bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ---
+% Altera as margens padrões
+% ---
+\setlrmarginsandblock{4cm}{4cm}{*}
+\setulmarginsandblock{4cm}{4cm}{*}
+\checkandfixthelayout
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% Espaçamento simples
+\SingleSpacing
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+
+%---
+%
+% Se desejar escrever o artigo em duas colunas, descomente a linha abaixo
+% e a linha com o texto ``FIM DE ARTIGO EM DUAS COLUNAS''.
+% \twocolumn[    		% INICIO DE ARTIGO EM DUAS COLUNAS
+%
+%---
+% página de titulo
+\maketitle
+
+% resumo em português
+\begin{resumoumacoluna}
+	aqui vai resumo
+	
+	\vspace{\onelineskip}
+	
+	\noindent
+	\textbf{Palavras-chaves}: tomadas inteligentes, sistemas operacionais, eposmote2.
+\end{resumoumacoluna}
+
+% ]  				% FIM DE ARTIGO EM DUAS COLUNAS
+% ---
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+\section{Introdução}
+
+	Este trabalho foi realizado por Luca Campelli, Marcio Monteiro e Rodrigo Pedro Marques para a disciplina INE5412 - Sistemas Operacionais I, no semestre 2016.1. O objetivo principal deste trabalho é implementar o descobrimento automático de tomadas na rede, fácil configuração delas, comunicação entre tomadas sobre o consumo de cada uma de modo que elas possam tomar decisão sobre o consumo. O trabalho teve início no dia 17 de abril de 2016, com previsão de entrega no dia 5 de julho de 2016.\\
+	... TO BE CONTINUED ...
+
+\section{Desenvolvimento}
+
+	Inicialmente, nós estudamos a documentação do EPOSII \cite{eposproject} e fizemos testes com ele para nos familiarizarmos com a plataforma para qual iríamos desenvolver. Tivemos algumas dificuldades para conseguir compila-lo e rodar alguns comandos, mas conversando com outros grupos conseguimos resolver estes problemas rapidamente. Durante este processo, percebemos alguns erros na documentação e os reportamos para o laboratório LISHA \cite{lishahomepage}.
+	
+	Depois disto, nós iniciamos a etapa de planejamento do projeto, onde definimos quais seriam os objetivos principais, qual o papel de cada membro, quais atividades seriam necessárias para atingir o objetivo e as datas de entrega de cada uma delas. Para uma melhor visualização das atividades e seus prazos de entrega, criamos um gráfico de Gantt. Conversando com o professor, percebemos que havia algumas falhas no planejamento, onde alguns objetivos estavam incorretos, pois eram metodologias, algumas atividades não eram necessárias ou estavam inconsistente com os prazos de realização. Fizemos as devidas correções dos mesmos e iniciamos a fase de desenvolvimento.
+	
+	No início da fase de desenvolvimento, nos reunimos para criarmos um esboço do UML do programa que iríamos criar. Percebemos também que seria melhor nos reunirmos pelo menos uma vez por semana para conseguir concluir o projeto a tempo. A partir dai, iniciamos a implementação do código. Percebemos que o UML inicial foi projetado com algumas falhas e poderia ser melhorado. Durante este processo, entramos em contato diversas vezes com o professor para verificar se estávamos seguindo no caminho certo e onde poderíamos melhorar o programa. Esta parte foi fundamental para o nosso trabalho pois o professor nos deu vários conselhos de melhorias e assim conseguimos seguir realizar o trabalho. Como o nosso trabalho envolve comunicação entre tomadas, tivemos que aprender como fazer os EPOS se comunicarem via broadcast para receber e enviar mensagem. Assim, é possível fazer com que as tomadas enviem e recebam previsão de consumos umas das outras. 
+	
+	... TO BE CONTINUED ...
+	
+% ---
+% Conclusão
+% ---
+\section{Considerações finais}
+	Aqui vamos concluir o relatório.
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{abntex2-modelo-references}
+
+% ----------------------------------------------------------
+% Glossário
+% ----------------------------------------------------------
+%
+% Há diversas soluções prontas para glossário em LaTeX. 
+% Consulte o manual do abnTeX2 para obter sugestões.
+%
+%\glossary
+
+% ----------------------------------------------------------
+% Apêndices
+% ----------------------------------------------------------
+
+% ---
+% Inicia os apêndices
+% ---
+%\begin{apendicesenv}
+%
+%% ----------------------------------------------------------
+%\chapter{Nullam elementum urna vel imperdiet sodales elit ipsum pharetra ligula
+%ac pretium ante justo a nulla curabitur tristique arcu eu metus}
+%% ----------------------------------------------------------
+%\lipsum[55-57]
+%
+%\end{apendicesenv}
+% ---
+
+% ----------------------------------------------------------
+% Anexos
+% ----------------------------------------------------------
+%\cftinserthook{toc}{AAA}
+% ---
+% Inicia os anexos
+% ---
+%\anexos
+%\begin{anexosenv}
+%
+%% ---
+%\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis
+%parturient montes nascetur ridiculus mus}
+%% ---
+%
+%\lipsum[31]
+%
+%\end{anexosenv}
+
+
+% ---
+% Título e resumo em língua estrangeira
+% ---
+
+% \twocolumn[    		% INICIO DE ARTIGO EM DUAS COLUNAS
+
+% titulo em inglês
+%\titulo{Canonical academic article model with \abnTeX}
+%\emptythanks
+%\maketitle
+
+% resumo em português
+%\renewcommand{\resumoname}{Abstract}
+%\begin{resumoumacoluna}
+% \begin{otherlanguage*}{english}
+%   According to ABNT NBR 6022:2003, an abstract in foreign language is a back
+%   matter mandatory element.
+%
+%   \vspace{\onelineskip}
+% 
+%   \noindent
+%   \textbf{Key-words}: latex. abntex.
+% \end{otherlanguage*}  
+%\end{resumoumacoluna}
+
+% ]  				% FIM DE ARTIGO EM DUAS COLUNAS
+% ---
+
+\end{document}

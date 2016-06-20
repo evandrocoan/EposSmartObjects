@@ -1,0 +1,69 @@
+\hypertarget{class_mensageiro}{}\section{Mensageiro Class Reference}
+\label{class_mensageiro}\index{Mensageiro@{Mensageiro}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_mensageiro_a410ac197a7b420db01e11591d795adc3}{enviar\+Via\+N\+IC} (\hyperlink{structinfo_tomadas}{info\+Tomadas} msg)
+\item 
+\hyperlink{class_mensageiro_ae9334da69814ca1c68be1ee3e8598033}{Mensageiro} (\hyperlink{class_gerente}{Gerente} $\ast$gnt)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{class_mensageiro_a455af49f91502614d89193f5336b8ace}{receber\+Via\+N\+IC} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe responsavel por enviar as mensagens para outras tomadas. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Mensageiro@{Mensageiro}!Mensageiro@{Mensageiro}}
+\index{Mensageiro@{Mensageiro}!Mensageiro@{Mensageiro}}
+\subsubsection[{\texorpdfstring{Mensageiro(\+Gerente $\ast$gnt)}{Mensageiro(Gerente *gnt)}}]{\setlength{\rightskip}{0pt plus 5cm}Mensageiro\+::\+Mensageiro (
+\begin{DoxyParamCaption}
+\item[{{\bf Gerente} $\ast$}]{gnt}
+\end{DoxyParamCaption}
+)}\hypertarget{class_mensageiro_ae9334da69814ca1c68be1ee3e8598033}{}\label{class_mensageiro_ae9334da69814ca1c68be1ee3e8598033}
+Construtor da classe \hyperlink{class_mensageiro}{Mensageiro}. 
+\begin{DoxyParams}{Parameters}
+{\em gnt} & ponteiro do gerente que ira chamar os metodos da classe mensageiro.\\
+\hline
+\end{DoxyParams}
+Construtor da classe mensageiro 
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{class_gerente}{Gerente}} & gnt\+: gerente que sera associado ao mensageiro. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Mensageiro@{Mensageiro}!enviar\+Via\+N\+IC@{enviar\+Via\+N\+IC}}
+\index{enviar\+Via\+N\+IC@{enviar\+Via\+N\+IC}!Mensageiro@{Mensageiro}}
+\subsubsection[{\texorpdfstring{enviar\+Via\+N\+I\+C(info\+Tomadas msg)}{enviarViaNIC(infoTomadas msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void Mensageiro\+::enviar\+Via\+N\+IC (
+\begin{DoxyParamCaption}
+\item[{{\bf info\+Tomadas}}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_mensageiro_a410ac197a7b420db01e11591d795adc3}{}\label{class_mensageiro_a410ac197a7b420db01e11591d795adc3}
+Metodo responsavel por enviar uma mensagem B\+R\+O\+A\+D\+C\+A\+ST para todas as tomadas. A mensagem enviada sera os atributos da tomada onde o destinatario decide o que fazer com elas. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & informacoes da tomada remetente. \\
+\hline
+\end{DoxyParams}
+\index{Mensageiro@{Mensageiro}!receber\+Via\+N\+IC@{receber\+Via\+N\+IC}}
+\index{receber\+Via\+N\+IC@{receber\+Via\+N\+IC}!Mensageiro@{Mensageiro}}
+\subsubsection[{\texorpdfstring{receber\+Via\+N\+I\+C()}{receberViaNIC()}}]{\setlength{\rightskip}{0pt plus 5cm}int Mensageiro\+::receber\+Via\+N\+IC (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_mensageiro_a455af49f91502614d89193f5336b8ace}{}\label{class_mensageiro_a455af49f91502614d89193f5336b8ace}
+Metodo responsavel por receber uma mensagem B\+R\+O\+A\+D\+C\+A\+ST.
+
+Metodo com retorno inteiro utilizado pelo mensageiro para receber mensagens das demais tomadas \begin{DoxyReturn}{Returns}
+int\+: retorna 0 apos receber mensagem via N\+IC. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tomadas.\+cc\end{DoxyCompactItemize}

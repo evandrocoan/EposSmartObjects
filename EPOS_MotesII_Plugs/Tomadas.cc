@@ -13,7 +13,7 @@ const unsigned int GPIO_DATA_SET0 = GPIO_BASE + 0x48;	/**< For debug purposes. E
 const unsigned int GPIO_PAD_DIR0  = GPIO_BASE + 0x00;	/**< For debug purposes. Endereco de memoria para minipular os LEDs*/
 
 /**
-* Struct com informacoes (atributos) de cada tomada.
+	Struct com informacoes (atributos) de cada tomada.
 */
 typedef struct {
 	int previsao;	/**< Previsao do seu consumo de energia. */
@@ -27,17 +27,17 @@ typedef struct {
 class Gerente;
 
 /**
-* Classe responsavel por enviar as mensagens para outras tomadas.
+	Classe responsavel por enviar as mensagens para outras tomadas.
 */
 class Mensageiro{
 
 public:
 
 	/**
-	* Metodo responsavel por enviar uma mensagem BROADCAST para todas as tomadas.
-	* A mensagem enviada sera os atributos da tomada onde o destinatario decide
-	* o que fazer com elas.
-	* @param msg: informacoes da tomada remetente.
+	 Metodo responsavel por enviar uma mensagem BROADCAST para todas as tomadas.
+	 A mensagem enviada sera os atributos da tomada onde o destinatario decide
+	 o que fazer com elas.
+	 @param msg: informacoes da tomada remetente.
 	*/
 	void enviarViaNIC(infoTomadas msg){
 		NIC nic;
@@ -320,10 +320,17 @@ protected:
 
 //--------------------------Gerente-----------------------------------------
 
+/**
+	Classe responsavel por gerenciar a tomada e manter atualizada.
+*/
 class Gerente{
 
 public:
 
+/**
+	Metodo sem retorno para enviar atualizacoes sobre a tomada.
+	@param int tipo
+*/
 void enviarMensagem(int tipo){
 	infoTomadas msg;
 	fazerPrevisaoPropria();
@@ -334,6 +341,10 @@ void enviarMensagem(int tipo){
 	msngr.enviarViaNIC(msg);
 }
 
+/**
+	Metodo sem retorno para receber atualizacoes sobre as demais tomadas da rede.
+	@param inforTomadas msg
+*/
 void receberMensagem(infoTomadas msg){
 	for(int i = 0; i < numTomadasExternas; i++){
 		if(msg.address == tomadasExternas[i].address){
@@ -353,14 +364,24 @@ void receberMensagem(infoTomadas msg){
 	imprimirArray();
 }
 
+/**
+	Metodo sem retorno que faz o calculo da previsao de consumo.
+*/
 void fazerPrevisaoPropria(){
 	previsaoPropria = Previsor::preverProprio(mediaPorDia,diaAtual);
 }
 
+/**
+	Metodo sem retorno que faz o calculo da previsao de consumo total das tomadas.
+*/
 void fazerPrevisaoTotal(){
 	previsaoGeral = Previsor::preverTotal(tomadasExternas,numTomadasExternas,previsaoPropria);
 }
 
+/**
+	Metodo sem retorno que adiciona uma tomada ao array de tomadas externas.
+	@param infoTomadas t
+*/
 void adicionarTomada(infoTomadas t){
 	if(numTomadasExternas <= 20){
 	tomadasExternas[numTomadasExternas].atualizado = true;
@@ -373,6 +394,9 @@ void adicionarTomada(infoTomadas t){
 	}
 }
 
+/**
+	Metodo sem retorno para imprimir o array de tomadas externas.
+*/
 void imprimirArray(){
 	for(int i = 0; i < numTomadasExternas; i++){
 		cout<<"##################\n";
@@ -385,7 +409,12 @@ void imprimirArray(){
 	}
 }
 
-
+/**
+	Construtor da classe Gerente
+	@param TomadaComSensot t
+	@param tomada t
+	@param msngr this
+*/
 Gerente(TomadaComSensor t) :tomada(t), msngr(this){
 	numTomadasExternas = 0;
 	diaAtual = 0;
@@ -395,23 +424,26 @@ Gerente(TomadaComSensor t) :tomada(t), msngr(this){
 }
 
 private:
-infoTomadas tomadasExternas[20];
-int numTomadasExternas;
-double mediaPorHora[24];
-double mediaPorDia[30];
-int diaAtual;
-int horaAtual;
-double previsaoPropria;
-double previsaoGeral;
+infoTomadas tomadasExternas[20]; /**< Array de 20 posicoes para armazenas as tomadas externas. */
+int numTomadasExternas;	/**< Inteiro para armazenar o numeto total de tomadas externas. */
+double mediaPorHora[24];	/**< Array de 24 posicoes para indicar a media por hora do dia. */
+int diaAtual;	/**< Inteiro para indicar o dia atual do mes. */
+double mediaPorDia[30];	/**< Array de 30 posicoes para indicar a media por dia do mes. */
+int horaAtual;	/**< Inteiro para indicar a hora atual do dia. */
+double previsaoPropria;	/**< Double para armazenar a previsao da propria tomada. */
+double previsaoGeral;	/**< Double para armazenar a previsao media de todas as tomadas. */
 
-
-TomadaComSensor tomada;
-Mensageiro msngr;
+TomadaComSensor tomada; /**< Objeto TomadaComSensor utilizada ao longo do gerenciador. */
+Mensageiro msngr;	/**< Objeto Mensageiro utilizado para enviar ou receber mensagens das demais tomadas. */
 
 };
 
 //------------------------------------Mensageiro-----------------------------------
-
+/**
+	Metodo com retorno inteiro utilizado pelo mensageiro para receber mensagens
+	das demais tomadas
+	@return int: retorna 0 apos receber mensagem via NIC.
+*/
 int Mensageiro::receberViaNIC(){
 		NIC nic;
 		NIC::Address src;
@@ -427,6 +459,10 @@ int Mensageiro::receberViaNIC(){
 		return 0;
 	}
 
+/**
+	Construtor da classe mensageiro
+	@param Gerente gnt: gerente que sera associado ao mensageiro.
+*/
 Mensageiro::Mensageiro(Gerente * gnt){
 		gerente = gnt;
 		Thread *thread;
@@ -436,9 +472,13 @@ Mensageiro::Mensageiro(Gerente * gnt){
 
 
 //------------------------------------Main-------------------------------------------
+
+/**
+	Classe principal do programa.
+*/
 int main(){
 
-	TomadaComSensor t;
+	TomadaComSensor t; 
 	Gerente g(t);
 
 	t.setPrioridade(10);
@@ -452,6 +492,4 @@ int main(){
 	cout<< t.estaLigado() << "\n";
 
 	g.enviarMensagem(0);
-
-
 }
