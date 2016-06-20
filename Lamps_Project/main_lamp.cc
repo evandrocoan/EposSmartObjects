@@ -79,7 +79,7 @@ int main()
     PRINTLN( 1, "echo :R100 > /dev/ttyUSB0" );
     PRINTLN( 1, "Try also :REN, :BEN, :GEN or :AEN" ); 
     
-    LampBoard lampBoard( 1 );
+    LampBoard lampBoard( EPOS_MOSTES_BOARD_ID );
     CommunicationSubject::getInstance().addObserver( &lampBoard );
     
     lampBoard.addNewLamp( new Lamp( "BlueLed", 10, new LampConfiguration( "BlueLed", "light_sensor", 100 ) ) );
