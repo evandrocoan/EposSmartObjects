@@ -73,7 +73,7 @@ __USING_SYS;
 int main()
 {
     PRINTLN( 1, "EposMotesII app MAIN_LAMP initing..." );
-    PRINTLN( 1, "Program version: " << PROGRAM_VERSION );
+    PRINTLN( 1, "Program Version: " << PROGRAM_VERSION << ", Id: " << EPOS_MOSTES_BOARD_ID );
     
     PRINTLN( 1, "To send commands to the EPOSMotes2 by USB device, use:" );
     PRINTLN( 1, "echo :R100 > /dev/ttyUSB0" );

@@ -73,7 +73,7 @@ __USING_SYS;
 int main()
 {
     PRINTLN( 1, "EposMotesII app MAIN_USER initing..." );
-    PRINTLN( 1, "Program version: " << PROGRAM_VERSION );
+    PRINTLN( 1, "Program Version: " << PROGRAM_VERSION << ", Id: " << EPOS_MOSTES_BOARD_ID );
     
     PRINTLN( 1, "To send commands to the EPOSMotes2 by USB device, " ); 
     PRINTLN( 1, "to others EPOSMotes2 devices listening by Radio, use: " );
