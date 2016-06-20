@@ -1,0 +1,10 @@
+installer_files/EPOS_MOSTES_BOARD_ID.txt,headers/software_version.h,
+
+This is the 'updateVersion.sh' configuration file.
+It is important do not include any spaces on the above configuration line or remove the last comma.
+
+The above line define the files where:
+1) The file path where the current version number will be stored. Example: installer_files/EPOS_MOSTES_BOARD_ID.txt
+2) The file path which will be updated using the current version file. Example: headers/software_version.h
+
+Note: Both files 1 & 2 must be using the same version number when the 'updateVersion.sh' program ran.

@@ -3,11 +3,21 @@
 # Saves the current opened path, to restore it when this scripts finish.
 export PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))
 
+# Notify when $EPOS environment variable is not found.
+if ! [ -f $PWD_COMPILE_EPOS_LAMP/installer_files/__install_manual.txt ]
+then
+    # update to the correct path when run from the installer_files folder.
+    export PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))/..
+fi
+
+
+
 # Read the general tools system manual file.
 installManual=$(cat "$PWD_COMPILE_EPOS_LAMP/installer_files/__install_manual.txt")
 
 # The time flag file path
 updateFlagFilePath="$PWD_COMPILE_EPOS_LAMP/installer_files/epos_flag_file.txt"
+
 
 # Save the current seconds
 if ! [ -f $updateFlagFilePath ]

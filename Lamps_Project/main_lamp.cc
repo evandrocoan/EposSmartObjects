@@ -35,6 +35,7 @@ __USING_SYS;
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
+#include <headers/software_version.h>
 
 #include <utility/malloc.h>
 #include <utility/list.h>
@@ -71,16 +72,14 @@ __USING_SYS;
  */
 int main()
 {
-    const char* const PROGRAM_VERSION = "0.1";
-    
     PRINTLN( 1, "EposMotesII app MAIN_LAMP initing..." );
-    PRINTLN( 1, "Program version: " << PROGRAM_VERSION );
+    PRINTLN( 1, "Program Version: " << PROGRAM_VERSION << ", Id: " << EPOS_MOSTES_BOARD_ID );
     
     PRINTLN( 1, "To send commands to the EPOSMotes2 by USB device, use:" );
     PRINTLN( 1, "echo :R100 > /dev/ttyUSB0" );
     PRINTLN( 1, "Try also :REN, :BEN, :GEN or :AEN" ); 
     
-    LampBoard lampBoard( 1 );
+    LampBoard lampBoard( EPOS_MOSTES_BOARD_ID );
     CommunicationSubject::getInstance().addObserver( &lampBoard );
     
     lampBoard.addNewLamp( new Lamp( "BlueLed", 10, new LampConfiguration( "BlueLed", "light_sensor", 100 ) ) );

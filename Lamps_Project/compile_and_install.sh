@@ -7,8 +7,11 @@ PWD_COMPILE_EPOS_LAMP=$(dirname $(readlink -f $0))
 . ./installer_files/__helper_functions.sh
 
 
-COMPILE_AND_INSTALL_VERSION="1.1.4"
+COMPILE_AND_INSTALL_VERSION="1.1.5"
 # Change log
+# 
+# v1.1.5
+# Added to the '__helper_functions.sh' script the ability to be included from its directory 'installer_files'.
 # 
 # v1.1.4
 # Added to the '_install.sh' script the option 'notsend' to allow skipt the last
