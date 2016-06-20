@@ -33,6 +33,6 @@
  * To hold the software version and adicional configuration informations.
  */
 const char* const PROGRAM_VERSION      = "2.2";
-const int         EPOS_MOSTES_BOARD_ID = 1;
+const int         EPOS_MOSTES_BOARD_ID = 648514;
 
 
