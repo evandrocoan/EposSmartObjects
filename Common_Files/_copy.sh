@@ -9,7 +9,6 @@ NEW_SCHEDULER_FILE="$PWD_COMPILE_EPOS_LAMP/installer_files/traits.h"
 NEW_EPOS_COMPILER_FILE="$PWD_COMPILE_EPOS_LAMP/installer_files/eposcc"
 NEW_EPOS_MAKEDEFS_FILE="$PWD_COMPILE_EPOS_LAMP/installer_files/makedefs"
 NEW_EPOS_PLASMA_MAKEFILE_FILE="$PWD_COMPILE_EPOS_LAMP/installer_files/makefile_plasma"
-BOARD_ID_UPDATOR_SCRIPT="$PWD_COMPILE_EPOS_LAMP/installer_files/updateVersion.sh"
 
 # Read the command line argument. The programs name must to be without type extension.
 programFileToCompile=$1
@@ -17,18 +16,6 @@ secondCommandLineArgument=$2
 
 # Removed the file extension, just in case there exists.
 programNameToCompile=$(echo $programFileToCompile | cut -d'.' -f 1)
-
-
-
-# Update the board id, so each board has only one unique id.
-if ! sh $BOARD_ID_UPDATOR_SCRIPT
-then
-    printf "\nBOARD_ID_UPDATOR_SCRIPT ERROR!\nCould could not update the board id.\n"
-    printf "The start directory is '$PWD_COMPILE_EPOS_LAMP'\n"
-    printf "The current directory is '$EPOS'\n"
-    printHelp
-    exit 1
-fi
 
 
 # Notify when $EPOS environment variable is not found.

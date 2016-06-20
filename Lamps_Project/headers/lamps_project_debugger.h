@@ -17,14 +17,16 @@
 *
 *****************************************************************************************
 */
-#include <utility/ostream.h>
-#include <semaphore.h>
 
-#include <cstdarg>
-#include <cstdio>
-#include <unistd.h>
-#include <stdio.h>
-#include <cstring>
+
+/**
+ * Preprocessor directive designed to cause the current source file to be included only once in a
+ * single compilation. Thus, serves the same purpose as #include guards, but with several
+ * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
+ * compilation speed. In main file this is enabled by default.
+ */
+#pragma once
+
 
 
 /**
@@ -52,7 +54,7 @@
  * 2   - Functions entrances.
  * 4   - Step by step functions.
  */
-const int g_debugLevel = 7;
+const int g_debugLevel = 127;
 #endif
 
 
@@ -187,14 +189,6 @@ while( 0 )
 #endif // #if DEBUG_LEVEL > 0
 
 
-
-/**
- * Preprocessor directive designed to cause the current source file to be included only once in a
- * single compilation. Thus, serves the same purpose as #include guards, but with several
- * advantages, including: less code, avoidance of name clashes, and sometimes improvement in
- * compilation speed. In main file this is enabled by default.
- */
-#pragma once
 
 /**
  *  Calculates a static array size.

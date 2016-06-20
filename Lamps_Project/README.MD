@@ -23,18 +23,24 @@ I think you need 3 EposMotesII: Two different fixtures to control and to act as 
 
 The './compile_and_install.sh' parameters are:
 ```
-The FIRST parameter is the file name to install.
-The SECOND parameter is the USB port number to install.
-The THIRD parameter is the optional value clean for a 'make veryclean' all.
+The './compile_and_install.sh' parameters are:
+1) The FIRST parameter is the file name to install.
+2) The SECOND parameter is the USB port number to install, or the keyword 'notsend' 
+   to skip the last part and do not send the application to the EPOSMotes2 board.
+3) The THIRD parameter is the optional value clean for a 'make veryclean' all.
+
 Examples:
 ./compile_and_install.sh PROGRAM_NAME.cc 0 clean
+./compile_and_install.sh PROGRAM_NAME.cc notsend
 ./compile_and_install.sh PROGRAM_NAME.cc 1
 ```
+
 The 'compile_and_install.sh' is a wrapper which calls the following programs to perform
 the program required steps. These steps must to be performed run in following order:
 ```
+REMENBER, run in order these sub-installers:
 ./_copy.sh    PROGRAM_NAME.cc
-./_make.sh    PROGRAM_NAME.cc OPTION_NAME           Use 'clean' as 2nd parameter to perform a make veryclean all.
+./_make.sh    PROGRAM_NAME.cc OPTION_NAME         Use 'clean' as 2nd parameter to perform a make veryclean all.
 ./_process.sh PROGRAM_NAME.cc
 ./_install.sh PROGRAM_NAME.cc USB_PORT_NUMBER     If not provided, default is 0. If passed more than 2 parameters,
                                                   to install the program to the RAM memory, instead of the flash

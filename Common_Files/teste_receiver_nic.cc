@@ -9,12 +9,12 @@ __USING_SYS
 const unsigned char SINK_ID = 0x01;
 
 struct Msg {
-    int id;
+    char id[10];
     int x;
     int y;
 };
 
-void sender(unsigned char id) {
+void sender(char id[10]) {
     NIC nic;
 
     unsigned char src, prot;
@@ -26,8 +26,10 @@ void sender(unsigned char id) {
     while (true) {
         for (i = 5; i < 8; i++) {
             //CPU::out8(Machine::IO::PORTB, (1 << i));
-
-            msg.id = id;
+	int j;
+	//for (j = 0; j < 10; i++) {
+            msg.id[0] = id[0];
+	//}
             msg.x  = 10;
             msg.y  = 20;
 
@@ -48,7 +50,7 @@ int receiver() {
     OStream cout;
 
     //unsigned char src, prot;
-    int i;
+    //int i;
     
     cout << "Sink\n";
 
@@ -64,6 +66,7 @@ int receiver() {
 }
 
 int main() {
-//    sender(1);
+//	char mensagem[10] = {'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd'};
+//    sender(mensagem);
     receiver();
 }
