@@ -35,6 +35,7 @@ __USING_SYS;
 
 #include <headers/lamps_project_debugger.h>
 #include <headers/array_operations.h>
+#include <headers/software_version.h>
 
 #include <utility/malloc.h>
 #include <utility/list.h>
@@ -71,8 +72,6 @@ __USING_SYS;
  */
 int main()
 {
-    const char* const PROGRAM_VERSION = "0.1";
-    
     PRINTLN( 1, "EposMotesII app MAIN_LAMP initing..." );
     PRINTLN( 1, "Program version: " << PROGRAM_VERSION );
     
