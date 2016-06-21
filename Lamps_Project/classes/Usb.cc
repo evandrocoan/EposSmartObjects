@@ -13,6 +13,13 @@
 
 
 /**
+ * MAX_MESSAGE_LENGTH_ALLOWED is the maximum length of the message which can be sent and received via UART/NIC
+ */
+const unsigned int MAX_MESSAGE_LENGTH_ALLOWED = 5;
+
+
+
+/**
  * This class implements the EPOSMotes 2 serial USB use. The Startup Board is equipped with and UART
  * to USB transceiver. The UART bus is connected directly to FT232RL chip for a PC interface with
  * the Processing Module, discarding the need of a proper USB stack.
@@ -42,7 +49,7 @@ public:
             Usb::thisObject          = &instance;
             Usb::usbUartController   = new UART();
             Usb::subject             = &CommunicationSubject::getInstance();
-            Usb::uartThread          = new Thread( &receiver );
+            Usb::uartThread          = new Thread( &uartReceiver );
             Usb::isThisObjectCreated = true;
         }
         
@@ -94,48 +101,52 @@ private:
      * 
      * @see Usb::uartThread class attribute declaration.
      */
-    static int receiver()
+    static int uartReceiver()
     {
-        DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::receiver(0)" );
+        DEBUGGERLN( 2, "I AM ENTERING ON THE Usb::uartReceiver(0)" );
         PRINTLN( 1, "Thread UART initing..." );
         
-        unsigned int currentIndex;
-        char         msg[ MAX_MESSAGE_LENGTH_ALLOWED ]; //[DATA_SIZE];
+        char msg[ MAX_MESSAGE_LENGTH_ALLOWED ]; //[DATA_SIZE];
         
         while( true )
         {
             // messages start with ":"
             do
             {
-                DEBUGGERLN( 1, "Usb::usbUartController->get()..." );
+                DEBUGGERLN( 1, " ( uartReceiver ) | Messages start with ':'" );
                 msg[ 0 ] = Usb::usbUartController->get();
                 
             } while( msg[ 0 ] != ':' );
             
-            DEBUGGERLN( 1, "currentIndex = 0..." );
-            currentIndex = 0;
+            DEBUGGERLN( 1, "RUNNING: currentIndex = 0" );
+            short currentIndex = 1;
             
-            DEBUGGERLN( 1, "RUNNING: while( ( msg[ currentIndex ] != '\\n' ) && ( currentIndex < MAX_MESSAGE_LENGTH_ALLOWED ) )" );
-            while( ( msg[ currentIndex ] != '\n' ) && ( currentIndex < MAX_MESSAGE_LENGTH_ALLOWED ) )
+        #if defined DEBUG
+            cout << "RUNNING: while( msg[" << currentIndex << "] != '\\n' )" << endl;
+            cout << "RUNNING: while( msg[" << currentIndex << "] != '\\n' )" << endl;
+            cout << "RUNNING: while( msg[" << currentIndex << "] != '\\n' )" << endl;
+        #endif
+            
+            while( ( msg[ currentIndex ] != '\n' )
+                     && ( currentIndex < MAX_MESSAGE_LENGTH_ALLOWED ) )
             {
-                DEBUGGERLN( 1, "RUNNING: msg[ currentIndex++ ] = Usb::usbUartController->get();" );
-                DEBUGGERLN( 1, "RUNNING: currentIndex = " << currentIndex );
                 
-                msg[ currentIndex++ ] = Usb::usbUartController->get();
-                DEBUGGERLN( 1, "RUNNING: msg[" << currentIndex << "] = " << msg[ currentIndex ] );
+                DEBUGGERLN( 1, "RUNNING: msg[" << currentIndex << "] = Usb::usbUartController->get();" );
+                msg[ currentIndex ] = Usb::usbUartController->get();
+                
+                DEBUGGERLN( 1, " ( uartReceiver ) | msg[" << currentIndex << "] = " << msg[ currentIndex ] );
+                ++currentIndex;
             }
             
-            msg[ currentIndex ] = '\0';
-            
-            DEBUGGERLN( 1, "RUNNING: memset( msg + currentIndex, 0x00, MAX_MESSAGE_LENGTH_ALLOWED - currentIndex );" );
+            DEBUGGERLN( 1, "RUNNING: memset(3)" );
             memset( msg + currentIndex, 0x00, MAX_MESSAGE_LENGTH_ALLOWED - currentIndex );
             
             // message received.
-            DEBUGGERLN( 1, "USB/UART Message received: " << &msg[ 0 ] );
-            subject->notifyObserver( &msg[ 0 ] );
+            DEBUGGERLN( 1, " ( uartReceiver ) | USB/UART Message received: " << &msg[ 0 ] );
+            subject->notifyObserver( &msg[ 1 ] );
         }
         
-        PRINTLN( 1, "Thread UART finishing..." );
+        PRINTLN( 1, " ( uartReceiver ) | Thread UART finishing..." );
         return 0;
     }
     

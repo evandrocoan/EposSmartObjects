@@ -13,13 +13,6 @@
 
 
 /**
- * MAX_MESSAGE_LENGTH_ALLOWED is the maximum length of the message which can be sent and received via UART/NIC
- */
-const unsigned int MAX_MESSAGE_LENGTH_ALLOWED = 5;
-
-
-
-/**
  * 
  * @return true when both char* are equal ignoring case, false otherwise.
  */
