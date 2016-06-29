@@ -17,8 +17,7 @@ struct ofstream{
     virtual ofstream& operator<<(const float a)  {return *this;}
 
     virtual ofstream& operator<<(const double a)  {return *this;}
-
-
+	virtual void sendBytes(const void*, int size){};
 
 	protected:
 	    ofstream() {}
