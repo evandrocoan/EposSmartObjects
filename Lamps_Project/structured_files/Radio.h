@@ -30,8 +30,6 @@
 #include <nic.h>
 #include "ifstream.h"
 #include "ofstream.h"
-#include <thread.h>
-#include <alarm.h>
 __USING_SYS
 
 namespace pj{
