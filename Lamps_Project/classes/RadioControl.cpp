@@ -23,16 +23,31 @@ namespace pj
 			Message m;
 			receiver >> m;
 
-			if ( m.getDest() == id ) {
-				notifyListeners ( m );
-			} else {
-				int hash = getHash ( m );
-				if ( hash != lastMsg ) {
-					lastMsg == hash;
-					sendMessage ( m );
-				}
+			///retorna se mensagem vier dele mesmo;
+			if(m.getOrig() == id)return;
 
-			}
+            int hash = getHash ( m );
+
+            ///returns if its the same message as last
+            if(hash == lastMsg)return;
+
+
+            if( m.getDest() == id){
+                notifyListeners ( m );
+                lastMsg == hash;
+                return;
+            }
+            if(m.getDest() == BROAD_CAST){
+                //TODO: todo finish radius broadcast
+                notifyListeners ( m );
+                lastMsg == hash;
+                sendMessage ( m );
+                return;
+            }
+            ///if message is not for user
+            lastMsg == hash;
+            sendMessage ( m );
+
 		}
 
 	}
@@ -51,7 +66,6 @@ namespace pj
 ///hash = 1byte destiny, 1byte origin, 14bits data, 2 bits type
 	int RadioControl::getHash ( Message m )
 	{
-
 		int first = m.getDest();
 		first = ( first << 24 )  & ( 255 << 24 ) ;
 
@@ -66,10 +80,6 @@ namespace pj
 
 		return ( first + second + third + last );
 	}
-
-
-
-
 
 }
 

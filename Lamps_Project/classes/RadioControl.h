@@ -7,6 +7,7 @@
 #include "Observer.h"
 namespace pj
 {
+    const short BROAD_CAST =-1;
 	class RadioControl : public Observer<Message>
 	{
 		public:
@@ -30,9 +31,6 @@ namespace pj
 			volatile bool isListening;
 			int id;
 			int size;
-
-
-
 			int lastMsg;
 			ifstream& receiver;
 			ofstream& sender;
@@ -49,7 +47,7 @@ namespace pj
 	}
 	template <class T>
 	void RadioControl:: sendBroadCast ( const T& t, int type, int length  ) const{
-		Message m = Message ( -1, id, type, t, length );
+		Message m = Message ( BROAD_CAST, id, type, t, length );
 		sendMessage ( m );
 	}
 }
