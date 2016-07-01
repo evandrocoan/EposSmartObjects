@@ -59,11 +59,18 @@ namespace pj
                 }
 
 			}
+            template<class T>
+            T getObject(){
+                T* t =(T*) data;
+
+                return *t;
+            }
 
             template<class T>
-            T getData(){
-                T* t =(T*) data;
-                return *t;
+            Message& operator>>(T& e){
+                //T* t =(T*) data;
+                e = *(T*)data;
+                return *this;
             }
 
 
