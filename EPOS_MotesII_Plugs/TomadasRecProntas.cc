@@ -20,7 +20,7 @@ struct infoTomadas {
 	int tipo;	/**< Tipo da tomada (dimerizavel ou nao) */
 } packed;
 
-enum acao {ATUALIZACAO = 0, NONE = 1, DESLIGAR = 2, DIM = 3, LIGAR = 4}; /**< enumeracao dos tipos de mensagens 										que podem ser enviadas */
+enum acao {ATUALIZACAO = 0, NONE = 1, DESLIGAR = 2, DIM = 3, LIGAR = 4}; /**< enumeracao dos tipos de mensagens que podem ser enviadas */
 
 //---------------------------------Declaracao-Gerente-----------------------------
 
@@ -72,7 +72,7 @@ Gerente * Mensageiro::gerente;
 //----------------------------------Previsor---------------------------------------
 
 /**
-*	Classe responsavel por fazer as previsoes de consumo de uma dada tomada.
+*	Classe responsavel por fazer as previsoes de consumo energetico de uma dada tomada.
 */
 class Previsor{
 
@@ -105,11 +105,11 @@ static double preverProprio(double mediaPorDia[30], int diaAtual){
 	for(int i = 0; i < diaAtual; i++){
 		soma += mediaPorDia[i];
 	}
-	 
+
 	double media = soma/diaAtual;
-	
+
 	soma += media * (30 - diaAtual);
-	
+
 	return soma;
 }
 
@@ -147,17 +147,17 @@ public:
 * @param on: flag que indica se o LED esta ligado ou nao.
 */
 static int turn_led(int led, bool on){
-	
+
 	int          bit     = led % 32;
 	unsigned int regData = GPIO_DATA_SET0 + ( ( led >> 5 ) << 2 );
     	unsigned int regPad  = GPIO_PAD_DIR0  + ( ( led >> 5 ) << 2 );
     	unsigned int value   = CPU::in32( regPad );
-	
+
 	if(!on){
 		//turn off
-		value &= ~( 1 << bit );		
+		value &= ~( 1 << bit );
 
-	} else {  
+	} else {
 		//turn on
 		value |= ( 1 << bit );
 	}
@@ -247,7 +247,7 @@ public:
 			return 0;
 		}
 	}
-	
+
 	/**
 	* Retorna o tipo da tomada (0 significa que ela nao dimeriza)
 	*/
@@ -278,7 +278,7 @@ public:
 	double getConsumoMinimo(){
 		return consumoMinimo;
 	}
-	
+
 	/**
 	* Busca o consumo medio de energia já consumida pela tomada.
 	* @return consumo medio de energia já consumida pela tomada.
@@ -311,7 +311,7 @@ public:
 		limite = limit;
 	}
 
-	/** 
+	/**
 	* Retorna o valor do limite do modo Power Saving
 	* @return limite: o valor do limite do modo Power Saving
 	*/
@@ -334,7 +334,7 @@ public:
 	void setPrioridade(int prio = 0){
 		prioridade = prio;
 	}
-	
+
 	/**
 	* Construtor da Tomada com Sensor.
 	*/
@@ -388,7 +388,7 @@ int getTipo(){
 	return -1;
 }
 
-/** 
+/**
 * Construtor da tomada com dimer
 */
 TomadaDimer() {//: dimerThread(&dimLed){
@@ -474,7 +474,7 @@ void receberUART(char cmd[]){
 	cout<<"UARTO\n";
 	imprimirArray();
 
-	
+
 }
 /**
 	Metodo sem retorno para receber atualizacoes sobre as demais tomadas da rede.
@@ -489,9 +489,9 @@ void receberMensagem(infoTomadas msg){
 			tomadasExternas[i].prioridade = msg.prioridade;
 			tomadasExternas[i].tipo = msg.tipo;
 			imprimirArray();
-			
+
 			tomadaInteligente();
-			
+
 			return;
 		}
 	}
@@ -499,7 +499,7 @@ void receberMensagem(infoTomadas msg){
 	imprimirArray();
 
 	tomadaInteligente();
-	
+
 }
 
 /**
@@ -538,7 +538,7 @@ void adicionarTomada(infoTomadas t){
 		tomadasExternas[numTomadasExternas].prioridade = t.prioridade;
 		tomadasExternas[numTomadasExternas].tipo = t.tipo;
 
-		numTomadasExternas++; 
+		numTomadasExternas++;
 	}
 }
 
@@ -574,7 +574,7 @@ void imprimirArray(){  //function for debug purposes
 * Metodo principal que calcula as acoes que uma tomada ira tomar
 */
 void tomadaInteligente(){
-	
+
 	bool myTurn = true;
 
 	cout<<"previsao geral: " << (int)previsaoGeral << "\n";
@@ -587,7 +587,7 @@ void tomadaInteligente(){
 					myTurn = false;
 					imprimirProprio();
 					break;
-				} 
+				}
 			}
 		}
 	} else {
@@ -621,7 +621,7 @@ void tomadaInteligente(){
 					cout<<"DESLIGAR\n";
 					imprimirProprio();
 					return;
-				
+
 				} else {
 					//tomada.dim(50);
 					//enviarMensagem(DIM);
@@ -630,7 +630,7 @@ void tomadaInteligente(){
 					return;
 				}
 			}
-		}	
+		}
 	}
 }
 
@@ -690,7 +690,7 @@ Mensageiro msngr;			/**< Referencia ao mensageiro */
 	@return int: retorna 0 apos receber mensagem via NIC.
 */
 int Mensageiro::receberViaNIC(){
-		NIC nic;		
+		NIC nic;
 		NIC::Address src;
 		unsigned char prot;
 		infoTomadas meg;
@@ -728,7 +728,7 @@ int Mensageiro::receberViaUART(){
 		memset(cmd,0,sizeof(cmd));
 		i = 0;
 	}
-	return 0;	
+	return 0;
 
 }
 
@@ -752,7 +752,7 @@ Mensageiro::Mensageiro(Gerente * gnt){
 	Classe principal do programa.
 */
 int main(){
-	
+
 	TomadaComSensor t;
 	t.ligar();
 

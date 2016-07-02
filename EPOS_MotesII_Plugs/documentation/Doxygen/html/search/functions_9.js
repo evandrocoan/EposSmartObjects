@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['recebermensagem',['receberMensagem',['../class_gerente.html#aaa313dd3e4f2d41a11386fc1c70943f6',1,'Gerente']]],
-  ['recebervianic',['receberViaNIC',['../class_mensageiro.html#a455af49f91502614d89193f5336b8ace',1,'Mensageiro']]]
+  ['preverdia',['preverDia',['../class_previsor.html#a48823838f0274c4790e2333d552a2424',1,'Previsor']]],
+  ['preverproprio',['preverProprio',['../class_previsor.html#a10cdf169e213d6f0f49dc1ee0fe50e91',1,'Previsor']]],
+  ['prevertotal',['preverTotal',['../class_previsor.html#a42c4d66252f09dc4b2af91b500f5e38b',1,'Previsor']]]
 ];

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.6.8)  20 JUN 2016 16:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.6.8)  2 JUL 2016 14:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -944,9 +944,37 @@ Package graphics Info: Driver file: pdftex.def on input line 95.
 \Gin@req@height=\dimen157
 \Gin@req@width=\dimen158
 )
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count164
+\lst@gtempboxa=\box30
+\lst@token=\toks26
+\lst@length=\count165
+\lst@currlwidth=\dimen159
+\lst@column=\count166
+\lst@pos=\count167
+\lst@lostspace=\dimen160
+\lst@width=\dimen161
+\lst@newlines=\count168
+\lst@lineno=\count169
+\lst@maxwidth=\dimen162
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count170
+\lst@skipnumbers=\count171
+\lst@framebox=\box31
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+)
 (/usr/share/texlive/texmf-dist/tex/latex/lipsum/lipsum.sty
 Package: lipsum 2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
-\c@lips@count=\count164
+\c@lips@count=\count172
 )
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/backref.sty
 Package: backref 2012/07/25 v1.38 Bibliographical back referencing
@@ -957,8 +985,8 @@ Package: abntex2cite 2016/02/26 v-1.9.6 abnTeX2
 (/usr/share/texlive/texmf-dist/tex/latex/abntex2/abntex2abrev.sty)
 \minimumbiblabelwidth=\skip258
 \ABCIauxlen=\skip259
-\c@ABCIaux=\count165
-\c@ABCImax=\count166
+\c@ABCIaux=\count173
+\c@ABCImax=\count174
 
 (/usr/share/texlive/texmf-dist/tex/latex/relsize/relsize.sty
 Package: relsize 2013/03/29 ver 4.1
@@ -966,10 +994,10 @@ Package: relsize 2013/03/29 ver 4.1
 \biblabelsep=\skip260
 LaTeX Info: Redefining \newblock on input line 591.
 LaTeX Info: Redefining \cite on input line 618.
-\ABCItoken=\toks26
+\ABCItoken=\toks27
 )
-Package color Info: Redefining color blue on input line 94.
-Package hyperref Info: Option `colorlinks' set `true' on input line 111.
+Package color Info: Redefining color blue on input line 118.
+Package hyperref Info: Option `colorlinks' set `true' on input line 135.
 \abntex2-modelo-artigo@idxfile=\write4
 \openout4 = `abntex2-modelo-artigo.idx'.
 
@@ -980,13 +1008,13 @@ Writing index file abntex2-modelo-artigo.idx
 Stock height and width: 845.04684pt by 597.50787pt
 Top and edge trims: 0pt and 0pt
 Page height and width: 845.04684pt by 597.50787pt
-Text height and width: 621.38031pt by 369pt
-Spine and edge margins: 113.81102pt and 113.81102pt
-Upper and lower margins: 113.81102pt and 109.85551pt
+Text height and width: 703.86414pt by 455pt
+Spine and edge margins: 85.35826pt and 56.9055pt
+Upper and lower margins: 85.35826pt and 55.82445pt
 Headheight and headsep: 13.6pt and 19.8738pt
 Footskip: 27.46295pt
 Columnsep and columnseprule: 10pt and 0pt
-Marginparsep and marginparwidth: 7pt and 99.81102pt
+Marginparsep and marginparwidth: 7pt and 42.9055pt
 Sidecapsep and sidecapwidth: 7pt and 49pt
 Sidebarhsep and sidebarwidth: 7pt and 49pt
 Sidebarvsep and sidebartopsep: 13.6pt and 0pt
@@ -998,26 +1026,26 @@ Sidefootvsep and sidefootheight: 13.6pt and 594.32022pt
 (./abntex2-modelo-artigo.aux)
 \openout1 = `abntex2-modelo-artigo.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 145.
-LaTeX Font Info:    ... okay on input line 145.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 145.
-LaTeX Font Info:    ... okay on input line 145.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 145.
-LaTeX Font Info:    ... okay on input line 145.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 145.
-LaTeX Font Info:    ... okay on input line 145.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 145.
-LaTeX Font Info:    ... okay on input line 145.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 145.
-LaTeX Font Info:    ... okay on input line 145.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 145.
-LaTeX Font Info:    ... okay on input line 145.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 145.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 169.
  (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-\AtBeginShipoutBox=\box30
-Package hyperref Info: Link coloring ON on input line 145.
+\AtBeginShipoutBox=\box32
+Package hyperref Info: Link coloring ON on input line 169.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -1025,29 +1053,29 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count167
+\c@section@level=\count175
 )
 Redoing nameref's sectioning
 Redoing nameref's label
-LaTeX Info: Redefining \nameref on input line 145.
-LaTeX Info: Redefining \ref on input line 145.
-LaTeX Info: Redefining \pageref on input line 145.
-LaTeX Info: Redefining \nameref on input line 145.
-\myptabbox=\box31
+LaTeX Info: Redefining \nameref on input line 169.
+LaTeX Info: Redefining \ref on input line 169.
+LaTeX Info: Redefining \pageref on input line 169.
+LaTeX Info: Redefining \nameref on input line 169.
+\myptabbox=\box33
 \myptabboxwidth=\skip261
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count168
-\scratchdimen=\dimen159
-\scratchbox=\box32
-\nofMPsegments=\count169
-\nofMParguments=\count170
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count171
-\MPscratchDim=\dimen160
-\MPnumerator=\count172
-\makeMPintoPDFobject=\count173
-\everyMPtoPDFconversion=\toks28
+\scratchcounter=\count176
+\scratchdimen=\dimen163
+\scratchbox=\box34
+\nofMPsegments=\count177
+\nofMParguments=\count178
+\everyMPshowfont=\toks28
+\MPscratchCnt=\count179
+\MPscratchDim=\dimen164
+\MPnumerator=\count180
+\makeMPintoPDFobject=\count181
+\everyMPtoPDFconversion=\toks29
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
@@ -1063,56 +1091,63 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 163.
+\c@lstlisting=\count182
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 187.
 
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )<<ot1.cmap>>
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 163.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 187.
 
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )<<oml.cmap>>
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 163
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 187
 .
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )<<oms.cmap>>
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 163
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 187
 .
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 163.
+(Font)              <12> on input line 187.
 <<omx.cmap>>
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 163.
+(Font)              <8> on input line 187.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 163.
-LaTeX Font Info:    Try loading font information for T1+lmss on input line 166.
+(Font)              <6> on input line 187.
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 190.
 
 
 (/usr/share/texmf/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Overfull \hbox (7.86943pt too wide) in paragraph at lines 170--172
-\T1/lmr/bx/n/10 Palavras-chaves\T1/lmr/m/n/10 : to-ma-das in-te-li-gen-tes, sis
--te-mas ope-ra-ci-o-nais, epos-mote2. 
- []
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 221.
 
-[1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-(./abntex2-modelo-artigo.bbl (./abntex2-modelo-artigo.brf)
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] <figuras/uml.jpg, id=44, 1
+195.46625pt x 633.36626pt>
+File: figuras/uml.jpg Graphic file (type jpg)
+
+<use figuras/uml.jpg>
+Package pdftex.def Info: figuras/uml.jpg used on input line 249.
+(pdftex.def)             Requested size: 318.49861pt x 168.74004pt.
+ (./abntex2-modelo-artigo.bbl (./abntex2-modelo-artigo.brf)
 \tf@brf=\write5
 \openout5 = `abntex2-modelo-artigo.brf'.
 
-
+ [2 <./figuras/uml.jpg>]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 3.
@@ -1120,37 +1155,38 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 bibitemlist
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 13.
-) [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 290.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 290.
+) [3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 348.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 348.
  (./abntex2-modelo-artigo.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 290.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 290.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 348.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 348.
 Package rerunfilecheck Info: File `abntex2-modelo-artigo.brf' has not changed.
-(rerunfilecheck)             Checksum: C5AF7F989EB5F6F6AFE69AD1B9E13971;92.
+(rerunfilecheck)             Checksum: 4B575144E1A51E5F6E543C482402276B;45.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 290.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 348.
  ) 
 Here is how much of TeX's memory you used:
- 11354 strings out of 494929
- 162743 string characters out of 6180143
- 378539 words of memory out of 5000000
- 14457 multiletter control sequences out of 15000+600000
- 44444 words of font info for 38 fonts, out of 8000000 for 9000
+ 13166 strings out of 494929
+ 186562 string characters out of 6180143
+ 407212 words of memory out of 5000000
+ 16216 multiletter control sequences out of 15000+600000
+ 47762 words of font info for 40 fonts, out of 8000000 for 9000
  16 hyphenation exceptions out of 8191
- 39i,11n,31p,1000b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,12n,40p,1415b,1892s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/
 public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/sh
 are/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/tex
-mf/fonts/type1/public/lm/lmss12.pfb>
-Output written on abntex2-modelo-artigo.pdf (2 pages, 148319 bytes).
+mf/fonts/type1/public/lm/lmss12.pfb></usr/share/texmf/fonts/type1/public/lm/lmt
+t10.pfb>
+Output written on abntex2-modelo-artigo.pdf (3 pages, 550353 bytes).
 PDF statistics:
- 84 PDF objects out of 1000 (max. 8388607)
- 68 compressed objects within 1 object stream
- 13 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 134 PDF objects out of 1000 (max. 8388607)
+ 114 compressed objects within 2 object streams
+ 39 named destinations out of 1000 (max. 500000)
+ 82 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,28 +1,28 @@
-\hypertarget{class_previsor}{}\section{Previsor Class Reference}
+\section{Previsor Class Reference}
 \label{class_previsor}\index{Previsor@{Previsor}}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static double \hyperlink{class_previsor_a48823838f0274c4790e2333d552a2424}{prever\+Dia} (double media\+Por\+Hora\mbox{[}24\mbox{]}, int hora\+Atual)
+static double {\bf prever\+Dia} (double media\+Por\+Hora[24], int hora\+Atual)
 \item 
-static double \hyperlink{class_previsor_a10cdf169e213d6f0f49dc1ee0fe50e91}{prever\+Proprio} (double media\+Por\+Dia\mbox{[}30\mbox{]}, int dia\+Atual)
+static double {\bf prever\+Proprio} (double media\+Por\+Dia[30], int dia\+Atual)
 \item 
-static double \hyperlink{class_previsor_a42c4d66252f09dc4b2af91b500f5e38b}{prever\+Total} (\hyperlink{structinfo_tomadas}{info\+Tomadas} $\ast$tomadas, int size\+Tomadas, double previsao\+Propria)
+static double {\bf prever\+Total} ({\bf info\+Tomadas} $\ast$tomadas, int size\+Tomadas, double previsao\+Propria)
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Classe responsavel por fazer as previsoes de consumo de uma dada tomada. 
+Classe responsavel por fazer as previsoes de consumo energetico de uma dada tomada. 
 
 \subsection{Member Function Documentation}
 \index{Previsor@{Previsor}!prever\+Dia@{prever\+Dia}}
 \index{prever\+Dia@{prever\+Dia}!Previsor@{Previsor}}
-\subsubsection[{\texorpdfstring{prever\+Dia(double media\+Por\+Hora[24], int hora\+Atual)}{preverDia(double mediaPorHora[24], int horaAtual)}}]{\setlength{\rightskip}{0pt plus 5cm}static double Previsor\+::prever\+Dia (
+\subsubsection[{prever\+Dia(double media\+Por\+Hora[24], int hora\+Atual)}]{\setlength{\rightskip}{0pt plus 5cm}static double Previsor\+::prever\+Dia (
 \begin{DoxyParamCaption}
-\item[{double}]{media\+Por\+Hora\mbox{[}24\mbox{]}, }
+\item[{double}]{media\+Por\+Hora[24], }
 \item[{int}]{hora\+Atual}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_previsor_a48823838f0274c4790e2333d552a2424}{}\label{class_previsor_a48823838f0274c4790e2333d552a2424}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{class_previsor_a48823838f0274c4790e2333d552a2424}
 Preve o consumo de energia do dia. 
 \begin{DoxyParams}{Parameters}
 {\em media\+Por\+Hora} & array com o consumo medio de cada hora do dia. \\
@@ -35,12 +35,12 @@ soma\+: previsao de consumo do dia.
 \end{DoxyReturn}
 \index{Previsor@{Previsor}!prever\+Proprio@{prever\+Proprio}}
 \index{prever\+Proprio@{prever\+Proprio}!Previsor@{Previsor}}
-\subsubsection[{\texorpdfstring{prever\+Proprio(double media\+Por\+Dia[30], int dia\+Atual)}{preverProprio(double mediaPorDia[30], int diaAtual)}}]{\setlength{\rightskip}{0pt plus 5cm}static double Previsor\+::prever\+Proprio (
+\subsubsection[{prever\+Proprio(double media\+Por\+Dia[30], int dia\+Atual)}]{\setlength{\rightskip}{0pt plus 5cm}static double Previsor\+::prever\+Proprio (
 \begin{DoxyParamCaption}
-\item[{double}]{media\+Por\+Dia\mbox{[}30\mbox{]}, }
+\item[{double}]{media\+Por\+Dia[30], }
 \item[{int}]{dia\+Atual}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_previsor_a10cdf169e213d6f0f49dc1ee0fe50e91}{}\label{class_previsor_a10cdf169e213d6f0f49dc1ee0fe50e91}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{class_previsor_a10cdf169e213d6f0f49dc1ee0fe50e91}
 Preve o consumo de energia mensal. 
 \begin{DoxyParams}{Parameters}
 {\em media\+Por\+Dia} & array com os dias do mes atual. \\
@@ -53,13 +53,13 @@ soma\+: previsao do consumo mensal.
 \end{DoxyReturn}
 \index{Previsor@{Previsor}!prever\+Total@{prever\+Total}}
 \index{prever\+Total@{prever\+Total}!Previsor@{Previsor}}
-\subsubsection[{\texorpdfstring{prever\+Total(info\+Tomadas $\ast$tomadas, int size\+Tomadas, double previsao\+Propria)}{preverTotal(infoTomadas *tomadas, int sizeTomadas, double previsaoPropria)}}]{\setlength{\rightskip}{0pt plus 5cm}static double Previsor\+::prever\+Total (
+\subsubsection[{prever\+Total(info\+Tomadas $\ast$tomadas, int size\+Tomadas, double previsao\+Propria)}]{\setlength{\rightskip}{0pt plus 5cm}static double Previsor\+::prever\+Total (
 \begin{DoxyParamCaption}
 \item[{{\bf info\+Tomadas} $\ast$}]{tomadas, }
 \item[{int}]{size\+Tomadas, }
 \item[{double}]{previsao\+Propria}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_previsor_a42c4d66252f09dc4b2af91b500f5e38b}{}\label{class_previsor_a42c4d66252f09dc4b2af91b500f5e38b}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{class_previsor_a42c4d66252f09dc4b2af91b500f5e38b}
 Preve o consumo total de todas as tomadas juntas. 
 \begin{DoxyParams}{Parameters}
 {\em $\ast$tomadas} & ponteiro do struct das tomadas. \\
@@ -76,4 +76,4 @@ prever\+Total\+: previsao total de todas as tomadas juntas.
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-Tomadas.\+cc\end{DoxyCompactItemize}
+Tomadas\+Rec\+Prontas.\+cc\end{DoxyCompactItemize}

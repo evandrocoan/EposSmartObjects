@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ligar',['ligar',['../class_tomada.html#a5f106c4c14cecf4fdbb5bb167934ca3d',1,'Tomada']]]
+  ['imprimirproprio',['imprimirProprio',['../class_gerente.html#a6129ddbaff3ae8a7725079332e09a09c',1,'Gerente']]]
 ];

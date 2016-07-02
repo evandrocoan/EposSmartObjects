@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['desligar',['desligar',['../class_tomada.html#a76aeac752babc9de73d1b54e928c68b5',1,'Tomada']]]
+  ['clean',['clean',['../class_gerente.html#a5085cc98f815ac3583985ea2fc115846',1,'Gerente']]]
 ];

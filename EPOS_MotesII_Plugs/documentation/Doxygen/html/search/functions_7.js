@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mensageiro',['Mensageiro',['../class_mensageiro.html#ae9334da69814ca1c68be1ee3e8598033',1,'Mensageiro']]]
+  ['ligar',['ligar',['../class_tomada.html#a5f106c4c14cecf4fdbb5bb167934ca3d',1,'Tomada']]]
 ];

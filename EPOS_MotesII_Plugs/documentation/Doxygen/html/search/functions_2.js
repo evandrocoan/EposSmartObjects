@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['enviarmensagem',['enviarMensagem',['../class_gerente.html#a4fbc2a91b489c5567b9fc11b0907a704',1,'Gerente']]],
-  ['enviarvianic',['enviarViaNIC',['../class_mensageiro.html#a410ac197a7b420db01e11591d795adc3',1,'Mensageiro']]],
-  ['estaligado',['estaLigado',['../class_tomada.html#a686e50443c169491b162af4c50e74f58',1,'Tomada']]]
+  ['desligar',['desligar',['../class_tomada.html#a76aeac752babc9de73d1b54e928c68b5',1,'Tomada']]],
+  ['dim',['dim',['../class_tomada_dimer.html#a7479b5a4f49f6deea98b7108468ced73',1,'TomadaDimer']]],
+  ['dimled',['dimLed',['../class_tomada_dimer.html#a064595db33528772ac6e892d05c02ed9',1,'TomadaDimer']]]
 ];

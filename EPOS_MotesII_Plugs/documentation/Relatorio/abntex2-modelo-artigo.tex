@@ -46,6 +46,30 @@
 \usepackage{nomencl} 			% Lista de simbolos
 \usepackage{color}				% Controle das cores
 \usepackage{graphicx}			% Inclusão de gráficos
+
+\usepackage{listings}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=Java,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+
 % ---
 		
 % ---
@@ -81,7 +105,7 @@
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
-\titulo{Agrupamento 6: NULL : 2.2. - Controle integrado e distribuído de tomadas inteligentes}
+\titulo{Controle integrado e distribuído de tomadas inteligentes}
 \autor{Luca Fachini Campelli \and Marcio Monteiro \and  Rodrigo Pedro Marques}
 \local{Brasil}
 \data{Florianópolis, 2016}
@@ -121,8 +145,8 @@
 % ---
 % Altera as margens padrões
 % ---
-\setlrmarginsandblock{4cm}{4cm}{*}
-\setulmarginsandblock{4cm}{4cm}{*}
+\setlrmarginsandblock{3cm}{2cm}{*}
+\setulmarginsandblock{3cm}{2cm}{*}
 \checkandfixthelayout
 % ---
 
@@ -184,24 +208,58 @@
 % ----------------------------------------------------------
 \section{Introdução}
 
-	Este trabalho foi realizado por Luca Campelli, Marcio Monteiro e Rodrigo Pedro Marques para a disciplina INE5412 - Sistemas Operacionais I, no semestre 2016.1. O objetivo principal deste trabalho é implementar o descobrimento automático de tomadas na rede, fácil configuração delas, comunicação entre tomadas sobre o consumo de cada uma de modo que elas possam tomar decisão sobre o consumo. O trabalho teve início no dia 17 de abril de 2016, com previsão de entrega no dia 5 de julho de 2016.\\
-	... TO BE CONTINUED ...
+	Este trabalho foi realizado por Luca Campelli, Marcio Monteiro e Rodrigo Pedro Marques para a disciplina INE5412 - Sistemas Operacionais I, no semestre 2016.1. O objetivo principal deste trabalho é implementar o descobrimento automático de tomadas em uma rede onde elas possam tomar decisão sobre o consumo energético.
+	
+	Para a realização deste projeto, foram utilizados três placas EPOSMote II \cite{eposproject} que simularam o comportamento de tomadas inteligentes. Para que isto fosse possível, o projeto foi subdividido em partes. São elas: realizar a comunicação entre as placas via \textit{broadcast}, propor o algoritmo para consumo inteligente de energia, implementação deste algoritmo, validação e testes do algoritmo.
+	
+	Este relatório está organizado da seguinte forma: em \ref{sec:desenvolvimento} são apresentadas as etapas em maior detalhes relacionadas ao desenvolvimento deste projeto; em \ref{sec:validacaoetestes} são apresentados os testes realizados após o desenvolvimento; em \ref{sec:consideracoes} são apresentadas as considerações finais e conclusões em relação a este projeto; finalizando este relatório, na seção \ref{sec:trabalhosfuturos} apresentamos possíveis temas para serem discutidos posteriormente.
+	
+\section{Desenvolvimento} \label{sec:desenvolvimento}
+	
+	Para que o projeto pudesse ser desenvolvido, primeiramente foi necessário descobrir como era realizada a comunicação entre as placas. Para tal, foram realizados exemplos que constam na documentação do EPOSMote II sobre comunicação entre placas via \textit{broadcast}. No código a seguir é possível observar como foi implementado o código para alcançar este objetivo no projeto.
+		
+	\begin{lstlisting}
+		int Mensageiro::receberViaNIC(){
+			NIC nic;		
+			NIC::Address src;
+			unsigned char prot;
+			infoTomadas meg;
+			
+			while(1){
+				while(!nic.receive(&src, &prot,&meg,sizeof(meg)) >0);
+				if(meg.address != 0){
+					gerente->receberMensagem(meg);
+				}
+			meg.address = 0;
+			}
+			return 0;
+		}	
+		
+		Mensageiro::Mensageiro(Gerente * gnt){
+			gerente = gnt;
+			Thread *thread;
+			thread = new Thread( \&receberViaNIC );
+		}
+	\end{lstlisting}
+	
+	Como é possível observar, foi utilizada a função NIC, já presente na no EPOSMoteII. Ela é responsável por prover acesso à redes. 
+	
+	\begin{figure}[b]
+		\centering
+		\includegraphics[width=0.7\linewidth]{figuras/uml}
+		\caption[Short]{UML do Projeto.}
+		\label{fig:uml}
+	\end{figure}
+	
+	A figura \ref{fig:uml} apresenta a modelagem em UML do projeto. A classe \textit{Tomada} representa uma tomada física, inteligente ou não. Neste projeto foram consideradas quatro tipos de tomadas: uma tomada simples, que liga e desliga; uma tomada com \textit{dimer}, que possibilita \textit{dimerizar (controlar)} a energia que passa por ela; uma tomada com sensor, onde é possível medir o seu consumo, colocar em modo de economia de energia, atribuir um limite de consumo, atribuir uma prioridade a ela e verificar o seu consumo mínimo e máximo já registrado; e uma tomada \textit{top} que possui todas as funções das tomadas citadas anteriormente. Cada tomada possui um \textit{Gerente Monitor} responsável por monitorar e atualizar a tomada, além de enviar e receber mensagens de outras tomadas no ambiente. Além disto, ele mantem o endereço de todas as tomadas no ambiente, guarda informações (previsão do consumo de energia, endereço da tomada, prioridade e tipo) da tomada monitorada por ele e também possui um \textit{Mensageiro} e um \textit{Previsor}. A classe \textit{Mensageiro} é responsável por receber mensagens via NIC ou UART. O \textit{Previsor} auxilia o gerente realizando as previsões de consumo da tomada gerenciada por ele. Esta classe pode fazer as previsões de consumo diárias, mensal e de todas as tomadas do ambiente. 
 
-\section{Desenvolvimento}
+\section{Validação e Testes} \label{sec:validacaoetestes}
 
-	Inicialmente, nós estudamos a documentação do EPOSII \cite{eposproject} e fizemos testes com ele para nos familiarizarmos com a plataforma para qual iríamos desenvolver. Tivemos algumas dificuldades para conseguir compila-lo e rodar alguns comandos, mas conversando com outros grupos conseguimos resolver estes problemas rapidamente. Durante este processo, percebemos alguns erros na documentação e os reportamos para o laboratório LISHA \cite{lishahomepage}.
-	
-	Depois disto, nós iniciamos a etapa de planejamento do projeto, onde definimos quais seriam os objetivos principais, qual o papel de cada membro, quais atividades seriam necessárias para atingir o objetivo e as datas de entrega de cada uma delas. Para uma melhor visualização das atividades e seus prazos de entrega, criamos um gráfico de Gantt. Conversando com o professor, percebemos que havia algumas falhas no planejamento, onde alguns objetivos estavam incorretos, pois eram metodologias, algumas atividades não eram necessárias ou estavam inconsistente com os prazos de realização. Fizemos as devidas correções dos mesmos e iniciamos a fase de desenvolvimento.
-	
-	No início da fase de desenvolvimento, nos reunimos para criarmos um esboço do UML do programa que iríamos criar. Percebemos também que seria melhor nos reunirmos pelo menos uma vez por semana para conseguir concluir o projeto a tempo. A partir dai, iniciamos a implementação do código. Percebemos que o UML inicial foi projetado com algumas falhas e poderia ser melhorado. Durante este processo, entramos em contato diversas vezes com o professor para verificar se estávamos seguindo no caminho certo e onde poderíamos melhorar o programa. Esta parte foi fundamental para o nosso trabalho pois o professor nos deu vários conselhos de melhorias e assim conseguimos seguir realizar o trabalho. Como o nosso trabalho envolve comunicação entre tomadas, tivemos que aprender como fazer os EPOS se comunicarem via broadcast para receber e enviar mensagem. Assim, é possível fazer com que as tomadas enviem e recebam previsão de consumos umas das outras. 
-	
-	... TO BE CONTINUED ...
-	
-% ---
-% Conclusão
-% ---
-\section{Considerações finais}
-	Aqui vamos concluir o relatório.
+
+\section{Considerações Finais} \label{sec:consideracoes}
+
+
+\section{Trabalhos Futuros} \label{sec:trabalhosfuturos}
 % ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
 % ----------------------------------------------------------

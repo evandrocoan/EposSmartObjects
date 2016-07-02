@@ -1,4 +1,4 @@
-\hypertarget{class_tomada_com_sensor}{}\section{Tomada\+Com\+Sensor Class Reference}
+\section{Tomada\+Com\+Sensor Class Reference}
 \label{class_tomada_com_sensor}\index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
 
 
@@ -11,40 +11,46 @@ Collaboration diagram for Tomada\+Com\+Sensor\+:
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-double \hyperlink{class_tomada_com_sensor_a86863fd1247796586fbbc9950b52dd51}{get\+Consumo} ()
+double {\bf get\+Consumo} ()
 \item 
-int \hyperlink{class_tomada_com_sensor_a60a382cc5af2a67b7aefd2019a5245a4}{get\+Address} ()
+int {\bf get\+Tipo} ()
 \item 
-double \hyperlink{class_tomada_com_sensor_ac59db704fdb9ba7730f353c92761765f}{get\+Consumo\+Maximo} ()
+int {\bf get\+Address} ()
 \item 
-double \hyperlink{class_tomada_com_sensor_a3ee91163d518b0f4bb4284db6355e9f9}{get\+Consumo\+Minimo} ()
+double {\bf get\+Consumo\+Maximo} ()
 \item 
-double \hyperlink{class_tomada_com_sensor_a96cc73a234365e58b86279fa4565996a}{get\+Media\+De\+Consumo} ()
+double {\bf get\+Consumo\+Minimo} ()
 \item 
-bool \hyperlink{class_tomada_com_sensor_acc8de01f04ff3336d54807f7a6de198f}{get\+Power\+Saving\+Mode} ()
+double {\bf get\+Media\+De\+Consumo} ()
 \item 
-void \hyperlink{class_tomada_com_sensor_a72a42bf803f7914bb79835f57add720d}{set\+Power\+Saving\+Mode} (bool on)
+bool {\bf get\+Power\+Saving\+Mode} ()
 \item 
-int \hyperlink{class_tomada_com_sensor_afed2d87ae49747662e108643aea71978}{get\+Prioridade} ()
+void {\bf set\+Power\+Saving\+Mode} (bool on)
 \item 
-void \hyperlink{class_tomada_com_sensor_a05ce7d40a22649d2eba33c5154667c6a}{set\+Prioridade} (int prio)
+void {\bf set\+Power\+Saving\+Limit} (int limit)
 \item 
-\hyperlink{class_tomada_com_sensor_a573bfc2d00e10984b36554779b0a7bf5}{Tomada\+Com\+Sensor} ()
+int {\bf get\+Power\+Saving\+Limit} ()
+\item 
+int {\bf get\+Prioridade} ()
+\item 
+void {\bf set\+Prioridade} (int prio=0)
+\item 
+{\bf Tomada\+Com\+Sensor} ()
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-int \hyperlink{class_tomada_com_sensor_ae1a501c37fc9c15a349037e864b01799}{prioridade}
+int {\bf prioridade}
 \item 
-double \hyperlink{class_tomada_com_sensor_a440362ba4d8472419193464ad23fc99a}{consumo\+Maximo}
+double {\bf consumo\+Maximo}
 \item 
-double \hyperlink{class_tomada_com_sensor_a7cc1313f4b832ff86c0a2e64075ff1fb}{consumo\+Minimo}
+double {\bf consumo\+Minimo}
 \item 
-bool \hyperlink{class_tomada_com_sensor_a7028d0e9bff4c0986666786b61d75941}{Power\+Saving}
+bool {\bf Power\+Saving}
 \item 
-int \hyperlink{class_tomada_com_sensor_adde0b682dd9716b2ccd3199f66889899}{address}
+int {\bf address}
 \item 
-double \hyperlink{class_tomada_com_sensor_a4fa168e84ddba87d544002931e555c1c}{limite}
+double {\bf limite}
 \end{DoxyCompactItemize}
 
 
@@ -54,51 +60,51 @@ Classe que representa uma tomada com sensor.
 \subsection{Constructor \& Destructor Documentation}
 \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
 \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{Tomada\+Com\+Sensor()}{TomadaComSensor()}}]{\setlength{\rightskip}{0pt plus 5cm}Tomada\+Com\+Sensor\+::\+Tomada\+Com\+Sensor (
+\subsubsection[{Tomada\+Com\+Sensor()}]{\setlength{\rightskip}{0pt plus 5cm}Tomada\+Com\+Sensor\+::\+Tomada\+Com\+Sensor (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_tomada_com_sensor_a573bfc2d00e10984b36554779b0a7bf5}{}\label{class_tomada_com_sensor_a573bfc2d00e10984b36554779b0a7bf5}
-Construtor da \hyperlink{class_tomada}{Tomada} com Sensor. 
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_com_sensor_a573bfc2d00e10984b36554779b0a7bf5}
+Construtor da \doxyref{Tomada}{p.}{class_tomada} com Sensor. 
 
 \subsection{Member Function Documentation}
 \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!get\+Address@{get\+Address}}
 \index{get\+Address@{get\+Address}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{get\+Address()}{getAddress()}}]{\setlength{\rightskip}{0pt plus 5cm}int Tomada\+Com\+Sensor\+::get\+Address (
+\subsubsection[{get\+Address()}]{\setlength{\rightskip}{0pt plus 5cm}int Tomada\+Com\+Sensor\+::get\+Address (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_tomada_com_sensor_a60a382cc5af2a67b7aefd2019a5245a4}{}\label{class_tomada_com_sensor_a60a382cc5af2a67b7aefd2019a5245a4}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_com_sensor_a60a382cc5af2a67b7aefd2019a5245a4}
 Busca o endereco da tomada. \begin{DoxyReturn}{Returns}
 address\+: endereco da tomada. 
 \end{DoxyReturn}
 \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!get\+Consumo@{get\+Consumo}}
 \index{get\+Consumo@{get\+Consumo}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{get\+Consumo()}{getConsumo()}}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::get\+Consumo (
+\subsubsection[{get\+Consumo()}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::get\+Consumo (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_tomada_com_sensor_a86863fd1247796586fbbc9950b52dd51}{}\label{class_tomada_com_sensor_a86863fd1247796586fbbc9950b52dd51}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_com_sensor_a86863fd1247796586fbbc9950b52dd51}
 Busca o consumo atual da tomada. \begin{DoxyReturn}{Returns}
-consumo\+: consumo atual de energia da tomada. Caso ela estiver desligada retorna -\/1. 
+consumo\+: consumo atual de energia da tomada. Caso ela estiver desligada retorna 0. 
 \end{DoxyReturn}
 \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!get\+Consumo\+Maximo@{get\+Consumo\+Maximo}}
 \index{get\+Consumo\+Maximo@{get\+Consumo\+Maximo}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{get\+Consumo\+Maximo()}{getConsumoMaximo()}}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::get\+Consumo\+Maximo (
+\subsubsection[{get\+Consumo\+Maximo()}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::get\+Consumo\+Maximo (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_tomada_com_sensor_ac59db704fdb9ba7730f353c92761765f}{}\label{class_tomada_com_sensor_ac59db704fdb9ba7730f353c92761765f}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_com_sensor_ac59db704fdb9ba7730f353c92761765f}
 Busca o consumo maximo que a tomada ja consumiu. \begin{DoxyReturn}{Returns}
 consumo\+Maximo\+: consumo maximo que a tomada ja consumiu. 
 \end{DoxyReturn}
 \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!get\+Consumo\+Minimo@{get\+Consumo\+Minimo}}
 \index{get\+Consumo\+Minimo@{get\+Consumo\+Minimo}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{get\+Consumo\+Minimo()}{getConsumoMinimo()}}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::get\+Consumo\+Minimo (
+\subsubsection[{get\+Consumo\+Minimo()}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::get\+Consumo\+Minimo (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_tomada_com_sensor_a3ee91163d518b0f4bb4284db6355e9f9}{}\label{class_tomada_com_sensor_a3ee91163d518b0f4bb4284db6355e9f9}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_com_sensor_a3ee91163d518b0f4bb4284db6355e9f9}
 Busca o consumo minimo que a tomada ja consumiu. 
 \begin{DoxyParams}{Parameters}
 {\em consumo\+Minimo} & consumo minimo que a tomada ja consumiu. \\
@@ -106,41 +112,70 @@ Busca o consumo minimo que a tomada ja consumiu.
 \end{DoxyParams}
 \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!get\+Media\+De\+Consumo@{get\+Media\+De\+Consumo}}
 \index{get\+Media\+De\+Consumo@{get\+Media\+De\+Consumo}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{get\+Media\+De\+Consumo()}{getMediaDeConsumo()}}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::get\+Media\+De\+Consumo (
+\subsubsection[{get\+Media\+De\+Consumo()}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::get\+Media\+De\+Consumo (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_tomada_com_sensor_a96cc73a234365e58b86279fa4565996a}{}\label{class_tomada_com_sensor_a96cc73a234365e58b86279fa4565996a}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_com_sensor_a96cc73a234365e58b86279fa4565996a}
 Busca o consumo medio de energia já consumida pela tomada. \begin{DoxyReturn}{Returns}
 consumo medio de energia já consumida pela tomada. 
 \end{DoxyReturn}
-\index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!get\+Power\+Saving\+Mode@{get\+Power\+Saving\+Mode}}
-\index{get\+Power\+Saving\+Mode@{get\+Power\+Saving\+Mode}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{get\+Power\+Saving\+Mode()}{getPowerSavingMode()}}]{\setlength{\rightskip}{0pt plus 5cm}bool Tomada\+Com\+Sensor\+::get\+Power\+Saving\+Mode (
+\index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!get\+Power\+Saving\+Limit@{get\+Power\+Saving\+Limit}}
+\index{get\+Power\+Saving\+Limit@{get\+Power\+Saving\+Limit}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
+\subsubsection[{get\+Power\+Saving\+Limit()}]{\setlength{\rightskip}{0pt plus 5cm}int Tomada\+Com\+Sensor\+::get\+Power\+Saving\+Limit (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_tomada_com_sensor_acc8de01f04ff3336d54807f7a6de198f}{}\label{class_tomada_com_sensor_acc8de01f04ff3336d54807f7a6de198f}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_com_sensor_ae9399db8be31743a60a0cca1098316a5}
+Retorna o valor do limite do modo Power Saving \begin{DoxyReturn}{Returns}
+limite\+: o valor do limite do modo Power Saving 
+\end{DoxyReturn}
+\index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!get\+Power\+Saving\+Mode@{get\+Power\+Saving\+Mode}}
+\index{get\+Power\+Saving\+Mode@{get\+Power\+Saving\+Mode}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
+\subsubsection[{get\+Power\+Saving\+Mode()}]{\setlength{\rightskip}{0pt plus 5cm}bool Tomada\+Com\+Sensor\+::get\+Power\+Saving\+Mode (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_com_sensor_acc8de01f04ff3336d54807f7a6de198f}
 Retorna o estado atual do Power\+Saving. \begin{DoxyReturn}{Returns}
 Power\+Saving\+: retorna o estado atual do Power\+Saving. 
 \end{DoxyReturn}
 \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!get\+Prioridade@{get\+Prioridade}}
 \index{get\+Prioridade@{get\+Prioridade}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{get\+Prioridade()}{getPrioridade()}}]{\setlength{\rightskip}{0pt plus 5cm}int Tomada\+Com\+Sensor\+::get\+Prioridade (
+\subsubsection[{get\+Prioridade()}]{\setlength{\rightskip}{0pt plus 5cm}int Tomada\+Com\+Sensor\+::get\+Prioridade (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_tomada_com_sensor_afed2d87ae49747662e108643aea71978}{}\label{class_tomada_com_sensor_afed2d87ae49747662e108643aea71978}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_com_sensor_afed2d87ae49747662e108643aea71978}
 Busca a prioridade da tomada. \begin{DoxyReturn}{Returns}
 prioridade\+: prioridade da tomada. 
 \end{DoxyReturn}
+\index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!get\+Tipo@{get\+Tipo}}
+\index{get\+Tipo@{get\+Tipo}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
+\subsubsection[{get\+Tipo()}]{\setlength{\rightskip}{0pt plus 5cm}int Tomada\+Com\+Sensor\+::get\+Tipo (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_com_sensor_a6102b0f650faa5022f0ac535f43cbbb3}
+Retorna o tipo da tomada (0 significa que ela nao dimeriza) \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!set\+Power\+Saving\+Limit@{set\+Power\+Saving\+Limit}}
+\index{set\+Power\+Saving\+Limit@{set\+Power\+Saving\+Limit}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
+\subsubsection[{set\+Power\+Saving\+Limit(int limit)}]{\setlength{\rightskip}{0pt plus 5cm}void Tomada\+Com\+Sensor\+::set\+Power\+Saving\+Limit (
+\begin{DoxyParamCaption}
+\item[{int}]{limit}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_com_sensor_ae8739463a064203742689ea5ed1be895}
+Modifica o limite do modo Power Saving 
+\begin{DoxyParams}{Parameters}
+{\em limit} & novo valor do limite \\
+\hline
+\end{DoxyParams}
 \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!set\+Power\+Saving\+Mode@{set\+Power\+Saving\+Mode}}
 \index{set\+Power\+Saving\+Mode@{set\+Power\+Saving\+Mode}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{set\+Power\+Saving\+Mode(bool on)}{setPowerSavingMode(bool on)}}]{\setlength{\rightskip}{0pt plus 5cm}void Tomada\+Com\+Sensor\+::set\+Power\+Saving\+Mode (
+\subsubsection[{set\+Power\+Saving\+Mode(bool on)}]{\setlength{\rightskip}{0pt plus 5cm}void Tomada\+Com\+Sensor\+::set\+Power\+Saving\+Mode (
 \begin{DoxyParamCaption}
 \item[{bool}]{on}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_tomada_com_sensor_a72a42bf803f7914bb79835f57add720d}{}\label{class_tomada_com_sensor_a72a42bf803f7914bb79835f57add720d}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_com_sensor_a72a42bf803f7914bb79835f57add720d}
 Modifica o estado do Power\+Saving para o indicado atraves do parametro. 
 \begin{DoxyParams}{Parameters}
 {\em on} & valor booleano que ira alterar o estado do Power\+Saving. \\
@@ -148,11 +183,11 @@ Modifica o estado do Power\+Saving para o indicado atraves do parametro.
 \end{DoxyParams}
 \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!set\+Prioridade@{set\+Prioridade}}
 \index{set\+Prioridade@{set\+Prioridade}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{set\+Prioridade(int prio)}{setPrioridade(int prio)}}]{\setlength{\rightskip}{0pt plus 5cm}void Tomada\+Com\+Sensor\+::set\+Prioridade (
+\subsubsection[{set\+Prioridade(int prio=0)}]{\setlength{\rightskip}{0pt plus 5cm}void Tomada\+Com\+Sensor\+::set\+Prioridade (
 \begin{DoxyParamCaption}
-\item[{int}]{prio}
+\item[{int}]{prio = {\ttfamily 0}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_tomada_com_sensor_a05ce7d40a22649d2eba33c5154667c6a}{}\label{class_tomada_com_sensor_a05ce7d40a22649d2eba33c5154667c6a}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_com_sensor_a429fb88661a2d22124625b056ddfdc4e}
 Altera a prioridade da tomada para o valor indicado atraves do parametro. 
 \begin{DoxyParams}{Parameters}
 {\em prio} & valor a ser atribuido a prioridade da tomada. \\
@@ -163,24 +198,24 @@ Altera a prioridade da tomada para o valor indicado atraves do parametro.
 \subsection{Member Data Documentation}
 \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!address@{address}}
 \index{address@{address}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{address}{address}}]{\setlength{\rightskip}{0pt plus 5cm}int Tomada\+Com\+Sensor\+::address\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_tomada_com_sensor_adde0b682dd9716b2ccd3199f66889899}{}\label{class_tomada_com_sensor_adde0b682dd9716b2ccd3199f66889899}
+\subsubsection[{address}]{\setlength{\rightskip}{0pt plus 5cm}int Tomada\+Com\+Sensor\+::address\hspace{0.3cm}{\ttfamily [protected]}}\label{class_tomada_com_sensor_adde0b682dd9716b2ccd3199f66889899}
 Endereco da tomada. \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!consumo\+Maximo@{consumo\+Maximo}}
 \index{consumo\+Maximo@{consumo\+Maximo}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{consumo\+Maximo}{consumoMaximo}}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::consumo\+Maximo\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_tomada_com_sensor_a440362ba4d8472419193464ad23fc99a}{}\label{class_tomada_com_sensor_a440362ba4d8472419193464ad23fc99a}
+\subsubsection[{consumo\+Maximo}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::consumo\+Maximo\hspace{0.3cm}{\ttfamily [protected]}}\label{class_tomada_com_sensor_a440362ba4d8472419193464ad23fc99a}
 Consumo maximo ja consumido pela tomada. \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!consumo\+Minimo@{consumo\+Minimo}}
 \index{consumo\+Minimo@{consumo\+Minimo}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{consumo\+Minimo}{consumoMinimo}}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::consumo\+Minimo\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_tomada_com_sensor_a7cc1313f4b832ff86c0a2e64075ff1fb}{}\label{class_tomada_com_sensor_a7cc1313f4b832ff86c0a2e64075ff1fb}
+\subsubsection[{consumo\+Minimo}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::consumo\+Minimo\hspace{0.3cm}{\ttfamily [protected]}}\label{class_tomada_com_sensor_a7cc1313f4b832ff86c0a2e64075ff1fb}
 Consumo minimo ja consumido pela tomada. \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!limite@{limite}}
 \index{limite@{limite}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{limite}{limite}}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::limite\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_tomada_com_sensor_a4fa168e84ddba87d544002931e555c1c}{}\label{class_tomada_com_sensor_a4fa168e84ddba87d544002931e555c1c}
+\subsubsection[{limite}]{\setlength{\rightskip}{0pt plus 5cm}double Tomada\+Com\+Sensor\+::limite\hspace{0.3cm}{\ttfamily [protected]}}\label{class_tomada_com_sensor_a4fa168e84ddba87d544002931e555c1c}
 Valor limite que a tomada pode consumir de energia. \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!Power\+Saving@{Power\+Saving}}
 \index{Power\+Saving@{Power\+Saving}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{Power\+Saving}{PowerSaving}}]{\setlength{\rightskip}{0pt plus 5cm}bool Tomada\+Com\+Sensor\+::\+Power\+Saving\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_tomada_com_sensor_a7028d0e9bff4c0986666786b61d75941}{}\label{class_tomada_com_sensor_a7028d0e9bff4c0986666786b61d75941}
+\subsubsection[{Power\+Saving}]{\setlength{\rightskip}{0pt plus 5cm}bool Tomada\+Com\+Sensor\+::\+Power\+Saving\hspace{0.3cm}{\ttfamily [protected]}}\label{class_tomada_com_sensor_a7028d0e9bff4c0986666786b61d75941}
 Flag que indica se a tomada esta em Power\+Saving ou nao. \index{Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}!prioridade@{prioridade}}
 \index{prioridade@{prioridade}!Tomada\+Com\+Sensor@{Tomada\+Com\+Sensor}}
-\subsubsection[{\texorpdfstring{prioridade}{prioridade}}]{\setlength{\rightskip}{0pt plus 5cm}int Tomada\+Com\+Sensor\+::prioridade\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_tomada_com_sensor_ae1a501c37fc9c15a349037e864b01799}{}\label{class_tomada_com_sensor_ae1a501c37fc9c15a349037e864b01799}
+\subsubsection[{prioridade}]{\setlength{\rightskip}{0pt plus 5cm}int Tomada\+Com\+Sensor\+::prioridade\hspace{0.3cm}{\ttfamily [protected]}}\label{class_tomada_com_sensor_ae1a501c37fc9c15a349037e864b01799}
 Prioridade da tomada. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-Tomadas.\+cc\end{DoxyCompactItemize}
+Tomadas\+Rec\+Prontas.\+cc\end{DoxyCompactItemize}
