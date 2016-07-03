@@ -1,9 +1,9 @@
 
-#ifndef OBSERVER_H
-#define OBSERVER_H
+#ifndef OBSERVERPJ_H
+#define OBSERVERPJ_H
 
 #include "Listener.h"
-#include <list>
+
 
 namespace pj{
 
@@ -22,7 +22,6 @@ class Observer
 		virtual void notifyListeners ( Tipo t );
 
 	protected:
-		std::list<Listener<Tipo>*> listeners = std::list<Listener<Tipo>*>();
         Listener<Tipo>** lista;
         bool* occupied;
         int size;
@@ -30,14 +29,14 @@ class Observer
 };
 
 template <typename T>
- Observer<T>::Observer(int n){
+ Observer<T>::Observer(int n):size(n){
     lista = new Listener<T>*[n];
     occupied = new bool[n];
 
     for (int i=0;i<n;i++){
-        occupied=0;
+        occupied[i]=0;
     }
-    size=n;
+   // size=n;
 }
 
 
@@ -69,7 +68,7 @@ int Observer<T>::removeListener ( Listener<T>* listener ) {
 template <typename T>
 void Observer<T>::clearListener ( ) {
     for (int i=0;i<size;i++){
-        occupied=0;
+        occupied[i]=0;
     }
 }
 template <typename T>

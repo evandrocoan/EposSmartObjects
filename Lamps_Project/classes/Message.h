@@ -1,28 +1,39 @@
 #ifndef MENSAGEM
+#define MENSAGEM
 
 #include "ofstream.h"
 #include "ifstream.h"
 
-#define MESSAGESIZE 40
+#define MESSAGESIZE 38
 
 
 namespace pj
 {
+   class RadioControl;
 
-	class Message
-	{
+
+	class Message{
 
 		private:
+		    friend RadioControl;
+
 			short destiny;
 			short origin;
 			short type;
-			short size;
+			char size;
             short reach;
+            short control;
 			char data[MESSAGESIZE];
+
+
 
 		public:
 			Message()
 			{
+                if(origin>2){
+                    int a=2;
+                }
+
 			}
 
 
@@ -30,7 +41,9 @@ namespace pj
 			Message ( short destino, short origem, short type, void* data, short size, short reach = -1 )
 				:  destiny ( destino ), origin ( origem ), type ( type ), size ( size )
 			{
-
+			     if(origin>2){
+                    int a=2;
+                }
 				for ( int i = 0; i < size && i < MESSAGESIZE ; i++ ) {
 					this->data[i] = ( ( char* ) data ) [i];
 				}
@@ -43,7 +56,11 @@ namespace pj
 				destiny ( m.destiny ), origin ( m.origin ),
 				type ( m.type ), size ( m.size ), reach(m.reach)
 			{
-				for ( int i = 0; i < size; i++ ) {
+			     if(origin>2){
+                    int a=2;
+                }
+
+				for ( int i = 0; i < MESSAGESIZE; i++ ) {
 					this->data[i] = m.data[i];
 				}
 			}
@@ -52,6 +69,10 @@ namespace pj
 			Message (short destiny, short origin, short type,const T& datat, short reach = -1):
             destiny(destiny),origin(origin),type(type),reach(reach)
 			{
+			     if(origin>2){
+                    int a=2;
+                }
+
                 size = sizeof(datat);
                 char* temp = (char*)&datat;
                 for (int i=0;i< sizeof(datat) && i< sizeof(data);i++){
@@ -99,37 +120,31 @@ namespace pj
 			}
 			friend ofstream& operator<< ( ofstream& of, const Message& m )
 			{
-			    /*
-                int bufferSize = sizeof(m.destiny) + sizeof(m.origin) + sizeof(m.type) + sizeof(m.size) + sizeof(m.reach);
-                bufferSize += m.size;
-
-                char buffer[bufferSize];
-                char* ini = buffer;
-
-                *ini = m.destiny;
-                ini+= sizeof(m.destiny);
-
-                *ini = m.origin;
-                ini+= sizeof()
-                */
-
-
 				of.sendBytes( &m , sizeof(m) );
-
-
 				return of;
 			}
 
 			friend ifstream& operator>> ( ifstream& is, Message& m )
 			{
-				char buffer[sizeof ( Message )];
-				is >> buffer;
-				m = *(( Message* ) buffer);
+			    int sizez= sizeof(Message);
+				char buffer[sizez];
 
+				is.readBytes( buffer, sizez);
+				m = *(( Message* ) buffer);
+                return is;
 			}
+			int getHash(){
+                int first = ((origin & 255)<<24);
+                int second = ((destiny & 255)<<16);
+                int last = control;
+                return (first + second + last);
+			}
+        private :
+
 
 
 	};
+// Message::controlCounter =0;
 
 }
 

@@ -1,5 +1,4 @@
 #include <string.h>
-
 #ifndef IFSTREAM_H
 #define IFSTREAM_H
 namespace pj
@@ -80,7 +79,19 @@ struct ifstream
          a[i]= 0;
          return a;
     }
+    virtual void readBytes(char* buffer, int size){
+        char* inputBuffer = getBuffer();
 
+        readInput();
+
+        int length = getBufferLength();
+        for (int i=0;i<size && pointer < length;i++){
+            buffer[i] = inputBuffer[pointer];
+            pointer++;
+        }
+        pointer = 0;
+    }
+int pointer;
 protected:
     ifstream() {pointer =0;}
 
@@ -101,7 +112,7 @@ protected:
         return the maximum size of the buffer
     */
 	virtual int getBufferLength()=0;
-	int pointer;
+
 
     void _getNext(char* next)
     {

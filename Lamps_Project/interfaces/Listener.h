@@ -1,5 +1,5 @@
-#ifndef LISTENER_H
-#define LISTENER_H
+#ifndef LISTENERPJ_H
+#define LISTENERPJ_H
 
 namespace pj{
 template<class Tipo>
