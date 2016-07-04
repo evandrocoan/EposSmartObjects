@@ -1,0 +1,378 @@
+%% abtex2-modelo-artigo.tex, v<VERSION> laurocesar
+%% Copyright 2012-2013 by abnTeX2 group at http://abntex2.googlecode.com/ 
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on 
+%% http://abntex2.googlecode.com/
+%%
+%% This work consists of the files abntex2-modelo-artigo.tex and
+%% abntex2-modelo-references.bib
+%%
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Artigo Acadêmico em conformidade com
+% ABNT NBR 6022:2003: Informação e documentação - Artigo em publicação 
+% periódica científica impressa - Apresentação
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+% oneside = apenas frente
+% twocolumn = artigo em duas colunas
+\documentclass[article,11pt,oneside,a4paper,english,brazil]{abntex2}	
+
+% ---
+% PACOTES
+% ---
+
+% ---
+% Pacotes fundamentais 
+% ---
+\usepackage{cmap}				% Mapear caracteres especiais no PDF
+\usepackage{lmodern}			% Usa a fonte Latin Modern
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl} 			% Lista de simbolos
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+
+\usepackage{listings}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=Java,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+
+% ---
+		
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}				% para geração de dummy text
+% ---
+		
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+% ---
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Controle integrado e distribuído de tomadas inteligentes}
+\autor{Luca Fachini Campelli \and Marcio Monteiro \and  Rodrigo Pedro Marques}
+\local{Brasil}
+\data{Florianópolis, 2016}
+% ---
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={Modelo de artigo científico com abnTeX2},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=blue,
+		bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ---
+% Altera as margens padrões
+% ---
+\setlrmarginsandblock{3cm}{2cm}{*}
+\setulmarginsandblock{3cm}{2cm}{*}
+\checkandfixthelayout
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% Espaçamento simples
+\SingleSpacing
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+
+%---
+%
+% Se desejar escrever o artigo em duas colunas, descomente a linha abaixo
+% e a linha com o texto ``FIM DE ARTIGO EM DUAS COLUNAS''.
+% \twocolumn[    		% INICIO DE ARTIGO EM DUAS COLUNAS
+%
+%---
+% página de titulo
+\maketitle
+
+% resumo em português
+\begin{resumoumacoluna}
+	Atualmente, há um alto consumo energético desnecessário que pode ser evitado. Tendo este fato em vista, buscou-se propor uma solução que pudesse amenizar este problema. Com o auxilio de placas EPOSMoteII, foi desenvolvido um algoritmo para um consumo energético mais inteligente para tomadas equipadas com a placa.  
+	
+	\vspace{\onelineskip}
+	
+	\noindent
+	\textbf{Palavras-chaves}: tomadas inteligentes, sistemas operacionais, eposmote2.
+\end{resumoumacoluna}
+
+% ]  				% FIM DE ARTIGO EM DUAS COLUNAS
+% ---
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+\section{Introdução}
+
+	Este trabalho foi realizado para a disciplina INE5412 - Sistemas Operacionais I, no semestre 2016.1. O objetivo principal deste trabalho é implementar o descobrimento automático de tomadas em uma rede onde elas possam tomar decisão sobre o consumo energético.
+	
+	Para a realização deste projeto, foram utilizados três placas EPOSMote II \cite{eposproject} que simularam o comportamento de tomadas inteligentes. Para que isto fosse possível, o projeto foi subdividido em partes. São elas: realizar a comunicação entre as placas via \textit{broadcast}, propor o algoritmo para consumo inteligente de energia, implementação deste algoritmo, validação e testes do algoritmo.
+	
+	Este relatório está organizado da seguinte forma: em \ref{sec:desenvolvimento} são apresentadas as etapas em maior detalhes relacionadas ao desenvolvimento deste projeto; em \ref{sec:validacaoetestes} são apresentados os testes realizados após o desenvolvimento; em \ref{sec:consideracoes} são apresentadas as considerações finais e conclusões em relação a este projeto; finalizando este relatório, na seção \ref{sec:trabalhosfuturos} apresentamos possíveis temas para serem discutidos posteriormente.
+	
+\section{Desenvolvimento} \label{sec:desenvolvimento}
+	
+	Para que o projeto pudesse ser desenvolvido, primeiramente foi necessário descobrir como era realizada a comunicação entre as placas. Para tal, foram realizados exemplos que constam na documentação do EPOSMote II sobre comunicação entre placas via \textit{broadcast}. Em \ref{apen:implementacaoNIC} é possível contemplar como foi implementado o código para alcançar este objetivo no projeto. Como é possível observar, foi utilizada a função NIC, já presente na no EPOSMoteII onde ela é responsável por prover acesso à redes. 
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\linewidth]{figuras/uml}
+		\caption[Short]{UML do Projeto.}
+		\label{fig:uml}
+	\end{figure}
+	
+	A figura \ref{fig:uml} apresenta a modelagem em UML do projeto. A classe \textit{Tomada} representa uma tomada física, inteligente ou não. Neste projeto foram consideradas quatro tipos de tomadas: uma tomada simples, que liga e desliga; uma tomada com \textit{dimer}, que possibilita \textit{dimerizar (controlar)} a energia que passa por ela; uma tomada com sensor, onde é possível medir o seu consumo, colocar em modo de economia de energia, atribuir um limite de consumo, atribuir uma prioridade a ela e verificar o seu consumo mínimo e máximo já registrado; e uma tomada \textit{top} que possui todas as funções das tomadas citadas anteriormente. Cada tomada possui um \textit{Gerente Monitor} responsável por monitorar e atualizar a tomada, além de enviar e receber mensagens de outras tomadas no ambiente. Além disto, ele mantem o endereço de todas as tomadas no ambiente, guarda informações (previsão do consumo de energia, endereço da tomada, prioridade e tipo) da tomada monitorada por ele e também possui um \textit{Mensageiro} e um \textit{Previsor}. A classe \textit{Mensageiro} é responsável por receber mensagens via NIC ou UART. O \textit{Previsor} auxilia o gerente realizando as previsões de consumo da tomada gerenciada por ele. Esta classe pode fazer as previsões de consumo diárias, mensal e de todas as tomadas do ambiente. 
+
+\section{Validação e Testes} \label{sec:validacaoetestes}
+	
+	Os testes e validação se deram por algumas alterações no código e observação do comportamento do ambiente. Na figura \ref{fig:receptor2tomadas} é possível observar uma tela geral do comportamento das tomadas. Elas ficam conversando entre si atualizando o seu consumo e previsão de consumo geral. 
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.3\linewidth, height=0.5\textheight]{figuras/receptor2tomadas}
+		\caption[Short]{Tela Geral das Tomadas Funcionando.}
+		\label{fig:receptor2tomadas}
+	\end{figure}
+	
+	Inicialmente, simulamos um ambiente com duas tomadas onde uma tomada diz que não irá tomar uma ação. Para isto, ela envia a mensagem "NONE" para as outras. Como as outras tomadas tem prioridade maior àquela que enviou a mensagem NONE, elas são obrigadas a tomar uma ação. A imagem \ref{fig:ligadesliga} mostra este funcionamento. Vale ressaltar que o \textit{print} NONE foi enviado pela tomada "tomada minha".
+	
+	Outro teste que foi realizado foi na questão de ligar e desligar quando possível ou passa da previsão de consumo permitida. Por exemplo, na imagem \ref{fig:ligadesliga} é possível observar a "tomada 0" previu que a previsão geral ia ser acima $47760$, então ela mandou uma mensagem "DESLIGAR", informando assim que ela irá desligar no próximo ciclo. Enquanto a tomada está desligada e a previsão geral mais o consumo máximo da tomada desligada é menor que a permitida, então ela liga.
+		
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.3\linewidth, height=0.5\textheight]{figuras/ligadesliga.png}
+		\caption[Short]{Tela de Demonstração de Ação Liga/Desliga.}
+		\label{fig:ligadesliga}
+	\end{figure}
+
+\section{Considerações Finais e Trabalhos Futuros} \label{sec:consideracoes}
+
+		Neste projeto foi desenvolvimento um algoritmo de consumo energético inteligente direcionado ao EPOSMoteII. Foram realizados diversos testes a fim de deixa-lo o mais aprimorado possível. Na seção \ref{sec:validacaoetestes} é possível observar alguns exemplos de funcionamento do mesmo.
+		
+		Durante o desenvolvimento deste projeto, percebemos que a área da computação pode ir muito além do que apenas um computador pessoal, de mesa ou \textit{mainframes}. É possível aplica-la em diversas áreas desde empresas, até itens mais comuns como tomadas ou lâmpadas possíveis de encontrar em casa. Este projeto nos ajudou a refletir sobre o impacto que ele pode causar em questão de consumo energético. Por exemplo, dentro de uma casa, seria possível desligar todas as tomadas do ambiente, deixando apenas as essenciais ligadas (a da geladeira por exemplo), economizando energia e evitando possíveis sobrecargas elétrica. Isto aplicado em uma empresa grande, o impacto disto poderá ser ainda maior.
+		
+		Este trabalho é apenas um estudo inicial de um tópico atualmente na área da computação que ainda não existe um foco muito grande. Considerando que o gasto energético ainda é um problema global, este trabalho visa sugerir possíveis soluções para diminuição do gasto energético não somente a nível residencial, mas também em nível de indústria que é umas das principais responsáveis pelo grande consumo energético atualmente.
+	
+	\subsection{Trabalhos Futuros} \label{sec:trabalhosfuturos}
+	
+		Como trabalhos futuros pode-se apontar:
+		\begin{itemize}
+			\item Desenvolvimento de um aplicativo para \textit{smartphones} que possibilite a configuração das tomadas.
+			\item Através do aplicativo citado anteriormente, fazer com que a tomada reconheça o usuário e se autoconfigure para as configurações pré definidas pelo usuário.
+			\item Integrar o algoritmo de consumo inteligente em luminárias e outros itens inteligentes.
+			\item Através do aplicativo citado no primeiro item, fazer um reconhecimento de proximidade, onde os itens que se encontram na mesma sala que o usuário permaneçam ligados de acordo com o perfil configurado, e os itens fora dessa se desliguem (de acordo com a prioridade) a fim de economizar energia.
+			\item Análise de um ambiente sem tomadas inteligentes e outro apenas com tomadas inteligentes com este algoritmo aplicado.
+		\end{itemize}
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{abntex2-modelo-references}
+
+% ----------------------------------------------------------
+% Glossário
+% ----------------------------------------------------------
+%
+% Há diversas soluções prontas para glossário em LaTeX. 
+% Consulte o manual do abnTeX2 para obter sugestões.
+%
+%\glossary
+
+% ----------------------------------------------------------
+% Apêndices
+% ----------------------------------------------------------
+
+% ---
+% Inicia os apêndices
+% ---
+\newpage
+\begin{apendicesenv}
+
+%% ----------------------------------------------------------
+\chapter{Implementacao do Recebimento de Mensagens} \label{apen:implementacaoNIC}
+	\begin{lstlisting}
+		int Mensageiro::receberViaNIC(){
+		NIC nic;		
+		NIC::Address src;
+		unsigned char prot;
+		infoTomadas meg;
+		
+		while(1){
+		while(!nic.receive(&src, &prot,&meg,sizeof(meg)) >0);
+		if(meg.address != 0){
+		gerente->receberMensagem(meg);
+		}
+		meg.address = 0;
+		}
+		return 0;
+		}	
+		
+		Mensageiro::Mensageiro(Gerente * gnt){
+		gerente = gnt;
+		Thread *thread;
+		thread = new Thread( \&receberViaNIC );
+		}
+	\end{lstlisting}
+
+%% ----------------------------------------------------------
+%
+\end{apendicesenv}
+% ---
+
+% ----------------------------------------------------------
+% Anexos
+% ----------------------------------------------------------
+%\cftinserthook{toc}{AAA}
+% ---
+% Inicia os anexos
+% ---
+%\anexos
+%\begin{anexosenv}
+%
+%% ---
+%\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis
+%parturient montes nascetur ridiculus mus}
+%% ---
+%
+%\lipsum[31]
+%
+%\end{anexosenv}
+
+
+% ---
+% Título e resumo em língua estrangeira
+% ---
+
+% \twocolumn[    		% INICIO DE ARTIGO EM DUAS COLUNAS
+
+% titulo em inglês
+%\titulo{Canonical academic article model with \abnTeX}
+%\emptythanks
+%\maketitle
+
+% resumo em português
+%\renewcommand{\resumoname}{Abstract}
+%\begin{resumoumacoluna}
+% \begin{otherlanguage*}{english}
+%   According to ABNT NBR 6022:2003, an abstract in foreign language is a back
+%   matter mandatory element.
+%
+%   \vspace{\onelineskip}
+% 
+%   \noindent
+%   \textbf{Key-words}: latex. abntex.
+% \end{otherlanguage*}  
+%\end{resumoumacoluna}
+
+% ]  				% FIM DE ARTIGO EM DUAS COLUNAS
+% ---
+
+\end{document}

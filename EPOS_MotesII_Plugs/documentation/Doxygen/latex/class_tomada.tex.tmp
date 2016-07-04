@@ -1,0 +1,82 @@
+\section{Tomada Class Reference}
+\label{class_tomada}\index{Tomada@{Tomada}}
+
+
+Inheritance diagram for Tomada\+:
+% FIG 0
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bf esta\+Ligado} ()
+\item 
+void {\bf ligar} ()
+\item 
+void {\bf desligar} ()
+\item 
+{\bf Tomada} ()
+\item 
+int {\bf get\+Tipo} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bf ligado}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe que representa uma tomada. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Tomada@{Tomada}!Tomada@{Tomada}}
+\index{Tomada@{Tomada}!Tomada@{Tomada}}
+\subsubsection[{Tomada()}]{\setlength{\rightskip}{0pt plus 5cm}Tomada\+::\+Tomada (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_a452fa24acfdd7c635da2227331bab6dd}
+Construtor da tomada. Inicialmente a tomada inicia desligada. 
+
+\subsection{Member Function Documentation}
+\index{Tomada@{Tomada}!desligar@{desligar}}
+\index{desligar@{desligar}!Tomada@{Tomada}}
+\subsubsection[{desligar()}]{\setlength{\rightskip}{0pt plus 5cm}void Tomada\+::desligar (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_a76aeac752babc9de73d1b54e928c68b5}
+Desliga a tomada. \index{Tomada@{Tomada}!esta\+Ligado@{esta\+Ligado}}
+\index{esta\+Ligado@{esta\+Ligado}!Tomada@{Tomada}}
+\subsubsection[{esta\+Ligado()}]{\setlength{\rightskip}{0pt plus 5cm}bool Tomada\+::esta\+Ligado (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_a686e50443c169491b162af4c50e74f58}
+Verifica se a tomada esta ligada ou nao. \begin{DoxyReturn}{Returns}
+ligado\+: valor que indica se a tomada esta ligada ou nao. 
+\end{DoxyReturn}
+\index{Tomada@{Tomada}!get\+Tipo@{get\+Tipo}}
+\index{get\+Tipo@{get\+Tipo}!Tomada@{Tomada}}
+\subsubsection[{get\+Tipo()}]{\setlength{\rightskip}{0pt plus 5cm}int Tomada\+::get\+Tipo (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_ab254461afa748d6004e59942c121480e}
+Retorna o tipo da tomada (-\/1 significa que esta tomada nao tem gerente) \index{Tomada@{Tomada}!ligar@{ligar}}
+\index{ligar@{ligar}!Tomada@{Tomada}}
+\subsubsection[{ligar()}]{\setlength{\rightskip}{0pt plus 5cm}void Tomada\+::ligar (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_tomada_a5f106c4c14cecf4fdbb5bb167934ca3d}
+Liga a tomada. 
+
+\subsection{Member Data Documentation}
+\index{Tomada@{Tomada}!ligado@{ligado}}
+\index{ligado@{ligado}!Tomada@{Tomada}}
+\subsubsection[{ligado}]{\setlength{\rightskip}{0pt plus 5cm}bool Tomada\+::ligado\hspace{0.3cm}{\ttfamily [protected]}}\label{class_tomada_a43288001cb6eeb103fe47228ba604cab}
+Flag que indica se a tomada esta ligada ou nao. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tomadas\+Rec\+Prontas.\+cc\end{DoxyCompactItemize}

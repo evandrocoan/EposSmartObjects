@@ -1,0 +1,153 @@
+\section{Gerente Class Reference}
+\label{class_gerente}\index{Gerente@{Gerente}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf enviar\+Mensagem} (int tipo)
+\item 
+void {\bf receber\+U\+A\+RT} (char cmd[$\,$])
+\item 
+void {\bf receber\+Mensagem} ({\bf info\+Tomadas} msg)
+\item 
+void {\bf clean} ()
+\item 
+void {\bf fazer\+Previsao\+Propria} ()
+\item 
+void {\bf fazer\+Previsao\+Total} ()
+\item 
+void {\bf adicionar\+Tomada} ({\bf info\+Tomadas} t)
+\item 
+void {\bf imprimir\+Proprio} ()
+\item 
+void {\bfseries imprimir\+Array} ()\label{class_gerente_a4e78cecf07b4f1e85812ba6b6befaa84}
+
+\item 
+void {\bf tomada\+Inteligente} ()
+\item 
+{\bf Gerente} ({\bf Tomada\+Com\+Sensor} t)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int {\bf start} ({\bf Gerente} $\ast$g)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe responsavel por gerenciar a tomada e manter atualizada. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Gerente@{Gerente}!Gerente@{Gerente}}
+\index{Gerente@{Gerente}!Gerente@{Gerente}}
+\subsubsection[{Gerente(\+Tomada\+Com\+Sensor t)}]{\setlength{\rightskip}{0pt plus 5cm}Gerente\+::\+Gerente (
+\begin{DoxyParamCaption}
+\item[{{\bf Tomada\+Com\+Sensor}}]{t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_gerente_a62fdec52bc3522f7633216630941696c}
+Construtor da classe \doxyref{Gerente}{p.}{class_gerente} 
+\begin{DoxyParams}{Parameters}
+{\em Tomada\+Com\+Sensot} & t \\
+\hline
+{\em tomada} & t \\
+\hline
+{\em msngr} & this \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Gerente@{Gerente}!adicionar\+Tomada@{adicionar\+Tomada}}
+\index{adicionar\+Tomada@{adicionar\+Tomada}!Gerente@{Gerente}}
+\subsubsection[{adicionar\+Tomada(info\+Tomadas t)}]{\setlength{\rightskip}{0pt plus 5cm}void Gerente\+::adicionar\+Tomada (
+\begin{DoxyParamCaption}
+\item[{{\bf info\+Tomadas}}]{t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_gerente_aeb96a33350b1328376cbd516ef08efc9}
+Metodo sem retorno que adiciona uma tomada ao array de tomadas externas. 
+\begin{DoxyParams}{Parameters}
+{\em \doxyref{info\+Tomadas}{p.}{structinfo_tomadas}} & t \\
+\hline
+\end{DoxyParams}
+\index{Gerente@{Gerente}!clean@{clean}}
+\index{clean@{clean}!Gerente@{Gerente}}
+\subsubsection[{clean()}]{\setlength{\rightskip}{0pt plus 5cm}void Gerente\+::clean (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_gerente_a5085cc98f815ac3583985ea2fc115846}
+Metodo sem retorno que limpa as posicoes da mensagem para que sejam reescritas \index{Gerente@{Gerente}!enviar\+Mensagem@{enviar\+Mensagem}}
+\index{enviar\+Mensagem@{enviar\+Mensagem}!Gerente@{Gerente}}
+\subsubsection[{enviar\+Mensagem(int tipo)}]{\setlength{\rightskip}{0pt plus 5cm}void Gerente\+::enviar\+Mensagem (
+\begin{DoxyParamCaption}
+\item[{int}]{tipo}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_gerente_a4fbc2a91b489c5567b9fc11b0907a704}
+Metodo sem retorno para enviar atualizacoes sobre a tomada. 
+\begin{DoxyParams}{Parameters}
+{\em int} & tipo \\
+\hline
+\end{DoxyParams}
+\index{Gerente@{Gerente}!fazer\+Previsao\+Propria@{fazer\+Previsao\+Propria}}
+\index{fazer\+Previsao\+Propria@{fazer\+Previsao\+Propria}!Gerente@{Gerente}}
+\subsubsection[{fazer\+Previsao\+Propria()}]{\setlength{\rightskip}{0pt plus 5cm}void Gerente\+::fazer\+Previsao\+Propria (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_gerente_a8e830bfb1e376abc966d8fde95eb7f0a}
+Metodo sem retorno que faz o calculo da previsao de consumo. \index{Gerente@{Gerente}!fazer\+Previsao\+Total@{fazer\+Previsao\+Total}}
+\index{fazer\+Previsao\+Total@{fazer\+Previsao\+Total}!Gerente@{Gerente}}
+\subsubsection[{fazer\+Previsao\+Total()}]{\setlength{\rightskip}{0pt plus 5cm}void Gerente\+::fazer\+Previsao\+Total (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_gerente_a1d9686e6c3d4ffdf414f43bd715badc4}
+Metodo sem retorno que faz o calculo da previsao de consumo total das tomadas. \index{Gerente@{Gerente}!imprimir\+Proprio@{imprimir\+Proprio}}
+\index{imprimir\+Proprio@{imprimir\+Proprio}!Gerente@{Gerente}}
+\subsubsection[{imprimir\+Proprio()}]{\setlength{\rightskip}{0pt plus 5cm}void Gerente\+::imprimir\+Proprio (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_gerente_a6129ddbaff3ae8a7725079332e09a09c}
+Metodo sem retorno para imprimir o array de tomadas externas. \index{Gerente@{Gerente}!receber\+Mensagem@{receber\+Mensagem}}
+\index{receber\+Mensagem@{receber\+Mensagem}!Gerente@{Gerente}}
+\subsubsection[{receber\+Mensagem(info\+Tomadas msg)}]{\setlength{\rightskip}{0pt plus 5cm}void Gerente\+::receber\+Mensagem (
+\begin{DoxyParamCaption}
+\item[{{\bf info\+Tomadas}}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_gerente_aaa313dd3e4f2d41a11386fc1c70943f6}
+Metodo sem retorno para receber atualizacoes sobre as demais tomadas da rede. 
+\begin{DoxyParams}{Parameters}
+{\em infor\+Tomadas} & msg \\
+\hline
+\end{DoxyParams}
+\index{Gerente@{Gerente}!receber\+U\+A\+RT@{receber\+U\+A\+RT}}
+\index{receber\+U\+A\+RT@{receber\+U\+A\+RT}!Gerente@{Gerente}}
+\subsubsection[{receber\+U\+A\+R\+T(char cmd[])}]{\setlength{\rightskip}{0pt plus 5cm}void Gerente\+::receber\+U\+A\+RT (
+\begin{DoxyParamCaption}
+\item[{char}]{cmd[$\,$]}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_gerente_a5425bc47091ceb11ca48b5c0962aa8aa}
+Metodo sem retorno para receber comandos U\+A\+RT 
+\begin{DoxyParams}{Parameters}
+{\em infor\+Tomadas} & msg \\
+\hline
+\end{DoxyParams}
+\index{Gerente@{Gerente}!start@{start}}
+\index{start@{start}!Gerente@{Gerente}}
+\subsubsection[{start(\+Gerente $\ast$g)}]{\setlength{\rightskip}{0pt plus 5cm}static int Gerente\+::start (
+\begin{DoxyParamCaption}
+\item[{{\bf Gerente} $\ast$}]{g}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{class_gerente_adc22b58d09105502c254a96c1b2fb677}
+Metodo que a thread de gerencia deveria executar nao implementado por motivos de incompatibilidade do timer com o N\+IC \index{Gerente@{Gerente}!tomada\+Inteligente@{tomada\+Inteligente}}
+\index{tomada\+Inteligente@{tomada\+Inteligente}!Gerente@{Gerente}}
+\subsubsection[{tomada\+Inteligente()}]{\setlength{\rightskip}{0pt plus 5cm}void Gerente\+::tomada\+Inteligente (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_gerente_add667faf8578e2b829950aff0c2dd7f7}
+Metodo principal que calcula as acoes que uma tomada ira tomar 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tomadas\+Rec\+Prontas.\+cc\end{DoxyCompactItemize}
