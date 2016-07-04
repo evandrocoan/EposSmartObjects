@@ -15,55 +15,7 @@
 */
 
 
-/**
- * DO NOT REMOVE IT! Always move this into the main include linear order.
- * 
- * #define __SYS_NS	   System
- * #define __USING_SYS using namespace __SYS_NS
- */
-__USING_SYS;
-
-
-#include <utility/ostream.h>
-#include <semaphore.h>
-
-#include <cstdarg>
-#include <cstdio>
-#include <unistd.h>
-#include <stdio.h>
-#include <cstring>
-
-#include <headers/lamps_project_debugger.h>
-#include <headers/array_operations.h>
-#include <headers/software_version.h>
-
-#include <utility/malloc.h>
-#include <utility/list.h>
-#include <utility/vector.h>
-#include <utility/list.h>
-#include <machine.h>
-#include <alarm.h>
-#include <sensor.h>
-#include <battery.h>
-#include <uart.h>
-#include <thread.h>
-#include <mutex.h>
-#include <semaphore.h>
-#include <traits.h>
-
-#include <classes/UserRegistry.cc>
-#include <classes/LampConfiguration.cc>
-#include <classes/Message.cc>
-#include <interfaces/SmartObjectCommunication.h>
-#include <interfaces/CommunicationStrategyObserver.h>
-#include <classes/CommunicationSubject.cc>
-#include <classes/Usb.cc>
-#include <classes/Radio.cc>
-#include <classes/Lamp.cc>
-#include <interfaces/LampControlStrategy.h>
-#include <classes/PwmHardware.cc>
-#include <classes/UserBoard.cc>
-#include <classes/LampBoard.cc>
+#include <headers/all_program_includes.h>
 
 
 
