@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.6.8)  2 JUL 2016 14:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.6.8)  4 JUL 2016 11:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1129,64 +1129,98 @@ LaTeX Font Info:    Try loading font information for T1+lmss on input line 190.
 (/usr/share/texmf/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 221.
-
-
-(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] <figuras/uml.jpg, id=44, 1
-195.46625pt x 633.36626pt>
+<figuras/uml.jpg, id=16, 1146.2825pt x 621.32124pt>
 File: figuras/uml.jpg Graphic file (type jpg)
+ <use figuras/uml.jpg>
+Package pdftex.def Info: figuras/uml.jpg used on input line 223.
+(pdftex.def)             Requested size: 318.49861pt x 172.632pt.
 
-<use figuras/uml.jpg>
-Package pdftex.def Info: figuras/uml.jpg used on input line 249.
-(pdftex.def)             Requested size: 318.49861pt x 168.74004pt.
- (./abntex2-modelo-artigo.bbl (./abntex2-modelo-artigo.brf)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+<figuras/receptor2tomadas.png, id=40, 205.76875pt x 506.89375pt>
+File: figuras/receptor2tomadas.png Graphic file (type png)
+
+<use figuras/receptor2tomadas.png>
+Package pdftex.def Info: figuras/receptor2tomadas.png used on input line 236.
+(pdftex.def)             Requested size: 136.50166pt x 351.93822pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 243.
+<figuras/ligadesliga.png, id=43, 231.86626pt x 850.17625pt>
+File: figuras/ligadesliga.png Graphic file (type png)
+
+<use figuras/ligadesliga.png>
+Package pdftex.def Info: figuras/ligadesliga.png used on input line 247.
+(pdftex.def)             Requested size: 136.5027pt x 351.93443pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[2 <./figuras/uml.jpg>]
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 264.
+
+ (/usr/share/texmf/tex/latex/lm/omslmr.fd
+File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 264.
+ [3 <./figuras/receptor2tomadas.png (PNG copy)>] (./abntex2-modelo-artigo.bbl
+(./abntex2-modelo-artigo.brf)
 \tf@brf=\write5
 \openout5 = `abntex2-modelo-artigo.brf'.
 
- [2 <./figuras/uml.jpg>]
+
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 3.
 
 bibitemlist
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 13.
-) [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 348.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 348.
+) [4 <./figuras/ligadesliga.png (PNG copy)>]
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 301.
+
+
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [5]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 378.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 378.
  (./abntex2-modelo-artigo.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 348.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 348.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 378.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 378.
 Package rerunfilecheck Info: File `abntex2-modelo-artigo.brf' has not changed.
 (rerunfilecheck)             Checksum: 4B575144E1A51E5F6E543C482402276B;45.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 348.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 378.
  ) 
 Here is how much of TeX's memory you used:
- 13166 strings out of 494929
- 186562 string characters out of 6180143
- 407212 words of memory out of 5000000
- 16216 multiletter control sequences out of 15000+600000
- 47762 words of font info for 40 fonts, out of 8000000 for 9000
+ 13223 strings out of 494929
+ 187513 string characters out of 6180143
+ 409451 words of memory out of 5000000
+ 16262 multiletter control sequences out of 15000+600000
+ 47547 words of font info for 40 fonts, out of 8000000 for 9000
  16 hyphenation exceptions out of 8191
- 39i,12n,40p,1415b,1892s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/
-public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/sh
-are/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/
-lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/tex
-mf/fonts/type1/public/lm/lmss12.pfb></usr/share/texmf/fonts/type1/public/lm/lmt
-t10.pfb>
-Output written on abntex2-modelo-artigo.pdf (3 pages, 550353 bytes).
+ 39i,11n,40p,1415b,1227s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
+ips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}</usr/share
+/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm
+/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/
+fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.
+pfb></usr/share/texmf/fonts/type1/public/lm/lmss12.pfb></usr/share/texmf/fonts/
+type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb>
+Output written on abntex2-modelo-artigo.pdf (5 pages, 614513 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
- 114 compressed objects within 2 object streams
- 39 named destinations out of 1000 (max. 500000)
- 82 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 164 PDF objects out of 1000 (max. 8388607)
+ 139 compressed objects within 2 object streams
+ 44 named destinations out of 1000 (max. 500000)
+ 100 words of extra memory for PDF output out of 10000 (max. 10000000)
 

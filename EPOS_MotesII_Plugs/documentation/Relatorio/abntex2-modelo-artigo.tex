@@ -187,7 +187,7 @@
 
 % resumo em português
 \begin{resumoumacoluna}
-	aqui vai resumo
+	Atualmente, há um alto consumo energético desnecessário que pode ser evitado. Tendo este fato em vista, buscou-se propor uma solução que pudesse amenizar este problema. Com o auxilio de placas EPOSMoteII, foi desenvolvido um algoritmo para um consumo energético mais inteligente para tomadas equipadas com a placa.  
 	
 	\vspace{\onelineskip}
 	
@@ -208,7 +208,7 @@
 % ----------------------------------------------------------
 \section{Introdução}
 
-	Este trabalho foi realizado por Luca Campelli, Marcio Monteiro e Rodrigo Pedro Marques para a disciplina INE5412 - Sistemas Operacionais I, no semestre 2016.1. O objetivo principal deste trabalho é implementar o descobrimento automático de tomadas em uma rede onde elas possam tomar decisão sobre o consumo energético.
+	Este trabalho foi realizado para a disciplina INE5412 - Sistemas Operacionais I, no semestre 2016.1. O objetivo principal deste trabalho é implementar o descobrimento automático de tomadas em uma rede onde elas possam tomar decisão sobre o consumo energético.
 	
 	Para a realização deste projeto, foram utilizados três placas EPOSMote II \cite{eposproject} que simularam o comportamento de tomadas inteligentes. Para que isto fosse possível, o projeto foi subdividido em partes. São elas: realizar a comunicação entre as placas via \textit{broadcast}, propor o algoritmo para consumo inteligente de energia, implementação deste algoritmo, validação e testes do algoritmo.
 	
@@ -216,35 +216,9 @@
 	
 \section{Desenvolvimento} \label{sec:desenvolvimento}
 	
-	Para que o projeto pudesse ser desenvolvido, primeiramente foi necessário descobrir como era realizada a comunicação entre as placas. Para tal, foram realizados exemplos que constam na documentação do EPOSMote II sobre comunicação entre placas via \textit{broadcast}. No código a seguir é possível observar como foi implementado o código para alcançar este objetivo no projeto.
-		
-	\begin{lstlisting}
-		int Mensageiro::receberViaNIC(){
-			NIC nic;		
-			NIC::Address src;
-			unsigned char prot;
-			infoTomadas meg;
-			
-			while(1){
-				while(!nic.receive(&src, &prot,&meg,sizeof(meg)) >0);
-				if(meg.address != 0){
-					gerente->receberMensagem(meg);
-				}
-			meg.address = 0;
-			}
-			return 0;
-		}	
-		
-		Mensageiro::Mensageiro(Gerente * gnt){
-			gerente = gnt;
-			Thread *thread;
-			thread = new Thread( \&receberViaNIC );
-		}
-	\end{lstlisting}
+	Para que o projeto pudesse ser desenvolvido, primeiramente foi necessário descobrir como era realizada a comunicação entre as placas. Para tal, foram realizados exemplos que constam na documentação do EPOSMote II sobre comunicação entre placas via \textit{broadcast}. Em \ref{apen:implementacaoNIC} é possível contemplar como foi implementado o código para alcançar este objetivo no projeto. Como é possível observar, foi utilizada a função NIC, já presente na no EPOSMoteII onde ela é responsável por prover acesso à redes. 
 	
-	Como é possível observar, foi utilizada a função NIC, já presente na no EPOSMoteII. Ela é responsável por prover acesso à redes. 
-	
-	\begin{figure}[b]
+	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.7\linewidth]{figuras/uml}
 		\caption[Short]{UML do Projeto.}
@@ -254,12 +228,45 @@
 	A figura \ref{fig:uml} apresenta a modelagem em UML do projeto. A classe \textit{Tomada} representa uma tomada física, inteligente ou não. Neste projeto foram consideradas quatro tipos de tomadas: uma tomada simples, que liga e desliga; uma tomada com \textit{dimer}, que possibilita \textit{dimerizar (controlar)} a energia que passa por ela; uma tomada com sensor, onde é possível medir o seu consumo, colocar em modo de economia de energia, atribuir um limite de consumo, atribuir uma prioridade a ela e verificar o seu consumo mínimo e máximo já registrado; e uma tomada \textit{top} que possui todas as funções das tomadas citadas anteriormente. Cada tomada possui um \textit{Gerente Monitor} responsável por monitorar e atualizar a tomada, além de enviar e receber mensagens de outras tomadas no ambiente. Além disto, ele mantem o endereço de todas as tomadas no ambiente, guarda informações (previsão do consumo de energia, endereço da tomada, prioridade e tipo) da tomada monitorada por ele e também possui um \textit{Mensageiro} e um \textit{Previsor}. A classe \textit{Mensageiro} é responsável por receber mensagens via NIC ou UART. O \textit{Previsor} auxilia o gerente realizando as previsões de consumo da tomada gerenciada por ele. Esta classe pode fazer as previsões de consumo diárias, mensal e de todas as tomadas do ambiente. 
 
 \section{Validação e Testes} \label{sec:validacaoetestes}
+	
+	Os testes e validação se deram por algumas alterações no código e observação do comportamento do ambiente. Na figura \ref{fig:receptor2tomadas} é possível observar uma tela geral do comportamento das tomadas. Elas ficam conversando entre si atualizando o seu consumo e previsão de consumo geral. 
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.3\linewidth, height=0.5\textheight]{figuras/receptor2tomadas}
+		\caption[Short]{Tela Geral das Tomadas Funcionando.}
+		\label{fig:receptor2tomadas}
+	\end{figure}
+	
+	Inicialmente, simulamos um ambiente com duas tomadas onde uma tomada diz que não irá tomar uma ação. Para isto, ela envia a mensagem "NONE" para as outras. Como as outras tomadas tem prioridade maior àquela que enviou a mensagem NONE, elas são obrigadas a tomar uma ação. A imagem \ref{fig:ligadesliga} mostra este funcionamento. Vale ressaltar que o \textit{print} NONE foi enviado pela tomada "tomada minha".
+	
+	Outro teste que foi realizado foi na questão de ligar e desligar quando possível ou passa da previsão de consumo permitida. Por exemplo, na imagem \ref{fig:ligadesliga} é possível observar a "tomada 0" previu que a previsão geral ia ser acima $47760$, então ela mandou uma mensagem "DESLIGAR", informando assim que ela irá desligar no próximo ciclo. Enquanto a tomada está desligada e a previsão geral mais o consumo máximo da tomada desligada é menor que a permitida, então ela liga.
+		
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.3\linewidth, height=0.5\textheight]{figuras/ligadesliga.png}
+		\caption[Short]{Tela de Demonstração de Ação Liga/Desliga.}
+		\label{fig:ligadesliga}
+	\end{figure}
 
+\section{Considerações Finais e Trabalhos Futuros} \label{sec:consideracoes}
 
-\section{Considerações Finais} \label{sec:consideracoes}
-
-
-\section{Trabalhos Futuros} \label{sec:trabalhosfuturos}
+		Neste projeto foi desenvolvimento um algoritmo de consumo energético inteligente direcionado ao EPOSMoteII. Foram realizados diversos testes a fim de deixa-lo o mais aprimorado possível. Na seção \ref{sec:validacaoetestes} é possível observar alguns exemplos de funcionamento do mesmo.
+		
+		Durante o desenvolvimento deste projeto, percebemos que a área da computação pode ir muito além do que apenas um computador pessoal, de mesa ou \textit{mainframes}. É possível aplica-la em diversas áreas desde empresas, até itens mais comuns como tomadas ou lâmpadas possíveis de encontrar em casa. Este projeto nos ajudou a refletir sobre o impacto que ele pode causar em questão de consumo energético. Por exemplo, dentro de uma casa, seria possível desligar todas as tomadas do ambiente, deixando apenas as essenciais ligadas (a da geladeira por exemplo), economizando energia e evitando possíveis sobrecargas elétrica. Isto aplicado em uma empresa grande, o impacto disto poderá ser ainda maior.
+		
+		Este trabalho é apenas um estudo inicial de um tópico atualmente na área da computação que ainda não existe um foco muito grande. Considerando que o gasto energético ainda é um problema global, este trabalho visa sugerir possíveis soluções para diminuição do gasto energético não somente a nível residencial, mas também em nível de indústria que é umas das principais responsáveis pelo grande consumo energético atualmente.
+	
+	\subsection{Trabalhos Futuros} \label{sec:trabalhosfuturos}
+	
+		Como trabalhos futuros pode-se apontar:
+		\begin{itemize}
+			\item Desenvolvimento de um aplicativo para \textit{smartphones} que possibilite a configuração das tomadas.
+			\item Através do aplicativo citado anteriormente, fazer com que a tomada reconheça o usuário e se autoconfigure para as configurações pré definidas pelo usuário.
+			\item Integrar o algoritmo de consumo inteligente em luminárias e outros itens inteligentes.
+			\item Através do aplicativo citado no primeiro item, fazer um reconhecimento de proximidade, onde os itens que se encontram na mesma sala que o usuário permaneçam ligados de acordo com o perfil configurado, e os itens fora dessa se desliguem (de acordo com a prioridade) a fim de economizar energia.
+			\item Análise de um ambiente sem tomadas inteligentes e outro apenas com tomadas inteligentes com este algoritmo aplicado.
+		\end{itemize}
 % ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
 % ----------------------------------------------------------
@@ -286,15 +293,38 @@
 % ---
 % Inicia os apêndices
 % ---
-%\begin{apendicesenv}
-%
+\newpage
+\begin{apendicesenv}
+
 %% ----------------------------------------------------------
-%\chapter{Nullam elementum urna vel imperdiet sodales elit ipsum pharetra ligula
-%ac pretium ante justo a nulla curabitur tristique arcu eu metus}
+\chapter{Implementacao do Recebimento de Mensagens} \label{apen:implementacaoNIC}
+	\begin{lstlisting}
+		int Mensageiro::receberViaNIC(){
+		NIC nic;		
+		NIC::Address src;
+		unsigned char prot;
+		infoTomadas meg;
+		
+		while(1){
+		while(!nic.receive(&src, &prot,&meg,sizeof(meg)) >0);
+		if(meg.address != 0){
+		gerente->receberMensagem(meg);
+		}
+		meg.address = 0;
+		}
+		return 0;
+		}	
+		
+		Mensageiro::Mensageiro(Gerente * gnt){
+		gerente = gnt;
+		Thread *thread;
+		thread = new Thread( \&receberViaNIC );
+		}
+	\end{lstlisting}
+
 %% ----------------------------------------------------------
-%\lipsum[55-57]
 %
-%\end{apendicesenv}
+\end{apendicesenv}
 % ---
 
 % ----------------------------------------------------------
