@@ -24,8 +24,7 @@
 *.odt binary
 *.gz binary
 *.jpg binary
-*.vpp
-*.vpp~*
+*.vpp* binary
 
 
 
