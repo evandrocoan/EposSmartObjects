@@ -18,3 +18,9 @@
 # Compiled Object files
 *.o binary
 *.obj binary
+
+*.pdf binary
+*.png binary
+*.odt binary
+*.gz binary
+
