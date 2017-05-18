@@ -52,13 +52,6 @@ sudo apt-get install git-flow
 review more difficult.
 1. Reformatting (changing of white spaces by TABs, line endings or coding style) of source code 
 won't be accepted. Use the [issue's tracker](https://github.com/evandrocoan/INE5412_EposMotesII_SmartObjects/issues) for your request instead.
-1. This project to follow the gitflow: http://nvie.com/posts/a-successful-git-branching-model/
-The gitflow do not merge/commit things to master branch, it is done to the 'develop' branch.
-To contribute, fork this project and checkout to the 'develop' branch to proceed with your updates.
-The master branch is updated over an new plugin official release, while the 'develop' branch
-receives/stores all the updates which are waiting to be released on the next version. The updates
-to the 'develop' branch are usually done by merging into it, feature branches. Such approaches are
-well explained on gitflow tutorials, as the one just above.
 
 In short: The easier the code review is, the better the chance your contribution will get accepted.
 
