@@ -1,4 +1,4 @@
-#EposMotesII Smart Objects
+# EposMotesII Smart Objects
 
 There are 2 projects hosted over this repository. See each one of them specifications:
 
@@ -7,7 +7,7 @@ There are 2 projects hosted over this repository. See each one of them specifica
 
 
 
-#Installation
+# Installation
 
 1. Firstly, to install EPOS 1.1 for the "EPOSMote II" device, download these files:
   * [File: "OpenEPOS-1.1RC.tgz" - OpenEPOS-1.1 RC tree snapshot from October 18, 2011](http://epos.lisha.ufsc.br/dl95)
@@ -44,7 +44,7 @@ sudo apt-get install git-flow
 
 
 
-##Guidelines to contributing:
+## Guidelines to contributing:
 
 1. Respect the [project coding style](CONTRIBUTING.md).
 1. Make a single change per commit.
@@ -64,7 +64,7 @@ In short: The easier the code review is, the better the chance your contribution
 
 
 
-##Creating an EPOS Application
+## Creating an EPOS Application
 
 Create a new file in $EPOS/app:
 * $EPOS/app/INE5412_EposMotesII_SmartObjects/helloworld.cc
@@ -84,7 +84,7 @@ int main() {
 
 
 
-##Compiling EPOS
+## Compiling EPOS
 
 At the directory where you installed EPOS' source code, just type:
 * $ make
@@ -95,7 +95,7 @@ generated according with each application needs and stored in the img directory.
 
 
 
-##Building an EPOS Application
+## Building an EPOS Application
 If you have multiple applications or multiple deployment scenarios, but want to operate 
 on a single one, you can specify it using the APPLICATION parameter like this:
 * $ make APPLICATION=helloworld
@@ -124,7 +124,7 @@ EPOS bootable image tool
 
 
 
-##Running
+## Running
 
 First of all, you'll need to install a platform specific back-end for
 EPOS to run on. During development, this is usually a
@@ -134,7 +134,7 @@ EPOS to run on. During development, this is usually a
 
 
 
-##Extras
+## Extras
 1. To install EPOS 2.0 for the "EPOSMote III" device, visit the LISHA official Website:
   * [EPOS 2.0 User's Guide](http://epos.lisha.ufsc.br/EPOS+2+User+Guide)
   * [Download Page](http://epos.lisha.ufsc.br/EPOS+Software)
@@ -165,9 +165,3 @@ document such a solution.
   1. Correct implementation, or correctly executes and displays the results without crashes or 
   unexpected behavior, including the specified interface;
   1. Presentation and defense team members. Please note: defense is an integral part of development.
-
-
-
-
-
-
