@@ -1,9 +1,8 @@
 
-#ifndef OBSERVERPJ_H
-#define OBSERVERPJ_H
+#ifndef OBSERVER_H
+#define OBSERVER_H
 
 #include "Listener.h"
-
 
 namespace pj{
 
@@ -29,14 +28,14 @@ class Observer
 };
 
 template <typename T>
- Observer<T>::Observer(int n):size(n){
+ Observer<T>::Observer(int n){
     lista = new Listener<T>*[n];
     occupied = new bool[n];
 
     for (int i=0;i<n;i++){
-        occupied[i]=0;
+        occupied=0;
     }
-   // size=n;
+    size=n;
 }
 
 
@@ -68,7 +67,7 @@ int Observer<T>::removeListener ( Listener<T>* listener ) {
 template <typename T>
 void Observer<T>::clearListener ( ) {
     for (int i=0;i<size;i++){
-        occupied[i]=0;
+        occupied=0;
     }
 }
 template <typename T>
