@@ -20,8 +20,8 @@ There are 2 projects hosted over this repository. See each one of them specifica
   * For instance, if you downloaded the ia32 toolchain, you should extract it at /usr/local/ia32/
     * If you do not have access to that path, you'll have to adjust the makedefs file in EPOS' 
     main directory accordingly.
-1. To place these environment variables bellow  to your user's bash configuration file "~/.bashrc").
-To open the "~/.bashrc", just use a command as gedit ~/.bashrc
+1. To place these environment variables bellow  to your user's bash configuration file "\~/.bashrc").
+To open the "\~/.bashrc", just use a command as gedit \~/.bashrc
 ```
 # Replace this '/PLACE/HERE/THE/PATH/TO/EPOS/PATH' by the path to folder "OpenEPOS-1.1RC"
 # where you extracted the contents of the "OpenEPOS-1.1RC.tgz" file on the step 1.
