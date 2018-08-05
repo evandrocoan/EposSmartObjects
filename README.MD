@@ -7,7 +7,7 @@ There are 2 projects hosted over this repository. See each one of them specifica
 
 
 
-# Installation
+# Installation of EPOS 1.1
 
 1. Firstly, to install EPOS 1.1 for the "EPOSMote II" device, download these files:
   * [File: "OpenEPOS-1.1RC.tgz" - OpenEPOS-1.1 RC tree snapshot from October 18, 2011](http://epos.lisha.ufsc.br/dl95)
@@ -18,7 +18,7 @@ There are 2 projects hosted over this repository. See each one of them specifica
   * /usr/local/arm/
     * OBS: Rename the folder "gcc-4.4.4", inside "arm-gcc-4.4.4.tar" to "gcc".
   * For instance, if you downloaded the ia32 toolchain, you should extract it at /usr/local/ia32/
-    * If you do not have access to that path, you'll have to adjust the makedefs file in EPOS' 
+    * If you do not have access to that path, you'll have to adjust the makedefs file in EPOS'
     main directory accordingly.
 1. To place these environment variables bellow  to your user's bash configuration file "\~/.bashrc").
 To open the "\~/.bashrc", just use a command as gedit \~/.bashrc
@@ -48,9 +48,9 @@ sudo apt-get install git-flow
 
 1. Respect the [project coding style](CONTRIBUTING.md).
 1. Make a single change per commit.
-1. Make your modification compact - don't reformat source code in your request. It makes code 
+1. Make your modification compact - don't reformat source code in your request. It makes code
 review more difficult.
-1. Reformatting (changing of white spaces by TABs, line endings or coding style) of source code 
+1. Reformatting (changing of white spaces by TABs, line endings or coding style) of source code
 won't be accepted. Use the [issue's tracker](https://github.com/evandrocoan/INE5412_EposMotesII_SmartObjects/issues) for your request instead.
 
 In short: The easier the code review is, the better the chance your contribution will get accepted.
@@ -82,14 +82,14 @@ int main() {
 At the directory where you installed EPOS' source code, just type:
 * $ make
 
-The system will be configured and compiled (i.e. generated) successive times for each 
-application found in the app directory. Both software and hardware components will be 
+The system will be configured and compiled (i.e. generated) successive times for each
+application found in the app directory. Both software and hardware components will be
 generated according with each application needs and stored in the img directory.
 
 
 
 ## Building an EPOS Application
-If you have multiple applications or multiple deployment scenarios, but want to operate 
+If you have multiple applications or multiple deployment scenarios, but want to operate
 on a single one, you can specify it using the APPLICATION parameter like this:
 * $ make APPLICATION=helloworld
   * OBS: You must to compile EPOS with "make" as explained above,
@@ -131,13 +131,13 @@ EPOS to run on. During development, this is usually a
 1. To install EPOS 2.0 for the "EPOSMote III" device, visit the LISHA official Website:
   * [EPOS 2.0 User's Guide](http://epos.lisha.ufsc.br/EPOS+2+User+Guide)
   * [Download Page](http://epos.lisha.ufsc.br/EPOS+Software)
-    * OBS: You need to register/create a free account, in order to be able to see the EPOS 1.1 
+    * OBS: You need to register/create a free account, in order to be able to see the EPOS 1.1
     or 2.0 manuals.
     * See also the [EPOS 1.1 User's Guide](http://epos.lisha.ufsc.br/EPOS+User+Guide).
 
 
-The Final Practical Project (PJ) is an assessment tool designed to ensure the design skills and 
-implementation of modern operating systems and applications that use the services of a modern 
+The Final Practical Project (PJ) is an assessment tool designed to ensure the design skills and
+implementation of modern operating systems and applications that use the services of a modern
 operating system.
 
 Over this repository, there are 2 integrated projects:
@@ -155,6 +155,6 @@ document such a solution.
   1. Schedule compliance;
   1. Scientific methodology and detailed in the description of the system and presentation of the
   conceptual model (software engineering);
-  1. Correct implementation, or correctly executes and displays the results without crashes or 
+  1. Correct implementation, or correctly executes and displays the results without crashes or
   unexpected behavior, including the specified interface;
   1. Presentation and defense team members. Please note: defense is an integral part of development.
